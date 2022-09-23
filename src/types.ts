@@ -1,9 +1,9 @@
 import { GetItemPropsOptions } from 'downshift';
 import { Dispatch, FormEvent, InputHTMLAttributes, ReactElement, ReactNode, SetStateAction } from 'react';
 
-export type GetLabelProps = () => Object;
+export type GetLabelProps = () => Record<string, unknown>;
 
-export type GetMenuProps = () => Object;
+export type GetMenuProps = () => Record<string, unknown>;
 
 export type GetInputProps = () => InputHTMLAttributes<HTMLInputElement>;
 
@@ -11,7 +11,7 @@ export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
 type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
 
-export type OnSubmit = (event: AutocompleteSubmitEvent) => any;
+export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
 
 export type GetFormProps = () => InputHTMLAttributes<HTMLFormElement>;
 
@@ -37,7 +37,7 @@ export type Product = {
     variation_id: string;
   };
   is_slotted: boolean;
-  labels: {};
+  labels: Record<string, unknown>;
   matched_terms: string[];
   value: string;
   section: 'Products';
@@ -47,7 +47,7 @@ export type SearchSuggestion = {
   data: { id: string };
   id: string;
   is_slotted: boolean;
-  labels: {};
+  labels: Record<string, unknown>;
   matched_terms: string[];
   value: string;
   section: 'Search Suggestions';
@@ -100,7 +100,7 @@ type UseCioAutocompleteBase = {
   resultsPerSection?: ResultsPerSection;
   openOnFocus?: boolean;
   onSubmit?: OnSubmit;
-  onFocus?: Function;
+  onFocus?: () => void;
   placeholder?: string;
   sectionOrder: SectionOrder;
 };
@@ -126,7 +126,7 @@ export type ICioAutocomplete = {
   isOpen: boolean;
   sections: AutocompleteResultSections;
   sectionOrder: SectionOrder;
-  getFormProps: GetFormProps;
+  getFormProps: any;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;
   getItemProps: GetItemProps;
@@ -160,7 +160,7 @@ export type TrackAutocompleteSelect = (
 
 export interface CioClient {
   autocomplete: {
-    getAutocompleteResults: Function;
+    getAutocompleteResults: (term: string, options) => Promise<AutocompleteApiResponse>;
   };
   tracker: {
     trackInputFocus: () => true | Error;
@@ -193,7 +193,7 @@ export interface AutocompleteApiResponse {
     };
     num_results_Products: number;
     'num_results_Search Suggestions': number;
-    searchandized_items: {};
+    searchandized_items: Record<string, unknown>;
     term: string;
   };
   result_id: string;

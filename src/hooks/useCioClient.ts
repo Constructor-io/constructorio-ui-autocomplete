@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useState } from "react";
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioClient, CioClientOptions } from '../types';

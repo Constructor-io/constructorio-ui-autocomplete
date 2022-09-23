@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useEffect, useState } from 'react';
 import useDebounce from './useDebounce';
 import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, ResultsPerSection } from '../types';
@@ -28,6 +30,8 @@ const useDebouncedFetchSection = (query: string, cioClient?: CioClient | null, r
             })),
           };
           setSections(newSections);
+        }).catch((e) => {
+          console.log(e)
         });
     } else if (!debouncedSearchTerm) {
       setSections({});

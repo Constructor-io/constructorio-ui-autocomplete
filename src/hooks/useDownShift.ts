@@ -14,12 +14,12 @@ type DownShift = {
   getMenuProps: GetMenuProps;
   getItemProps: DownshiftGetItemProps;
   getLabelProps: GetLabelProps;
-  openMenu: Function;
+  openMenu: () => void;
   getInputProps: GetInputProps;
   getComboboxProps: (
     options?: UseComboboxGetComboboxPropsOptions | undefined,
     otherOptions?: GetPropsCommonOptions | undefined,
-  ) => any;
+  ) => Record<string, unknown>;
 };
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
@@ -29,7 +29,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
     useCombobox({
       items,
       itemToString: (item) => (item ? item.value : ''),
-      onInputValueChange: async ({ inputValue = '' }) => {
+      onInputValueChange: ({ inputValue = '' }) => {
         setQuery(inputValue);
       },
       onSelectedItemChange({ selectedItem }) {

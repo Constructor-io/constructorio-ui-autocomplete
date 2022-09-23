@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { CioClientOptions, UseCioAutocompleteOptions, ICioAutocomplete, Item } from '../types';
+import { CioClientOptions, UseCioAutocompleteOptions, ICioAutocomplete, Item, GetFormProps } from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 
@@ -59,15 +59,15 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
     }),
     getFormProps: () => ({
       ...downshift.getComboboxProps(),
-      onSubmit: (event) => {
-        event.preventDefault();
+      onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+        event?.preventDefault();
         if (onSubmit) {
           onSubmit({ query });
         }
         cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
         return { query };
       },
-    }),
+    }) as unknown as GetFormProps,
     setQuery,
   };
 };
