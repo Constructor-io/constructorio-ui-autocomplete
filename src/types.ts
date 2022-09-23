@@ -102,7 +102,7 @@ type UseCioAutocompleteBase = {
   onSubmit?: OnSubmit;
   onFocus?: Function;
   placeholder?: string;
-  sectionOrder?: SectionOrder;
+  sectionOrder: SectionOrder;
 };
 
 type UseCioAutocompleteWithKey = WithApiKey & UseCioAutocompleteBase;
@@ -112,9 +112,6 @@ export type UseCioAutocompleteOptions = UseCioAutocompleteWithKey | UseCioAutoco
 
 /** CioAutocompleteProps  */
 type CioAutocompleteOptions = UseCioAutocompleteOptions & {
-  renderDefaultContent?: RenderDefaultContent;
-  renderInput?: RenderInput;
-  renderResults?: RenderResults;
   placeholder?: string;
   children?: ReactNode;
 };

@@ -5,7 +5,7 @@ import SearchInput from '../SearchInput/SearchInput';
 import { CioAutocompleteProps } from '../../../types';
 
 export default function CioAutocomplete(props: CioAutocompleteProps) {
-  const { renderInput, children } = props;
+  const { children } = props;
 
   if (children) {
     return (
@@ -18,7 +18,7 @@ export default function CioAutocomplete(props: CioAutocompleteProps) {
   return (
     <div>
       <CioAutocompleteProvider {...props}>
-        <SearchInput renderInput={renderInput} />
+        <SearchInput />
         <AutocompleteResults />
       </CioAutocompleteProvider>
     </div>

@@ -24,7 +24,6 @@ interface ICioAutocompleteContext {
   isOpen?: boolean;
   query?: string;
   sectionOrder: SectionOrder;
-  renderDefaultContent: RenderDefaultContent;
   getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;
@@ -42,7 +41,6 @@ export default function CioAutocompleteProvider(props: CioAutocompleteProviderPr
     resultsPerSection,
     openOnFocus,
     onFocus,
-    renderDefaultContent = () => null,
     onSubmit,
     placeholder,
     sectionOrder,
@@ -61,7 +59,6 @@ export default function CioAutocompleteProvider(props: CioAutocompleteProviderPr
 
   const value = {
     ...cioAutoComplete,
-    renderDefaultContent,
   };
 
   return (

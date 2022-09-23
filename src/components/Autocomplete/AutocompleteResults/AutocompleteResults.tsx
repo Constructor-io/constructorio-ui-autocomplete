@@ -11,7 +11,7 @@ type AutocompleteResultsProps = {
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
-  const { sections, sectionOrder, isOpen, query, getMenuProps, getItemProps, renderDefaultContent } =
+  const { sections, sectionOrder, isOpen, query, getMenuProps, getItemProps } =
   useContext(CioAutocompleteContext);
 
   const hasResults = sections?.products?.length || sections?.searchSuggestions?.length;
@@ -19,8 +19,6 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   let content;
   if (isOpen && hasResults) {
     content = typeof children === 'function' ?  children({ sections, sectionOrder, getItemProps }) : children;
-  } else if (isOpen && renderDefaultContent && query === '') {
-    content = renderDefaultContent();
   } else {
     content = null;
   }

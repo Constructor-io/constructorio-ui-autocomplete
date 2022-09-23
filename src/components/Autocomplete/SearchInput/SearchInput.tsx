@@ -4,13 +4,14 @@ import { RenderInput } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 type SearchInputProps = {
-  renderInput: RenderInput;
+  children?: RenderInput;
 };
 
 export default function SearchInput(props: SearchInputProps) {
+  const { children = DefaultRenderInput } = props
   const { getFormProps, getInputProps, getLabelProps, setQuery } = useContext(CioAutocompleteContext);
 
-  return props.renderInput({ getFormProps, getInputProps, getLabelProps, setQuery });
+  return children({ getFormProps, getInputProps, getLabelProps, setQuery });
 }
 
 const DefaultRenderInput: RenderInput = ({ getFormProps, getInputProps, getLabelProps, setQuery }) => {
@@ -60,8 +61,4 @@ const DefaultRenderInput: RenderInput = ({ getFormProps, getInputProps, getLabel
       </button>
     </form>
   );
-};
-
-SearchInput.defaultProps = {
-  renderInput: DefaultRenderInput,
 };
