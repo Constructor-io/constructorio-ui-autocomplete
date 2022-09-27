@@ -15,44 +15,40 @@ type DownShift = {
   getItemProps: DownshiftGetItemProps;
   getLabelProps: GetLabelProps;
   openMenu: () => void;
+  closeMenu: () => void;
   getInputProps: GetInputProps;
   getComboboxProps: (
     options?: UseComboboxGetComboboxPropsOptions | undefined,
     otherOptions?: GetPropsCommonOptions | undefined,
-  ) => Record<string, unknown>;
+  ) => any;
 };
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
 
 const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, previousQuery = '' }) => {
-  const { isOpen, getMenuProps, getItemProps, getInputProps, getLabelProps, getComboboxProps, openMenu } =
+  const { isOpen, getMenuProps, getItemProps, getInputProps, getLabelProps, getComboboxProps, openMenu, closeMenu } =
     useCombobox({
       items,
       itemToString: (item) => (item ? item.value : ''),
-      onInputValueChange: ({ inputValue = '' }) => {
+      onInputValueChange: async ({ inputValue = '' }) => {
         setQuery(inputValue);
       },
       onSelectedItemChange({ selectedItem }) {
         if (selectedItem) {
           setQuery(selectedItem.value);
-        }
-      },
-      onIsOpenChange(changes) {
-        const isItemClick = changes.type === '__item_click__';
-        const isEnterSelectedItem = changes.type === '__input_keydown_enter__';
-        if (isEnterSelectedItem || isItemClick) {
-          if (onSubmit && changes.selectedItem?.value) {
-            onSubmit({ item: changes.selectedItem, originalQuery: previousQuery });
+          if (onSubmit && selectedItem?.value) {
+            onSubmit({ item: selectedItem, originalQuery: previousQuery });
           }
-          if (changes.selectedItem?.value) {
-            cioClient?.tracker.trackSearchSubmit(changes.selectedItem.value, {
+          if (selectedItem?.value) {
+            cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
               original_query: previousQuery,
             });
-            cioClient?.tracker.trackAutocompleteSelect(changes.selectedItem.value, {
+            cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
               original_query: previousQuery,
-              section: changes.selectedItem.section,
+              section: selectedItem.section,
             });
           }
+          closeMenu();
         }
       },
     });
@@ -62,6 +58,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
     getMenuProps,
     getItemProps,
     openMenu,
+    closeMenu,
     getInputProps,
     getComboboxProps,
     getLabelProps,

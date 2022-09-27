@@ -23,7 +23,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ sectionName, se
     <h5 className='cio-sectionName'>{camelToStartCase(sectionName)}</h5>
     <ul className='cio-items'>
       {sectionItems?.map((item, index) => (
-        <SectionItem item={item} index={index} sectionName={sectionName} key={`${sectionName}_${item.data?.id}`} />
+        <SectionItem item={item} index={index} sectionName={sectionName} key={`${sectionName}_${item.data.id}`} />
       ))}
     </ul>
   </li>

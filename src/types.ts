@@ -25,6 +25,14 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
 
+export type ItemBase = {
+  value: string;
+  section: string;
+  data: {
+    id: string;
+  };
+};
+
 export type Product = {
   data: {
     facets: { name: string; values: string[] }[];
@@ -53,7 +61,7 @@ export type SearchSuggestion = {
   section: 'Search Suggestions';
 };
 
-export type Item = Product | SearchSuggestion;
+export type Item = Product | SearchSuggestion | ItemBase;
 
 type RenderResultsArguments = {
   sections: AutocompleteResultSections;
@@ -63,7 +71,7 @@ type RenderResultsArguments = {
 
 export type RenderResults = (renderResultsArguments: RenderResultsArguments) => ReactNode;
 
-export type SectionName = 'products' | 'searchSuggestions';
+export type SectionName = string;
 
 export type SectionOrder = SectionName[];
 
@@ -73,8 +81,8 @@ type RenderSectionItemsListArguments = {
 };
 
 type GetIndexOffsetArguments = {
-  sections?: AutocompleteResultSections;
-  sectionOrder: SectionOrder;
+  activeSections?: AutocompleteResultSections;
+  activeSectionOrder: SectionOrder;
   sectionName: SectionName;
 };
 
@@ -97,12 +105,14 @@ export type RenderInput = (args: RenderInputArgs) => ReactElement;
 
 /** UseCioAutocomplete Hook */
 type UseCioAutocompleteBase = {
-  resultsPerSection?: ResultsPerSection;
+  resultsPerSection?: any;
   openOnFocus?: boolean;
   onSubmit?: OnSubmit;
   onFocus?: () => void;
   placeholder?: string;
   sectionOrder: SectionOrder;
+  zeroStateSectionOrder?: SectionOrder;
+  zeroStateSections?: AutocompleteResultSections;
 };
 
 type UseCioAutocompleteWithKey = WithApiKey & UseCioAutocompleteBase;
@@ -126,7 +136,7 @@ export type ICioAutocomplete = {
   isOpen: boolean;
   sections: AutocompleteResultSections;
   sectionOrder: SectionOrder;
-  getFormProps: any;
+  getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;
   getItemProps: GetItemProps;
@@ -135,10 +145,10 @@ export type ICioAutocomplete = {
 };
 
 /** CIO Client */
-export type ResultsPerSection = { products?: number; searchSuggestions?: number };
+export type ResultsPerSection = { products?: number; searchSuggestions?: number; [key: string]: number | undefined; };
 
 type WithApiKey = { apiKey: string; cioJsClient?: never };
-type WithExistingCioJsClient = { apiKey?: never; cioJsClient: CioClient | null };
+type WithExistingCioJsClient = { apiKey?: never; cioJsClient: CioClient | null | undefined };
 export type CioClientOptions = WithApiKey | WithExistingCioJsClient;
 
 // https://constructor-io.github.io/constructorio-client-javascript/module-tracker.html#~trackSearchSubmit
@@ -171,8 +181,7 @@ export interface CioClient {
 
 /** CIO API Response Data */
 export type AutocompleteResultSections = {
-  products?: Product[];
-  searchSuggestions?: SearchSuggestion[];
+  [key: string]: Item[] | undefined;
 };
 
 export interface AutocompleteApiResponse {
@@ -200,5 +209,6 @@ export interface AutocompleteApiResponse {
   sections: {
     Products: Product[];
     'Search Suggestions': SearchSuggestion[];
+    [key: string]: any | undefined;
   };
 }

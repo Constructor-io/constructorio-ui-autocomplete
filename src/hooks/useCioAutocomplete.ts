@@ -2,7 +2,14 @@ import { useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { CioClientOptions, UseCioAutocompleteOptions, ICioAutocomplete, Item, GetFormProps } from '../types';
+import {
+  CioClientOptions,
+  UseCioAutocompleteOptions,
+  ICioAutocomplete,
+  Item,
+  SectionOrder,
+  AutocompleteResultSections,
+} from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 
@@ -18,18 +25,27 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
     apiKey,
     cioJsClient,
     placeholder = defaultPlaceholder,
-    sectionOrder = ['searchSuggestions', 'products'],
+    sectionOrder = ['Search Suggestions', 'Products'],
+    zeroStateSectionOrder,
+    zeroStateSections,
   } = options;
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);
-  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions); 
+  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
   const sections = useDebouncedFetchSection(query, cioClient, resultsPerSection);
-  const items: Item[] = []; 
-  sectionOrder.forEach((sectionName) => {
-    items.push(...(sections[sectionName] || []));
+  const items: Item[] = [];
+
+  const zeroStateSectionsActive = !query.length && zeroStateSectionOrder && zeroStateSections;
+
+  const activeSectionOrder : SectionOrder = zeroStateSectionsActive ? zeroStateSectionOrder : sectionOrder;
+  const activeSections: AutocompleteResultSections = zeroStateSectionsActive ? zeroStateSections : sections;
+
+  activeSectionOrder.forEach((sectionName) => {
+    const sectionItems = activeSections[sectionName] || [];
+    items.push(...sectionItems);
   });
   const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
-  const { isOpen, getMenuProps, getLabelProps, openMenu } = downshift;
+  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu } = downshift;
 
   return {
     query,
@@ -39,7 +55,9 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
     getMenuProps,
     getLabelProps,
     openMenu,
-    getItemProps: ({ item, index = 0, sectionName = 'products', indexOffset = getIndexOffset({ sections, sectionOrder, sectionName }) }) => {
+    closeMenu,
+    getItemProps: ({ item, index = 0, sectionName = 'products' }) => {
+      const indexOffset = getIndexOffset({ activeSections, activeSectionOrder, sectionName });
       return downshift.getItemProps({ item, index: index + indexOffset });
     },
     getInputProps: () => ({
@@ -59,16 +77,17 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
     }),
     getFormProps: () => ({
       ...downshift.getComboboxProps(),
-      onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-        event?.preventDefault();
+      onSubmit: (event) => {
+        event.preventDefault();
         if (onSubmit) {
           onSubmit({ query });
         }
         cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
         return { query };
       },
-    }) as unknown as GetFormProps,
+    }),
     setQuery,
+    cioClient,
   };
 };
 

@@ -3,9 +3,10 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../components';
 import useCioAutocomplete from '../../hooks/useCioAutocomplete';
 import { argTypes } from './argTypes';
+import { isProduct } from '../../typeGuards';
 
 export default {
-  title: 'Example/CioAutocomplete With Hooks',
+  title: 'Autocomplete/With Hooks',
   component: CioAutocomplete,
   argTypes,
   parameters: {
@@ -17,7 +18,7 @@ export default {
 const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({
-      sectionOrder: ['products', 'searchSuggestions'],
+      sectionOrder: ['Products', 'Search Suggestions'],
       apiKey: 'key_jaqzPcUDnK66puIO',
       onFocus: () => {
         console.log('Focus!');
@@ -32,7 +33,7 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   const { onSubmit, ...formProps } = getFormProps();
 
   const handleSubmit = (onSubmit) => (e) => {
-    const { query } = onSubmit(e);
+    const { query }: {query: string} = onSubmit(e);
     console.log(`custom handleSubmit logic here with term: ${query}`);
   };
   return (
@@ -44,40 +45,40 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
         {...getMenuProps()}>
         {isOpen && (
           <div className='cio-results'>
-            <div className='cio-section'>
+            { !!sections?.['Products']?.length && <div className='cio-section'>
               <div className='cio-sectionName'>
                 Products
               </div>
               <div className='cio-items'>
-                {sections?.products?.map((item, index) => (
+                {sections?.['Products']?.map((item, index) => (
                   <div
                     {...getItemProps({
                       item,
                       index,
-                      sectionName: 'products',
+                      sectionName: 'Products',
                     })}
                     className='cio-item'
                   >
                     <div>
-                      <img width='100%' src={item.data?.image_url} alt='' />
+                      {isProduct(item) && <img width='100%' src={item.data?.image_url} alt='' />}
                       <p>{item.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className='cio-section'>
+            </div> }
+            { !!sections?.['Search Suggestions']?.length && <div className='cio-section'>
               <div className='cio-sectionName'>
                 Search Suggestions
               </div>
               <div className='cio-items'>
-                {sections?.searchSuggestions?.map((item, index) => (
-                  <div {...getItemProps({ item, index, sectionName: 'searchSuggestions' })} className='cio-item'>
+                {sections?.['Search Suggestions']?.map((item, index) => (
+                  <div {...getItemProps({ item, index, sectionName: 'Search Suggestions' })} className='cio-item'>
                     {item.value}
                   </div>
                 ))}
               </div>
-            </div>
+            </div> }
           </div>
         )}
       </div>

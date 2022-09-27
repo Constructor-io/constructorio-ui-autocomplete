@@ -14,7 +14,7 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { sections, sectionOrder, isOpen, query, getMenuProps, getItemProps } =
   useContext(CioAutocompleteContext);
 
-  const hasResults = sections?.products?.length || sections?.searchSuggestions?.length;
+  const hasResults = sections && Object.values(sections).some(section => section?.length);
 
   let content;
   if (isOpen && hasResults) {

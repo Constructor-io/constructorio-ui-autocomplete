@@ -12,7 +12,7 @@ export interface SectionItemProps {
 }
 
 export default function SectionItem(props: SectionItemProps) {
-  const { item, index, sectionName } = props;
+  const { item, index, sectionName, children } = props;
   const { getItemProps } = useContext(CioAutocompleteContext);
 
   let defaultChildren;
@@ -27,5 +27,5 @@ export default function SectionItem(props: SectionItemProps) {
     defaultChildren = item.value;
   }
 
-  return <li {...getItemProps({ item, index, sectionName })} className='cio-item'>{props.children ? props.children : defaultChildren}</li>;
+  return <li {...getItemProps({ item, index, sectionName })} className='cio-item'>{children ? children : defaultChildren}</li>;
 }

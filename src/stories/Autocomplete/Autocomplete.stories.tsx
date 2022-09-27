@@ -11,7 +11,7 @@ import { argTypes } from './argTypes';
 const apiKey = 'key_jaqzPcUDnK66puIO';
 
 export default {
-  title: 'Example/CioAutocomplete',
+  title: 'Autocomplete/Base',
   component: CioAutocomplete,
   subcomponents: { SectionItemsList, SectionItem },
   argTypes,
@@ -34,5 +34,5 @@ const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteP
 export const Base = Template.bind({});
 Base.args = {
   apiKey,
-  sectionOrder: ['products', 'searchSuggestions']
+  sectionOrder: ['Products', 'Search Suggestions']
 };
