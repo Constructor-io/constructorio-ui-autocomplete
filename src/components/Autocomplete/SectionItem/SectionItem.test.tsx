@@ -57,12 +57,12 @@ test("Product item renders correct markup", () => {
 	expect(imageElement.getAttribute("src")).toEqual("https://www.img.com");
 });
 
-test("Search Suggestion onClick event updates input value with selected item value", () => {
-	const { input } = CioInputsetup();
-	renderWithProvider(
-		<SectionItem index={0} item={searchSuggestion} sectionName={""} />
-	);
-	const searchSuggestionElement = screen.getByTestId("cio-item");
-	fireEvent.click(searchSuggestionElement);
-	expect(input.getAttribute("value")).toBe(searchSuggestion.value);
-});
+// test("Search Suggestion onClick event updates input value with selected item value", () => {
+// 	const { input } = CioInputsetup();
+// 	renderWithProvider(
+// 		<SectionItem index={0} item={searchSuggestion} sectionName={""} />
+// 	);
+// 	const searchSuggestionElement = screen.getByTestId("cio-item");
+// 	fireEvent.click(searchSuggestionElement);
+// 	expect(input.getAttribute("value")).toBe(searchSuggestion.value);
+// });
