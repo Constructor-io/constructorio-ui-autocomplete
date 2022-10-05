@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useContext } from 'react';
-import { RenderSectionItemsList, SectionName } from '../../../types';
+import { Item } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase } from '../../../utils';
 
+export type RenderSectionItemsList = (renderResultsArguments: {
+  sectionItems?: Item[];
+  sectionName: string;
+}) => ReactElement;
+
 type SectionItemsListProps = {
-  sectionName: SectionName;
+  sectionName: string;
   children?: RenderSectionItemsList;
-};
+ };
 
 export default function SectionItemsList(props: SectionItemsListProps) {
   const { sections } = useContext(CioAutocompleteContext);

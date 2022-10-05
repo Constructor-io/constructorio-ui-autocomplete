@@ -2,11 +2,11 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
-import { CioAutocompleteProps } from '../../types';
 import { codeSnippet } from '../../snippets';
 import { SectionItemsList } from '../../components';
 import { SectionItem } from '../../components';
 import { argTypes } from './argTypes';
+import { CioAutocompleteProps } from '../../components/Autocomplete/CioAutocompleteProvider';
 
 const apiKey = 'key_jaqzPcUDnK66puIO';
 

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import useDebounce from './useDebounce';
-import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, ResultsPerSection } from '../types';
+import { AutocompleteApiResponse, AutocompleteResultSections, ResultsPerSection } from '../types';
+import { CioClient } from './useCioClient';
 
-const useDebouncedFetchSection = (query: string, cioClient?: CioClient | null, resultsPerSection?: ResultsPerSection) => {
+const useDebouncedFetchSection = (query: string, cioClient?: CioClient, resultsPerSection?: ResultsPerSection) => {
   const [sections, setSections] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 

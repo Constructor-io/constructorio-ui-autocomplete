@@ -1,31 +1,32 @@
 import React from 'react'
 import { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
-import {  Item, SectionName } from '../../../types';
+import {  Item } from '../../../types';
 import {  isProduct } from '../../../typeGuards';
 
 export interface SectionItemProps {
   item: Item;
   index: number;
-  sectionName: SectionName;
+  sectionName: string;
   children?: ReactNode;
 }
 
 export default function SectionItem(props: SectionItemProps) {
-  const { item, index, sectionName, children } = props;
-  const { getItemProps } = useContext(CioAutocompleteContext);
-
+  const { item } = props
   let defaultChildren;
   if (isProduct(item)) {
     defaultChildren = (
       <>
-        <img src={item.data?.image_url} alt='' />
-        <p>{item.value}</p>
+        <img data-testid='cio-img' src={item.data?.image_url} alt={item.value} />
+        <p data-testid='cio-text'>{item.value}</p>
       </>
     );
   } else {
     defaultChildren = item.value;
   }
 
-  return <li {...getItemProps({ item, index, sectionName })} className='cio-item'>{children ? children : defaultChildren}</li>;
+  const { index, sectionName, children = defaultChildren } = props;
+  const { getItemProps } = useContext(CioAutocompleteContext);
+
+  return <li {...getItemProps({ item, index, sectionName })}>{children}</li>;
 }
