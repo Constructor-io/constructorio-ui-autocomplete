@@ -30,6 +30,7 @@ export type ItemBase = {
   section: string;
   data: {
     id: string;
+    url: undefined;
   };
 };
 
@@ -52,7 +53,10 @@ export type Product = {
 };
 
 export type SearchSuggestion = {
-  data: { id: string };
+  data: {
+    id: string;
+    url: undefined;
+  };
   id: string;
   is_slotted: boolean;
   labels: Record<string, unknown>;
@@ -61,6 +65,7 @@ export type SearchSuggestion = {
   section: 'Search Suggestions';
 };
 
+// added url to data types
 export type Item = Product | SearchSuggestion | ItemBase;
 
 type RenderResultsArguments = {
