@@ -1,19 +1,23 @@
-import { GetItemPropsOptions } from 'downshift';
-import { FormEvent } from 'react';
+import { GetItemPropsOptions } from "downshift";
+import { FormEvent } from "react";
 
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
-type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
+type AutocompleteSubmitEvent =
+  | { item: Item; originalQuery: string }
+  | { query: string };
 
 export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
 
 export type DownshiftGetItemPropsOptions = GetItemPropsOptions<Item>;
 
-export type DownshiftGetItemProps = (options: GetItemPropsOptions<Item>) => object;
+export type DownshiftGetItemProps = (
+  options: GetItemPropsOptions<Item>
+) => object;
 
 export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
   sectionName: string;
-  indexOffset?: number
+  indexOffset?: number;
 };
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
@@ -30,7 +34,7 @@ export type Item = Product | SearchSuggestion | ItemBase;
 
 export type SectionOrder = string[];
 
-export type ResultsPerSection = { [key: string]: number; };
+export type ResultsPerSection = { [key: string]: number };
 
 /** CIO API Response Data */
 export type AutocompleteResultSections = {
@@ -54,14 +58,15 @@ export interface AutocompleteApiResponse {
       query_items: boolean;
     };
     num_results_Products: number;
-    'num_results_Search Suggestions': number;
+    "num_results_Search Suggestions": number;
     searchandized_items: Record<string, unknown>;
     term: string;
   };
   result_id: string;
   sections: {
     Products?: Product[];
-    'Search Suggestions'?: SearchSuggestion[];
+    "Search Suggestions"?: SearchSuggestion[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any | undefined;
   };
 }
@@ -81,7 +86,7 @@ export type Product = {
   labels: Record<string, unknown>;
   matched_terms: string[];
   value: string;
-  section: 'Products';
+  section: "Products";
 };
 
 export type SearchSuggestion = {
@@ -91,5 +96,5 @@ export type SearchSuggestion = {
   labels: Record<string, unknown>;
   matched_terms: string[];
   value: string;
-  section: 'Search Suggestions';
+  section: "Search Suggestions";
 };
