@@ -1,29 +1,23 @@
-import React from "react";
-import { ComponentMeta } from "@storybook/react";
-import useCioAutocomplete from "../../hooks/useCioAutocomplete";
-import { argTypes } from "./argTypes";
-import { isProduct } from "../../typeGuards";
+import React from 'react';
+import { ComponentMeta } from '@storybook/react';
+import useCioAutocomplete from '../../hooks/useCioAutocomplete';
+import { argTypes } from './argTypes';
+import { isProduct } from '../../typeGuards';
 
 export const WithHooks = function () {
-  const {
-    isOpen,
-    sections,
-    getFormProps,
-    getInputProps,
-    getMenuProps,
-    getItemProps,
-  } = useCioAutocomplete({
-    sectionOrder: ["Products", "Search Suggestions"],
-    apiKey: "key_jaqzPcUDnK66puIO",
-    onFocus: () => {
-      console.log("Focus!");
-    },
-    onSubmit: (e) => {
-      console.log("Item or Query Submitted!");
-      console.log(e);
-    },
-    resultsPerSection: { products: 3 },
-  });
+  const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
+    useCioAutocomplete({
+      sectionOrder: ['Products', 'Search Suggestions'],
+      apiKey: 'key_jaqzPcUDnK66puIO',
+      onFocus: () => {
+        console.log('Focus!');
+      },
+      onSubmit: (e) => {
+        console.log('Item or Query Submitted!');
+        console.log(e);
+      },
+      resultsPerSection: { products: 3 }
+    });
 
   const { onSubmit, ...formProps } = getFormProps();
 
@@ -33,33 +27,26 @@ export const WithHooks = function () {
   };
   return (
     <div className="cio-autocomplete">
-      <form
-        className="cio-form"
-        {...formProps}
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="cio-form" {...formProps} onSubmit={handleSubmit(onSubmit)}>
         <input {...getInputProps()} />
       </form>
       <div {...getMenuProps()}>
         {isOpen && (
           <div className="cio-results">
-            {!!sections?.["Products"]?.length && (
+            {!!sections?.['Products']?.length && (
               <div className="cio-section">
                 <div className="cio-sectionName">Products</div>
                 <div className="cio-items">
-                  {sections?.["Products"]?.map((item, index) => (
+                  {sections?.['Products']?.map((item, index) => (
                     <div
                       {...getItemProps({
                         item,
                         index,
-                        sectionName: "Products",
+                        sectionName: 'Products'
                       })}
-                      className="cio-item"
-                    >
+                      className="cio-item">
                       <div>
-                        {isProduct(item) && (
-                          <img width="100%" src={item.data?.image_url} alt="" />
-                        )}
+                        {isProduct(item) && <img width="100%" src={item.data?.image_url} alt="" />}
                         <p>{item.value}</p>
                       </div>
                     </div>
@@ -67,19 +54,18 @@ export const WithHooks = function () {
                 </div>
               </div>
             )}
-            {!!sections?.["Search Suggestions"]?.length && (
+            {!!sections?.['Search Suggestions']?.length && (
               <div className="cio-section">
                 <div className="cio-sectionName">Search Suggestions</div>
                 <div className="cio-items">
-                  {sections?.["Search Suggestions"]?.map((item, index) => (
+                  {sections?.['Search Suggestions']?.map((item, index) => (
                     <div
                       {...getItemProps({
                         item,
                         index,
-                        sectionName: "Search Suggestions",
+                        sectionName: 'Search Suggestions'
                       })}
-                      className="cio-item"
-                    >
+                      className="cio-item">
                       {item.value}
                     </div>
                   ))}
@@ -94,10 +80,10 @@ export const WithHooks = function () {
 };
 
 export default {
-  title: "Autocomplete",
+  title: 'Autocomplete',
   argTypes,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
-    layout: "fullscreen",
-  },
+    layout: 'fullscreen'
+  }
 } as ComponentMeta<typeof WithHooks>;

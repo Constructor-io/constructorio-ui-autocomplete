@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import CioAutocomplete from './CioAutocomplete';
-import './Autocomplete.css'
+import './Autocomplete.css';
 
 export default function Autocomplete() {
   const apiKey = 'key_jaqzPcUDnK66puIO';

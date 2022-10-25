@@ -3,14 +3,18 @@ import useDebounce from './useDebounce';
 import { AutocompleteApiResponse, AutocompleteResultSections, ResultsPerSection } from '../types';
 import { CioClient } from './useCioClient';
 
-const useDebouncedFetchSection = (query: string, cioClient?: CioClient, resultsPerSection?: ResultsPerSection) => {
+const useDebouncedFetchSection = (
+  query: string,
+  cioClient?: CioClient,
+  resultsPerSection?: ResultsPerSection
+) => {
   const [sections, setSections] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
   const options: { resultsPerSection?: ResultsPerSection } = {};
 
   if (resultsPerSection) {
-      options.resultsPerSection = resultsPerSection;
+    options.resultsPerSection = resultsPerSection;
   }
 
   useEffect(() => {
@@ -20,7 +24,10 @@ const useDebouncedFetchSection = (query: string, cioClient?: CioClient, resultsP
         .then((response: AutocompleteApiResponse) => {
           const newSections: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSections[section] = response.sections[section].map((item) => ({ ...item, section }))
+            newSections[section] = response.sections[section].map((item) => ({
+              ...item,
+              section
+            }));
           });
           setSections(newSections);
         });
@@ -30,7 +37,6 @@ const useDebouncedFetchSection = (query: string, cioClient?: CioClient, resultsP
   }, [debouncedSearchTerm, cioClient]);
 
   return sections;
-}
-
+};
 
 export default useDebouncedFetchSection;

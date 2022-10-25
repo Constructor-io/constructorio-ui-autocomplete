@@ -8,21 +8,28 @@ type UseDownShiftOptions = {
   onSubmit?: OnSubmit;
   previousQuery?: string;
   cioClient?: CioClient;
-  onChange?: () => void 
+  onChange?: () => void;
 };
 
-export type DownShift = UseComboboxReturnValue<Item>
+export type DownShift = UseComboboxReturnValue<Item>;
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
 
-const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, previousQuery = '', onChange }) => {
+const useDownShift: UseDownShift = ({
+  setQuery,
+  items,
+  onSubmit,
+  cioClient,
+  previousQuery = '',
+  onChange
+}) => {
   return useCombobox({
     items,
     itemToString: (item) => (item ? item.value : ''),
     onInputValueChange: async ({ inputValue = '' }) => {
       setQuery(inputValue);
-      if(onChange) {
-        onChange()
+      if (onChange) {
+        onChange();
       }
     },
     onSelectedItemChange({ selectedItem }) {
@@ -33,15 +40,15 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
         }
         if (selectedItem?.value) {
           cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
-            original_query: previousQuery,
+            original_query: previousQuery
           });
           cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
             original_query: previousQuery,
-            section: selectedItem.section,
+            section: selectedItem.section
           });
         }
       }
-    },
+    }
   });
 };
 

@@ -21,15 +21,17 @@ export default {
     docs: {
       source: {
         code: codeSnippet,
-        language: "jsx",
+        language: 'jsx',
         format: true,
-        type: "code",
-      },
-    },
-  },
+        type: 'code'
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
 
-const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteProps) => <CioAutocomplete {...args} />;
+const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteProps) => (
+  <CioAutocomplete {...args} />
+);
 
 export const Base = Template.bind({});
 Base.args = {

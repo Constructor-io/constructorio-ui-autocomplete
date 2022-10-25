@@ -1,12 +1,16 @@
 import { AutocompleteResultSections, SectionOrder } from './types';
 
-export type GetIndexOffset = (args:  {
+export type GetIndexOffset = (args: {
   activeSections?: AutocompleteResultSections;
   activeSectionOrder: SectionOrder;
   sectionName: string;
 }) => number;
 
-export const getIndexOffset: GetIndexOffset = ({ activeSections, activeSectionOrder, sectionName }) => {
+export const getIndexOffset: GetIndexOffset = ({
+  activeSections,
+  activeSectionOrder,
+  sectionName
+}) => {
   let indexOffset = 0;
 
   if (sectionName) {

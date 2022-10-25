@@ -1,21 +1,21 @@
-import { renderHook } from "@testing-library/react";
-import useCioAutocomplete from "./useCioAutocomplete";
+import { renderHook } from '@testing-library/react';
+import useCioAutocomplete from './useCioAutocomplete';
 
-test("useCioAutocomplete hook default values are correct", () => {
+test('useCioAutocomplete hook default values are correct', () => {
   const {
     result: {
-      current: { isOpen, cioClient, query, sections, sectionOrder },
-    },
+      current: { isOpen, cioClient, query, sections, sectionOrder }
+    }
   } = renderHook(() =>
     useCioAutocomplete({
       sectionOrder: [],
-      apiKey: "abc",
-      placeholder: "Type here...",
+      apiKey: 'abc',
+      placeholder: 'Type here...'
     })
   );
   expect(isOpen).toBe(false);
   expect(cioClient).toBeDefined();
-  expect(query).toBe("");
+  expect(query).toBe('');
   expect(sections).toMatchObject({});
   expect(sectionOrder).toMatchObject([]);
 });

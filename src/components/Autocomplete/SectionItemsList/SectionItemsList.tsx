@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement } from 'react';
 import { useContext } from 'react';
 import { Item } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
@@ -13,7 +13,7 @@ export type RenderSectionItemsList = (renderResultsArguments: {
 type SectionItemsListProps = {
   sectionName: string;
   children?: RenderSectionItemsList;
- };
+};
 
 export default function SectionItemsList(props: SectionItemsListProps) {
   const { sections } = useContext(CioAutocompleteContext);
@@ -23,12 +23,20 @@ export default function SectionItemsList(props: SectionItemsListProps) {
   return children({ sectionName, sectionItems });
 }
 
-const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ sectionName, sectionItems = [] }) => (
+const DefaultRenderSectionItemsList: RenderSectionItemsList = ({
+  sectionName,
+  sectionItems = []
+}) => (
   <li className={`${sectionName} cio-section`}>
-    <h5 className='cio-sectionName'>{camelToStartCase(sectionName)}</h5>
-    <ul className='cio-items'>
+    <h5 className="cio-sectionName">{camelToStartCase(sectionName)}</h5>
+    <ul className="cio-items">
       {sectionItems?.map((item, index) => (
-        <SectionItem item={item} index={index} sectionName={sectionName} key={`${sectionName}_${item.data.id}`} />
+        <SectionItem
+          item={item}
+          index={index}
+          sectionName={sectionName}
+          key={`${sectionName}_${item.data.id}`}
+        />
       ))}
     </ul>
   </li>

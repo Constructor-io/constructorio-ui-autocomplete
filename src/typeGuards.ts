@@ -1,5 +1,4 @@
-import { Item, Product } from "./types";
-
+import { Item, Product } from './types';
 
 // Type Guard
 export function isProduct(item: Item): item is Product {

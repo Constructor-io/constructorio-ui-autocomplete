@@ -17,9 +17,9 @@ const useDebounce = (value: string, delay = 250) => {
         clearTimeout(handler);
       };
     },
-    [value, delay], // Only re-call effect if value or delay changes
+    [value, delay] // Only re-call effect if value or delay changes
   );
   return debouncedValue;
-}
+};
 
 export default useDebounce;

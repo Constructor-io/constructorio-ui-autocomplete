@@ -1,4 +1,4 @@
-export const codeSnippet =  `
+export const codeSnippet = `
 // Basic Implementation
 <CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" sectionOrder={['Products', 'Search Suggestions']}>
   <SearchInput />
@@ -46,4 +46,4 @@ export const codeSnippet =  `
     </>
   </AutocompleteResults>
 </CioAutocomplete>
-`
+`;
