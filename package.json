@@ -78,7 +78,10 @@
     "tslib": "^2.4.0"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --fix",
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "npx prettier --write"
+    ],
     "*.{test.ts, test.tsx}": "npm run test"
   }
 }

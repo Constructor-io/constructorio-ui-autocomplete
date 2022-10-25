@@ -17,8 +17,8 @@ export default function SectionItem(props: SectionItemProps) {
   if (isProduct(item)) {
     defaultChildren = (
       <>
-        <img data-testid="cio-img" src={item.data?.image_url} alt={item.value} />
-        <p data-testid="cio-text">{item.value}</p>
+        <img data-testid='cio-img' src={item.data?.image_url} alt={item.value} />
+        <p data-testid='cio-text'>{item.value}</p>
       </>
     );
   } else {

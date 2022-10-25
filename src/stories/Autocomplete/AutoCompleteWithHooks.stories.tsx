@@ -26,17 +26,17 @@ export const WithHooks = function () {
     console.log(`custom handleSubmit logic here with term: ${query}`);
   };
   return (
-    <div className="cio-autocomplete">
-      <form className="cio-form" {...formProps} onSubmit={handleSubmit(onSubmit)}>
+    <div className='cio-autocomplete'>
+      <form className='cio-form' {...formProps} onSubmit={handleSubmit(onSubmit)}>
         <input {...getInputProps()} />
       </form>
       <div {...getMenuProps()}>
         {isOpen && (
-          <div className="cio-results">
+          <div className='cio-results'>
             {!!sections?.['Products']?.length && (
-              <div className="cio-section">
-                <div className="cio-sectionName">Products</div>
-                <div className="cio-items">
+              <div className='cio-section'>
+                <div className='cio-sectionName'>Products</div>
+                <div className='cio-items'>
                   {sections?.['Products']?.map((item, index) => (
                     <div
                       {...getItemProps({
@@ -44,9 +44,10 @@ export const WithHooks = function () {
                         index,
                         sectionName: 'Products'
                       })}
-                      className="cio-item">
+                      className='cio-item'
+                    >
                       <div>
-                        {isProduct(item) && <img width="100%" src={item.data?.image_url} alt="" />}
+                        {isProduct(item) && <img width='100%' src={item.data?.image_url} alt='' />}
                         <p>{item.value}</p>
                       </div>
                     </div>
@@ -55,9 +56,9 @@ export const WithHooks = function () {
               </div>
             )}
             {!!sections?.['Search Suggestions']?.length && (
-              <div className="cio-section">
-                <div className="cio-sectionName">Search Suggestions</div>
-                <div className="cio-items">
+              <div className='cio-section'>
+                <div className='cio-sectionName'>Search Suggestions</div>
+                <div className='cio-items'>
                   {sections?.['Search Suggestions']?.map((item, index) => (
                     <div
                       {...getItemProps({
@@ -65,7 +66,8 @@ export const WithHooks = function () {
                         index,
                         sectionName: 'Search Suggestions'
                       })}
-                      className="cio-item">
+                      className='cio-item'
+                    >
                       {item.value}
                     </div>
                   ))}

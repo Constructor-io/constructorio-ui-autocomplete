@@ -130,7 +130,7 @@ export const WithRecommendations = function () {
                   })}
                   style={{ display: 'inline-flex', maxWidth: '30%' }}>
                   <div>
-                    {isProduct(item) && <img width="100%" src={item.data?.image_url} alt="" />}
+                    {isProduct(item) && <img width='100%' src={item.data?.image_url} alt='a' />}
                     <p
                       style={{
                         textOverflow: 'ellipsis',

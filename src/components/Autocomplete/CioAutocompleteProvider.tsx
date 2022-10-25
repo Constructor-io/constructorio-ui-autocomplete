@@ -27,7 +27,7 @@ export default function CioAutocompleteProvider(props: CioAutocompleteProps) {
 
   return (
     <CioAutocompleteContext.Provider value={{ ...cioAutoComplete }}>
-      <div className="cio-autocomplete">{children}</div>
+      <div className='cio-autocomplete'>{children}</div>
     </CioAutocompleteContext.Provider>
   );
 }
