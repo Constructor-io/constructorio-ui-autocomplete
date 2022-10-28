@@ -34,5 +34,20 @@ const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteP
 export const Base = Template.bind({});
 Base.args = {
   apiKey,
-  sectionOrder: ['Products', 'Search Suggestions']
+  sectionConfigurations: [
+    {
+      identifier: 'Search Suggestions',
+      type: 'autocomplete',
+      numberOfResults: 4,
+    },
+    {
+      identifier: 'trending_products',
+      type: 'recommendations',
+    },
+    {
+      identifier: 'Products',
+      type: 'autocomplete',
+      numberOfResults: 5,
+    }
+  ]
 };

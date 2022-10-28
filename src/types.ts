@@ -64,8 +64,7 @@ export type SearchSuggestion = {
 export type Item = Product | SearchSuggestion | ItemBase;
 
 type RenderResultsArguments = {
-  sections: AutocompleteResultSections;
-  sectionOrder: SectionOrder;
+  sections: SectionConfiguration[];
   getItemProps: GetItemProps;
 };
 
@@ -76,8 +75,7 @@ export type SectionName = string;
 export type SectionOrder = SectionName[];
 
 type RenderSectionItemsListArguments = {
-  sectionItems?: Item[];
-  sectionName: SectionName;
+  section: SectionConfiguration;
 };
 
 type GetIndexOffsetArguments = {
@@ -103,16 +101,23 @@ export type RenderDefaultContent = () => ReactNode;
 
 export type RenderInput = (args: RenderInputArgs) => ReactElement;
 
+export type SectionConfiguration = {
+  identifier: string;
+  displayName?: string;
+  type: 'autocomplete' | 'recommendations';
+  numberOfResults?: number;
+  additionalParameters?: any,
+  data?: Item[],
+};
+
 /** UseCioAutocomplete Hook */
 type UseCioAutocompleteBase = {
-  resultsPerSection?: any;
   openOnFocus?: boolean;
   onSubmit?: OnSubmit;
   onFocus?: () => void;
   placeholder?: string;
-  sectionOrder: SectionOrder;
-  zeroStateSectionOrder?: SectionOrder;
-  zeroStateSections?: AutocompleteResultSections;
+  sectionConfigurations: SectionConfiguration[],
+  zeroStateSectionConfigurations: SectionConfiguration[],
 };
 
 type UseCioAutocompleteWithKey = WithApiKey & UseCioAutocompleteBase;
@@ -177,6 +182,9 @@ export interface CioClient {
     trackSearchSubmit: TrackSearchSubmit;
     trackAutocompleteSelect: TrackAutocompleteSelect;
   };
+  recommendations: {
+    getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>;
+  };
 }
 
 /** CIO API Response Data */
@@ -211,4 +219,19 @@ export interface AutocompleteApiResponse {
     'Search Suggestions': SearchSuggestion[];
     [key: string]: any | undefined;
   };
+}
+
+export type RecommendationPodResponse = {
+  pod: {
+    id: string,
+    display_name: string,
+  };
+  results: Product[];
+  total_num_results: number;
+};
+
+export interface RecommendationsApiResponse {
+  request: any;
+  result_id: string;
+  response: RecommendationPodResponse;
 }

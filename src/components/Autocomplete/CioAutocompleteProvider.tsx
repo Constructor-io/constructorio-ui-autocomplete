@@ -13,6 +13,7 @@ import {
   GetLabelProps,
   SetQuery,
   SectionOrder,
+  SectionConfiguration,
 } from '../../types';
 
 type CioAutocompleteProviderProps = CioAutocompleteProps & {
@@ -20,7 +21,7 @@ type CioAutocompleteProviderProps = CioAutocompleteProps & {
 }
 
 interface ICioAutocompleteContext {
-  sections?: AutocompleteResultSections;
+  sections?: SectionConfiguration[];
   isOpen?: boolean;
   query?: string;
   sectionOrder: SectionOrder;
@@ -38,23 +39,21 @@ export default function CioAutocompleteProvider(props: CioAutocompleteProviderPr
   const {
     apiKey,
     cioJsClient,
-    resultsPerSection,
     openOnFocus,
     onFocus,
     onSubmit,
     placeholder,
-    sectionOrder,
+    sectionConfigurations,
   } = props;
 
   const cioAutoComplete = useCioAutocomplete({
     apiKey,
     cioJsClient,
-    resultsPerSection,
     openOnFocus,
     onFocus,
     onSubmit,
     placeholder,
-    sectionOrder,
+    sectionConfigurations,
   } as UseCioAutocompleteOptions);
 
   const value = {
