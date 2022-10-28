@@ -12,7 +12,6 @@ import {
   GetMenuProps,
   GetLabelProps,
   SetQuery,
-  SectionOrder,
   SectionConfiguration,
 } from '../../types';
 
@@ -24,7 +23,6 @@ interface ICioAutocompleteContext {
   sections?: SectionConfiguration[];
   isOpen?: boolean;
   query?: string;
-  sectionOrder: SectionOrder;
   getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;

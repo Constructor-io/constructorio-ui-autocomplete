@@ -23,21 +23,6 @@ export const argTypes = {
 			type: "text",
 		},
 	},
-	sectionOrder: {
-		type: {
-			name: "function",
-			required: true,
-		},
-		description: `The order of the rendered sections. If not specified the order of sections will render in an unexpected order`,
-		table: {
-			type: {
-				summary: "array",
-			},
-		},
-		control: {
-			type: "array",
-		},
-	},
 	onSubmit: {
 		type: {
 			name: "function",

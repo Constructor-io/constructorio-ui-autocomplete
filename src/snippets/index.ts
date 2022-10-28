@@ -1,12 +1,12 @@
 export const codeSnippet =  `
 // Basic Implementation
-<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" sectionOrder={['products', 'searchSuggestions']}>
+<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO">
   <SearchInput />
   <AutocompleteResults />
 </CioAutocomplete>
 
 // With Custom render
-<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" sectionOrder={['products', 'searchSuggestions']}>
+<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" >
   <SearchInput>
     {
       ({ getFormProps, getInputProps, getLabelProps }) => {

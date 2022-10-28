@@ -68,9 +68,7 @@ const RecommendationsTemplate: ComponentStory<JSXElementConstructor<any>> = func
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({
       cioJsClient: cioClient,
-      resultsPerSection: { Products: 5, 'Search Suggestions': 5, Brands: 5, Categories: 5 },
       openOnFocus: true,
-      sectionOrder: querySuggestionSections,
       onSubmit: (e) => {
         console.log('Item or Query Submitted!');
         console.log(e);

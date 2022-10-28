@@ -71,7 +71,6 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
   return {
     query,
     sections: activeSectionConfigurationsWithData,
-    sectionOrder: activeSectionOrder,
     isOpen,
     getMenuProps,
     getLabelProps,

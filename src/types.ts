@@ -117,7 +117,7 @@ type UseCioAutocompleteBase = {
   onFocus?: () => void;
   placeholder?: string;
   sectionConfigurations: SectionConfiguration[],
-  zeroStateSectionConfigurations: SectionConfiguration[],
+  zeroStateSectionConfigurations?: SectionConfiguration[],
 };
 
 type UseCioAutocompleteWithKey = WithApiKey & UseCioAutocompleteBase;
@@ -140,7 +140,6 @@ export type CioAutocompleteProps = CioAutocompleteOptionsWithKey | CioAutocomple
 export type ICioAutocomplete = {
   isOpen: boolean;
   sections: AutocompleteResultSections;
-  sectionOrder: SectionOrder;
   getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;

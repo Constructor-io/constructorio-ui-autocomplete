@@ -18,7 +18,6 @@ export default {
 const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({
-      sectionOrder: ['Products', 'Search Suggestions'],
       apiKey: 'key_jaqzPcUDnK66puIO',
       onFocus: () => {
         console.log('Focus!');
@@ -27,7 +26,6 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
         console.log('Item or Query Submitted!');
         console.log(e);
       },
-      resultsPerSection: { products: 3 },
     });
 
   const { onSubmit, ...formProps } = getFormProps();
