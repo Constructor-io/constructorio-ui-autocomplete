@@ -48,8 +48,8 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
   const activeSectionConfigurationsWithData:SectionConfiguration[] = [];
 
   activeSectionConfigurations.forEach((config) => {
-    const { identifier } = config;
-    const data= activeSections[identifier];
+    const { identifier, data: customData } = config;
+    const data = activeSections[identifier] || customData;
 
     if (data && data !== undefined){
       activeSectionConfigurationsWithData.push({ ...config, data });

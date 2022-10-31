@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CioClient, AutocompleteResultSections, SectionConfiguration } from '../types';
+import { CioClient, AutocompleteResultSections, SectionConfiguration, Item } from '../types';
 
 const useFetchRecommendationPod = (cioClient: CioClient | null | undefined, recommendationPods: SectionConfiguration[]) => {
   const [recommendationResults, setRecommendationResults] = useState<AutocompleteResultSections>({});
@@ -14,7 +14,7 @@ const useFetchRecommendationPod = (cioClient: CioClient | null | undefined, reco
 
       responses.forEach(({ response }) => {
         const { pod, results } = response;
-        recommendationPodResults[pod.id] = results;
+        recommendationPodResults[pod.id] = results.map((item: Item) => ({ ...item, section: pod?.id }))
       })
 
       setRecommendationResults(recommendationPodResults);

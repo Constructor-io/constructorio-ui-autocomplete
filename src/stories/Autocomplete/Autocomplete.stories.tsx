@@ -56,5 +56,26 @@ Base.args = {
       identifier: 'item_detail',
       type: 'recommendations',
     },
+    {
+      identifier: 'recent_searches',
+      displayName: 'Recent Searches',
+      type: 'custom',
+      data: [
+        {
+          section: 'recent_searches',
+          value: 'Dogs',
+          data: {
+            id: '1',
+          }
+        },
+        {
+          section: 'recent_searches',
+          value: 'Cats',
+          data: {
+            id: '2',
+          }
+        }
+      ]
+    },
   ]
 };
