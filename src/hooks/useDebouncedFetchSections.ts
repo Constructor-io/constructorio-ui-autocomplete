@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useDebounce from './useDebounce';
-import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, ResultsPerSection, SectionConfiguration } from '../types';
+import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, Item, ResultsPerSection, SectionConfiguration } from '../types';
 
 const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | undefined, sectionConfigurations?: SectionConfiguration[]) => {
   const [sections, setSections] = useState<AutocompleteResultSections>({});
@@ -19,7 +19,7 @@ const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | u
         .then((response: AutocompleteApiResponse) => {
           const newSections: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSections[section] = response.sections[section].map((item) => ({ ...item, section }))
+            newSections[section] = response.sections[section].map((item: Item) => ({ ...item, section }))
           });
           setSections(newSections);
         });

@@ -104,7 +104,7 @@ export type RenderInput = (args: RenderInputArgs) => ReactElement;
 export type SectionConfiguration = {
   identifier: string;
   displayName?: string;
-  type: 'autocomplete' | 'recommendations';
+  type: 'autocomplete' | 'recommendations' | 'custom';
   numberOfResults?: number;
   additionalParameters?: any,
   data?: Item[],
@@ -139,7 +139,7 @@ export type CioAutocompleteProps = CioAutocompleteOptionsWithKey | CioAutocomple
 /** CioAutocomplete */
 export type ICioAutocomplete = {
   isOpen: boolean;
-  sections: AutocompleteResultSections;
+  sections: SectionConfiguration[];
   getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;

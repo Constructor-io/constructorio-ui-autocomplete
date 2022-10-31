@@ -8,8 +8,6 @@ import {
   UseCioAutocompleteOptions,
   ICioAutocomplete,
   Item,
-  SectionOrder,
-  AutocompleteResultSections,
   SectionConfiguration,
 } from '../types';
 import usePrevious from './usePrevious';
