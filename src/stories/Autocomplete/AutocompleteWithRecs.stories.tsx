@@ -2,7 +2,6 @@ import React, { JSXElementConstructor } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../components';
 import useCioAutocomplete from '../../hooks/useCioAutocomplete';
-import useFetchRecommendationPod from '../../hooks/useFetchRecommendationPod';
 import { argTypes } from './argTypes';
 import { useEffect, useState } from 'react';
 import useCioClient from '../../hooks/useCioClient';
@@ -10,7 +9,7 @@ import { AutocompleteResultSections } from '../../types';
 import { isProduct } from '../../typeGuards';
 
 export default {
-  title: 'Autocomplete/Recommendations/WithRecPod',
+  title: 'Autocomplete/ With Recommendations',
   // component: CioAutocomplete,
   argTypes,
   parameters: {
@@ -25,7 +24,6 @@ const useRecPods = (cioClient, recPods) => {
 
   useEffect(() => {
     if (!cioClient) return;
-
     Promise.all(
       recPods.map((recPod) => cioClient.recommendations.getRecommendations(recPod.podId, { section: recPod.section })),
     ).then((responses) => {
@@ -61,14 +59,31 @@ const RecommendationPod = ({ podId, displayName, results, getItemProps }) => {
 };
 
 const querySuggestionSections = ['Search Suggestions', 'Brands', 'Categories', 'Products'];
+const zeroStateRecPods = [
+  {
+    podId: 'trending_brands',
+    section: 'Brands',
+  },
+  {
+    podId: 'trending_categories',
+    section: 'Categories',
+  },
+  { podId: 'trending_products' },
+];
+const recPodOrder = zeroStateRecPods.map((zeroStateRecPod) => zeroStateRecPod.podId);
 const apiKey = 'key_afiSr5Y4gCaaSW5X'
 
 const RecommendationsTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   const cioClient = useCioClient({ apiKey });
+  const { recommendations, recPodDisplayNames } = useRecPods(cioClient, zeroStateRecPods);
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({
       cioJsClient: cioClient,
+      resultsPerSection: { Products: 5, 'Search Suggestions': 5, Brands: 5, Categories: 5 },
       openOnFocus: true,
+      sectionOrder: querySuggestionSections,
+      zeroStateSectionOrder: recPodOrder,
+      zeroStateSections: recommendations,
       onSubmit: (e) => {
         console.log('Item or Query Submitted!');
         console.log(e);
@@ -80,6 +95,7 @@ const RecommendationsTemplate: ComponentStory<JSXElementConstructor<any>> = func
   let content;
 
   const renderQuerySuggestions = isOpen && Object.values(sections).some((items) => items?.length);
+  const renderZeroState = isOpen && inputProps.value === '';
 
   if (renderQuerySuggestions) {
     content = (
@@ -121,16 +137,19 @@ const RecommendationsTemplate: ComponentStory<JSXElementConstructor<any>> = func
             </ul>
           </li>
         </div>
-        <RecommendationPod
-          key='trending_brands'
-          podId='trending_brands'
-          displayName={recPodDisplayNames['trending_brands']}
-          results={recommendations?.['trending_brands']}
-          getItemProps={getItemProps}
-          />
-        </>
+      </>
     );
-  }  else {
+  } else if (renderZeroState) {
+    content = recPodOrder.map((podId) => (
+      <RecommendationPod
+        key={podId}
+        podId={podId}
+        displayName={recPodDisplayNames[podId]}
+        results={recommendations?.[podId]}
+        getItemProps={getItemProps}
+      />
+    ));
+  } else {
     content = <h3> No Results </h3>;
   }
 
