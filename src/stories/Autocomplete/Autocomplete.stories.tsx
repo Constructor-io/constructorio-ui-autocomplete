@@ -34,6 +34,7 @@ const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteP
 export const Base = Template.bind({});
 Base.args = {
   apiKey,
+  openOnFocus: true,
   sectionConfigurations: [
     {
       identifier: 'Search Suggestions',
@@ -41,7 +42,7 @@ Base.args = {
       numberOfResults: 4,
     },
     {
-      identifier: 'trending_products',
+      identifier: 'item_detail',
       type: 'recommendations',
     },
     {
@@ -49,5 +50,11 @@ Base.args = {
       type: 'autocomplete',
       numberOfResults: 5,
     }
+  ],
+  zeroStateSectionConfigurations: [
+    {
+      identifier: 'item_detail',
+      type: 'recommendations',
+    },
   ]
 };

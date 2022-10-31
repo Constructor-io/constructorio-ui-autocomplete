@@ -19,7 +19,6 @@ type CioAutocompleteProviderProps = CioAutocompleteProps & {
 
 interface ICioAutocompleteContext {
   sections?: SectionConfiguration[];
-  zeroStateSectionConfigurations?: SectionConfiguration[];
   isOpen?: boolean;
   query?: string;
   getFormProps: GetFormProps;

@@ -97,8 +97,6 @@ type RenderInputArgs = {
   setQuery: SetQuery;
 };
 
-export type RenderDefaultContent = () => ReactNode;
-
 export type RenderInput = (args: RenderInputArgs) => ReactElement;
 
 export type SectionConfiguration = {
