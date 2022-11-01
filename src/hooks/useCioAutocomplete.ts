@@ -38,7 +38,7 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
 
   const activeSectionConfigurations = zeroStateSectionsActive ? zeroStateSectionConfigurations : sectionConfigurations;
 
-  const autocompleteSections = activeSectionConfigurations?.filter((config: SectionConfiguration) => config.type === 'autocomplete');
+  const autocompleteSections = activeSectionConfigurations?.filter((config: SectionConfiguration) => config.type === 'autocomplete' || !config.type);
   const recommendationsSections = activeSectionConfigurations?.filter((config: SectionConfiguration) => config.type === 'recommendations');
 
   const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
@@ -47,7 +47,7 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
 
   const activeSectionConfigurationsWithData:SectionConfiguration[] = [];
 
-  activeSectionConfigurations.forEach((config) => {
+  activeSectionConfigurations?.forEach((config) => {
     const { identifier, data: customData } = config;
     const data = activeSections[identifier] || customData;
 
@@ -58,7 +58,7 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
   });
   const activeSectionOrder = activeSectionConfigurations?.map((config: SectionConfiguration) => (config.identifier)) || [];
 
-  activeSectionOrder.forEach((sectionName: string) => {
+  activeSectionOrder?.forEach((sectionName: string) => {
      const sectionItems = activeSections[sectionName] || [];
      items.push(...sectionItems);
   });

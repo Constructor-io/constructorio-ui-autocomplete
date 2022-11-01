@@ -99,14 +99,29 @@ type RenderInputArgs = {
 
 export type RenderInput = (args: RenderInputArgs) => ReactElement;
 
-export type SectionConfiguration = {
+type BaseSectionConfiguration = {
   identifier: string;
   displayName?: string;
-  type: 'autocomplete' | 'recommendations' | 'custom';
   numberOfResults?: number;
   additionalParameters?: any,
-  data?: Item[],
 };
+
+interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
+  type?: 'autocomplete';
+  data?: Item[];
+}
+
+interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
+  type: 'recommendations';
+  data?: Item[];
+}
+
+interface CustomSectionConfiguration extends BaseSectionConfiguration {
+  type: 'custom';
+  data: Item[];
+}
+
+export type SectionConfiguration = AutocompleteSectionConfiguration | RecommendationsSectionConfiguration | CustomSectionConfiguration;
 
 /** UseCioAutocomplete Hook */
 type UseCioAutocompleteBase = {

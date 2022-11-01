@@ -38,7 +38,6 @@ Base.args = {
   sectionConfigurations: [
     {
       identifier: 'Search Suggestions',
-      type: 'autocomplete',
       numberOfResults: 4,
     },
     {

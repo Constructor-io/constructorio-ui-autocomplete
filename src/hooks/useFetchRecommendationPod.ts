@@ -7,7 +7,7 @@ const useFetchRecommendationPod = (cioClient: CioClient | null | undefined, reco
   useEffect(() => {
     if (!cioClient) return;
     const fetchRecommendationResults = async () => {
-      const responses = await Promise.all(recommendationPods.map(({ identifier: podId, additionalParameters: parameters }) => (
+      const responses = await Promise.all(recommendationPods?.map(({ identifier: podId, additionalParameters: parameters }) => (
         cioClient?.recommendations.getRecommendations(podId, parameters)
       )));
       const recommendationPodResults = {};
