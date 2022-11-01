@@ -17,16 +17,24 @@ export default {
 
 const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
-    useCioAutocomplete({
-      apiKey: 'key_jaqzPcUDnK66puIO',
-      onFocus: () => {
-        console.log('Focus!');
+  useCioAutocomplete({
+    apiKey: 'key_jaqzPcUDnK66puIO',
+    sectionConfigurations: [
+      {
+        identifier: 'Search Suggestions',
       },
-      onSubmit: (e) => {
-        console.log('Item or Query Submitted!');
-        console.log(e);
+      {
+        identifier: 'Products',
       },
-    });
+    ],
+    onFocus: () => {
+      console.log('Focus!');
+    },
+    onSubmit: (e) => {
+      console.log('Item or Query Submitted!');
+      console.log(e);
+    },
+  });
 
   const { onSubmit, ...formProps } = getFormProps();
 
