@@ -19,7 +19,7 @@ export type DownshiftGetItemPropsOptions = GetItemPropsOptions<Item>;
 export type DownshiftGetItemProps = (options: GetItemPropsOptions<Item>) => object;
 
 export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
-  sectionName: SectionName;
+  sectionIdentifier: SectionIdentifier;
   indexOffset?: number
 };
 
@@ -70,18 +70,15 @@ type RenderResultsArguments = {
 
 export type RenderResults = (renderResultsArguments: RenderResultsArguments) => ReactNode;
 
-export type SectionName = string;
-
-export type SectionOrder = SectionName[];
+export type SectionIdentifier = string;
 
 type RenderSectionItemsListArguments = {
   section: SectionConfiguration;
 };
 
 type GetIndexOffsetArguments = {
-  activeSections?: AutocompleteResultSections;
-  activeSectionOrder: SectionOrder;
-  sectionName: SectionName;
+  activeSectionConfigurations: SectionConfiguration[],
+  sectionIdentifier: SectionIdentifier;
 };
 
 export type GetIndexOffset = (args: GetIndexOffsetArguments) => number;

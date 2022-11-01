@@ -53,7 +53,7 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
                     {...getItemProps({
                       item,
                       index,
-                      sectionName: 'Products',
+                      sectionIdentifier: 'Products',
                     })}
                     className='cio-item'
                   >
@@ -71,7 +71,7 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
               </div>
               <div className='cio-items'>
                 {sections?.['Search Suggestions']?.map((item, index) => (
-                  <div {...getItemProps({ item, index, sectionName: 'Search Suggestions' })} className='cio-item'>
+                  <div {...getItemProps({ item, index, sectionIdentifier: 'Search Suggestions' })} className='cio-item'>
                     {item.value}
                   </div>
                 ))}

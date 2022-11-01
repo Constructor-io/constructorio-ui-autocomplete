@@ -49,7 +49,7 @@ const RecommendationPod = ({ podId, displayName, results, getItemProps }) => {
       <h3>{displayName}</h3>
       <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
         {results?.map((item, index) => (
-          <li key={item.data.id} {...getItemProps({ item, index, sectionName: podId })}>
+          <li key={item.data.id} {...getItemProps({ item, index, sectionIdentifier: podId })}>
             {item.value}
           </li>
         ))}
@@ -102,13 +102,13 @@ const RecommendationsTemplate: ComponentStory<JSXElementConstructor<any>> = func
       <>
         <div>
           {querySuggestionSections
-            .filter((sectionName) => sectionName !== 'Products')
-            .map((sectionName) => (
-              <li key={sectionName}>
-                <h3>{sectionName}</h3>
+            .filter((sectionIdentifier) => sectionIdentifier !== 'Products')
+            .map((sectionIdentifier) => (
+              <li key={sectionIdentifier}>
+                <h3>{sectionIdentifier}</h3>
                 <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-                  {sections?.[sectionName]?.map((item, index) => (
-                    <li key={item.data.id} {...getItemProps({ item, index, sectionName })}>
+                  {sections?.[sectionIdentifier]?.map((item, index) => (
+                    <li key={item.data.id} {...getItemProps({ item, index, sectionIdentifier })}>
                       {item.value}
                     </li>
                   ))}
@@ -125,7 +125,7 @@ const RecommendationsTemplate: ComponentStory<JSXElementConstructor<any>> = func
                   {...getItemProps({
                     item,
                     index,
-                    sectionName: 'Products',
+                    sectionIdentifier: 'Products',
                   })}
                   style={{ display: 'inline-flex', maxWidth: '30%' }}>
                   <div>

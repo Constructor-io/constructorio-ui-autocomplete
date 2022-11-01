@@ -24,16 +24,16 @@ export const codeSnippet =  `
   </SearchInput>
   <AutocompleteResults>
     <>
-      <SectionItemsList sectionName='products' />
+      <SectionItemsList sectionIdentifier='products' />
       <SectionItemsList
-        sectionName='searchSuggestions'
+        sectionIdentifier='searchSuggestions'
       >
-        {({ sectionName, sectionItems }) => (
+        {({ sectionIdentifier, sectionItems }) => (
           <div>
             <h5 className='cio-sectionName'>Search Suggestions</h5>
             <div>
               {sectionItems?.map((item, index) => (
-                <SectionItem item={item} index={index} sectionName={'searchSuggestions'}>
+                <SectionItem item={item} index={index} sectionIdentifier={'searchSuggestions'}>
                   <div>
                     {item.value}
                   </div>

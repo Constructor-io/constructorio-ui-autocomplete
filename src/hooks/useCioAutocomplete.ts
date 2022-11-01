@@ -32,7 +32,6 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
 
 
-  const items: Item[] = [];
 
   const zeroStateSectionsActive = !query.length && zeroStateSectionConfigurations;
 
@@ -54,13 +53,14 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
     if (data && data !== undefined){
       activeSectionConfigurationsWithData.push({ ...config, data });
     }
-
   });
-  const activeSectionOrder = activeSectionConfigurations?.map((config: SectionConfiguration) => (config.identifier)) || [];
 
-  activeSectionOrder?.forEach((sectionName: string) => {
-     const sectionItems = activeSections[sectionName] || [];
-     items.push(...sectionItems);
+  const items: Item[] = [];
+
+  activeSectionConfigurationsWithData?.forEach((config: SectionConfiguration) => {
+    if (config?.data) {
+      items.push(...config.data);
+    }
   });
 
   const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
@@ -74,8 +74,8 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
     getLabelProps,
     openMenu,
     closeMenu,
-    getItemProps: ({ item, index = 0, sectionName = 'Products' }) => {
-      const indexOffset = getIndexOffset({ activeSections, activeSectionOrder, sectionName });
+    getItemProps: ({ item, index = 0, sectionIdentifier = 'Products' }) => {
+      const indexOffset = getIndexOffset({ activeSectionConfigurations: activeSectionConfigurationsWithData, sectionIdentifier });
       return downshift.getItemProps({ item, index: index + indexOffset });
     },
     getInputProps: () => ({
