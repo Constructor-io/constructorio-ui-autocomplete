@@ -38,7 +38,9 @@ Base.args = {
   sectionConfigurations: [
     {
       identifier: 'Search Suggestions',
-      numberOfResults: 4,
+      parameters: {
+        numResults: 4,
+      },
     },
     {
       identifier: 'item_detail',
@@ -47,13 +49,18 @@ Base.args = {
     {
       identifier: 'Products',
       type: 'autocomplete',
-      numberOfResults: 5,
+      parameters: {
+        numResults: 5,
+      },
     }
   ],
   zeroStateSectionConfigurations: [
     {
       identifier: 'item_detail',
       type: 'recommendations',
+      parameters: {
+        numResults: 3,
+      },
     },
     {
       identifier: 'recent_searches',

@@ -9,7 +9,7 @@ const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | u
   const options: { resultsPerSection?: ResultsPerSection } = {};
 
   if (sectionConfigurations) {
-    options.resultsPerSection = sectionConfigurations.reduce((acc, config) => ({ ...acc, [config.identifier]: config.numberOfResults }), {})
+    options.resultsPerSection = sectionConfigurations.reduce((acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }), {})
   }
 
   useEffect(() => {

@@ -102,8 +102,10 @@ export type RenderInput = (args: RenderInputArgs) => ReactElement;
 type BaseSectionConfiguration = {
   identifier: string;
   displayName?: string;
-  numberOfResults?: number;
-  additionalParameters?: any,
+  parameters?: {
+    numResults?: number, // To keep it consistent with JS client
+    [key: string]: any,
+  },
 };
 
 interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
