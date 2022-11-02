@@ -63,7 +63,6 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
 
   const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu } = downshift;
-  console.log(openOnFocus, zeroStateSectionsActive);
 
   return {
     query,

@@ -5,7 +5,7 @@ const useFetchRecommendationPod = (cioClient: CioClient | null | undefined, reco
   const [recommendationResults, setRecommendationResults] = useState<AutocompleteResultSections>({});
 
   useEffect(() => {
-    if (!cioClient) return;
+    if (!cioClient || recommendationPods?.length === 0) return;
     const fetchRecommendationResults = async () => {
       const responses = await Promise.all(recommendationPods?.map(({ identifier: podId, parameters }) => (
         cioClient?.recommendations.getRecommendations(podId, parameters)

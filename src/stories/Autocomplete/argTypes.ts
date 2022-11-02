@@ -9,7 +9,6 @@ export const argTypes = {
 		control: {
 			type: "text",
 		},
-		defaultValue: "What can we help you find today?",
 	},
 	apiKey: {
 		type: { name: "string", required: true },
