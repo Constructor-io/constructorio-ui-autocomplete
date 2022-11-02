@@ -31,57 +31,41 @@ export default {
 
 const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteProps) => <CioAutocomplete {...args} />;
 
-export const Base = Template.bind({});
-Base.args = {
+export const SearchSuggestions = Template.bind({});
+SearchSuggestions.args = {
   apiKey,
   openOnFocus: true,
   sectionConfigurations: [
     {
       identifier: 'Search Suggestions',
+    },
+  ],
+};
+
+export const Products = Template.bind({});
+Products.args = {
+  apiKey,
+  openOnFocus: true,
+  sectionConfigurations: [
+    {
+      identifier: 'Products',
       parameters: {
         numResults: 4,
       },
-    },
-    {
-      identifier: 'item_detail',
-      type: 'recommendations',
-    },
-    {
-      identifier: 'Products',
-      type: 'autocomplete',
-      parameters: {
-        numResults: 5,
-      },
     }
   ],
-  zeroStateSectionConfigurations: [
+};
+
+export const ProductsAndSearchSuggestions = Template.bind({});
+ProductsAndSearchSuggestions.args = {
+  apiKey,
+  openOnFocus: true,
+  sectionConfigurations: [
     {
-      identifier: 'item_detail',
-      type: 'recommendations',
-      parameters: {
-        numResults: 3,
-      },
+      identifier: 'Products',
     },
     {
-      identifier: 'recent_searches',
-      displayName: 'Recent Searches',
-      type: 'custom',
-      data: [
-        {
-          section: 'recent_searches',
-          value: 'Dogs',
-          data: {
-            id: '1',
-          }
-        },
-        {
-          section: 'recent_searches',
-          value: 'Cats',
-          data: {
-            id: '2',
-          }
-        }
-      ]
-    },
-  ]
+      identifier: 'Search Suggestions',
+    }
+  ],
 };
