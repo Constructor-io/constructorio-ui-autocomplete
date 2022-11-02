@@ -31,8 +31,6 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
 
-
-
   const zeroStateSectionsActive = !query.length && zeroStateSectionConfigurations;
 
   const activeSectionConfigurations = zeroStateSectionsActive ? zeroStateSectionConfigurations : sectionConfigurations;
@@ -65,6 +63,7 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
 
   const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu } = downshift;
+  console.log(openOnFocus, zeroStateSectionsActive);
 
   return {
     query,
@@ -85,7 +84,7 @@ const useCioAutocomplete: UseCioAutocomplete = (options) => {
         if (options.onFocus) {
           options.onFocus();
         }
-        if (openOnFocus) {
+        if (zeroStateSectionsActive && openOnFocus !== false) {
           downshift.openMenu();
         }
         cioClient?.tracker?.trackInputFocus();

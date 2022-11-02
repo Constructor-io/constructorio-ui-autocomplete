@@ -57,6 +57,5 @@ export const argTypes = {
 		control: {
 			type: "boolean",
 		},
-		defaultValue: false,
 	},
 };
