@@ -99,20 +99,28 @@ export type RenderInput = (args: RenderInputArgs) => ReactElement;
 type BaseSectionConfiguration = {
   identifier: string;
   displayName?: string;
-  parameters?: {
-    numResults?: number, // To keep it consistent with JS client
-    [key: string]: any,
-  },
 };
 
 interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
   type?: 'autocomplete';
   data?: Item[];
+  parameters?: {
+    numResults?: number,
+    // filters: {}, We will add support this
+  },
 }
 
 interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
   type: 'recommendations';
   data?: Item[];
+  parameters?: {
+    numResults?: number,
+    itemIds?: string[],
+    section?: string,
+    term?: string,
+    filters?: any, // Any for now, we can import these from client js
+    variationsMap?: any, // Any for now, we can import these from client js
+  },
 }
 
 interface CustomSectionConfiguration extends BaseSectionConfiguration {
@@ -194,7 +202,7 @@ export interface CioClient {
     trackAutocompleteSelect: TrackAutocompleteSelect;
   };
   recommendations: {
-    getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>;
+    getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>; // any for now, we will import this from client js
   };
 }
 
@@ -242,7 +250,24 @@ export type RecommendationPodResponse = {
 };
 
 export interface RecommendationsApiResponse {
-  request: any;
+  request: {
+    feature_variants?: {
+      auto_generated_refined_query_rules: string;
+      filter_items: string;
+      manual_searchandizing: string;
+      personalization: string;
+      query_items: string;
+    };
+    features?: {
+      auto_generated_refined_query_rules: boolean;
+      filter_items: boolean;
+      manual_searchandizing: boolean;
+      personalization: boolean;
+      query_items: boolean;
+    };
+    num_results: number;
+    pod_id: string;
+  };
   result_id: string;
   response: RecommendationPodResponse;
 }
