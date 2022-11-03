@@ -19,7 +19,7 @@ export type DownshiftGetItemPropsOptions = GetItemPropsOptions<Item>;
 export type DownshiftGetItemProps = (options: GetItemPropsOptions<Item>) => object;
 
 export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
-  sectionName: SectionName;
+  sectionIdentifier: SectionIdentifier;
   indexOffset?: number
 };
 
@@ -64,26 +64,21 @@ export type SearchSuggestion = {
 export type Item = Product | SearchSuggestion | ItemBase;
 
 type RenderResultsArguments = {
-  sections: AutocompleteResultSections;
-  sectionOrder: SectionOrder;
+  sections: SectionConfiguration[];
   getItemProps: GetItemProps;
 };
 
 export type RenderResults = (renderResultsArguments: RenderResultsArguments) => ReactNode;
 
-export type SectionName = string;
-
-export type SectionOrder = SectionName[];
+export type SectionIdentifier = string;
 
 type RenderSectionItemsListArguments = {
-  sectionItems?: Item[];
-  sectionName: SectionName;
+  section: SectionConfiguration;
 };
 
 type GetIndexOffsetArguments = {
-  activeSections?: AutocompleteResultSections;
-  activeSectionOrder: SectionOrder;
-  sectionName: SectionName;
+  activeSectionConfigurations: SectionConfiguration[],
+  sectionIdentifier: SectionIdentifier;
 };
 
 export type GetIndexOffset = (args: GetIndexOffsetArguments) => number;
@@ -99,20 +94,50 @@ type RenderInputArgs = {
   setQuery: SetQuery;
 };
 
-export type RenderDefaultContent = () => ReactNode;
-
 export type RenderInput = (args: RenderInputArgs) => ReactElement;
+
+type BaseSectionConfiguration = {
+  identifier: string;
+  displayName?: string;
+};
+
+interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
+  type?: 'autocomplete';
+  data?: Item[];
+  parameters?: {
+    numResults?: number,
+    // filters: {}, We will add support this
+  },
+}
+
+interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
+  type: 'recommendations';
+  data?: Item[];
+  parameters?: {
+    numResults?: number,
+    itemIds?: string[],
+    section?: string,
+    term?: string,
+    filters?: any, // Any for now, we can import these from client js
+    variationsMap?: any, // Any for now, we can import these from client js
+  },
+}
+
+interface CustomSectionConfiguration extends BaseSectionConfiguration {
+  type: 'custom';
+  data: Item[];
+}
+
+export type SectionConfiguration = AutocompleteSectionConfiguration | RecommendationsSectionConfiguration | CustomSectionConfiguration;
 
 /** UseCioAutocomplete Hook */
 type UseCioAutocompleteBase = {
-  resultsPerSection?: any;
   openOnFocus?: boolean;
   onSubmit?: OnSubmit;
   onFocus?: () => void;
   placeholder?: string;
-  sectionOrder: SectionOrder;
-  zeroStateSectionOrder?: SectionOrder;
-  zeroStateSections?: AutocompleteResultSections;
+  sectionConfigurations: SectionConfiguration[],
+  zeroStateSectionConfigurations?: SectionConfiguration[],
 };
 
 type UseCioAutocompleteWithKey = WithApiKey & UseCioAutocompleteBase;
@@ -134,8 +159,7 @@ export type CioAutocompleteProps = CioAutocompleteOptionsWithKey | CioAutocomple
 /** CioAutocomplete */
 export type ICioAutocomplete = {
   isOpen: boolean;
-  sections: AutocompleteResultSections;
-  sectionOrder: SectionOrder;
+  sections: SectionConfiguration[];
   getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;
@@ -177,6 +201,9 @@ export interface CioClient {
     trackSearchSubmit: TrackSearchSubmit;
     trackAutocompleteSelect: TrackAutocompleteSelect;
   };
+  recommendations: {
+    getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>; // any for now, we will import this from client js
+  };
 }
 
 /** CIO API Response Data */
@@ -211,4 +238,36 @@ export interface AutocompleteApiResponse {
     'Search Suggestions': SearchSuggestion[];
     [key: string]: any | undefined;
   };
+}
+
+export type RecommendationPodResponse = {
+  pod: {
+    id: string,
+    display_name: string,
+  };
+  results: Product[];
+  total_num_results: number;
+};
+
+export interface RecommendationsApiResponse {
+  request: {
+    feature_variants?: {
+      auto_generated_refined_query_rules: string;
+      filter_items: string;
+      manual_searchandizing: string;
+      personalization: string;
+      query_items: string;
+    };
+    features?: {
+      auto_generated_refined_query_rules: boolean;
+      filter_items: boolean;
+      manual_searchandizing: boolean;
+      personalization: boolean;
+      query_items: boolean;
+    };
+    num_results: number;
+    pod_id: string;
+  };
+  result_id: string;
+  response: RecommendationPodResponse;
 }

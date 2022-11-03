@@ -2,9 +2,7 @@ import React from 'react'
 import { createContext, ReactNode } from "react";
 import useCioAutocomplete from "../../hooks/useCioAutocomplete";
 import {
-  AutocompleteResultSections,
   GetItemProps,
-  RenderDefaultContent,
   UseCioAutocompleteOptions,
   CioAutocompleteProps,
   GetFormProps,
@@ -12,7 +10,7 @@ import {
   GetMenuProps,
   GetLabelProps,
   SetQuery,
-  SectionOrder,
+  SectionConfiguration,
 } from '../../types';
 
 type CioAutocompleteProviderProps = CioAutocompleteProps & {
@@ -20,10 +18,9 @@ type CioAutocompleteProviderProps = CioAutocompleteProps & {
 }
 
 interface ICioAutocompleteContext {
-  sections?: AutocompleteResultSections;
+  sections?: SectionConfiguration[];
   isOpen?: boolean;
   query?: string;
-  sectionOrder: SectionOrder;
   getFormProps: GetFormProps;
   getInputProps: GetInputProps;
   getMenuProps: GetMenuProps;
@@ -38,23 +35,23 @@ export default function CioAutocompleteProvider(props: CioAutocompleteProviderPr
   const {
     apiKey,
     cioJsClient,
-    resultsPerSection,
     openOnFocus,
     onFocus,
     onSubmit,
     placeholder,
-    sectionOrder,
+    sectionConfigurations,
+    zeroStateSectionConfigurations,
   } = props;
 
   const cioAutoComplete = useCioAutocomplete({
     apiKey,
     cioJsClient,
-    resultsPerSection,
     openOnFocus,
     onFocus,
     onSubmit,
     placeholder,
-    sectionOrder,
+    sectionConfigurations,
+    zeroStateSectionConfigurations,
   } as UseCioAutocompleteOptions);
 
   const value = {

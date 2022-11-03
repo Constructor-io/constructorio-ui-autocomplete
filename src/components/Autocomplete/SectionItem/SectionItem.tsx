@@ -1,18 +1,18 @@
 import React from 'react'
 import { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
-import {  Item, SectionName } from '../../../types';
+import {  Item, SectionIdentifier } from '../../../types';
 import {  isProduct } from '../../../typeGuards';
 
 export interface SectionItemProps {
   item: Item;
   index: number;
-  sectionName: SectionName;
+  sectionIdentifier: SectionIdentifier;
   children?: ReactNode;
 }
 
 export default function SectionItem(props: SectionItemProps) {
-  const { item, index, sectionName, children } = props;
+  const { item, index, sectionIdentifier, children } = props;
   const { getItemProps } = useContext(CioAutocompleteContext);
 
   let defaultChildren;
@@ -27,5 +27,5 @@ export default function SectionItem(props: SectionItemProps) {
     defaultChildren = item.value;
   }
 
-  return <li {...getItemProps({ item, index, sectionName })} className='cio-item'>{children ? children : defaultChildren}</li>;
+  return <li {...getItemProps({ item, index, sectionIdentifier })} className='cio-item'>{children ? children : defaultChildren}</li>;
 }

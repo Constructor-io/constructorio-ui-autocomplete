@@ -1,12 +1,12 @@
-import { GetIndexOffset } from './types';
+import { GetIndexOffset, SectionConfiguration } from './types';
 
-export const getIndexOffset: GetIndexOffset = ({ activeSections, activeSectionOrder, sectionName }) => {
+export const getIndexOffset: GetIndexOffset = ({ activeSectionConfigurations, sectionIdentifier }) => {
   let indexOffset = 0;
 
-  if (sectionName) {
-    activeSectionOrder.find((name) => {
-      if (name === sectionName) return true; // break out of loop
-      indexOffset += activeSections?.[name]?.length || 0;
+  if (sectionIdentifier) {
+    activeSectionConfigurations.find((config: SectionConfiguration) => {
+      if (config?.identifier === sectionIdentifier) return true; // break out of loop
+      indexOffset += config?.data?.length || 0;
       return false; // continue
     });
   }

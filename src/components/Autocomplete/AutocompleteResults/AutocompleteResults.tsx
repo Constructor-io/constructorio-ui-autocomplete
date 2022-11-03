@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { useContext } from 'react';
-import { RenderResults } from '../../../types';
+import { RenderResults, SectionConfiguration } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
 import '../Autocomplete.css'
@@ -11,14 +11,13 @@ type AutocompleteResultsProps = {
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
-  const { sections, sectionOrder, isOpen, query, getMenuProps, getItemProps } =
-  useContext(CioAutocompleteContext);
+  const { sections, isOpen, getMenuProps, getItemProps } = useContext(CioAutocompleteContext);
 
-  const hasResults = sections && Object.values(sections).some(section => section?.length);
+  const hasResults = sections && sections.some(section => section?.data?.length);
 
   let content;
   if (isOpen && hasResults) {
-    content = typeof children === 'function' ?  children({ sections, sectionOrder, getItemProps }) : children;
+    content = typeof children === 'function' ?  children({ sections, getItemProps }) : children;
   } else {
     content = null;
   }
@@ -31,10 +30,10 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   return <ul {...menuProps} className='cio-results'>{content}</ul>;
 }
 
-const DefaultRenderResults: RenderResults = ({ sectionOrder }) => (
+const DefaultRenderResults: RenderResults = ({ sections }) => (
   <>
-    {sectionOrder.map((sectionName) => (
-      <SectionItemsList sectionName={sectionName} key={sectionName} />
+    {sections?.map((section: SectionConfiguration) => (
+      <SectionItemsList section={section} key={section.identifier} />
     ))}
   </>
 );

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import useDebounce from './useDebounce';
-import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, ResultsPerSection } from '../types';
+import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, Item, ResultsPerSection, SectionConfiguration } from '../types';
 
-const useDebouncedFetchSection = (query: string, cioClient?: CioClient | null, resultsPerSection?: ResultsPerSection) => {
+const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | undefined, sectionConfigurations?: SectionConfiguration[]) => {
   const [sections, setSections] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
   const options: { resultsPerSection?: ResultsPerSection } = {};
 
-  if (resultsPerSection) {
-      options.resultsPerSection = resultsPerSection;
+  if (sectionConfigurations) {
+    options.resultsPerSection = sectionConfigurations.reduce((acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }), {})
   }
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const useDebouncedFetchSection = (query: string, cioClient?: CioClient | null, r
         .then((response: AutocompleteApiResponse) => {
           const newSections: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSections[section] = response.sections[section].map((item) => ({ ...item, section }))
+            newSections[section] = response.sections[section].map((item: Item) => ({ ...item, section }))
           });
           setSections(newSections);
         });
