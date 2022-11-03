@@ -11,7 +11,7 @@ import { argTypes } from './argTypes';
 const apiKey = 'key_jaqzPcUDnK66puIO';
 
 export default {
-  title: 'Autocomplete/Base',
+  title: 'Autocomplete/Component',
   component: CioAutocomplete,
   subcomponents: { SectionItemsList, SectionItem },
   argTypes,

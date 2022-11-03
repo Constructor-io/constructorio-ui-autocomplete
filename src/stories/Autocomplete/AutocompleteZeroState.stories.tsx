@@ -33,8 +33,8 @@ ZeroState.args = {
   ],
 };
 
-export const ZeroStateWithOpenOnFocusFalse = Template.bind({});
-ZeroStateWithOpenOnFocusFalse.args = {
+export const ZeroStateNoOpenOnFocus = Template.bind({});
+ZeroStateNoOpenOnFocus.args = {
   apiKey,
   openOnFocus: false,
   zeroStateSectionConfigurations: [
@@ -45,14 +45,10 @@ ZeroStateWithOpenOnFocusFalse.args = {
   ],
 };
 
-export const ZeroStateWithCustomSection = Template.bind({});
-ZeroStateWithCustomSection.args = {
+export const ZeroStateCustomSection = Template.bind({});
+ZeroStateCustomSection.args = {
   apiKey,
   zeroStateSectionConfigurations: [
-    {
-      identifier: 'bestsellers',
-      type: 'recommendations',
-    },
     {
       identifier: 'recent_searches',
       displayName: 'Recent Searches',
@@ -73,6 +69,57 @@ ZeroStateWithCustomSection.args = {
           }
         }
       ]
+    },
+  ],
+};
+
+export const ZeroStateMultipleSections = Template.bind({});
+ZeroStateMultipleSections.args = {
+  apiKey,
+  zeroStateSectionConfigurations: [
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations',
+    },
+    {
+      identifier: 'recent_searches',
+      displayName: 'Recent Searches',
+      type: 'custom',
+      data: [
+        {
+          section: 'recent_searches',
+          value: 'Red T-shirt',
+          data: {
+            id: '1',
+          },
+        },
+        {
+          section: 'recent_searches',
+          value: 'Dresses',
+          data: {
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
+};
+
+export const ZeroStateAndProducts = Template.bind({});
+ZeroStateAndProducts.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Products',
+      parameters: {
+        numResults: 4,
+      },
+    },
+  ],
+  zeroStateSectionConfigurations: [
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations',
     },
   ],
 };

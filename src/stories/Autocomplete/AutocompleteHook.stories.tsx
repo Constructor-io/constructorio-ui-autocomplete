@@ -6,7 +6,7 @@ import { argTypes } from './argTypes';
 import { isProduct } from '../../typeGuards';
 
 export default {
-  title: 'Autocomplete/With Hooks',
+  title: 'Autocomplete/Hook',
   component: CioAutocomplete,
   argTypes,
   parameters: {
@@ -87,9 +87,9 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   );
 }
 
-export const Hooks = HooksTemplate.bind({});
+export const Hook = HooksTemplate.bind({});
 
-const HooksWithRecsTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
+const HooksZeroStateTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
   useCioAutocomplete({
     apiKey: 'key_jaqzPcUDnK66puIO',
@@ -168,4 +168,4 @@ const HooksWithRecsTemplate: ComponentStory<JSXElementConstructor<any>> = functi
   );
 }
 
-export const HooksWithRecs = HooksWithRecsTemplate.bind({});
+export const HookZeroState = HooksZeroStateTemplate.bind({});
