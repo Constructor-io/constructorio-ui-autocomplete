@@ -55,7 +55,7 @@ export type Product = {
 export type SearchSuggestion = {
   data: {
     id: string;
-    url: undefined;
+    url?: string;
   };
   id: string;
   is_slotted: boolean;
