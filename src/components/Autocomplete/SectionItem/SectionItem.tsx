@@ -7,12 +7,14 @@ import { isProduct } from '../../../typeGuards';
 export interface SectionItemProps {
   item: Item;
   index: number;
-  sectionName: string;
+  sectionIdentifier: string;
   children?: ReactNode;
 }
 
 export default function SectionItem(props: SectionItemProps) {
-  const { item } = props;
+  const { item, index, sectionIdentifier, children } = props;
+  const { getItemProps } = useContext(CioAutocompleteContext);
+
   let defaultChildren;
   if (isProduct(item)) {
     defaultChildren = (
@@ -25,8 +27,9 @@ export default function SectionItem(props: SectionItemProps) {
     defaultChildren = item.value;
   }
 
-  const { index, sectionName, children = defaultChildren } = props;
-  const { getItemProps } = useContext(CioAutocompleteContext);
-
-  return <li {...getItemProps({ item, index, sectionName })}>{children}</li>;
+  return (
+    <li {...getItemProps({ item, index, sectionIdentifier })} className='cio-item'>
+      {children ? children : defaultChildren}
+    </li>
+  );
 }

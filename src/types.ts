@@ -37,6 +37,44 @@ export type AutocompleteResultSections = {
   [key: string]: Item[] | undefined;
 };
 
+type BaseSectionConfiguration = {
+  identifier: string;
+  displayName?: string;
+  parameters?: Record<string, any>;
+};
+
+interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
+  type?: 'autocomplete';
+  data?: Item[];
+  parameters?: {
+    numResults?: number;
+    // filters: {}, We will add support this
+  };
+}
+
+interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
+  type: 'recommendations';
+  data?: Item[];
+  parameters?: {
+    numResults?: number;
+    itemIds?: string[];
+    section?: string;
+    term?: string;
+    filters?: any; // Any for now, we can import these from client js
+    variationsMap?: any; // Any for now, we can import these from client js
+  };
+}
+
+interface CustomSectionConfiguration extends BaseSectionConfiguration {
+  type: 'custom';
+  data: Item[];
+}
+
+export type SectionConfiguration =
+  | AutocompleteSectionConfiguration
+  | RecommendationsSectionConfiguration
+  | CustomSectionConfiguration;
+
 export interface AutocompleteApiResponse {
   request: {
     feature_variants: {
@@ -94,3 +132,35 @@ export type SearchSuggestion = {
   value: string;
   section: 'Search Suggestions';
 };
+
+export type RecommendationPodResponse = {
+  pod: {
+    id: string;
+    display_name: string;
+  };
+  results: Product[];
+  total_num_results: number;
+};
+
+export interface RecommendationsApiResponse {
+  request: {
+    feature_variants?: {
+      auto_generated_refined_query_rules: string;
+      filter_items: string;
+      manual_searchandizing: string;
+      personalization: string;
+      query_items: string;
+    };
+    features?: {
+      auto_generated_refined_query_rules: boolean;
+      filter_items: boolean;
+      manual_searchandizing: boolean;
+      personalization: boolean;
+      query_items: boolean;
+    };
+    num_results: number;
+    pod_id: string;
+  };
+  result_id: string;
+  response: RecommendationPodResponse;
+}

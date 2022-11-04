@@ -1,12 +1,12 @@
 export const codeSnippet = `
 // Basic Implementation
-<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" sectionOrder={['Products', 'Search Suggestions']}>
+<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO">
   <SearchInput />
   <AutocompleteResults />
 </CioAutocomplete>
 
 // With Custom render
-<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" sectionOrder={['Products', 'Search Suggestions']}>
+<CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" >
   <SearchInput>
     {
       ({ getFormProps, getInputProps, getLabelProps }) => {
@@ -24,16 +24,16 @@ export const codeSnippet = `
   </SearchInput>
   <AutocompleteResults>
     <>
-      <SectionItemsList sectionName='Products' />
+      <SectionItemsList sectionIdentifier='products' />
       <SectionItemsList
-        sectionName='Search Suggestions'
+        sectionIdentifier='searchSuggestions'
       >
-        {({ sectionName, sectionItems }) => (
+        {({ sectionIdentifier, sectionItems }) => (
           <div>
             <h5 className='cio-sectionName'>Search Suggestions</h5>
             <div>
               {sectionItems?.map((item, index) => (
-                <SectionItem item={item} index={index} sectionName={'Search Suggestions'}>
+                <SectionItem item={item} index={index} sectionIdentifier={'searchSuggestions'}>
                   <div>
                     {item.value}
                   </div>

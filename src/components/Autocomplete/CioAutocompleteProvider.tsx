@@ -2,7 +2,13 @@ import React from 'react';
 import { createContext, ReactNode } from 'react';
 import useCioAutocomplete from '../../hooks/useCioAutocomplete';
 import { CioClientOptions } from '../../hooks/useCioClient';
-import { AutocompleteResultSections, OnSubmit, ResultsPerSection, SectionOrder } from '../../types';
+import {
+  AutocompleteResultSections,
+  OnSubmit,
+  ResultsPerSection,
+  SectionOrder,
+  SectionConfiguration
+} from '../../types';
 
 export type CioAutocompleteProps = CioClientOptions & {
   resultsPerSection?: ResultsPerSection;
@@ -11,10 +17,10 @@ export type CioAutocompleteProps = CioClientOptions & {
   onFocus?: () => void;
   onChange?: () => void;
   placeholder?: string;
-  sectionOrder: SectionOrder;
-  zeroStateSectionOrder?: SectionOrder;
-  zeroStateSections?: AutocompleteResultSections;
   children?: ReactNode;
+  sections?: SectionConfiguration[];
+  sectionConfigurations: SectionConfiguration[];
+  zeroStateSectionConfigurations?: SectionConfiguration[];
 };
 
 export const CioAutocompleteContext = createContext<ReturnType<typeof useCioAutocomplete>>(

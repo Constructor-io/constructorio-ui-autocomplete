@@ -11,7 +11,7 @@ import { CioAutocompleteProps } from '../../components/Autocomplete/CioAutocompl
 const apiKey = 'key_jaqzPcUDnK66puIO';
 
 export default {
-  title: 'Autocomplete/Base',
+  title: 'Autocomplete/Component',
   component: CioAutocomplete,
   subcomponents: { SectionItemsList, SectionItem },
   argTypes,
@@ -33,8 +33,55 @@ const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteP
   <CioAutocomplete {...args} />
 );
 
-export const Base = Template.bind({});
-Base.args = {
+export const SearchSuggestions = Template.bind({});
+SearchSuggestions.args = {
   apiKey,
-  sectionOrder: ['Products', 'Search Suggestions']
+  sectionConfigurations: [
+    {
+      identifier: 'Search Suggestions'
+    }
+  ]
+};
+
+export const Products = Template.bind({});
+Products.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Products',
+      parameters: {
+        numResults: 4
+      }
+    }
+  ]
+};
+
+export const ProductsAndSearchSuggestions = Template.bind({});
+ProductsAndSearchSuggestions.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Products'
+    },
+    {
+      identifier: 'Search Suggestions'
+    }
+  ]
+};
+
+export const SearchSuggestionsProductsBestsellers = Template.bind({});
+SearchSuggestionsProductsBestsellers.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Products'
+    },
+    {
+      identifier: 'Search Suggestions'
+    },
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations'
+    }
+  ]
 };

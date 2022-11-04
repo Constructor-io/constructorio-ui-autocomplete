@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { AutocompleteApiResponse } from '../types';
+import { AutocompleteApiResponse, RecommendationsApiResponse } from '../types';
 
 export type CioClientOptions = { apiKey?: string; cioJsClient?: CioClient };
 
@@ -29,6 +29,9 @@ export interface CioClient {
     trackInputFocus: () => true | Error;
     trackSearchSubmit: TrackSearchSubmit;
     trackAutocompleteSelect: TrackAutocompleteSelect;
+  };
+  recommendations: {
+    getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>; // any for now, we will import this from client js
   };
 }
 

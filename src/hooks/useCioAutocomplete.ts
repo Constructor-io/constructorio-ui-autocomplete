@@ -3,6 +3,8 @@ import useCioClient, { CioClientOptions } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import { Item, SectionOrder, AutocompleteResultSections } from '../types';
+import useFetchRecommendationPod from './useFetchRecommendationPod';
+import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
@@ -10,60 +12,62 @@ import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocomplete
 const useCioAutocomplete = (options: Omit<CioAutocompleteProps, 'children'>) => {
   const defaultPlaceholder = 'What can we help you find today?';
   const {
-    resultsPerSection,
     onSubmit,
     onChange,
     openOnFocus,
     apiKey,
     cioJsClient,
     placeholder = defaultPlaceholder,
-    sectionOrder = ['Search Suggestions', 'Products'],
-    zeroStateSectionOrder,
-    zeroStateSections
+    sectionConfigurations,
+    zeroStateSectionConfigurations
   } = options;
 
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
-  const sections = useDebouncedFetchSection(query, cioClient, resultsPerSection);
+
+  const zeroStateSectionsActive = !query.length && zeroStateSectionConfigurations;
+
+  const activeSectionConfigurations = zeroStateSectionsActive
+    ? zeroStateSectionConfigurations
+    : sectionConfigurations;
+
+  const autocompleteSections = activeSectionConfigurations?.filter(
+    (config: SectionConfiguration) => config.type === 'autocomplete' || !config.type
+  );
+  const recommendationsSections = activeSectionConfigurations?.filter(
+    (config: SectionConfiguration) => config.type === 'recommendations'
+  );
+
+  const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
+  const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
+  const activeSections = { ...autocompleteResults, ...recommendationsResults };
+
+  const activeSectionConfigurationsWithData: SectionConfiguration[] = [];
+
+  activeSectionConfigurations?.forEach((config) => {
+    const { identifier, data: customData } = config;
+    const data = activeSections[identifier] || customData;
+
+    if (data && data !== undefined) {
+      activeSectionConfigurationsWithData.push({ ...config, data });
+    }
+  });
+
   const items: Item[] = [];
 
-  const zeroStateSectionsActive = !query.length && zeroStateSectionOrder && zeroStateSections;
-
-  const activeSectionOrder: SectionOrder = zeroStateSectionsActive
-    ? zeroStateSectionOrder
-    : sectionOrder;
-  const activeSections: AutocompleteResultSections = zeroStateSectionsActive
-    ? zeroStateSections
-    : sections;
-
-  activeSectionOrder.forEach((sectionName) => {
-    const sectionItems = activeSections[sectionName] || [];
-    items.push(...sectionItems);
+  activeSectionConfigurationsWithData?.forEach((config: SectionConfiguration) => {
+    if (config?.data) {
+      items.push(...config.data);
+    }
   });
 
-  const {
-    isOpen,
-    getComboboxProps,
-    getMenuProps,
-    getItemProps,
-    getLabelProps,
-    getInputProps,
-    openMenu,
-    closeMenu
-  } = useDownShift({
-    setQuery,
-    items,
-    onSubmit,
-    cioClient,
-    previousQuery,
-    onChange
-  });
+  const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
+  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, getComboboxProps } = downshift;
 
   return {
     query,
-    sections,
-    sectionOrder,
+    sections: activeSectionConfigurationsWithData,
     isOpen,
     getMenuProps: () => ({
       ...getMenuProps(),
@@ -73,27 +77,26 @@ const useCioAutocomplete = (options: Omit<CioAutocompleteProps, 'children'>) => 
     getLabelProps,
     openMenu,
     closeMenu,
-    getItemProps: ({ item, index = 0, sectionName = 'products' }) => {
+    getItemProps: ({ item, index = 0, sectionIdentifier = 'Products' }) => {
       const indexOffset = getIndexOffset({
-        activeSections,
-        activeSectionOrder,
-        sectionName
+        activeSectionConfigurations: activeSectionConfigurationsWithData,
+        sectionIdentifier
       });
       return {
-        ...getItemProps({ item, index: index + indexOffset }),
+        ...downshift.getItemProps({ item, index: index + indexOffset }),
         className: 'cio-item',
         'data-testid': 'cio-item'
       };
     },
     getInputProps: () => ({
-      ...getInputProps(),
+      ...downshift.getInputProps(),
       value: query,
       onFocus: () => {
         if (options.onFocus) {
           options.onFocus();
         }
-        if (openOnFocus) {
-          openMenu();
+        if (zeroStateSectionsActive && openOnFocus !== false) {
+          downshift.openMenu();
         }
         cioClient?.tracker?.trackInputFocus();
       },

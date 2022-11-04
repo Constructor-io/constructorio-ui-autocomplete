@@ -8,8 +8,7 @@ export const argTypes = {
     },
     control: {
       type: 'text'
-    },
-    defaultValue: 'What can we help you find today?'
+    }
   },
   apiKey: {
     type: { name: 'string', required: true },
@@ -21,21 +20,6 @@ export const argTypes = {
     },
     control: {
       type: 'text'
-    }
-  },
-  sectionOrder: {
-    type: {
-      name: 'function',
-      required: true
-    },
-    description: `The order of the rendered sections. If not specified the order of sections will render in an unexpected order`,
-    table: {
-      type: {
-        summary: 'array'
-      }
-    },
-    control: {
-      type: 'array'
     }
   },
   onSubmit: {
@@ -71,7 +55,6 @@ export const argTypes = {
     },
     control: {
       type: 'boolean'
-    },
-    defaultValue: false
+    }
   }
 };

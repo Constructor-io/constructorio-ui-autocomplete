@@ -1,20 +1,29 @@
 import { useEffect, useState } from 'react';
 import useDebounce from './useDebounce';
-import { AutocompleteApiResponse, AutocompleteResultSections, ResultsPerSection } from '../types';
+import {
+  AutocompleteApiResponse,
+  AutocompleteResultSections,
+  Item,
+  ResultsPerSection,
+  SectionConfiguration
+} from '../types';
 import { CioClient } from './useCioClient';
 
 const useDebouncedFetchSection = (
   query: string,
   cioClient?: CioClient,
-  resultsPerSection?: ResultsPerSection
+  sectionConfigurations?: SectionConfiguration[]
 ) => {
   const [sections, setSections] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
   const options: { resultsPerSection?: ResultsPerSection } = {};
 
-  if (resultsPerSection) {
-    options.resultsPerSection = resultsPerSection;
+  if (sectionConfigurations) {
+    options.resultsPerSection = sectionConfigurations.reduce(
+      (acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }),
+      {}
+    );
   }
 
   useEffect(() => {
@@ -24,7 +33,7 @@ const useDebouncedFetchSection = (
         .then((response: AutocompleteApiResponse) => {
           const newSections: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSections[section] = response.sections[section].map((item) => ({
+            newSections[section] = response.sections[section].map((item: Item) => ({
               ...item,
               section
             }));

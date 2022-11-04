@@ -1,22 +1,20 @@
-import { AutocompleteResultSections, SectionOrder } from './types';
+import { SectionConfiguration } from './types';
 
 export type GetIndexOffset = (args: {
-  activeSections?: AutocompleteResultSections;
-  activeSectionOrder: SectionOrder;
-  sectionName: string;
+  activeSectionConfigurations: SectionConfiguration[];
+  sectionIdentifier: string;
 }) => number;
 
 export const getIndexOffset: GetIndexOffset = ({
-  activeSections,
-  activeSectionOrder,
-  sectionName
+  activeSectionConfigurations,
+  sectionIdentifier
 }) => {
   let indexOffset = 0;
 
-  if (sectionName) {
-    activeSectionOrder.find((name) => {
-      if (name === sectionName) return true; // break out of loop
-      indexOffset += activeSections?.[name]?.length || 0;
+  if (sectionIdentifier) {
+    activeSectionConfigurations.find((config: SectionConfiguration) => {
+      if (config?.identifier === sectionIdentifier) return true; // break out of loop
+      indexOffset += config?.data?.length || 0;
       return false; // continue
     });
   }
