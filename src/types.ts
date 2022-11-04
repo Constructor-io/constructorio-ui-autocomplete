@@ -30,7 +30,7 @@ export type ItemBase = {
   section: string;
   data: {
     id: string;
-    url: undefined;
+    url?: string;
   };
 };
 
@@ -65,7 +65,6 @@ export type SearchSuggestion = {
   section: 'Search Suggestions';
 };
 
-// added url to data types
 export type Item = Product | SearchSuggestion | ItemBase;
 
 type RenderResultsArguments = {
