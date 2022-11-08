@@ -23,6 +23,7 @@ export type ItemBase = {
   section: string;
   data: {
     id: string;
+    url?: string;
   };
 };
 
@@ -124,7 +125,10 @@ export type Product = {
 };
 
 export type SearchSuggestion = {
-  data: { id: string };
+  data: {
+    id: string;
+    url?: string;
+  };
   id: string;
   is_slotted: boolean;
   labels: Record<string, unknown>;
