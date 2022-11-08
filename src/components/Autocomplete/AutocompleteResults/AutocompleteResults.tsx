@@ -11,8 +11,7 @@ import SectionItemsList from '../SectionItemsList/SectionItemsList';
 import '../Autocomplete.css';
 
 export type RenderResults = (renderResultsArguments: {
-  sections: AutocompleteResultSections;
-  sectionOrder: SectionOrder;
+  sections: SectionConfiguration[];
   getItemProps: GetItemProps;
 }) => ReactNode;
 
@@ -34,8 +33,7 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   }
 
   const menuProps = {
-    ...getMenuProps(),
-    className: content ? 'showing-content' : ''
+    ...getMenuProps()
   };
 
   return <ul {...menuProps}>{content}</ul>;

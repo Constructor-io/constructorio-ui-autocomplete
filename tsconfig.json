@@ -102,12 +102,19 @@
     "jsx": "react" /* Transform JSX into React code. */,
     "module": "ESNext" /* Specify what module code is generated. */,
     "declaration": true /* Output a .d.ts file for our library types. */,
-    "declarationDir": "types" /* Where to place the .d.ts files. */,
     "sourceMap": true /* Mapping JS code back to its TS file origins for debugging. */,
     "outDir": "dist" /* Directory where the project will be generated. */,
     "moduleResolution": "node" /* Follow node.js rules for finding modules. */,
     "allowSyntheticDefaultImports": true /* Assumes default exports if none are created manually. */,
     "emitDeclarationOnly": true /* Don't generate JS (rollup will do that) only export type declarations. */,
     "noImplicitAny": false /* Enable error reporting for expressions and declarations with an implied 'any' type. */
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "storybook-static",
+    "src/**/*.stories.tsx",
+    "src/**/*.test.tsx"
+  ]
 }

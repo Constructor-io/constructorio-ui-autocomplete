@@ -4,9 +4,23 @@ import '@testing-library/jest-dom';
 import CioAutocompleteProvider from '../CioAutocompleteProvider';
 import AutocompleteResults from './AutocompleteResults';
 
-function renderWithProvider(ui, { sectionOrder = ['Search Suggestions'] } = {}) {
+function renderWithProvider(
+  ui,
+  {
+    sectionConfigurations = [
+      {
+        identifier: 'Search Suggestions'
+      },
+      {
+        identifier: 'Products'
+      }
+    ]
+  } = {}
+) {
   const Wrapper = ({ children }) => (
-    <CioAutocompleteProvider sectionOrder={sectionOrder}>{children}</CioAutocompleteProvider>
+    <CioAutocompleteProvider sectionConfigurations={sectionConfigurations}>
+      {children}
+    </CioAutocompleteProvider>
   );
   return render(ui, { wrapper: Wrapper });
 }

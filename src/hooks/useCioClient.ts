@@ -35,7 +35,7 @@ export interface CioClient {
   };
 }
 
-type UseCioClient = (cioClientOptions: CioClientOptions) => CioClient | undefined;
+type UseCioClient = (cioClientOptions: CioClientOptions) => CioClient;
 
 const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
   const [cioClient, setCioClient] = useState(cioJsClient);
@@ -59,7 +59,7 @@ const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
     }
   }, [apiKey, cioJsClient]);
 
-  return cioClient;
+  return cioClient!;
 };
 
 export default useCioClient;

@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import CioAutocompleteProvider from '../CioAutocompleteProvider';
 import SectionItem from './SectionItem';
 
-function renderWithProvider(ui, { sectionOrder = [] } = {}) {
+function renderWithProvider(ui, { sectionConfigurations = [] } = {}) {
   const Wrapper = ({ children }) => (
-    <CioAutocompleteProvider sectionOrder={sectionOrder}>{children}</CioAutocompleteProvider>
+    <CioAutocompleteProvider sectionConfigurations={sectionConfigurations}>
+      {children}
+    </CioAutocompleteProvider>
   );
   return render(ui, { wrapper: Wrapper });
 }
@@ -29,7 +31,7 @@ const productItem = {
 
 test('Section item has correct attributes', () => {
   const { container } = renderWithProvider(
-    <SectionItem index={0} item={searchSuggestion} sectionName={''} />
+    <SectionItem index={0} item={searchSuggestion} sectionIdentifier={''} />
   );
   expect(screen.getByTestId('cio-item')).toHaveClass('cio-item');
   expect(container.querySelector(`.cio-item`)).toHaveAttribute('data-testid');
@@ -37,13 +39,13 @@ test('Section item has correct attributes', () => {
 
 test('Search Sugggestion renders correct text', () => {
   const { container } = renderWithProvider(
-    <SectionItem index={0} item={searchSuggestion} sectionName={''} />
+    <SectionItem index={0} item={searchSuggestion} sectionIdentifier={''} />
   );
   expect(container.querySelector(`.cio-item`)).toHaveTextContent('shoes');
 });
 
 test('Product item renders correct markup', () => {
-  renderWithProvider(<SectionItem index={0} item={productItem} sectionName={''} />);
+  renderWithProvider(<SectionItem index={0} item={productItem} sectionIdentifier={''} />);
   const imageElement = screen.getByTestId('cio-img');
   const textElement = screen.getByTestId('cio-text');
   expect(screen.getByTestId('cio-item')?.children).toContain(imageElement);

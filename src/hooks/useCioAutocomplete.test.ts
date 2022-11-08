@@ -4,18 +4,17 @@ import useCioAutocomplete from './useCioAutocomplete';
 test('useCioAutocomplete hook default values are correct', () => {
   const {
     result: {
-      current: { isOpen, cioClient, query, sections, sectionOrder }
+      current: { isOpen, cioClient, query, sections }
     }
   } = renderHook(() =>
     useCioAutocomplete({
-      sectionOrder: [],
       apiKey: 'abc',
-      placeholder: 'Type here...'
+      placeholder: 'Type here...',
+      sectionConfigurations: []
     })
   );
   expect(isOpen).toBe(false);
   expect(cioClient).toBeDefined();
   expect(query).toBe('');
   expect(sections).toMatchObject({});
-  expect(sectionOrder).toMatchObject([]);
 });

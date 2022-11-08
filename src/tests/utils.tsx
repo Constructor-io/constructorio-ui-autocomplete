@@ -4,9 +4,11 @@ import '@testing-library/jest-dom';
 import CioAutocompleteProvider from '../components/Autocomplete/CioAutocompleteProvider';
 import { SearchInput } from '../components';
 
-export function renderWithProvider(ui, { sectionOrder = [] } = {}) {
+export function renderWithProvider(ui, { sectionConfigurations = [] } = {}) {
   const Wrapper = ({ children }) => (
-    <CioAutocompleteProvider apiKey={'key_jaqzPcUDnK66puIO'} sectionOrder={sectionOrder}>
+    <CioAutocompleteProvider
+      apiKey={'key_jaqzPcUDnK66puIO'}
+      sectionConfigurations={sectionConfigurations}>
       {children}
     </CioAutocompleteProvider>
   );
