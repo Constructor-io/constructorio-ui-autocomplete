@@ -1,66 +1,39 @@
-import React from 'react'
-import { createContext, ReactNode } from "react";
-import useCioAutocomplete from "../../hooks/useCioAutocomplete";
+import React from 'react';
+import { createContext, ReactNode } from 'react';
+import useCioAutocomplete from '../../hooks/useCioAutocomplete';
+import { CioClientOptions } from '../../hooks/useCioClient';
 import {
-  GetItemProps,
-  UseCioAutocompleteOptions,
-  CioAutocompleteProps,
-  GetFormProps,
-  GetInputProps,
-  GetMenuProps,
-  GetLabelProps,
-  SetQuery,
-  SectionConfiguration,
+  AutocompleteResultSections,
+  OnSubmit,
+  ResultsPerSection,
+  SectionOrder,
+  SectionConfiguration
 } from '../../types';
 
-type CioAutocompleteProviderProps = CioAutocompleteProps & {
-  children: ReactNode;
-}
-
-interface ICioAutocompleteContext {
+export type CioAutocompleteProps = CioClientOptions & {
+  resultsPerSection?: ResultsPerSection;
+  openOnFocus?: boolean;
+  onSubmit?: OnSubmit;
+  onFocus?: () => void;
+  onChange?: () => void;
+  placeholder?: string;
+  children?: ReactNode;
   sections?: SectionConfiguration[];
-  isOpen?: boolean;
-  query?: string;
-  getFormProps: GetFormProps;
-  getInputProps: GetInputProps;
-  getMenuProps: GetMenuProps;
-  getItemProps: GetItemProps;
-  getLabelProps: GetLabelProps;
-  setQuery: SetQuery;
-}
+  sectionConfigurations: SectionConfiguration[];
+  zeroStateSectionConfigurations?: SectionConfiguration[];
+};
 
-export const CioAutocompleteContext = createContext<ICioAutocompleteContext>({} as ICioAutocompleteContext);
+export const CioAutocompleteContext = createContext<ReturnType<typeof useCioAutocomplete>>(
+  {} as ReturnType<typeof useCioAutocomplete>
+);
 
-export default function CioAutocompleteProvider(props: CioAutocompleteProviderProps) {
-  const {
-    apiKey,
-    cioJsClient,
-    openOnFocus,
-    onFocus,
-    onSubmit,
-    placeholder,
-    sectionConfigurations,
-    zeroStateSectionConfigurations,
-  } = props;
-
-  const cioAutoComplete = useCioAutocomplete({
-    apiKey,
-    cioJsClient,
-    openOnFocus,
-    onFocus,
-    onSubmit,
-    placeholder,
-    sectionConfigurations,
-    zeroStateSectionConfigurations,
-  } as UseCioAutocompleteOptions);
-
-  const value = {
-    ...cioAutoComplete,
-  };
+export default function CioAutocompleteProvider(props: CioAutocompleteProps) {
+  const { children, ...restProps } = props;
+  const cioAutoComplete = useCioAutocomplete(restProps);
 
   return (
-    <CioAutocompleteContext.Provider value={value}>
-      <div className='cio-autocomplete'>{props.children}</div>
+    <CioAutocompleteContext.Provider value={{ ...cioAutoComplete }}>
+      <div className='cio-autocomplete'>{children}</div>
     </CioAutocompleteContext.Provider>
   );
 }

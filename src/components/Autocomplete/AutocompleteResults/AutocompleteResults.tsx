@@ -1,33 +1,42 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from 'react';
 import { useContext } from 'react';
-import { RenderResults, SectionConfiguration } from '../../../types';
+import {
+  AutocompleteResultSections,
+  GetItemProps,
+  SectionOrder,
+  SectionConfiguration
+} from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
-import '../Autocomplete.css'
+import '../Autocomplete.css';
+
+export type RenderResults = (renderResultsArguments: {
+  sections: SectionConfiguration[];
+  getItemProps: GetItemProps;
+}) => ReactNode;
 
 type AutocompleteResultsProps = {
-  children?: RenderResults | ReactNode
+  children?: RenderResults | ReactNode;
 };
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
   const { sections, isOpen, getMenuProps, getItemProps } = useContext(CioAutocompleteContext);
 
-  const hasResults = sections && sections.some(section => section?.data?.length);
+  const hasResults = sections && sections.some((section) => section?.data?.length);
 
   let content;
   if (isOpen && hasResults) {
-    content = typeof children === 'function' ?  children({ sections, getItemProps }) : children;
+    content = typeof children === 'function' ? children({ sections, getItemProps }) : children;
   } else {
     content = null;
   }
 
   const menuProps = {
-    ...getMenuProps(),
-    className: content ? 'showing-content' : '',
+    ...getMenuProps()
   };
 
-  return <ul {...menuProps} className='cio-results'>{content}</ul>;
+  return <ul {...menuProps}>{content}</ul>;
 }
 
 const DefaultRenderResults: RenderResults = ({ sections }) => (

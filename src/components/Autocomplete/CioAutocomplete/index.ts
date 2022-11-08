@@ -1,1 +1,1 @@
-export { default } from  './CioAutocomplete'
+export { default } from './CioAutocomplete';

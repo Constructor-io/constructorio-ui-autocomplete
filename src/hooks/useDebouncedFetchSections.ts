@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
 import useDebounce from './useDebounce';
-import { AutocompleteApiResponse, AutocompleteResultSections, CioClient, Item, ResultsPerSection, SectionConfiguration } from '../types';
+import {
+  AutocompleteApiResponse,
+  AutocompleteResultSections,
+  Item,
+  ResultsPerSection,
+  SectionConfiguration
+} from '../types';
+import { CioClient } from './useCioClient';
 
-const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | undefined, sectionConfigurations?: SectionConfiguration[]) => {
+const useDebouncedFetchSection = (
+  query: string,
+  cioClient?: CioClient,
+  sectionConfigurations?: SectionConfiguration[]
+) => {
   const [sections, setSections] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
   const options: { resultsPerSection?: ResultsPerSection } = {};
 
   if (sectionConfigurations) {
-    options.resultsPerSection = sectionConfigurations.reduce((acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }), {})
+    options.resultsPerSection = sectionConfigurations.reduce(
+      (acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }),
+      {}
+    );
   }
 
   useEffect(() => {
@@ -19,7 +33,10 @@ const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | u
         .then((response: AutocompleteApiResponse) => {
           const newSections: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSections[section] = response.sections[section].map((item: Item) => ({ ...item, section }))
+            newSections[section] = response.sections[section].map((item: Item) => ({
+              ...item,
+              section
+            }));
           });
           setSections(newSections);
         });
@@ -29,7 +46,6 @@ const useDebouncedFetchSection = (query: string, cioClient: CioClient | null | u
   }, [debouncedSearchTerm, cioClient]);
 
   return sections;
-}
-
+};
 
 export default useDebouncedFetchSection;

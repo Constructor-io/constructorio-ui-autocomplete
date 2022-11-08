@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import CioAutocomplete from './CioAutocomplete';
-import './Autocomplete.css'
+import './Autocomplete.css';
 import { SectionConfiguration } from '../../types';
 
 export default function Autocomplete() {
@@ -8,13 +8,13 @@ export default function Autocomplete() {
   const sectionConfigurations = [
     {
       identifier: 'Products',
-      type: 'autocomplete',
+      type: 'autocomplete'
     },
     {
       identifier: 'Search Suggestions',
-      type: 'autocomplete',
-    },
+      type: 'autocomplete'
+    }
   ] as SectionConfiguration[];
 
-  return <CioAutocomplete apiKey={apiKey} sectionConfigurations={sectionConfigurations}/>;
+  return <CioAutocomplete apiKey={apiKey} sectionConfigurations={sectionConfigurations} />;
 }

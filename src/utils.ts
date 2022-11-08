@@ -1,6 +1,14 @@
-import { GetIndexOffset, SectionConfiguration } from './types';
+import { SectionConfiguration } from './types';
 
-export const getIndexOffset: GetIndexOffset = ({ activeSectionConfigurations, sectionIdentifier }) => {
+export type GetIndexOffset = (args: {
+  activeSectionConfigurations: SectionConfiguration[];
+  sectionIdentifier: string;
+}) => number;
+
+export const getIndexOffset: GetIndexOffset = ({
+  activeSectionConfigurations,
+  sectionIdentifier
+}) => {
   let indexOffset = 0;
 
   if (sectionIdentifier) {

@@ -1,7 +1,11 @@
-import React from 'react'
-import { RenderSectionItemsList, SectionConfiguration } from '../../../types';
+import React, { ReactElement } from 'react';
+import { SectionConfiguration } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase } from '../../../utils';
+
+export type RenderSectionItemsList = (renderResultsArguments: {
+  section: SectionConfiguration;
+}) => ReactElement;
 
 type SectionItemsListProps = {
   section: SectionConfiguration;
@@ -22,9 +26,14 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ section }) => {
       <h5 className='cio-sectionName'>{camelToStartCase(sectionName)}</h5>
       <ul className='cio-items'>
         {section?.data?.map((item, index) => (
-          <SectionItem item={item} index={index} sectionIdentifier={section?.identifier} key={`${section?.identifier}_${item.data.id}`} />
+          <SectionItem
+            item={item}
+            index={index}
+            sectionIdentifier={section?.identifier}
+            key={`${section?.identifier}_${item.data.id}`}
+          />
         ))}
       </ul>
     </li>
-  )
+  );
 };
