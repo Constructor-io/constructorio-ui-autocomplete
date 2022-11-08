@@ -109,12 +109,10 @@
     "emitDeclarationOnly": true /* Don't generate JS (rollup will do that) only export type declarations. */,
     "noImplicitAny": false /* Enable error reporting for expressions and declarations with an implied 'any' type. */
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", ],
   "exclude": [
     "node_modules",
     "build",
     "storybook-static",
-    "src/**/*.stories.tsx",
-    "src/**/*.test.tsx"
   ]
 }
