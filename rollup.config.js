@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import { terser } from 'rollup-plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import { apiExtractor } from "rollup-plugin-api-extractor";
+import { apiExtractor } from 'rollup-plugin-api-extractor';
 import typescript from '@rollup/plugin-typescript';
 
 const packageJson = require('./package.json');
@@ -25,23 +25,26 @@ export default [
     ],
     plugins: [
       typescript({
-        tsconfig: "./tsconfig.json",
+        tsconfig: './tsconfig.json',
         compilerOptions: {
           declaration: false,
-          declarationMap: false,
+          declarationMap: false
         }
       }),
-      apiExtractor({ configFile: './api-extractor.json', configuration: {
-        projectFolder: '.',
-        compiler: {
-          tsconfigFilePath: "./tsconfig.apidocs.json",
-        },
-      }}),
+      apiExtractor({
+        configFile: './api-extractor.json',
+        configuration: {
+          projectFolder: '.',
+          compiler: {
+            tsconfigFilePath: './tsconfig.apidocs.json'
+          }
+        }
+      }),
       peerDepsExternal(),
       resolve(),
       commonjs(),
       postcss(),
       terser()
     ]
-  },
+  }
 ];
