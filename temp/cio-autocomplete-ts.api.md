@@ -6,35 +6,65 @@
 
 /// <reference types="react" />
 
+import { Dispatch } from 'react';
 import { GetItemPropsOptions } from 'downshift';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { SetStateAction } from 'react';
+import { UseComboboxGetLabelPropsOptions } from 'downshift';
 
 // Warning: (ae-forgotten-export) The symbol "AutocompleteResultsProps" needs to be exported by the entry point index.d.ts
 //
-// @public
+// @public (undocumented)
 export function AutocompleteResults(props: AutocompleteResultsProps): JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "CioAutocompleteProps" needs to be exported by the entry point index.d.ts
 //
-// @public
+// @public (undocumented)
 export function CioAutocomplete(props: CioAutocompleteProps): JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "SearchInputProps" needs to be exported by the entry point index.d.ts
 //
-// @public
+// @public (undocumented)
 export function SearchInput(props: SearchInputProps): JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "SectionItemProps" needs to be exported by the entry point index.d.ts
 //
-// @public
+// @public (undocumented)
 export function SectionItem(props: SectionItemProps): JSX.Element;
 
 // Warning: (ae-forgotten-export) The symbol "SectionItemsListProps" needs to be exported by the entry point index.d.ts
 //
-// @public
+// @public (undocumented)
 export function SectionItemsList(props: SectionItemsListProps): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
+
+// Warning: (ae-forgotten-export) The symbol "UseCioAutocompleteOptions" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
+    query: string;
+    sections: SectionConfiguration[];
+    isOpen: boolean;
+    getMenuProps: () => any;
+    getLabelProps: (options?: UseComboboxGetLabelPropsOptions | undefined) => any;
+    openMenu: () => void;
+    closeMenu: () => void;
+    getItemProps: ({ item, index, sectionIdentifier }: {
+        item: any;
+        index?: number | undefined;
+        sectionIdentifier?: string | undefined;
+    }) => any;
+    getInputProps: () => any;
+    getFormProps: () => any;
+    setQuery: Dispatch<SetStateAction<string>>;
+    cioClient: CioClient;
+};
+
+// Warnings were encountered during analysis:
+//
+// src/hooks/useCioAutocomplete.ts:14:63 - (ae-forgotten-export) The symbol "SectionConfiguration" needs to be exported by the entry point index.d.ts
+// src/hooks/useCioAutocomplete.ts:14:63 - (ae-forgotten-export) The symbol "CioClient" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

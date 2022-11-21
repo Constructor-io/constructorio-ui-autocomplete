@@ -1,9 +1,12 @@
 /// <reference types="react" />
 
+import { Dispatch } from 'react';
 import { GetItemPropsOptions } from 'downshift';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
+import { SetStateAction } from 'react';
+import { UseComboboxGetLabelPropsOptions } from 'downshift';
 
 declare interface AutocompleteApiResponse {
     request: {
@@ -34,11 +37,6 @@ declare interface AutocompleteApiResponse {
     };
 }
 
-/**
- * AutocompleteResults
- *
- * @public
- */
 export declare function AutocompleteResults(props: AutocompleteResultsProps): JSX.Element;
 
 declare type AutocompleteResultsProps = {
@@ -66,11 +64,6 @@ declare type BaseSectionConfiguration = {
     parameters?: Record<string, any>;
 };
 
-/**
- * CioAutocomplete
- *
- * @public
- */
 export declare function CioAutocomplete(props: CioAutocompleteProps): JSX.Element;
 
 declare type CioAutocompleteProps = CioClientOptions & {
@@ -211,11 +204,6 @@ declare type ResultsPerSection = {
     [key: string]: number;
 };
 
-/**
- * SearchInput
- *
- * @public
- */
 export declare function SearchInput(props: SearchInputProps): JSX.Element;
 
 declare type SearchInputProps = {
@@ -237,11 +225,6 @@ declare type SearchSuggestion = {
 
 declare type SectionConfiguration = AutocompleteSectionConfiguration | RecommendationsSectionConfiguration | CustomSectionConfiguration;
 
-/**
- * SectionItem
- *
- * @public
- */
 export declare function SectionItem(props: SectionItemProps): JSX.Element;
 
 declare interface SectionItemProps {
@@ -251,11 +234,6 @@ declare interface SectionItemProps {
     children?: ReactNode;
 }
 
-/**
- * SectionItemsList
- *
- * @public
- */
 export declare function SectionItemsList(props: SectionItemsListProps): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
 
 declare type SectionItemsListProps = {
@@ -271,5 +249,26 @@ declare type TrackAutocompleteSelect = (term: string, parameters: {
 declare type TrackSearchSubmit = (term: string, parameters: {
     original_query: string;
 }) => true | Error;
+
+export declare const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
+    query: string;
+    sections: SectionConfiguration[];
+    isOpen: boolean;
+    getMenuProps: () => any;
+    getLabelProps: (options?: UseComboboxGetLabelPropsOptions | undefined) => any;
+    openMenu: () => void;
+    closeMenu: () => void;
+    getItemProps: ({ item, index, sectionIdentifier }: {
+        item: any;
+        index?: number | undefined;
+        sectionIdentifier?: string | undefined;
+    }) => any;
+    getInputProps: () => any;
+    getFormProps: () => any;
+    setQuery: Dispatch<SetStateAction<string>>;
+    cioClient: CioClient;
+};
+
+declare type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
 export { }

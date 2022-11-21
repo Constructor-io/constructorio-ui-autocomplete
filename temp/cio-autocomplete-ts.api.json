@@ -175,7 +175,7 @@
         {
           "kind": "Function",
           "canonicalReference": "cio-autocomplete-ts!AutocompleteResults:function(1)",
-          "docComment": "/**\n * AutocompleteResults\n *\n * @public\n */\n",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -222,7 +222,7 @@
         {
           "kind": "Function",
           "canonicalReference": "cio-autocomplete-ts!CioAutocomplete:function(1)",
-          "docComment": "/**\n * CioAutocomplete\n *\n * @public\n */\n",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -269,7 +269,7 @@
         {
           "kind": "Function",
           "canonicalReference": "cio-autocomplete-ts!SearchInput:function(1)",
-          "docComment": "/**\n * SearchInput\n *\n * @public\n */\n",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -316,7 +316,7 @@
         {
           "kind": "Function",
           "canonicalReference": "cio-autocomplete-ts!SectionItem:function(1)",
-          "docComment": "/**\n * SectionItem\n *\n * @public\n */\n",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -363,7 +363,7 @@
         {
           "kind": "Function",
           "canonicalReference": "cio-autocomplete-ts!SectionItemsList:function(1)",
-          "docComment": "/**\n * SectionItemsList\n *\n * @public\n */\n",
+          "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -419,6 +419,83 @@
             }
           ],
           "name": "SectionItemsList"
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "cio-autocomplete-ts!useCioAutocomplete:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "useCioAutocomplete: "
+            },
+            {
+              "kind": "Content",
+              "text": "(options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "UseCioAutocompleteOptions",
+              "canonicalReference": "cio-autocomplete-ts!~UseCioAutocompleteOptions:type"
+            },
+            {
+              "kind": "Content",
+              "text": ") => {\n    query: string;\n    sections: "
+            },
+            {
+              "kind": "Reference",
+              "text": "SectionConfiguration",
+              "canonicalReference": "cio-autocomplete-ts!~SectionConfiguration:type"
+            },
+            {
+              "kind": "Content",
+              "text": "[];\n    isOpen: boolean;\n    getMenuProps: () => any;\n    getLabelProps: (options?: import(\"downshift\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "UseComboboxGetLabelPropsOptions",
+              "canonicalReference": "downshift!UseComboboxGetLabelPropsOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | undefined) => any;\n    openMenu: () => void;\n    closeMenu: () => void;\n    getItemProps: ({ item, index, sectionIdentifier }: {\n        item: any;\n        index?: number | undefined;\n        sectionIdentifier?: string | undefined;\n    }) => any;\n    getInputProps: () => any;\n    getFormProps: () => any;\n    setQuery: import(\"react\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Dispatch",
+              "canonicalReference": "@types/react!React.Dispatch:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"react\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "SetStateAction",
+              "canonicalReference": "@types/react!React.SetStateAction:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string>>;\n    cioClient: import(\"./useCioClient\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "CioClient",
+              "canonicalReference": "cio-autocomplete-ts!~CioClient:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
+            }
+          ],
+          "fileUrlPath": "src/hooks/useCioAutocomplete.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "useCioAutocomplete",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 14
+          }
         }
       ]
     }
