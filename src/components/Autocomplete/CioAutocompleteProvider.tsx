@@ -12,8 +12,8 @@ export type CioAutocompleteProps = CioClientOptions & {
   onChange?: () => void;
   placeholder?: string;
   children?: ReactNode;
-  sectionConfigurations?: SectionConfiguration[];
-  zeroStateSectionConfigurations?: SectionConfiguration[];
+  sections?: SectionConfiguration[];
+  zeroStateSections?: SectionConfiguration[];
 };
 
 export const CioAutocompleteContext = createContext<ReturnType<typeof useCioAutocomplete>>(

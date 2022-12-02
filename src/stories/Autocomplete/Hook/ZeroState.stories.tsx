@@ -12,7 +12,7 @@ export default {
 export const ZeroStateSections = HooksTemplate.bind({});
 ZeroStateSections.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -22,7 +22,7 @@ ZeroStateSections.args = {
 ZeroStateSections.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -34,7 +34,7 @@ export const NoOpenOnFocus = HooksTemplate.bind({});
 NoOpenOnFocus.args = {
   apiKey,
   openOnFocus: false,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -45,7 +45,7 @@ NoOpenOnFocus.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
   openOnFocus: false,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -56,7 +56,7 @@ const args = {
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -66,7 +66,7 @@ Recommendations.args = {
 Recommendations.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -77,7 +77,7 @@ const args = {
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'recent_searches',
       displayName: 'Recent Searches',
@@ -104,7 +104,7 @@ CustomSection.args = {
 CustomSection.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'recent_searches',
       displayName: 'Recent Searches',
@@ -132,7 +132,7 @@ const args = {
 export const MultipleSections = HooksTemplate.bind({});
 MultipleSections.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -163,7 +163,7 @@ MultipleSections.args = {
 MultipleSections.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'

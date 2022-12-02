@@ -14,7 +14,7 @@ export default {
 export const SearchSuggestions = ComponentTemplate.bind({});
 SearchSuggestions.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     }
@@ -23,7 +23,7 @@ SearchSuggestions.args = {
 SearchSuggestions.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     }
@@ -33,7 +33,7 @@ const args = {
 export const Products = ComponentTemplate.bind({});
 Products.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products'
     }
@@ -42,7 +42,7 @@ Products.args = {
 Products.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products',
     }
@@ -52,7 +52,7 @@ const args = {
 export const NumResults = ComponentTemplate.bind({});
 NumResults.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products',
       parameters: {
@@ -64,7 +64,7 @@ NumResults.args = {
 NumResults.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products',
       parameters: {
@@ -77,7 +77,7 @@ const args = {
 export const SectionOrder = ComponentTemplate.bind({});
 SectionOrder.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products'
     },
@@ -89,7 +89,7 @@ SectionOrder.args = {
 SectionOrder.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products'
     },
@@ -102,7 +102,7 @@ const args = {
 export const Recommendations = ComponentTemplate.bind({});
 Recommendations.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },
@@ -118,7 +118,7 @@ Recommendations.args = {
 Recommendations.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },
@@ -135,7 +135,7 @@ const args = {
 export const CustomSection = ComponentTemplate.bind({});
 CustomSection.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },
@@ -165,7 +165,7 @@ CustomSection.args = {
 CustomSection.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },

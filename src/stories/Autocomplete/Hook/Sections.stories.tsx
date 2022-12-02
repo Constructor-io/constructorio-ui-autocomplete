@@ -12,7 +12,7 @@ export default {
 export const SearchSuggestions = HooksTemplate.bind({});
 SearchSuggestions.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     }
@@ -21,7 +21,7 @@ SearchSuggestions.args = {
 SearchSuggestions.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     }
@@ -31,7 +31,7 @@ const args = {
 export const Products = HooksTemplate.bind({});
 Products.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products'
     }
@@ -40,7 +40,7 @@ Products.args = {
 Products.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products',
     }
@@ -50,7 +50,7 @@ const args = {
 export const NumResults = HooksTemplate.bind({});
 NumResults.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products',
       parameters: {
@@ -62,7 +62,7 @@ NumResults.args = {
 NumResults.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products',
       parameters: {
@@ -75,7 +75,7 @@ const args = {
 export const SectionOrder = HooksTemplate.bind({});
 SectionOrder.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products'
     },
@@ -87,7 +87,7 @@ SectionOrder.args = {
 SectionOrder.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Products'
     },
@@ -100,7 +100,7 @@ const args = {
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },
@@ -116,7 +116,7 @@ Recommendations.args = {
 Recommendations.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },
@@ -133,7 +133,7 @@ const args = {
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
   apiKey,
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },
@@ -163,7 +163,7 @@ CustomSection.args = {
 CustomSection.parameters = getHookStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  sectionConfigurations: [
+  sections: [
     {
       identifier: 'Search Suggestions'
     },

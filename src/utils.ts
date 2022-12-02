@@ -1,18 +1,15 @@
 import { SectionConfiguration } from './types';
 
 export type GetIndexOffset = (args: {
-  activeSectionConfigurations: SectionConfiguration[];
+  activeSections: SectionConfiguration[];
   sectionIdentifier: string;
 }) => number;
 
-export const getIndexOffset: GetIndexOffset = ({
-  activeSectionConfigurations,
-  sectionIdentifier
-}) => {
+export const getIndexOffset: GetIndexOffset = ({ activeSections, sectionIdentifier }) => {
   let indexOffset = 0;
 
   if (sectionIdentifier) {
-    activeSectionConfigurations.find((config: SectionConfiguration) => {
+    activeSections.find((config: SectionConfiguration) => {
       if (config?.identifier === sectionIdentifier) return true; // break out of loop
       indexOffset += config?.data?.length || 0;
       return false; // continue

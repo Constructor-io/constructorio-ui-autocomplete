@@ -36,7 +36,7 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
                             sectionIdentifier: section.identifier
                           })}
                           className='cio-item'
-                          key={item.value}>
+                          key={item?.data?.id}>
                           <div>
                             {isProduct(item) && (
                               <img width='100%' src={item.data?.image_url} alt='' />
@@ -86,7 +86,7 @@ function YourComponent() {
                           sectionIdentifier: section.identifier
                         })}
                         className='cio-item'
-                        key={item.value}>
+                        key={item?.data?.id}>
                         <div>
                           {isProduct(item) && (
                             <img width='100%' src={item.data?.image_url} alt='' />

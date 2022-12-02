@@ -14,7 +14,7 @@ export default {
 export const ZeroStateSections = ComponentTemplate.bind({});
 ZeroStateSections.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -24,7 +24,7 @@ ZeroStateSections.args = {
 ZeroStateSections.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -36,7 +36,7 @@ export const NoOpenOnFocus = ComponentTemplate.bind({});
 NoOpenOnFocus.args = {
   apiKey,
   openOnFocus: false,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -47,7 +47,7 @@ NoOpenOnFocus.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
   openOnFocus: false,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -58,7 +58,7 @@ const args = {
 export const Recommendations = ComponentTemplate.bind({});
 Recommendations.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -68,7 +68,7 @@ Recommendations.args = {
 Recommendations.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -79,7 +79,7 @@ const args = {
 export const CustomSection = ComponentTemplate.bind({});
 CustomSection.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'recent_searches',
       displayName: 'Recent Searches',
@@ -106,7 +106,7 @@ CustomSection.args = {
 CustomSection.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'recent_searches',
       displayName: 'Recent Searches',
@@ -134,7 +134,7 @@ const args = {
 export const MultipleSections = ComponentTemplate.bind({});
 MultipleSections.args = {
   apiKey,
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
@@ -165,7 +165,7 @@ MultipleSections.args = {
 MultipleSections.parameters = getComponentStoryParams(`
 const args = {
   apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSectionConfigurations: [
+  zeroStateSections: [
     {
       identifier: 'bestsellers',
       type: 'recommendations'
