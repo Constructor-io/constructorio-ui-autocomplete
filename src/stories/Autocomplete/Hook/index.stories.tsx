@@ -23,6 +23,8 @@ const cioJsClient = new ConstructorIOClient({ apiKey });
 export const CioJsClient = HooksTemplate.bind({});
 CioJsClient.args = { cioJsClient };
 CioJsClient.parameters = getHookStoryParams(`
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+
 const cioJsClient = new ConstructorIOClient({ apiKey: 'key_jaqzPcUDnK66puIO' });
 const args = { cioJsClient };`);
 

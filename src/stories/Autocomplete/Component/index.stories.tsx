@@ -29,6 +29,8 @@ const cioJsClient = new ConstructorIOClient({ apiKey });
 export const CioJsClient = ComponentTemplate.bind({});
 CioJsClient.args = { cioJsClient };
 CioJsClient.parameters = getComponentStoryParams(`
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+
 const cioJsClient = new ConstructorIOClient({ apiKey: 'key_jaqzPcUDnK66puIO' });
 const args = { cioJsClient };`);
 
