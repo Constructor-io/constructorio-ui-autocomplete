@@ -8,6 +8,7 @@ import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
+import { defaultSectionConfigurations } from '../constants';
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
@@ -20,7 +21,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     apiKey,
     cioJsClient,
     placeholder = defaultPlaceholder,
-    sectionConfigurations,
+    sectionConfigurations = defaultSectionConfigurations,
     zeroStateSectionConfigurations
   } = options;
 
@@ -64,7 +65,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }
   });
 
-  const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
+  const downshift = useDownShift({ setQuery, onChange, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, getComboboxProps } = downshift;
 
   return {

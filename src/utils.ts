@@ -32,3 +32,23 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
     .replace(/^./, function (str) {
       return str.toUpperCase();
     });
+
+// More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
+export const getStoryParams = (storyCode, templateCode) => {
+  const code = `${storyCode}
+
+//////////////////////////////
+${templateCode}`;
+
+  return {
+    layout: 'fullscreen',
+    docs: {
+      source: {
+        code,
+        language: 'jsx',
+        format: true,
+        type: 'code'
+      }
+    }
+  };
+};

@@ -21,7 +21,10 @@ const useDebouncedFetchSection = (
 
   if (sectionConfigurations) {
     options.resultsPerSection = sectionConfigurations.reduce(
-      (acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }),
+      (acc, sectionConfig) => ({
+        ...acc,
+        [sectionConfig.identifier]: sectionConfig?.parameters?.numResults || 8
+      }),
       {}
     );
   }
