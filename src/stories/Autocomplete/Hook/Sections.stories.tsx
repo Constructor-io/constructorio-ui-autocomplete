@@ -1,6 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
+import { stringify } from '../../../utils';
 import { HooksTemplate, getHookStoryParams, apiKey } from '.';
 
 export default {
@@ -18,15 +19,9 @@ SearchSuggestions.args = {
     }
   ]
 };
-SearchSuggestions.parameters = getHookStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  sections: [
-    {
-      identifier: 'Search Suggestions'
-    }
-  ]
-}`);
+SearchSuggestions.parameters = getHookStoryParams(
+  `const args = ${stringify(SearchSuggestions.args)}`
+);
 
 export const Products = HooksTemplate.bind({});
 Products.args = {
@@ -38,14 +33,7 @@ Products.args = {
   ]
 };
 Products.parameters = getHookStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  sections: [
-    {
-      identifier: 'Products',
-    }
-  ]
-}`);
+const args = ${stringify(Products.args)}`);
 
 export const NumResults = HooksTemplate.bind({});
 NumResults.args = {
@@ -59,18 +47,7 @@ NumResults.args = {
     }
   ]
 };
-NumResults.parameters = getHookStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  sections: [
-    {
-      identifier: 'Products',
-      parameters: {
-        numResults: 2
-      }
-    }
-  ]
-}`);
+NumResults.parameters = getHookStoryParams(`const args = ${stringify(NumResults.args)}`);
 
 export const SectionOrder = HooksTemplate.bind({});
 SectionOrder.args = {
@@ -85,17 +62,7 @@ SectionOrder.args = {
   ]
 };
 SectionOrder.parameters = getHookStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  sections: [
-    {
-      identifier: 'Products'
-    },
-    {
-      identifier: 'Search Suggestions'
-    }
-  ]
-}`);
+const args = ${stringify(SectionOrder.args)}`);
 
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
@@ -113,22 +80,7 @@ Recommendations.args = {
     }
   ]
 };
-Recommendations.parameters = getHookStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  sections: [
-    {
-      identifier: 'Search Suggestions'
-    },
-    {
-      identifier: 'Products'
-    },
-    {
-      identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
-}`);
+Recommendations.parameters = getHookStoryParams(`const args = ${stringify(Recommendations.args)}`);
 
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
@@ -160,33 +112,4 @@ CustomSection.args = {
     }
   ]
 };
-CustomSection.parameters = getHookStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  sections: [
-    {
-      identifier: 'Search Suggestions'
-    },
-    {
-      identifier: 'recent_searches',
-      displayName: 'Recent Searches',
-      type: 'custom',
-      data: [
-        {
-          section: 'recent_searches',
-          value: 'Red T-shirt',
-          data: {
-            id: '1'
-          }
-        },
-        {
-          section: 'recent_searches',
-          value: 'Dresses',
-          data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
-}`);
+CustomSection.parameters = getHookStoryParams(`const args = ${stringify(CustomSection.args)}`);

@@ -2,6 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
+import { stringify } from '../../../utils';
 import { ComponentTemplate, getComponentStoryParams, apiKey } from '.';
 
 export default {
@@ -21,16 +22,9 @@ ZeroStateSections.args = {
     }
   ]
 };
-ZeroStateSections.parameters = getComponentStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSections: [
-    {
-      identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
-}`);
+ZeroStateSections.parameters = getComponentStoryParams(
+  `const args = ${stringify(ZeroStateSections.args)}`
+);
 
 export const NoOpenOnFocus = ComponentTemplate.bind({});
 NoOpenOnFocus.args = {
@@ -43,17 +37,7 @@ NoOpenOnFocus.args = {
     }
   ]
 };
-NoOpenOnFocus.parameters = getComponentStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  openOnFocus: false,
-  zeroStateSections: [
-    {
-      identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
-}`);
+NoOpenOnFocus.parameters = getComponentStoryParams(`const args = ${stringify(NoOpenOnFocus.args)}`);
 
 export const Recommendations = ComponentTemplate.bind({});
 Recommendations.args = {
@@ -65,16 +49,9 @@ Recommendations.args = {
     }
   ]
 };
-Recommendations.parameters = getComponentStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSections: [
-    {
-      identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
-}`);
+Recommendations.parameters = getComponentStoryParams(
+  `const args = ${stringify(Recommendations.args)}`
+);
 
 export const CustomSection = ComponentTemplate.bind({});
 CustomSection.args = {
@@ -103,33 +80,7 @@ CustomSection.args = {
     }
   ]
 };
-CustomSection.parameters = getComponentStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSections: [
-    {
-      identifier: 'recent_searches',
-      displayName: 'Recent Searches',
-      type: 'custom',
-      data: [
-        {
-          section: 'recent_searches',
-          value: 'Red T-shirt',
-          data: {
-            id: '1'
-          }
-        },
-        {
-          section: 'recent_searches',
-          value: 'Dresses',
-          data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
-}`);
+CustomSection.parameters = getComponentStoryParams(`const args = ${stringify(CustomSection.args)}`);
 
 export const MultipleSections = ComponentTemplate.bind({});
 MultipleSections.args = {
@@ -162,34 +113,6 @@ MultipleSections.args = {
     }
   ]
 };
-MultipleSections.parameters = getComponentStoryParams(`
-const args = {
-  apiKey: 'key_jaqzPcUDnK66puIO',
-  zeroStateSections: [
-    {
-      identifier: 'bestsellers',
-      type: 'recommendations'
-    },
-    {
-      identifier: 'recent_searches',
-      displayName: 'Recent Searches',
-      type: 'custom',
-      data: [
-        {
-          section: 'recent_searches',
-          value: 'Red T-shirt',
-          data: {
-            id: '1'
-          }
-        },
-        {
-          section: 'recent_searches',
-          value: 'Dresses',
-          data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
-}`);
+MultipleSections.parameters = getComponentStoryParams(
+  `const args = ${stringify(MultipleSections.args)}`
+);
