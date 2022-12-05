@@ -1,4 +1,4 @@
-# Constructor Autocomplete UI Library
+# Constructor.io Autocomplete UI Library
 
 ## Introduction
 
@@ -6,9 +6,9 @@ React Components that manage fetching and rendering logic for [Constructor.io's 
 
 ![Autocomplete](docs-images/autocomplete.png)
 
-## How to use this library
+## How to use this UI Library
 
-There are two main methods for consuming this library in a React project:
+There are two main methods for consuming this UI Library in a React project:
 
 ### Component based
 
@@ -27,7 +27,7 @@ function YourComponent() {
 
 ### Hook based
 
-The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you, the consumer of this library.
+The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you.
 
 ```jsx
 import { useCioAutocomplete } from 'cio-autocomplete-ts';
@@ -83,7 +83,7 @@ function YourComponent() {
 ```
 
 ## Explore Functionality with Storybook
-The best was to get familiar with this library is with storybook.
+The best was to get familiar with this UI Library is with storybook.
 ![Storybook Canvas](docs-images/storybook-canvas.png)
 ![Storybook Docs](docs-images/storybook-docs.png)
 ![Show Code](docs-images/storybook-docs-show-code.png)
@@ -100,7 +100,7 @@ npm run test          # run tests
 ### Additional NPM Commands
 ```bash
 npm run build         # build production bundle
-npm run api-docs      # generate API docs for this TypeScript library
+npm run api-docs      # generate API docs for this TypeScript UI Library
 ```
 
 ## Supporting Docs
