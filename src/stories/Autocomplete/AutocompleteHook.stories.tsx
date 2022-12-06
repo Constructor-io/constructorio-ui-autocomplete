@@ -15,7 +15,7 @@ export default {
   }
 } as ComponentMeta<typeof CioAutocomplete>;
 
-const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
+export const Hook: ComponentStory<JSXElementConstructor<any>> = function () {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({
       apiKey: 'key_jaqzPcUDnK66puIO',
@@ -66,7 +66,12 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
                         key={item.value}>
                         <div>
                           {isProduct(item) && (
-                            <img width='100%' src={item.data?.image_url} alt='' />
+                            <img
+                              width='100%'
+                              src={item.data?.image_url}
+                              alt=''
+                              data-testid='cio-img'
+                            />
                           )}
                           <p>{item.value}</p>
                         </div>
@@ -83,9 +88,7 @@ const HooksTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
   );
 };
 
-export const Hook = HooksTemplate.bind({});
-
-const HooksZeroStateTemplate: ComponentStory<JSXElementConstructor<any>> = function () {
+export const HooksZeroState: ComponentStory<JSXElementConstructor<any>> = function () {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({
       apiKey: 'key_jaqzPcUDnK66puIO',
@@ -145,7 +148,12 @@ const HooksZeroStateTemplate: ComponentStory<JSXElementConstructor<any>> = funct
                         key={item.value}>
                         <div>
                           {isProduct(item) && (
-                            <img width='100%' src={item.data?.image_url} alt='' />
+                            <img
+                              width='100%'
+                              src={item.data?.image_url}
+                              alt=''
+                              data-testid='cio-img'
+                            />
                           )}
                           <p>{item.value}</p>
                         </div>
@@ -161,5 +169,3 @@ const HooksZeroStateTemplate: ComponentStory<JSXElementConstructor<any>> = funct
     </div>
   );
 };
-
-export const HookZeroState = HooksZeroStateTemplate.bind({});

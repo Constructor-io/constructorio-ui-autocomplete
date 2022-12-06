@@ -48,6 +48,7 @@ const DefaultRenderInput = ({ getFormProps, getInputProps, getLabelProps, setQue
       </button>
       <button
         className='cio-btn'
+        data-testid='cio-btn'
         disabled={!inputProps.value}
         type='submit'
         aria-label='Submit Search'>

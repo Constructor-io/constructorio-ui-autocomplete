@@ -32,3 +32,23 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
     .replace(/^./, function (str) {
       return str.toUpperCase();
     });
+
+export function isTrackingRequestSent(trackingRequestUrl) {
+  const trackingRequestsQueue = window.localStorage?._constructorio_requests;
+
+  return (
+    trackingRequestsQueue &&
+    JSON.parse(trackingRequestsQueue)?.some((request) => request?.url?.includes(trackingRequestUrl))
+  );
+}
+
+export function clearConstructorRequests() {
+  if (window.localStorage?._constructorio_requests) {
+    window.localStorage.removeItem('_constructorio_requests');
+  }
+}
+
+// Function to emulate pausing between interactions
+export function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

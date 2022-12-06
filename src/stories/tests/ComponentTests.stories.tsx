@@ -1,0 +1,232 @@
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
+import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
+import { codeSnippet } from '../../snippets';
+import { SectionItemsList } from '../../components';
+import { SectionItem } from '../../components';
+import { argTypes } from '../Autocomplete/argTypes';
+import { CioAutocompleteProps } from '../../components/Autocomplete/CioAutocompleteProvider';
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { isTrackingRequestSent, sleep } from '../../utils';
+
+const apiKey = 'key_jaqzPcUDnK66puIO';
+
+export default {
+  title: 'Autocomplete/Component/Interaction Tests',
+  component: CioAutocomplete,
+  subcomponents: { SectionItemsList, SectionItem },
+  argTypes,
+  parameters: {
+    // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
+    layout: 'fullscreen',
+    docs: {
+      source: {
+        code: codeSnippet,
+        language: 'jsx',
+        format: true,
+        type: 'code'
+      }
+    }
+  }
+} as ComponentMeta<typeof CioAutocomplete>;
+
+const Template: ComponentStory<typeof CioAutocomplete> = (args: CioAutocompleteProps) => (
+  <CioAutocomplete {...args} />
+);
+
+const defaultArgs: CioAutocompleteProps = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Search Suggestions'
+    },
+    {
+      identifier: 'Products'
+    }
+  ]
+};
+
+// - No Interaction => Correctly render default state
+export const RenderAutocompleteDefaultState = Template.bind({});
+RenderAutocompleteDefaultState.args = defaultArgs;
+RenderAutocompleteDefaultState.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  expect(canvas.getByTestId('cio-results')).toBeEmptyDOMElement();
+  expect(canvas.getByTestId('cio-input')).toHaveAttribute('placeholder');
+  expect(canvas.getByPlaceholderText('What can we help you find today?')).toBeInTheDocument();
+};
+
+// - focus in input field => network tracking event
+export const FocusFiresTrackingEvent = Template.bind({});
+FocusFiresTrackingEvent.args = defaultArgs;
+FocusFiresTrackingEvent.play = async ({ canvasElement }) => {
+  await sleep(100);
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('cio-input'));
+  const isFocusTrackingRequestSent = isTrackingRequestSent('action=focus');
+  expect(isFocusTrackingRequestSent).toBeTruthy();
+};
+
+// - focus in input field (with no zeroStateSections) => render no autocomplete sections
+export const FocusNoZeroStateShowNoResults = Template.bind({});
+FocusNoZeroStateShowNoResults.args = defaultArgs;
+FocusNoZeroStateShowNoResults.play = async ({ canvasElement }) => {
+  await sleep(100);
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('cio-input'));
+  expect(canvas.getByTestId('cio-results')).toBeEmptyDOMElement();
+};
+
+// - type search term => render term suggestions
+export const TypeSearchTermRenderSearchSuggestions = Template.bind({});
+TypeSearchTermRenderSearchSuggestions.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Search Suggestions'
+    }
+  ]
+};
+TypeSearchTermRenderSearchSuggestions.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
+  expect(canvas.getAllByTestId('cio-item-SearchSuggestions').length).toBeGreaterThan(0);
+};
+
+// - type search term => render products suggestions
+export const TypeSearchTermRenderProducts = Template.bind({});
+TypeSearchTermRenderProducts.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Products'
+    }
+  ]
+};
+TypeSearchTermRenderProducts.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
+  expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
+  const productImageElement = canvas.getAllByTestId('cio-img')?.[0];
+  expect(canvas.getAllByTestId('cio-item-Products')[0]).toContainElement(productImageElement);
+};
+
+// - type search term => render recommendations section
+export const TypeSearchTermRenderRecommendations = Template.bind({});
+TypeSearchTermRenderRecommendations.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations'
+    }
+  ]
+};
+TypeSearchTermRenderRecommendations.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
+  expect(canvas.getAllByTestId('cio-item-bestsellers').length).toBeGreaterThan(0);
+};
+
+// - type search term => render all sections
+export const TypeSearchTermRenderAllSections = Template.bind({});
+TypeSearchTermRenderAllSections.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Search Suggestions'
+    },
+    {
+      identifier: 'Products'
+    },
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations'
+    }
+  ]
+};
+TypeSearchTermRenderAllSections.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
+  expect(canvas.getAllByTestId('cio-item-bestsellers').length).toBeGreaterThan(0);
+};
+
+// - select term suggestion => network tracking event
+// - select term suggestion => network search submit event
+// - select term suggestion => update input to match clicked term
+export const SelectTermSuggestionFiresTrackingAndFillInput = Template.bind({});
+SelectTermSuggestionFiresTrackingAndFillInput.args = defaultArgs;
+SelectTermSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getAllByTestId('cio-item-SearchSuggestions').length).toBeGreaterThan(0);
+  const searchSuggestionItem = canvas.getAllByTestId('cio-item-SearchSuggestions')[0];
+  await userEvent.click(searchSuggestionItem);
+  const isSearchTrackingRequestSent = isTrackingRequestSent('/search?original_query=');
+  const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
+  expect(isSearchTrackingRequestSent).toBeTruthy();
+  expect(isSelectTrackingRequestSent).toBeTruthy();
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input')).toHaveValue(searchSuggestionItem.textContent);
+};
+
+// - select product suggestion => network tracking event
+// - select product suggestion => update input to match clicked product
+export const SelectProductSuggestionFiresTrackingAndFillInput = Template.bind({});
+SelectProductSuggestionFiresTrackingAndFillInput.args = defaultArgs;
+SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
+  const productSuggestionItem = canvas.getAllByTestId('cio-item-Products')[0];
+  await userEvent.click(productSuggestionItem);
+  const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
+  expect(isSelectTrackingRequestSent).toBeTruthy();
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input')).toHaveValue(productSuggestionItem.textContent);
+};
+
+// - click Enter in input => network search submit event
+export const EnterKeySubmitSearch = Template.bind({});
+EnterKeySubmitSearch.args = defaultArgs;
+EnterKeySubmitSearch.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  await userEvent.keyboard('{Enter}');
+  expect(isTrackingRequestSent('/search?original_query=')).toBeTruthy();
+};
+
+// - click search icon => network search submit event
+export const SearchIconSubmitSearch = Template.bind({});
+SearchIconSubmitSearch.args = defaultArgs;
+SearchIconSubmitSearch.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  await userEvent.click(canvas.getByTestId('cio-btn'));
+  expect(isTrackingRequestSent('/search?original_query=')).toBeTruthy();
+};
+
+// - click on clear button => clears input text
+export const ClearButtonClearInput = Template.bind({});
+ClearButtonClearInput.args = defaultArgs;
+ClearButtonClearInput.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  await userEvent.click(canvas.getByTestId('cio-clear-btn'));
+  expect(canvas.getByTestId('cio-input').textContent).toBe('');
+};
