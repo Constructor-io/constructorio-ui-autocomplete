@@ -23,5 +23,5 @@
       "env": { "node": true, "jest": true }
     }
   ],
-  "ignorePatterns": ["*.config.js"]
+  "ignorePatterns": ["*.config.js", "lib/**/*.js", "lib/*.d.ts"]
 }

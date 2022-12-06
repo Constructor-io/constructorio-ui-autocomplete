@@ -9,7 +9,9 @@ import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
 
-const useCioAutocomplete = (options: Omit<CioAutocompleteProps, 'children'>) => {
+export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+
+const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const defaultPlaceholder = 'What can we help you find today?';
   const {
     onSubmit,
