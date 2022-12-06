@@ -58,6 +58,16 @@ RenderAutocompleteDefaultState.play = async ({ canvasElement }) => {
   expect(canvas.getByPlaceholderText('What can we help you find today?')).toBeInTheDocument();
 };
 
+// - No Interaction => Correctly render custom placeholder
+export const RenderAutocompleteCustomPlaceholder = Template.bind({});
+RenderAutocompleteCustomPlaceholder.args = { ...defaultArgs, placeholder: 'custom placeholder' };
+RenderAutocompleteCustomPlaceholder.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  expect(canvas.getByTestId('cio-results')).toBeEmptyDOMElement();
+  expect(canvas.getByTestId('cio-input')).toHaveAttribute('placeholder');
+  expect(canvas.getByPlaceholderText('custom placeholder')).toBeInTheDocument();
+};
+
 // - focus in input field => network tracking event
 export const FocusFiresTrackingEvent = Template.bind({});
 FocusFiresTrackingEvent.args = defaultArgs;
@@ -136,9 +146,9 @@ TypeSearchTermRenderRecommendations.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-bestsellers').length).toBeGreaterThan(0);
 };
 
-// - type search term => render all sections
-export const TypeSearchTermRenderAllSections = Template.bind({});
-TypeSearchTermRenderAllSections.args = {
+// - type search term => render all sections in default order
+export const TypeSearchTermRenderSectionsDefaultOrder = Template.bind({});
+TypeSearchTermRenderSectionsDefaultOrder.args = {
   apiKey,
   sectionConfigurations: [
     {
@@ -153,12 +163,49 @@ TypeSearchTermRenderAllSections.args = {
     }
   ]
 };
-TypeSearchTermRenderAllSections.play = async ({ canvasElement }) => {
+TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
   await sleep(1000);
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
+  expect(canvas.getAllByTestId('cio-item-SearchSuggestions').length).toBeGreaterThan(0);
+  expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByTestId('cio-item-bestsellers').length).toBeGreaterThan(0);
+
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+};
+
+// - type search term => render all sections in custom order
+export const TypeSearchTermRenderSectionsCustomOrder = Template.bind({});
+TypeSearchTermRenderSectionsCustomOrder.args = {
+  apiKey,
+  sectionConfigurations: [
+    {
+      identifier: 'Products'
+    },
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations'
+    },
+    {
+      identifier: 'Search Suggestions'
+    }
+  ]
+};
+TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
+  expect(canvas.getAllByTestId('cio-item-SearchSuggestions').length).toBeGreaterThan(0);
+  expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
+  expect(canvas.getAllByTestId('cio-item-bestsellers').length).toBeGreaterThan(0);
+
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Search Suggestions');
 };
 
 // - select term suggestion => network tracking event

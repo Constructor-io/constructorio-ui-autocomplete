@@ -43,9 +43,8 @@ const defaultArgs: CioAutocompleteProps = {
   ]
 };
 
-export const RenderAutocompleteDefaultState = Hook.bind({});
-
 // - No Interaction => Correctly render default state
+export const RenderAutocompleteDefaultState = Hook.bind({});
 RenderAutocompleteDefaultState.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   expect(canvas.getByTestId('cio-results')).toBeEmptyDOMElement();
