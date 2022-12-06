@@ -9,7 +9,6 @@
   ],
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest",
     "lint": "eslint src --ext js,ts,jsx,tsx",
     "copy-files": "copyfiles -u 1 src/**/*.css build",
     "prepare": "husky install",
@@ -94,7 +93,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "npx prettier --write"
-    ],
-    "*.{test.ts, test.tsx}": "npm run test"
+    ]
   }
 }
