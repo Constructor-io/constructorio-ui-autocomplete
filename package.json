@@ -18,7 +18,7 @@
     "build-storybook": "build-storybook",
     "compile": "tsc && npm run copy-files",
     "rollup": "rollup -c",
-    "build": "run-s clear compile rollup",
+    "bundle": "run-s clear compile rollup",
     "api-docs": "api-documenter markdown -i temp -o docs"
   },
   "author": "",
