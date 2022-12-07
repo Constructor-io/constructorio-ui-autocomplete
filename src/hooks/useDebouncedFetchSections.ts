@@ -12,16 +12,19 @@ import { CioClient } from './useCioClient';
 const useDebouncedFetchSection = (
   query: string,
   cioClient?: CioClient,
-  sectionConfigurations?: SectionConfiguration[]
+  autocompleteSections?: SectionConfiguration[]
 ) => {
-  const [sections, setSections] = useState<AutocompleteResultSections>({});
+  const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
   const options: { resultsPerSection?: ResultsPerSection } = {};
 
-  if (sectionConfigurations) {
-    options.resultsPerSection = sectionConfigurations.reduce(
-      (acc, config) => ({ ...acc, [config.identifier]: config?.parameters?.numResults }),
+  if (autocompleteSections) {
+    options.resultsPerSection = autocompleteSections.reduce(
+      (acc, sectionConfig) => ({
+        ...acc,
+        [sectionConfig.identifier]: sectionConfig?.parameters?.numResults || 8
+      }),
       {}
     );
   }
@@ -31,21 +34,21 @@ const useDebouncedFetchSection = (
       cioClient?.autocomplete
         .getAutocompleteResults(debouncedSearchTerm, options)
         .then((response: AutocompleteApiResponse) => {
-          const newSections: AutocompleteResultSections = {};
+          const newSectionsData: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSections[section] = response.sections[section].map((item: Item) => ({
+            newSectionsData[section] = response.sections[section].map((item: Item) => ({
               ...item,
               section
             }));
           });
-          setSections(newSections);
+          setSectionsData(newSectionsData);
         });
     } else if (!debouncedSearchTerm) {
-      setSections({});
+      setSectionsData({});
     }
   }, [debouncedSearchTerm, cioClient]);
 
-  return sections;
+  return sectionsData;
 };
 
 export default useDebouncedFetchSection;

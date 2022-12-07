@@ -2,12 +2,23 @@ import { useState } from 'react';
 import useCioClient, { CioClientOptions } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { Item, SectionOrder, AutocompleteResultSections } from '../types';
+import { Item } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
+
+export const defaultSections: SectionConfiguration[] = [
+  {
+    identifier: 'Search Suggestions',
+    type: 'autocomplete'
+  },
+  {
+    identifier: 'Products',
+    type: 'autocomplete'
+  }
+];
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
@@ -20,56 +31,54 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     apiKey,
     cioJsClient,
     placeholder = defaultPlaceholder,
-    sectionConfigurations,
-    zeroStateSectionConfigurations
+    sections = defaultSections,
+    zeroStateSections
   } = options;
 
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
 
-  const zeroStateSectionsActive = !query.length && zeroStateSectionConfigurations;
+  const zeroStateSectionsActive = !query.length && zeroStateSections;
 
-  const activeSectionConfigurations = zeroStateSectionsActive
-    ? zeroStateSectionConfigurations
-    : sectionConfigurations;
+  const activeSections = zeroStateSectionsActive ? zeroStateSections : sections;
 
-  const autocompleteSections = activeSectionConfigurations?.filter(
+  const autocompleteSections = activeSections?.filter(
     (config: SectionConfiguration) => config.type === 'autocomplete' || !config.type
   );
-  const recommendationsSections = activeSectionConfigurations?.filter(
+  const recommendationsSections = activeSections?.filter(
     (config: SectionConfiguration) => config.type === 'recommendations'
   );
 
   const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
-  const activeSections = { ...autocompleteResults, ...recommendationsResults };
+  const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
-  const activeSectionConfigurationsWithData: SectionConfiguration[] = [];
+  const activeSectionsWithData: SectionConfiguration[] = [];
 
-  activeSectionConfigurations?.forEach((config) => {
+  activeSections?.forEach((config) => {
     const { identifier, data: customData } = config;
-    const data = activeSections[identifier] || customData;
+    const data = sectionResults[identifier] || customData;
 
     if (data && data !== undefined) {
-      activeSectionConfigurationsWithData.push({ ...config, data });
+      activeSectionsWithData.push({ ...config, data });
     }
   });
 
   const items: Item[] = [];
 
-  activeSectionConfigurationsWithData?.forEach((config: SectionConfiguration) => {
+  activeSectionsWithData?.forEach((config: SectionConfiguration) => {
     if (config?.data) {
       items.push(...config.data);
     }
   });
 
-  const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
+  const downshift = useDownShift({ setQuery, onChange, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, getComboboxProps } = downshift;
 
   return {
     query,
-    sections: activeSectionConfigurationsWithData,
+    sections: activeSectionsWithData,
     isOpen,
     getMenuProps: () => ({
       ...getMenuProps(),
@@ -81,7 +90,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     closeMenu,
     getItemProps: ({ item, index = 0, sectionIdentifier = 'Products' }) => {
       const indexOffset = getIndexOffset({
-        activeSectionConfigurations: activeSectionConfigurationsWithData,
+        activeSections: activeSectionsWithData,
         sectionIdentifier
       });
       return {

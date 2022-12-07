@@ -1,18 +1,15 @@
 import { SectionConfiguration } from './types';
 
 export type GetIndexOffset = (args: {
-  activeSectionConfigurations: SectionConfiguration[];
+  activeSections: SectionConfiguration[];
   sectionIdentifier: string;
 }) => number;
 
-export const getIndexOffset: GetIndexOffset = ({
-  activeSectionConfigurations,
-  sectionIdentifier
-}) => {
+export const getIndexOffset: GetIndexOffset = ({ activeSections, sectionIdentifier }) => {
   let indexOffset = 0;
 
   if (sectionIdentifier) {
-    activeSectionConfigurations.find((config: SectionConfiguration) => {
+    activeSections.find((config: SectionConfiguration) => {
       if (config?.identifier === sectionIdentifier) return true; // break out of loop
       indexOffset += config?.data?.length || 0;
       return false; // continue
@@ -32,3 +29,25 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
     .replace(/^./, function (str) {
       return str.toUpperCase();
     });
+
+// More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
+export const getStoryParams = (storyCode, templateCode) => {
+  const code = `${storyCode}
+
+//////////////////////////////
+${templateCode}`;
+
+  return {
+    layout: 'fullscreen',
+    docs: {
+      source: {
+        code,
+        language: 'jsx',
+        format: true,
+        type: 'code'
+      }
+    }
+  };
+};
+
+export const stringify = (obj) => JSON.stringify(obj, null, '  ');
