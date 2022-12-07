@@ -63,8 +63,8 @@ export const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
 
 // Warnings were encountered during analysis:
 //
-// src/hooks/useCioAutocomplete.ts:14:63 - (ae-forgotten-export) The symbol "SectionConfiguration" needs to be exported by the entry point index.d.ts
-// src/hooks/useCioAutocomplete.ts:14:63 - (ae-forgotten-export) The symbol "CioClient" needs to be exported by the entry point index.d.ts
+// src/hooks/useCioAutocomplete.ts:25:63 - (ae-forgotten-export) The symbol "SectionConfiguration" needs to be exported by the entry point index.d.ts
+// src/hooks/useCioAutocomplete.ts:25:63 - (ae-forgotten-export) The symbol "CioClient" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
