@@ -77,8 +77,7 @@ declare type CioAutocompleteProps = CioClientOptions & {
   placeholder?: string;
   children?: ReactNode;
   sections?: SectionConfiguration[];
-  sectionConfigurations: SectionConfiguration[];
-  zeroStateSectionConfigurations?: SectionConfiguration[];
+  zeroStateSections?: SectionConfiguration[];
 };
 
 declare interface CioClient {
