@@ -90,20 +90,17 @@ The best was to get familiar with this UI Library is with storybook.
 
 ## Local Development
 
-### Get Started
+### Development scripts
 ```bash
 npm ci                  # install dependencies for local dev
 npm run storybook       # start a local dev server for Storybook
 npm run lint            # run linter
 ```
 
-### Additional NPM Commands
+### Maintain Library
 ```bash
 npm run bundle            # generate library bundle ready for publishing
-npm run compile           # compile typescript and generate decalration files
-npm run rollup            # rollup javascript files and rollup typescript declaration files
 npm run build-storybook   # generate storybook bundled static page that can be deployed
-npm run api-docs          # generate API docs
 ```
 
 ## Supporting Docs
