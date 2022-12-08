@@ -51,10 +51,10 @@ export function sleep(ms) {
 }
 // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
 export const getStoryParams = (storyCode, templateCode) => {
-  const code = `${storyCode}
-
-//////////////////////////////
-${templateCode}`;
+  const code = `
+    ${storyCode}
+    ${templateCode}
+  `;
 
   return {
     layout: 'fullscreen',

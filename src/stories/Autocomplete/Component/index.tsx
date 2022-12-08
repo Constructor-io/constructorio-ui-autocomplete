@@ -12,12 +12,12 @@ export const ComponentTemplate: ComponentStory<typeof CioAutocomplete> = (
 
 const componentTemplateCode = `
 function YourComponent() {
-
   return (
     <div>
       <CioAutocomplete {...args} />
     </div>
   );
+}
 `;
 
 export const getComponentStoryParams = (storyParams) =>

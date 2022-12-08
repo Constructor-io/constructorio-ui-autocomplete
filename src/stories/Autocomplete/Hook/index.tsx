@@ -75,7 +75,7 @@ function YourComponent() {
       </form>
       <div {...getMenuProps()}>
         {isOpen && (
-          <div className='cio-results'>
+          <>
             {sections?.map((section) => (
               <div key={section.identifier}>
                 <div className='cio-section'>
@@ -104,7 +104,7 @@ function YourComponent() {
                 </div>
               </div>
             ))}
-          </div>
+          </>
         )}
       </div>
     </div>
