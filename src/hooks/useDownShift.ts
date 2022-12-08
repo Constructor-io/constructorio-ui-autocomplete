@@ -8,7 +8,7 @@ type UseDownShiftOptions = {
   onSubmit?: OnSubmit;
   previousQuery?: string;
   cioClient?: CioClient;
-  onChange?: () => void;
+  onChange?: (string) => void;
 };
 
 export type DownShift = UseComboboxReturnValue<Item>;
@@ -29,7 +29,7 @@ const useDownShift: UseDownShift = ({
     onInputValueChange: async ({ inputValue = '' }) => {
       setQuery(inputValue);
       if (onChange) {
-        onChange();
+        onChange(inputValue);
       }
     },
     onSelectedItemChange({ selectedItem }) {

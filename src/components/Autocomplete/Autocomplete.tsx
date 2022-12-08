@@ -5,7 +5,7 @@ import { SectionConfiguration } from '../../types';
 
 export default function Autocomplete() {
   const apiKey = 'key_jaqzPcUDnK66puIO';
-  const sectionConfigurations = [
+  const sections = [
     {
       identifier: 'Products',
       type: 'autocomplete'
@@ -16,5 +16,5 @@ export default function Autocomplete() {
     }
   ] as SectionConfiguration[];
 
-  return <CioAutocomplete apiKey={apiKey} sectionConfigurations={sectionConfigurations} />;
+  return <CioAutocomplete apiKey={apiKey} sections={sections} />;
 }
