@@ -26,7 +26,7 @@ const useDownShift: UseDownShift = ({
   onChange
 }) => {
   return useCombobox({
-    id: `cio-${idCounter++}`,
+    id: `cio-autocomplete-${idCounter++}`,
     items,
     itemToString: (item) => (item ? item.value : ''),
     onInputValueChange: async ({ inputValue = '' }) => {
