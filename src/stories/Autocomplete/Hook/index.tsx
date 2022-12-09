@@ -20,9 +20,9 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
         </form>
         <div {...getMenuProps()}>
           {isOpen && (
-            <div className='cio-results'>
+            <>
               {sections?.map((section) => (
-                <div key={section.identifier}>
+                <div key={section.identifier} className={section.identifier}>
                   <div className='cio-section'>
                     <div className='cio-sectionName'>
                       {section?.displayName || section.identifier}
@@ -39,7 +39,12 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
                           key={item?.data?.id}>
                           <div>
                             {isProduct(item) && (
-                              <img width='100%' src={item.data?.image_url} alt='' />
+                              <img
+                                width='100%'
+                                src={item.data?.image_url}
+                                alt=''
+                                data-testid='cio-img'
+                              />
                             )}
                             <p>{item.value}</p>
                           </div>
@@ -49,7 +54,7 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
                   </div>
                 </div>
               ))}
-            </div>
+            </>
           )}
         </div>
       </div>
@@ -70,7 +75,7 @@ function YourComponent() {
       </form>
       <div {...getMenuProps()}>
         {isOpen && (
-          <div className='cio-results'>
+          <>
             {sections?.map((section) => (
               <div key={section.identifier}>
                 <div className='cio-section'>
@@ -99,7 +104,7 @@ function YourComponent() {
                 </div>
               </div>
             ))}
-          </div>
+          </>
         )}
       </div>
     </div>

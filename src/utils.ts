@@ -30,12 +30,31 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
       return str.toUpperCase();
     });
 
+export function isTrackingRequestSent(trackingRequestUrl) {
+  const trackingRequestsQueue = window.localStorage?._constructorio_requests;
+
+  return (
+    trackingRequestsQueue &&
+    JSON.parse(trackingRequestsQueue)?.some((request) => request?.url?.includes(trackingRequestUrl))
+  );
+}
+
+export function clearConstructorRequests() {
+  if (window.localStorage?._constructorio_requests) {
+    window.localStorage.removeItem('_constructorio_requests');
+  }
+}
+
+// Function to emulate pausing between interactions
+export function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
 export const getStoryParams = (storyCode, templateCode) => {
-  const code = `${storyCode}
-
-//////////////////////////////
-${templateCode}`;
+  const code = `
+    ${storyCode}
+    ${templateCode}
+  `;
 
   return {
     layout: 'fullscreen',

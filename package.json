@@ -9,12 +9,13 @@
   ],
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest",
     "lint": "eslint src --ext js,ts,jsx,tsx",
     "copy-files": "copyfiles -u 1 src/**/*.css build",
     "prepare": "husky install",
     "clear": "rimraf build lib",
     "storybook": "start-storybook -p 6006",
+    "test-storybook": "test-storybook",
+    "test-storybook:watch": "test-storybook --watch",
     "build-storybook": "build-storybook",
     "compile": "tsc && npm run copy-files",
     "rollup": "rollup -c",
@@ -41,13 +42,15 @@
     "@storybook/addon-a11y": "^6.5.12",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
-    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.13",
     "@storybook/addon-links": "^6.5.12",
     "@storybook/builder-webpack4": "^6.5.12",
     "@storybook/builder-webpack5": "^6.5.12",
+    "@storybook/jest": "^0.0.10",
     "@storybook/manager-webpack4": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.12",
     "@storybook/react": "^6.5.12",
+    "@storybook/test-runner": "^0.9.0",
     "@storybook/testing-library": "^0.0.13",
     "@types/jest": "^29.0.3",
     "@types/react": "^18.0.20",
@@ -90,7 +93,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "npx prettier --write"
-    ],
-    "*.{test.ts, test.tsx}": "npm run test"
+    ]
   }
 }

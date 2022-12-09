@@ -96,7 +96,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       return {
         ...downshift.getItemProps({ item, index: index + indexOffset }),
         className: 'cio-item',
-        'data-testid': 'cio-item'
+        'data-testid': `cio-item-${sectionIdentifier.replace(' ', '')}`
       };
     },
     getInputProps: () => ({
