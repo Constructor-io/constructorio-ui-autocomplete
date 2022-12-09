@@ -2,6 +2,8 @@ import { useCombobox, UseComboboxReturnValue } from 'downshift';
 import { Item, OnSubmit } from '../types';
 import { CioClient } from './useCioClient';
 
+let idCounter = 0;
+
 type UseDownShiftOptions = {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   items: Item[];
@@ -24,6 +26,7 @@ const useDownShift: UseDownShift = ({
   onChange
 }) => {
   return useCombobox({
+    id: `cio-${idCounter++}`,
     items,
     itemToString: (item) => (item ? item.value : ''),
     onInputValueChange: async ({ inputValue = '' }) => {
