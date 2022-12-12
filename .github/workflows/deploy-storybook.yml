@@ -11,6 +11,6 @@ jobs:
       - name: Install and Build 🔧
         run: npm ci
       - name: Deploy storybook to GitHub Pages
-        run: npm run deploy-storybook -- --ci
+        run: npm run deploy-storybook -- --ci --branch=psl-1242-mvp-storybook-hosting-on-github-pages
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
