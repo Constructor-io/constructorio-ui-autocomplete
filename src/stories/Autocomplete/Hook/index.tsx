@@ -4,7 +4,7 @@ import useCioAutocomplete, { UseCioAutocompleteOptions } from '../../../hooks/us
 import { isProduct } from '../../../typeGuards';
 import { getStoryParams } from '../../../utils';
 
-export const apiKey = 'key_jaqzPcUDnK66puIO'; // test actions
+export const apiKey = 'key_jaqzPcUDnK66puIO';
 
 export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompleteOptions>> =
   function (args) {

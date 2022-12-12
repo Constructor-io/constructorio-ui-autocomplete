@@ -10,7 +10,5 @@ jobs:
           node-version: '16.13.0'
       - name: Install and Build 🔧
         run: npm ci
-      - name: Deploy storybook to GitHub Pages
-        run: npm run deploy-storybook -- --ci
-        env:
-          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+      - name: Build static storybook files for deploy to GitHub Pages
+        run: npm run build-storybook
