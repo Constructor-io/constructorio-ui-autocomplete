@@ -11,11 +11,11 @@ const useFetchRecommendationPod = (
   );
 
   useEffect(() => {
-    if (!cioClient || recommendationPods?.length === 0) return;
+    if (!cioClient || !Array.isArray(recommendationPods) || recommendationPods.length === 0) return;
     const fetchRecommendationResults = async () => {
       const responses = await Promise.all(
-        recommendationPods?.map(({ identifier: podId, parameters }) =>
-          cioClient?.recommendations.getRecommendations(podId, parameters)
+        recommendationPods.map(({ identifier: podId, parameters }) =>
+          cioClient.recommendations.getRecommendations(podId, parameters)
         )
       );
       const recommendationPodResults = {};
