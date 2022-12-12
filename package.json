@@ -14,7 +14,7 @@
     "prepare": "husky install",
     "clear": "rimraf build lib",
     "storybook": "start-storybook -p 6006",
-    "storybook:ci": "start-storybook storybook --ci -p 6006",
+    "storybook:ci": "start-storybook --ci --quiet -p 6006",
     "test-storybook": "test-storybook",
     "test-storybook:watch": "test-storybook --watch",
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
