@@ -12,3 +12,10 @@ jobs:
         run: npm ci
       - name: Build static storybook files for deploy to GitHub Pages
         run: npm run build-storybook
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: actions@github.com
+          message: 'build static storybook files for github pages deploy'
+          add: '*'
