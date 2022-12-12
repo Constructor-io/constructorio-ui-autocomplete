@@ -19,3 +19,4 @@ jobs:
           author_email: actions@github.com
           message: 'build static storybook files for github pages deploy'
           add: '*'
+          commit: --no-verify
