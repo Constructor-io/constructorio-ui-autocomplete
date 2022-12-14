@@ -34,7 +34,7 @@ import { useCioAutocomplete } from 'cio-autocomplete-ts';
 
 function YourComponent() {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
-    useCioAutocomplete({apiKey: "key_jaqzPcUDnK66puIO"});
+    useCioAutocomplete({ apiKey: 'key_jaqzPcUDnK66puIO' });
 
   const { onSubmit, ...formProps } = getFormProps();
 
@@ -79,11 +79,13 @@ function YourComponent() {
       </div>
     </div>
   );
-};
+}
 ```
 
 ## Explore Functionality with Storybook
-The best was to get familiar with this UI Library is with storybook.
+
+[Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore this UI Library.
+
 ![Storybook Canvas](docs-images/storybook-canvas.png)
 ![Storybook Docs](docs-images/storybook-docs.png)
 ![Show Code](docs-images/storybook-docs-show-code.png)
@@ -91,6 +93,7 @@ The best was to get familiar with this UI Library is with storybook.
 ## Local Development
 
 ### Development scripts
+
 ```bash
 npm ci                  # install dependencies for local dev
 npm run storybook       # start a local dev server for Storybook
@@ -98,12 +101,14 @@ npm run lint            # run linter
 ```
 
 ### Maintain Library
+
 ```bash
 npm run bundle            # generate library bundle ready for publishing
 npm run build-storybook   # generate storybook bundled static page that can be deployed
 ```
 
 ## Supporting Docs
+
 - [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
 - [Typescript Docs](https://www.typescriptlang.org/docs/)
 - [Rollup](https://www.npmjs.com/package/rollup)
