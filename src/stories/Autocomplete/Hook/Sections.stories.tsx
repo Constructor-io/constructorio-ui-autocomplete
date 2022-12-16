@@ -2,13 +2,25 @@ import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { HooksTemplate, getHookStoryParams, apiKey } from '.';
+import { sectionsDescription } from '../../../constants';
+import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
 export default {
   title: 'Autocomplete/Hook/Sections',
   component: CioAutocomplete,
-  argTypes
+  argTypes,
+  parameters: {
+    docs: {
+      description: {
+        component: sectionsDescription
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
+
+export const Default = HooksTemplate.bind({});
+Default.args = { apiKey };
+Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
 
 export const SearchSuggestions = HooksTemplate.bind({});
 SearchSuggestions.args = {
@@ -19,9 +31,7 @@ SearchSuggestions.args = {
     }
   ]
 };
-SearchSuggestions.parameters = getHookStoryParams(
-  `const args = ${stringify(SearchSuggestions.args)}`
-);
+addHookStoryCode(SearchSuggestions, `const args = ${stringify(SearchSuggestions.args)}`);
 
 export const Products = HooksTemplate.bind({});
 Products.args = {
@@ -32,8 +42,18 @@ Products.args = {
     }
   ]
 };
-Products.parameters = getHookStoryParams(`
-const args = ${stringify(Products.args)}`);
+addHookStoryCode(Products, `const args = ${stringify(Products.args)}`);
+
+export const Content = HooksTemplate.bind({});
+Content.args = {
+  apiKey,
+  sections: [
+    {
+      identifier: 'Content'
+    }
+  ]
+};
+addHookStoryCode(Content, `const args = ${stringify(Content.args)}`);
 
 export const NumResults = HooksTemplate.bind({});
 NumResults.args = {
@@ -47,7 +67,7 @@ NumResults.args = {
     }
   ]
 };
-NumResults.parameters = getHookStoryParams(`const args = ${stringify(NumResults.args)}`);
+addHookStoryCode(NumResults, `const args = ${stringify(NumResults.args)}`);
 
 export const SectionOrder = HooksTemplate.bind({});
 SectionOrder.args = {
@@ -61,8 +81,7 @@ SectionOrder.args = {
     }
   ]
 };
-SectionOrder.parameters = getHookStoryParams(`
-const args = ${stringify(SectionOrder.args)}`);
+addHookStoryCode(SectionOrder, `const args = ${stringify(SectionOrder.args)}`);
 
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
@@ -80,7 +99,7 @@ Recommendations.args = {
     }
   ]
 };
-Recommendations.parameters = getHookStoryParams(`const args = ${stringify(Recommendations.args)}`);
+addHookStoryCode(Recommendations, `const args = ${stringify(Recommendations.args)}`);
 
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
@@ -112,4 +131,4 @@ CustomSection.args = {
     }
   ]
 };
-CustomSection.parameters = getHookStoryParams(`const args = ${stringify(CustomSection.args)}`);
+addHookStoryCode(CustomSection, `const args = ${stringify(CustomSection.args)}`);

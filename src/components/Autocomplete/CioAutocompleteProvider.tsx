@@ -2,10 +2,9 @@ import React from 'react';
 import { createContext, ReactNode } from 'react';
 import useCioAutocomplete from '../../hooks/useCioAutocomplete';
 import { CioClientOptions } from '../../hooks/useCioClient';
-import { OnSubmit, ResultsPerSection, SectionConfiguration } from '../../types';
+import { OnSubmit, SectionConfiguration } from '../../types';
 
 export type CioAutocompleteProps = CioClientOptions & {
-  resultsPerSection?: ResultsPerSection;
   openOnFocus?: boolean;
   onSubmit?: OnSubmit;
   onFocus?: () => void;

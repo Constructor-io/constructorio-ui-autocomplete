@@ -2,13 +2,25 @@ import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { HooksTemplate, getHookStoryParams, apiKey } from '.';
+import { zeroStateDescription } from '../../../constants';
+import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
 export default {
   title: 'Autocomplete/Hook/Zero State',
   component: CioAutocomplete,
-  argTypes
+  argTypes,
+  parameters: {
+    docs: {
+      description: {
+        component: zeroStateDescription
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
+
+export const Default = HooksTemplate.bind({});
+Default.args = { apiKey };
+Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
 
 export const ZeroStateSections = HooksTemplate.bind({});
 ZeroStateSections.args = {
@@ -20,9 +32,7 @@ ZeroStateSections.args = {
     }
   ]
 };
-ZeroStateSections.parameters = getHookStoryParams(
-  `const args = ${stringify(ZeroStateSections.args)}`
-);
+addHookStoryCode(ZeroStateSections, `const args = ${stringify(ZeroStateSections.args)}`);
 
 export const NoOpenOnFocus = HooksTemplate.bind({});
 NoOpenOnFocus.args = {
@@ -35,7 +45,7 @@ NoOpenOnFocus.args = {
     }
   ]
 };
-NoOpenOnFocus.parameters = getHookStoryParams(`const args = ${stringify(NoOpenOnFocus.args)}`);
+addHookStoryCode(NoOpenOnFocus, `const args = ${stringify(NoOpenOnFocus.args)}`);
 
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
@@ -47,7 +57,7 @@ Recommendations.args = {
     }
   ]
 };
-Recommendations.parameters = getHookStoryParams(`const args = ${stringify(Recommendations.args)}`);
+addHookStoryCode(Recommendations, `const args = ${stringify(Recommendations.args)}`);
 
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
@@ -76,7 +86,7 @@ CustomSection.args = {
     }
   ]
 };
-CustomSection.parameters = getHookStoryParams(`const args = ${stringify(CustomSection.args)}`);
+addHookStoryCode(CustomSection, `const args = ${stringify(CustomSection.args)}`);
 
 export const MultipleSections = HooksTemplate.bind({});
 MultipleSections.args = {
@@ -109,6 +119,4 @@ MultipleSections.args = {
     }
   ]
 };
-MultipleSections.parameters = getHookStoryParams(
-  `const args = ${stringify(MultipleSections.args)}`
-);
+addHookStoryCode(MultipleSections, `const args = ${stringify(MultipleSections.args)}`);

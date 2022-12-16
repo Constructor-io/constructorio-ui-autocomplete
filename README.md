@@ -36,18 +36,16 @@ function YourComponent() {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
     useCioAutocomplete({ apiKey: 'key_jaqzPcUDnK66puIO' });
 
-  const { onSubmit, ...formProps } = getFormProps();
-
   return (
     <div className='cio-autocomplete'>
-      <form className='cio-form' {...formProps} onSubmit={onSubmit}>
+      <form {...getFormProps()}>
         <input {...getInputProps()} />
       </form>
       <div {...getMenuProps()}>
         {isOpen && (
-          <div className='cio-results'>
+          <>
             {sections?.map((section) => (
-              <div key={section.identifier}>
+              <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
                   <div className='cio-sectionName'>
                     {section?.displayName || section.identifier}
@@ -60,11 +58,15 @@ function YourComponent() {
                           index,
                           sectionIdentifier: section.identifier
                         })}
-                        className='cio-item'
-                        key={item.value}>
+                        key={item?.data?.id}>
                         <div>
                           {isProduct(item) && (
-                            <img width='100%' src={item.data?.image_url} alt='' />
+                            <img
+                              width='100%'
+                              src={item.data?.image_url}
+                              alt=''
+                              data-testid='cio-img'
+                            />
                           )}
                           <p>{item.value}</p>
                         </div>
@@ -74,7 +76,7 @@ function YourComponent() {
                 </div>
               </div>
             ))}
-          </div>
+          </>
         )}
       </div>
     </div>

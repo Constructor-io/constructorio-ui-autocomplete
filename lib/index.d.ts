@@ -67,7 +67,6 @@ declare type BaseSectionConfiguration = {
 export declare function CioAutocomplete(props: CioAutocompleteProps): JSX.Element;
 
 declare type CioAutocompleteProps = CioClientOptions & {
-    resultsPerSection?: ResultsPerSection;
     openOnFocus?: boolean;
     onSubmit?: OnSubmit;
     onFocus?: () => void;
@@ -198,10 +197,6 @@ declare type RenderResults = (renderResultsArguments: {
 declare type RenderSectionItemsList = (renderResultsArguments: {
     section: SectionConfiguration;
 }) => ReactElement;
-
-declare type ResultsPerSection = {
-    [key: string]: number;
-};
 
 export declare function SearchInput(props: SearchInputProps): JSX.Element;
 

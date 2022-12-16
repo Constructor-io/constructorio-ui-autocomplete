@@ -50,14 +50,14 @@ export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
-export const getStoryParams = (storyCode, templateCode) => {
+export const getStoryParams = (storyCode, templateCode, importCode) => {
   const code = `
-    ${storyCode}
-    ${templateCode}
-  `;
+${importCode}
+${storyCode}
+${templateCode}
+`;
 
   return {
-    layout: 'fullscreen',
     docs: {
       source: {
         code,
@@ -70,3 +70,7 @@ export const getStoryParams = (storyCode, templateCode) => {
 };
 
 export const stringify = (obj) => JSON.stringify(obj, null, '  ');
+
+export const disableStoryActions = (story) => {
+  story.parameters.actions = { argTypesRegex: null };
+};

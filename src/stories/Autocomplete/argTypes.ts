@@ -11,7 +11,7 @@ export const argTypes = {
     }
   },
   apiKey: {
-    type: { name: 'string', required: true },
+    type: { name: 'string' },
     description: 'Your constructor API key',
     table: {
       type: {

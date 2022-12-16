@@ -11,11 +11,9 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
     const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
       useCioAutocomplete(args);
 
-    const { onSubmit, ...formProps } = getFormProps();
-
     return (
       <div className='cio-autocomplete'>
-        <form className='cio-form' {...formProps} onSubmit={onSubmit}>
+        <form {...getFormProps()}>
           <input {...getInputProps()} />
         </form>
         <div {...getMenuProps()}>
@@ -35,7 +33,6 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
                             index,
                             sectionIdentifier: section.identifier
                           })}
-                          className='cio-item'
                           key={item?.data?.id}>
                           <div>
                             {isProduct(item) && (
@@ -64,20 +61,18 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
 const hooksTemplateCode = `
 function YourComponent() {
   const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
-    useCioAutocomplete(args);
-
-  const { onSubmit, ...formProps } = getFormProps();
+      useCioAutocomplete(args);
 
   return (
     <div className='cio-autocomplete'>
-      <form className='cio-form' {...formProps} onSubmit={onSubmit}>
+      <form {...getFormProps()}>
         <input {...getInputProps()} />
       </form>
       <div {...getMenuProps()}>
         {isOpen && (
           <>
             {sections?.map((section) => (
-              <div key={section.identifier}>
+              <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
                   <div className='cio-sectionName'>
                     {section?.displayName || section.identifier}
@@ -90,11 +85,15 @@ function YourComponent() {
                           index,
                           sectionIdentifier: section.identifier
                         })}
-                        className='cio-item'
                         key={item?.data?.id}>
                         <div>
-                          {isProduct(item) && (
-                            <img width='100%' src={item.data?.image_url} alt='' />
+                          {item?.data?.image_url && (
+                            <img
+                              width='100%'
+                              src={item.data.image_url}
+                              alt=''
+                              data-testid='cio-img'
+                            />
                           )}
                           <p>{item.value}</p>
                         </div>
@@ -112,4 +111,16 @@ function YourComponent() {
 };
 `;
 
-export const getHookStoryParams = (storyCode) => getStoryParams(storyCode, hooksTemplateCode);
+const importHook = `import { useCioAutocomplete } from 'cio-autocomplete-ts';`;
+
+export const getHookStoryParams = (storyCode) =>
+  getStoryParams(storyCode, hooksTemplateCode, importHook);
+
+export const addHookStoryCode = (story, code) => {
+  story.parameters = getHookStoryParams(code);
+  story.parameters.docs.description = {
+    story: `\`\`\`jsx
+${code}
+\`\`\``
+  };
+};

@@ -3,14 +3,26 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { ComponentTemplate, getComponentStoryParams, apiKey } from '.';
+import { zeroStateDescription } from '../../../constants';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryCode, apiKey } from '.';
 
 export default {
   title: 'Autocomplete/Component/Zero State',
   component: CioAutocomplete,
   subcomponents: { SearchInput, SectionItemsList, SectionItem },
-  argTypes
+  argTypes,
+  parameters: {
+    docs: {
+      description: {
+        component: zeroStateDescription
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
+
+export const Default = ComponentTemplate.bind({});
+Default.args = { apiKey };
+Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
 
 export const ZeroStateSections = ComponentTemplate.bind({});
 ZeroStateSections.args = {
@@ -22,9 +34,7 @@ ZeroStateSections.args = {
     }
   ]
 };
-ZeroStateSections.parameters = getComponentStoryParams(
-  `const args = ${stringify(ZeroStateSections.args)}`
-);
+addComponentStoryCode(ZeroStateSections, `const args = ${stringify(ZeroStateSections.args)}`);
 
 export const NoOpenOnFocus = ComponentTemplate.bind({});
 NoOpenOnFocus.args = {
@@ -37,7 +47,7 @@ NoOpenOnFocus.args = {
     }
   ]
 };
-NoOpenOnFocus.parameters = getComponentStoryParams(`const args = ${stringify(NoOpenOnFocus.args)}`);
+addComponentStoryCode(NoOpenOnFocus, `const args = ${stringify(NoOpenOnFocus.args)}`);
 
 export const Recommendations = ComponentTemplate.bind({});
 Recommendations.args = {
@@ -49,9 +59,7 @@ Recommendations.args = {
     }
   ]
 };
-Recommendations.parameters = getComponentStoryParams(
-  `const args = ${stringify(Recommendations.args)}`
-);
+addComponentStoryCode(Recommendations, `const args = ${stringify(Recommendations.args)}`);
 
 export const CustomSection = ComponentTemplate.bind({});
 CustomSection.args = {
@@ -80,7 +88,7 @@ CustomSection.args = {
     }
   ]
 };
-CustomSection.parameters = getComponentStoryParams(`const args = ${stringify(CustomSection.args)}`);
+addComponentStoryCode(CustomSection, `const args = ${stringify(CustomSection.args)}`);
 
 export const MultipleSections = ComponentTemplate.bind({});
 MultipleSections.args = {
@@ -113,6 +121,4 @@ MultipleSections.args = {
     }
   ]
 };
-MultipleSections.parameters = getComponentStoryParams(
-  `const args = ${stringify(MultipleSections.args)}`
-);
+addComponentStoryCode(MultipleSections, `const args = ${stringify(MultipleSections.args)}`);
