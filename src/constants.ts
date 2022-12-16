@@ -3,6 +3,8 @@ export const componentDescription = `- import \`CioAutocomplete\` to render in y
 - To use this component, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
 - Use different props to configure the behavior of this component.
 - The following stories shows how different props affect the component's behavior
+
+> Note: when we say \`cioClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
 `;
 
 export const hookDescription = `- import \`useCioAutocomplete\` and call this custom hook in a functional component.
@@ -29,10 +31,11 @@ const {
   closeMenu: () => void, // close menu
   getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   setQuery: () => void, // update the current input field value
-  cioClient, // instance of constructorio-client-javascript
+  cioClient, // instance of
  } = useCioAutocomplete(args);
 \`\`\`
 
+> Note: when we say \`cioClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
 `;
 
 export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
