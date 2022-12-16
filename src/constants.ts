@@ -13,7 +13,7 @@ export const hookDescription = `- import \`useCioAutocomplete\` and call this cu
 - Pass different options to the \`useCioAutocomplete\` hook to configure behavior.
 - The following stories shows how different options affect the hook's behavior
 
-The calling this hook returns an object with the following keys:
+Calling the \`useCioAutocomplete\` hook returns an object with the following keys:
 
 \`\`\`jsx
 const {
@@ -31,7 +31,7 @@ const {
   closeMenu: () => void, // close menu
   getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   setQuery: () => void, // update the current input field value
-  cioClient, // instance of
+  cioClient, // instance of constructorio-client-javascript
  } = useCioAutocomplete(args);
 \`\`\`
 
@@ -43,7 +43,29 @@ export const sectionsDescription = `- by default, typing a query will fetch data
 - the order of the objects in the \`sections\` array determines the order of the results
 - each section object must have an \`identifier\`
 - each section object can specify a \`type\`
-- each section object can override the default \`numResults\` of 8`;
+- each section object can override the default \`numResults\` of 8
+
+When no values are passed for the \`sections\` argument, the following defaults are used:
+
+\`\`\`jsx
+[
+  {
+    identifier: 'Search Suggestions',
+    type: 'autocomplete',
+    parameters: {
+      numResults: 8
+    }
+  },
+  {
+    identifier: 'Products',
+    type: 'autocomplete',
+    parameters: {
+      numResults: 8
+    }
+  }
+]
+\`\`\`
+`;
 
 export const userEventsDescription = `- pass callback functions to respond to user events
 - if provided, the onFocus callback function will be called each time the user focuses on the text input field
