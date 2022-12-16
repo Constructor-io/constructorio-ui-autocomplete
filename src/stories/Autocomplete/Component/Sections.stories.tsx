@@ -46,6 +46,17 @@ Products.args = {
 };
 addComponentStoryCode(Products, `const args = ${stringify(Products.args)}`);
 
+export const Content = ComponentTemplate.bind({});
+Content.args = {
+  apiKey,
+  sections: [
+    {
+      identifier: 'Content'
+    }
+  ]
+};
+addComponentStoryCode(Content, `const args = ${stringify(Content.args)}`);
+
 export const NumResults = ComponentTemplate.bind({});
 NumResults.args = {
   apiKey,

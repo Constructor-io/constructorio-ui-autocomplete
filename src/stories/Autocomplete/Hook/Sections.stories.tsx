@@ -44,6 +44,17 @@ Products.args = {
 };
 addHookStoryCode(Products, `const args = ${stringify(Products.args)}`);
 
+export const Content = HooksTemplate.bind({});
+Content.args = {
+  apiKey,
+  sections: [
+    {
+      identifier: 'Content'
+    }
+  ]
+};
+addHookStoryCode(Content, `const args = ${stringify(Content.args)}`);
+
 export const NumResults = HooksTemplate.bind({});
 NumResults.args = {
   apiKey,
