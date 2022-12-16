@@ -41,7 +41,21 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const zeroStateSectionsActive = !query.length && zeroStateSections;
 
-  const activeSections = zeroStateSectionsActive ? zeroStateSections : sections;
+  let activeSections = zeroStateSectionsActive ? zeroStateSections : sections;
+
+  if (sections && !Array.isArray(sections)) {
+    console.error(
+      'useCioAutocomplete expects sections to reference an array of section configuration objects'
+    );
+    activeSections = [];
+  }
+
+  if (zeroStateSections && !Array.isArray(zeroStateSections)) {
+    console.error(
+      'useCioAutocomplete expects zeroStateSections to reference an array of section configuration objects'
+    );
+    activeSections = [];
+  }
 
   const autocompleteSections = activeSections?.filter(
     (config: SectionConfiguration) => config.type === 'autocomplete' || !config.type
