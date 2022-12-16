@@ -23,7 +23,9 @@ export const userEventsDescription = `- pass callback functions to respond to us
 - if provided, the onFocus callback function will be called each time the user focuses on the text input field
 - if provided, the onChange callback function will be called each time the user changes the value in the text input field
 - if provided, the onSubmit callback function will be called each time the user submits the form
-- the user can submit the form by pressing the enter key in the text input field, clicking a submit button within the form, clicking on a result, or pressing enter while a result is selected`;
+- the user can submit the form by pressing the enter key in the text input field, clicking a submit button within the form, clicking on a result, or pressing enter while a result is selected
+
+> ⚠️ NOTE ⚠️ Use the Storybook Canvas Actions tab to explore the behavior of all of these \`OnEvent\` callback functions as you interact with our Default User Events example rendered in the Canvas. In the stories below, Storybook Canvas Actions have been disabled to focus on each of these callback functions in isolation. Each of the example callback functions in the stories below log output to the console tab of the browser's developer tools.`;
 
 export const zeroStateDescription = `- when the text input field has no text, we call this zero state
 - by default, the autocomplete shows nothing in the menu it's for zero state

@@ -2,7 +2,7 @@ import { ComponentMeta } from '@storybook/react';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { stringify, disableStoryActions } from '../../../utils';
 import { userEventsDescription } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryCode, apiKey } from '.';
 
@@ -27,7 +27,6 @@ Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.a
 const onFocus = () => {
   console.log('Focus!');
 };
-
 export const OnFocus = ComponentTemplate.bind({});
 OnFocus.args = { apiKey, onFocus };
 addComponentStoryCode(
@@ -37,11 +36,11 @@ addComponentStoryCode(
     onFocus: () => { console.log('Focus!') }
   }`
 );
+disableStoryActions(OnFocus);
 
 const onChange = (inputFieldValue) => {
   console.log('New Query: ' + inputFieldValue);
 };
-
 export const OnChange = ComponentTemplate.bind({});
 OnChange.args = { apiKey, onChange };
 addComponentStoryCode(
@@ -53,6 +52,7 @@ addComponentStoryCode(
     }
   }`
 );
+disableStoryActions(OnChange);
 
 const onSubmit = (submitEvent) => {
   const { query, item, originalQuery } = submitEvent;
@@ -63,7 +63,6 @@ const onSubmit = (submitEvent) => {
     console.dir(item);
   }
 };
-
 export const OnSubmit = ComponentTemplate.bind({});
 OnSubmit.args = { apiKey, onSubmit };
 addComponentStoryCode(
@@ -81,3 +80,4 @@ addComponentStoryCode(
     }
   }`
 );
+disableStoryActions(OnSubmit);

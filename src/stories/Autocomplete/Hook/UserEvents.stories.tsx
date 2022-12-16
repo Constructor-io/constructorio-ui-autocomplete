@@ -1,7 +1,7 @@
 import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { stringify, disableStoryActions } from '../../../utils';
 import { userEventsDescription } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
@@ -25,7 +25,6 @@ Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}
 const onFocus = () => {
   console.log('Focus!');
 };
-
 export const OnFocus = HooksTemplate.bind({});
 OnFocus.args = { apiKey, onFocus };
 addHookStoryCode(
@@ -35,11 +34,11 @@ addHookStoryCode(
     onFocus: () => { console.log('Focus!') }
   }`
 );
+disableStoryActions(OnFocus);
 
 const onChange = (inputFieldValue) => {
   console.log('New Query: ' + inputFieldValue);
 };
-
 export const OnChange = HooksTemplate.bind({});
 OnChange.args = { apiKey, onChange };
 addHookStoryCode(
@@ -51,6 +50,7 @@ addHookStoryCode(
     }
   }`
 );
+disableStoryActions(OnChange);
 
 const onSubmit = (submitEvent) => {
   const { query, item, originalQuery } = submitEvent;
@@ -61,7 +61,6 @@ const onSubmit = (submitEvent) => {
     console.dir(item);
   }
 };
-
 export const OnSubmit = HooksTemplate.bind({});
 OnSubmit.args = { apiKey, onSubmit };
 addHookStoryCode(
@@ -79,3 +78,4 @@ addHookStoryCode(
     }
   }`
 );
+disableStoryActions(OnSubmit);

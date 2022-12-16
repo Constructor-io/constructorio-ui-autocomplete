@@ -1,6 +1,7 @@
 import { Title, Description, Stories } from '@storybook/addon-docs';
 
 export const parameters = {
+  actions: { argTypesRegex: '^on.*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,

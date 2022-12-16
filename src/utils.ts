@@ -70,3 +70,7 @@ ${templateCode}
 };
 
 export const stringify = (obj) => JSON.stringify(obj, null, '  ');
+
+export const disableStoryActions = (story) => {
+  story.parameters.actions = { argTypesRegex: null };
+};
