@@ -87,10 +87,10 @@ function YourComponent() {
                         })}
                         key={item?.data?.id}>
                         <div>
-                          {isProduct(item) && (
+                          {item?.data?.image_url && (
                             <img
                               width='100%'
-                              src={item.data?.image_url}
+                              src={item.data.image_url}
                               alt=''
                               data-testid='cio-img'
                             />
