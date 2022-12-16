@@ -1,3 +1,17 @@
+export const componentDescription = `- import \`CioAutocomplete\` to render in your JSX.
+- This component handles state management, data fetching, and rendering logic.
+- To use this component, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
+- Use different props to configure the behavior of this component.
+- The following stories shows how different props affect the component's behavior
+`;
+
+export const hookDescription = `- import \`useCioAutocomplete\` and call this custom hook in a functional component.
+- This hook handles state management & data fetching, but leaves rendering logic up to you
+- To use this hook, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
+- Pass different options to the \`useCioAutocomplete\` hook to configure behavior.
+- The following stories shows how different options affect the hook's behavior
+`;
+
 export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
 - to override this, pass a an array of sections objects
 - the order of the objects in the \`sections\` array determines the order of the results

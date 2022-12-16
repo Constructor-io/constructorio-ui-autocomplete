@@ -3,14 +3,26 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { ComponentTemplate, getComponentStoryParams, apiKey } from '.';
+import { sectionsDescription } from '../../../constants';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryCode, apiKey } from '.';
 
 export default {
   title: 'Autocomplete/Component/Sections',
   component: CioAutocomplete,
   subcomponents: { SearchInput, SectionItemsList, SectionItem },
-  argTypes
+  argTypes,
+  parameters: {
+    docs: {
+      description: {
+        component: sectionsDescription
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
+
+export const Default = ComponentTemplate.bind({});
+Default.args = { apiKey };
+Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
 
 export const SearchSuggestions = ComponentTemplate.bind({});
 SearchSuggestions.args = {
@@ -21,9 +33,7 @@ SearchSuggestions.args = {
     }
   ]
 };
-SearchSuggestions.parameters = getComponentStoryParams(
-  `const args = ${stringify(SearchSuggestions.args)}`
-);
+addComponentStoryCode(SearchSuggestions, `const args = ${stringify(SearchSuggestions.args)}`);
 
 export const Products = ComponentTemplate.bind({});
 Products.args = {
@@ -34,8 +44,7 @@ Products.args = {
     }
   ]
 };
-Products.parameters = getComponentStoryParams(`
-const args = ${stringify(Products.args)}`);
+addComponentStoryCode(Products, `const args = ${stringify(Products.args)}`);
 
 export const NumResults = ComponentTemplate.bind({});
 NumResults.args = {
@@ -49,7 +58,7 @@ NumResults.args = {
     }
   ]
 };
-NumResults.parameters = getComponentStoryParams(`const args = ${stringify(NumResults.args)}`);
+addComponentStoryCode(NumResults, `const args = ${stringify(NumResults.args)}`);
 
 export const SectionOrder = ComponentTemplate.bind({});
 SectionOrder.args = {
@@ -63,8 +72,7 @@ SectionOrder.args = {
     }
   ]
 };
-SectionOrder.parameters = getComponentStoryParams(`
-const args = ${stringify(SectionOrder.args)}`);
+addComponentStoryCode(SectionOrder, `const args = ${stringify(SectionOrder.args)}`);
 
 export const Recommendations = ComponentTemplate.bind({});
 Recommendations.args = {
@@ -82,9 +90,7 @@ Recommendations.args = {
     }
   ]
 };
-Recommendations.parameters = getComponentStoryParams(
-  `const args = ${stringify(Recommendations.args)}`
-);
+addComponentStoryCode(Recommendations, `const args = ${stringify(Recommendations.args)}`);
 
 export const CustomSection = ComponentTemplate.bind({});
 CustomSection.args = {
@@ -116,4 +122,4 @@ CustomSection.args = {
     }
   ]
 };
-CustomSection.parameters = getComponentStoryParams(`const args = ${stringify(CustomSection.args)}`);
+addComponentStoryCode(CustomSection, `const args = ${stringify(CustomSection.args)}`);

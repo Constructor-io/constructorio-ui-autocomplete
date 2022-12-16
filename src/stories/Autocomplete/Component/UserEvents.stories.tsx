@@ -2,14 +2,27 @@ import { ComponentMeta } from '@storybook/react';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
-import { ComponentTemplate, getComponentStoryParams, apiKey } from '.';
+import { stringify } from '../../../utils';
+import { userEventsDescription } from '../../../constants';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryCode, apiKey } from '.';
 
 export default {
   title: 'Autocomplete/Component/User Events',
   component: CioAutocomplete,
   subcomponents: { SearchInput, SectionItemsList, SectionItem },
-  argTypes
+  argTypes,
+  parameters: {
+    docs: {
+      description: {
+        component: userEventsDescription
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
+
+export const Default = ComponentTemplate.bind({});
+Default.args = { apiKey };
+Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
 
 const onFocus = () => {
   console.log('Focus!');
@@ -17,7 +30,8 @@ const onFocus = () => {
 
 export const OnFocus = ComponentTemplate.bind({});
 OnFocus.args = { apiKey, onFocus };
-OnFocus.parameters = getComponentStoryParams(
+addComponentStoryCode(
+  OnFocus,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onFocus: () => { console.log('Focus!') }
@@ -30,7 +44,8 @@ const onChange = (inputFieldValue) => {
 
 export const OnChange = ComponentTemplate.bind({});
 OnChange.args = { apiKey, onChange };
-OnChange.parameters = getComponentStoryParams(
+addComponentStoryCode(
+  OnChange,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onChange: (inputFieldValue) => {
@@ -51,7 +66,8 @@ const onSubmit = (submitEvent) => {
 
 export const OnSubmit = ComponentTemplate.bind({});
 OnSubmit.args = { apiKey, onSubmit };
-OnSubmit.parameters = getComponentStoryParams(
+addComponentStoryCode(
+  OnSubmit,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onSubmit: (submitEvent) => {

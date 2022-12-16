@@ -11,11 +11,9 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
     const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
       useCioAutocomplete(args);
 
-    const { onSubmit, ...formProps } = getFormProps();
-
     return (
       <div className='cio-autocomplete'>
-        <form className='cio-form' {...formProps} onSubmit={onSubmit}>
+        <form {...getFormProps()}>
           <input {...getInputProps()} />
         </form>
         <div {...getMenuProps()}>
@@ -35,7 +33,6 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
                             index,
                             sectionIdentifier: section.identifier
                           })}
-                          className='cio-item'
                           key={item?.data?.id}>
                           <div>
                             {isProduct(item) && (
@@ -112,4 +109,16 @@ function YourComponent() {
 };
 `;
 
-export const getHookStoryParams = (storyCode) => getStoryParams(storyCode, hooksTemplateCode);
+const importHook = `import { useCioAutocomplete } from 'cio-autocomplete-ts';`;
+
+export const getHookStoryParams = (storyCode) =>
+  getStoryParams(storyCode, hooksTemplateCode, importHook);
+
+export const addHookStoryCode = (story, code) => {
+  story.parameters = getHookStoryParams(code);
+  story.parameters.docs.description = {
+    story: `\`\`\`jsx
+${code}
+\`\`\``
+  };
+};

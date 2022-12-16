@@ -1,13 +1,26 @@
 import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
-import { HooksTemplate, getHookStoryParams, apiKey } from '.';
+import { stringify } from '../../../utils';
+import { userEventsDescription } from '../../../constants';
+import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
 export default {
   title: 'Autocomplete/Hook/User Events',
   component: CioAutocomplete,
-  argTypes
+  argTypes,
+  parameters: {
+    docs: {
+      description: {
+        component: userEventsDescription
+      }
+    }
+  }
 } as ComponentMeta<typeof CioAutocomplete>;
+
+export const Default = HooksTemplate.bind({});
+Default.args = { apiKey };
+Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
 
 const onFocus = () => {
   console.log('Focus!');
@@ -15,7 +28,8 @@ const onFocus = () => {
 
 export const OnFocus = HooksTemplate.bind({});
 OnFocus.args = { apiKey, onFocus };
-OnFocus.parameters = getHookStoryParams(
+addHookStoryCode(
+  OnFocus,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onFocus: () => { console.log('Focus!') }
@@ -28,7 +42,8 @@ const onChange = (inputFieldValue) => {
 
 export const OnChange = HooksTemplate.bind({});
 OnChange.args = { apiKey, onChange };
-OnChange.parameters = getHookStoryParams(
+addHookStoryCode(
+  OnChange,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onChange: (inputFieldValue) => {
@@ -49,10 +64,11 @@ const onSubmit = (submitEvent) => {
 
 export const OnSubmit = HooksTemplate.bind({});
 OnSubmit.args = { apiKey, onSubmit };
-OnSubmit.parameters = getHookStoryParams(
+addHookStoryCode(
+  OnSubmit,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
-    onChange: (submitEvent) => {
+    onSubmit: (submitEvent) => {
       const { query, item, originalQuery } = submitEvent;
       if (query) {
         console.log('Submitted query: ' + query);
