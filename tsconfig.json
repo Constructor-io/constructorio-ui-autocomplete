@@ -18,7 +18,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false
   },
-  "include": ["src/**/*.ts" ],
+  "include": ["src/**/*.ts", "src/utils.ts" ],
   "exclude": [
     "node_modules",
     "build",
