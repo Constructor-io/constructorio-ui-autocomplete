@@ -19,6 +19,16 @@ function YourComponent() {
   );
 }
 `;
+const importComponent = `import { CioAutocomplete } from 'cio-autocomplete-ts';`;
 
 export const getComponentStoryParams = (storyParams) =>
-  getStoryParams(storyParams, componentTemplateCode);
+  getStoryParams(storyParams, componentTemplateCode, importComponent);
+
+export const addComponentStoryCode = (story, code) => {
+  story.parameters = getComponentStoryParams(code);
+  story.parameters.docs.description = {
+    story: `\`\`\`jsx
+${code}
+\`\`\``
+  };
+};
