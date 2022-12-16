@@ -10,6 +10,29 @@ export const hookDescription = `- import \`useCioAutocomplete\` and call this cu
 - To use this hook, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
 - Pass different options to the \`useCioAutocomplete\` hook to configure behavior.
 - The following stories shows how different options affect the hook's behavior
+
+The calling this hook returns an object with the following keys:
+
+\`\`\`jsx
+const {
+  // must be used for a hooks integrations
+  query: string, // current input field value
+  sections: [{...}], // array of sections data to render in menu list,
+  getFormProps: () => ({...})), // prop getter for jsx form element
+  getInputProps: () => ({...})), // prop getter for jsx input element
+  getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
+  getItemProps: () => ({...})), // prop getter for jsx element serving as each result
+  isOpen: boolean,
+
+  // available for advanced hooks integration use cases
+  openMenu: () => void, // open menu
+  closeMenu: () => void, // close menu
+  getLabelProps: () => ({...})), // optional: prop getter for jsx label element
+  setQuery: () => void, // update the current input field value
+  cioClient, // instance of constructorio-client-javascript
+ } = useCioAutocomplete(args);
+\`\`\`
+
 `;
 
 export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
