@@ -31,6 +31,7 @@ export interface CioClient {
     trackAutocompleteSelect: TrackAutocompleteSelect;
   };
   recommendations: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>; // any for now, we will import this from client js
   };
 }
@@ -59,6 +60,7 @@ const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
     }
   }, [apiKey, cioJsClient]);
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return cioClient!;
 };
 

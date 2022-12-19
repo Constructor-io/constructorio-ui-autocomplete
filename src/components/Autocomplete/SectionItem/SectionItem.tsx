@@ -9,6 +9,7 @@ export interface SectionItemProps {
   index: number;
   sectionIdentifier: string;
   children?: ReactNode;
+  key?: string;
 }
 
 export default function SectionItem(props: SectionItemProps) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GetItemPropsOptions } from 'downshift';
 import { FormEvent } from 'react';
 

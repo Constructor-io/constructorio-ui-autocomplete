@@ -88,7 +88,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   });
 
   const downshift = useDownShift({ setQuery, onChange, items, onSubmit, cioClient, previousQuery });
-  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, getComboboxProps } = downshift;
+  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu } = downshift;
 
   return {
     query,
@@ -130,7 +130,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       placeholder: placeholder
     }),
     getFormProps: () => ({
-      ...getComboboxProps(),
       onSubmit: (event) => {
         event.preventDefault();
         if (onSubmit) {
