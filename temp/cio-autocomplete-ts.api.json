@@ -458,7 +458,7 @@
             },
             {
               "kind": "Content",
-              "text": " | undefined) => any;\n    openMenu: () => void;\n    closeMenu: () => void;\n    getItemProps: ({ item, index, sectionIdentifier }: {\n        item: any;\n        index?: number | undefined;\n        sectionIdentifier?: string | undefined;\n    }) => any;\n    getInputProps: () => any;\n    getFormProps: () => any;\n    setQuery: import(\"react\")."
+              "text": " | undefined) => any;\n    openMenu: () => void;\n    closeMenu: () => void;\n    getItemProps: ({ item, index, sectionIdentifier }: {\n        item: any;\n        index?: number | undefined;\n        sectionIdentifier?: string | undefined;\n    }) => any;\n    getInputProps: () => any;\n    getFormProps: () => {\n        onSubmit: (event: any) => {\n            query: string;\n        };\n        className: string;\n        'data-testid': string;\n    };\n    setQuery: import(\"react\")."
             },
             {
               "kind": "Reference",
