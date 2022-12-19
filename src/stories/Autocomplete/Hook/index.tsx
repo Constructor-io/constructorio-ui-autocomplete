@@ -116,10 +116,13 @@ const importHook = `import { useCioAutocomplete } from 'cio-autocomplete-ts';`;
 export const getHookStoryParams = (storyCode) =>
   getStoryParams(storyCode, hooksTemplateCode, importHook);
 
-export const addHookStoryCode = (story, code) => {
+export const addHookStoryCode = (story, code, description = '') => {
   story.parameters = getHookStoryParams(code);
   story.parameters.docs.description = {
-    story: `\`\`\`jsx
+    story: `
+${description}
+
+\`\`\`jsx
 ${code}
 \`\`\``
   };

@@ -2,7 +2,16 @@ import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { sectionsDescription } from '../../../constants';
+import {
+  contentDescription,
+  customSectionDescription,
+  numResultsDescription,
+  productsDescription,
+  recommendationsDescription,
+  searchSuggestionsDescription,
+  sectionOrderDescription,
+  sectionsDescription
+} from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
 export default {
@@ -31,7 +40,11 @@ SearchSuggestions.args = {
     }
   ]
 };
-addHookStoryCode(SearchSuggestions, `const args = ${stringify(SearchSuggestions.args)}`);
+addHookStoryCode(
+  SearchSuggestions,
+  `const args = ${stringify(SearchSuggestions.args)}`,
+  searchSuggestionsDescription
+);
 
 export const Products = HooksTemplate.bind({});
 Products.args = {
@@ -42,7 +55,7 @@ Products.args = {
     }
   ]
 };
-addHookStoryCode(Products, `const args = ${stringify(Products.args)}`);
+addHookStoryCode(Products, `const args = ${stringify(Products.args)}`, productsDescription);
 
 export const Content = HooksTemplate.bind({});
 Content.args = {
@@ -53,7 +66,7 @@ Content.args = {
     }
   ]
 };
-addHookStoryCode(Content, `const args = ${stringify(Content.args)}`);
+addHookStoryCode(Content, `const args = ${stringify(Content.args)}`, contentDescription);
 
 export const NumResults = HooksTemplate.bind({});
 NumResults.args = {
@@ -67,7 +80,7 @@ NumResults.args = {
     }
   ]
 };
-addHookStoryCode(NumResults, `const args = ${stringify(NumResults.args)}`);
+addHookStoryCode(NumResults, `const args = ${stringify(NumResults.args)}`, numResultsDescription);
 
 export const SectionOrder = HooksTemplate.bind({});
 SectionOrder.args = {
@@ -81,7 +94,11 @@ SectionOrder.args = {
     }
   ]
 };
-addHookStoryCode(SectionOrder, `const args = ${stringify(SectionOrder.args)}`);
+addHookStoryCode(
+  SectionOrder,
+  `const args = ${stringify(SectionOrder.args)}`,
+  sectionOrderDescription
+);
 
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
@@ -99,7 +116,11 @@ Recommendations.args = {
     }
   ]
 };
-addHookStoryCode(Recommendations, `const args = ${stringify(Recommendations.args)}`);
+addHookStoryCode(
+  Recommendations,
+  `const args = ${stringify(Recommendations.args)}`,
+  recommendationsDescription
+);
 
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
@@ -131,4 +152,8 @@ CustomSection.args = {
     }
   ]
 };
-addHookStoryCode(CustomSection, `const args = ${stringify(CustomSection.args)}`);
+addHookStoryCode(
+  CustomSection,
+  `const args = ${stringify(CustomSection.args)}`,
+  customSectionDescription
+);

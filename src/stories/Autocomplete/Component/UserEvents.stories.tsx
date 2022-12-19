@@ -3,8 +3,18 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify, disableStoryActions } from '../../../utils';
-import { userEventsDescription } from '../../../constants';
-import { ComponentTemplate, getComponentStoryParams, addComponentStoryCode, apiKey } from '.';
+import {
+  onChangeDescription,
+  onFocusDescription,
+  onSubmitDescription,
+  userEventsDescription
+} from '../../../constants';
+import {
+  ComponentTemplate,
+  getComponentStoryParams,
+  addComponentStoryDescription,
+  apiKey
+} from '.';
 
 export default {
   title: 'Autocomplete/Component/User Events',
@@ -29,12 +39,13 @@ const onFocus = () => {
 };
 export const OnFocus = ComponentTemplate.bind({});
 OnFocus.args = { apiKey, onFocus };
-addComponentStoryCode(
+addComponentStoryDescription(
   OnFocus,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onFocus: () => { console.log('Focus!') }
-  }`
+  }`,
+  onFocusDescription
 );
 disableStoryActions(OnFocus);
 
@@ -43,14 +54,15 @@ const onChange = (inputFieldValue) => {
 };
 export const OnChange = ComponentTemplate.bind({});
 OnChange.args = { apiKey, onChange };
-addComponentStoryCode(
+addComponentStoryDescription(
   OnChange,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onChange: (inputFieldValue) => {
       console.log('New Query: ' + inputFieldValue);
     }
-  }`
+  }`,
+  onChangeDescription
 );
 disableStoryActions(OnChange);
 
@@ -65,7 +77,7 @@ const onSubmit = (submitEvent) => {
 };
 export const OnSubmit = ComponentTemplate.bind({});
 OnSubmit.args = { apiKey, onSubmit };
-addComponentStoryCode(
+addComponentStoryDescription(
   OnSubmit,
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
@@ -78,6 +90,7 @@ addComponentStoryCode(
         console.dir(item);
       }
     }
-  }`
+  }`,
+  onSubmitDescription
 );
 disableStoryActions(OnSubmit);

@@ -2,7 +2,12 @@ import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify, disableStoryActions } from '../../../utils';
-import { userEventsDescription } from '../../../constants';
+import {
+  onChangeDescription,
+  onFocusDescription,
+  onSubmitDescription,
+  userEventsDescription
+} from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
 export default {
@@ -32,7 +37,8 @@ addHookStoryCode(
   `const args = {
     apiKey: 'key_jaqzPcUDnK66puIO',
     onFocus: () => { console.log('Focus!') }
-  }`
+  }`,
+  onFocusDescription
 );
 disableStoryActions(OnFocus);
 
@@ -48,7 +54,8 @@ addHookStoryCode(
     onChange: (inputFieldValue) => {
       console.log('New Query: ' + inputFieldValue);
     }
-  }`
+  }`,
+  onChangeDescription
 );
 disableStoryActions(OnChange);
 
@@ -76,6 +83,7 @@ addHookStoryCode(
         console.dir(item);
       }
     }
-  }`
+  }`,
+  onSubmitDescription
 );
 disableStoryActions(OnSubmit);

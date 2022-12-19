@@ -4,8 +4,18 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { ComponentTemplate, getComponentStoryParams, addComponentStoryCode, apiKey } from '.';
-import { componentDescription } from '../../../constants';
+import {
+  ComponentTemplate,
+  getComponentStoryParams,
+  addComponentStoryDescription,
+  apiKey
+} from '.';
+import {
+  apiKeyDescription,
+  cioJsClientDescription,
+  componentDescription,
+  placeholderDescription
+} from '../../../constants';
 
 export default {
   title: 'Autocomplete/Component',
@@ -27,23 +37,28 @@ Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.a
 
 export const ApiKey = ComponentTemplate.bind({});
 ApiKey.args = { apiKey };
-addComponentStoryCode(ApiKey, `const args = ${stringify(ApiKey.args)}`);
+addComponentStoryDescription(ApiKey, `const args = ${stringify(ApiKey.args)}`, apiKeyDescription);
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
 
 export const CioJsClient = ComponentTemplate.bind({});
 CioJsClient.args = { cioJsClient };
-addComponentStoryCode(
+addComponentStoryDescription(
   CioJsClient,
   `
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
 const cioJsClient = new ConstructorIOClient({ apiKey: 'key_jaqzPcUDnK66puIO' });
-const args = { cioJsClient };`
+const args = { cioJsClient };`,
+  cioJsClientDescription
 );
 
 const placeholder = 'Custom placeholder';
 
 export const Placeholder = ComponentTemplate.bind({});
 Placeholder.args = { apiKey, placeholder };
-addComponentStoryCode(Placeholder, `const args = ${stringify(Placeholder.args)}`);
+addComponentStoryDescription(
+  Placeholder,
+  `const args = ${stringify(Placeholder.args)}`,
+  placeholderDescription
+);

@@ -2,7 +2,13 @@ import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { zeroStateDescription } from '../../../constants';
+import {
+  customSectionDescription,
+  multipleSectionsDescription,
+  openOnFocusDescription,
+  recommendationsDescription,
+  zeroStateDescription
+} from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
 
 export default {
@@ -32,7 +38,11 @@ ZeroStateSections.args = {
     }
   ]
 };
-addHookStoryCode(ZeroStateSections, `const args = ${stringify(ZeroStateSections.args)}`);
+addHookStoryCode(
+  ZeroStateSections,
+  `const args = ${stringify(ZeroStateSections.args)}`,
+  zeroStateDescription
+);
 
 export const NoOpenOnFocus = HooksTemplate.bind({});
 NoOpenOnFocus.args = {
@@ -45,7 +55,11 @@ NoOpenOnFocus.args = {
     }
   ]
 };
-addHookStoryCode(NoOpenOnFocus, `const args = ${stringify(NoOpenOnFocus.args)}`);
+addHookStoryCode(
+  NoOpenOnFocus,
+  `const args = ${stringify(NoOpenOnFocus.args)}`,
+  openOnFocusDescription
+);
 
 export const Recommendations = HooksTemplate.bind({});
 Recommendations.args = {
@@ -57,7 +71,11 @@ Recommendations.args = {
     }
   ]
 };
-addHookStoryCode(Recommendations, `const args = ${stringify(Recommendations.args)}`);
+addHookStoryCode(
+  Recommendations,
+  `const args = ${stringify(Recommendations.args)}`,
+  recommendationsDescription
+);
 
 export const CustomSection = HooksTemplate.bind({});
 CustomSection.args = {
@@ -86,7 +104,11 @@ CustomSection.args = {
     }
   ]
 };
-addHookStoryCode(CustomSection, `const args = ${stringify(CustomSection.args)}`);
+addHookStoryCode(
+  CustomSection,
+  `const args = ${stringify(CustomSection.args)}`,
+  customSectionDescription
+);
 
 export const MultipleSections = HooksTemplate.bind({});
 MultipleSections.args = {
@@ -119,4 +141,8 @@ MultipleSections.args = {
     }
   ]
 };
-addHookStoryCode(MultipleSections, `const args = ${stringify(MultipleSections.args)}`);
+addHookStoryCode(
+  MultipleSections,
+  `const args = ${stringify(MultipleSections.args)}`,
+  multipleSectionsDescription
+);

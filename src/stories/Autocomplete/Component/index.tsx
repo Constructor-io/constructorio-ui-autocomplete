@@ -24,10 +24,13 @@ const importComponent = `import { CioAutocomplete } from 'cio-autocomplete-ts';`
 export const getComponentStoryParams = (storyParams) =>
   getStoryParams(storyParams, componentTemplateCode, importComponent);
 
-export const addComponentStoryCode = (story, code) => {
+export const addComponentStoryDescription = (story, code, description = '') => {
   story.parameters = getComponentStoryParams(code);
   story.parameters.docs.description = {
-    story: `\`\`\`jsx
+    story: `
+${description}
+
+\`\`\`jsx
 ${code}
 \`\`\``
   };
