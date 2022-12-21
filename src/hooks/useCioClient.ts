@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { AutocompleteApiResponse, RecommendationsApiResponse } from '../types';
 
-export type CioClientOptions = { apiKey?: string; cioJsClient?: CioClient };
+export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
 // https://constructor-io.github.io/constructorio-client-javascript/module-tracker.html#~trackSearchSubmit
 export type TrackSearchSubmit = (
@@ -21,36 +20,16 @@ export type TrackAutocompleteSelect = (
   }
 ) => true | Error;
 
-export interface CioClient {
-  autocomplete: {
-    getAutocompleteResults: (term: string, options) => Promise<AutocompleteApiResponse>;
-  };
-  tracker: {
-    trackInputFocus: () => true | Error;
-    trackSearchSubmit: TrackSearchSubmit;
-    trackAutocompleteSelect: TrackAutocompleteSelect;
-  };
-  recommendations: {
-    getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>; // any for now, we will import this from client js
-  };
-}
-
-type UseCioClient = (cioClientOptions: CioClientOptions) => CioClient;
+type UseCioClient = (cioClientConfig: CioClientConfig) => ConstructorIOClient | undefined;
 
 const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
   const [cioClient, setCioClient] = useState(cioJsClient);
 
   useEffect(() => {
     if (apiKey && !cioJsClient) {
-      const client: CioClient = new ConstructorIOClient({
+      const client = new ConstructorIOClient({
         apiKey: apiKey,
-        sendTrackingEvents: true,
-        queryParams: {
-          autocomplete_key: apiKey
-        },
-        identityModuleOptions: {
-          cookie_domain: ''
-        }
+        sendTrackingEvents: true
       });
 
       setCioClient(client);
@@ -59,7 +38,7 @@ const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
     }
   }, [apiKey, cioJsClient]);
 
-  return cioClient!;
+  return cioClient;
 };
 
 export default useCioClient;
