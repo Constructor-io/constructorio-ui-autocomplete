@@ -10,6 +10,7 @@ export type RenderSectionItemsList = (renderResultsArguments: {
 type SectionItemsListProps = {
   section: SectionConfiguration;
   children?: RenderSectionItemsList;
+  key?: string;
 };
 
 export default function SectionItemsList(props: SectionItemsListProps) {
@@ -22,9 +23,11 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ section }) => {
   const sectionName = section?.displayName || section?.identifier;
 
   return (
-    <li className={`${sectionName} cio-section`}>
-      <h5 className='cio-sectionName'>{camelToStartCase(sectionName)}</h5>
-      <ul className='cio-items'>
+    <li className={`${sectionName} cio-section`} role='none'>
+      <h5 className='cio-sectionName' aria-hidden>
+        {camelToStartCase(sectionName)}
+      </h5>
+      <ul className='cio-items' role='none'>
         {section?.data?.map((item, index) => (
           <SectionItem
             item={item}

@@ -155,6 +155,7 @@ declare interface SectionItemProps {
     index: number;
     sectionIdentifier: string;
     children?: ReactNode;
+    key?: string;
 }
 
 export declare function SectionItemsList(props: SectionItemsListProps): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
@@ -162,6 +163,7 @@ export declare function SectionItemsList(props: SectionItemsListProps): React_2.
 declare type SectionItemsListProps = {
     section: SectionConfiguration;
     children?: RenderSectionItemsList;
+    key?: string;
 };
 
 export declare const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
@@ -178,7 +180,13 @@ export declare const useCioAutocomplete: (options: UseCioAutocompleteOptions) =>
         sectionIdentifier?: string | undefined;
     }) => any;
     getInputProps: () => any;
-    getFormProps: () => any;
+    getFormProps: () => {
+        onSubmit: (event: any) => {
+            query: string;
+        };
+        className: string;
+        'data-testid': string;
+    };
     setQuery: Dispatch<SetStateAction<string>>;
     cioClient: constructorIoConstructorioClientJavascript | undefined;
 };

@@ -33,12 +33,22 @@ The `useCioAutocomplete` hook handles state management and data fetching, but le
 import { useCioAutocomplete } from 'cio-autocomplete-ts';
 
 function YourComponent() {
-  const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
-    useCioAutocomplete({ apiKey: 'key_jaqzPcUDnK66puIO' });
+  const {
+    isOpen,
+    sections,
+    getFormProps,
+    getLabelProps,
+    getInputProps,
+    getMenuProps,
+    getItemProps
+  } = useCioAutocomplete(args);
 
   return (
     <div className='cio-autocomplete'>
       <form {...getFormProps()}>
+        <label {...getLabelProps()} hidden>
+          Search
+        </label>
         <input {...getInputProps()} />
       </form>
       <div {...getMenuProps()}>

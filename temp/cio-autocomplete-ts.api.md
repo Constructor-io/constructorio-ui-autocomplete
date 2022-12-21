@@ -58,7 +58,13 @@ export const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
         sectionIdentifier?: string | undefined;
     }) => any;
     getInputProps: () => any;
-    getFormProps: () => any;
+    getFormProps: () => {
+        onSubmit: (event: any) => {
+            query: string;
+        };
+        className: string;
+        'data-testid': string;
+    };
     setQuery: Dispatch<SetStateAction<string>>;
     cioClient: constructorIoConstructorioClientJavascript | undefined;
 };

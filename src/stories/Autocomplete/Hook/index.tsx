@@ -8,12 +8,22 @@ export const apiKey = 'key_jaqzPcUDnK66puIO';
 
 export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompleteOptions>> =
   function (args) {
-    const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
-      useCioAutocomplete(args);
+    const {
+      isOpen,
+      sections,
+      getFormProps,
+      getLabelProps,
+      getInputProps,
+      getMenuProps,
+      getItemProps
+    } = useCioAutocomplete(args);
 
     return (
       <div className='cio-autocomplete'>
         <form {...getFormProps()}>
+          <label {...getLabelProps()} hidden>
+            Search
+          </label>
           <input {...getInputProps()} />
         </form>
         <div {...getMenuProps()}>
@@ -60,12 +70,22 @@ export const HooksTemplate: ComponentStory<JSXElementConstructor<UseCioAutocompl
 
 const hooksTemplateCode = `
 function YourComponent() {
-  const { isOpen, sections, getFormProps, getInputProps, getMenuProps, getItemProps } =
-      useCioAutocomplete(args);
+  const {
+    isOpen,
+    sections,
+    getFormProps,
+    getLabelProps,
+    getInputProps,
+    getMenuProps,
+    getItemProps
+  } = useCioAutocomplete(args);
 
   return (
     <div className='cio-autocomplete'>
       <form {...getFormProps()}>
+        <label {...getLabelProps()} hidden>
+          Search
+        </label>
         <input {...getInputProps()} />
       </form>
       <div {...getMenuProps()}>
@@ -87,10 +107,10 @@ function YourComponent() {
                         })}
                         key={item?.data?.id}>
                         <div>
-                          {item?.data?.image_url && (
+                          {isProduct(item) && (
                             <img
                               width='100%'
-                              src={item.data.image_url}
+                              src={item.data?.image_url}
                               alt=''
                               data-testid='cio-img'
                             />
