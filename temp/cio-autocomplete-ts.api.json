@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.33.6",
+    "toolVersion": "7.33.7",
     "schemaVersion": 1010,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -476,16 +476,7 @@
             },
             {
               "kind": "Content",
-              "text": "<string>>;\n    cioClient: import(\"./useCioClient\")."
-            },
-            {
-              "kind": "Reference",
-              "text": "CioClient",
-              "canonicalReference": "cio-autocomplete-ts!~CioClient:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n}"
+              "text": "<string>>;\n    cioClient: import(\"@constructor-io/constructorio-client-javascript\") | undefined;\n}"
             }
           ],
           "fileUrlPath": "src/hooks/useCioAutocomplete.ts",
@@ -494,7 +485,7 @@
           "name": "useCioAutocomplete",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 14
+            "endIndex": 12
           }
         }
       ]
