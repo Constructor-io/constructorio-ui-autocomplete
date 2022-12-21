@@ -2,7 +2,6 @@
 import { GetItemPropsOptions } from 'downshift';
 import { FormEvent } from 'react';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
 type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
