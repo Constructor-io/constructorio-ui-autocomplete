@@ -2,6 +2,7 @@
 import { GetItemPropsOptions } from 'downshift';
 import { FormEvent } from 'react';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
 type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
@@ -19,20 +20,22 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
 
-export type ItemBase = {
-  value: string;
+export interface ItemBase extends Record<string, any> {
+  id?: string;
+  url?: string;
+}
+
+export interface ItemBase extends Record<string, any> {
+  value?: string;
   section: string;
-  data: {
-    id: string;
-    url?: string;
-  };
-};
+  data?: Record<string, any>;
+}
 
 export type Item = Product | SearchSuggestion | ItemBase;
 
 export type SectionOrder = string[];
 
-export type ResultsPerSection = { [key: string]: number };
+export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
 /** CIO API Response Data */
 export type AutocompleteResultSections = {
@@ -76,36 +79,6 @@ export type SectionConfiguration =
   | AutocompleteSectionConfiguration
   | RecommendationsSectionConfiguration
   | CustomSectionConfiguration;
-
-export interface AutocompleteApiResponse {
-  request: {
-    feature_variants: {
-      auto_generated_refined_query_rules: string;
-      filter_items: string;
-      manual_searchandizing: string;
-      personalization: string;
-      query_items: string;
-    };
-    features: {
-      auto_generated_refined_query_rules: boolean;
-      filter_items: boolean;
-      manual_searchandizing: boolean;
-      personalization: boolean;
-      query_items: boolean;
-    };
-    num_results_Products: number;
-    'num_results_Search Suggestions': number;
-    searchandized_items: Record<string, unknown>;
-    term: string;
-  };
-  result_id: string;
-  sections: {
-    Products?: Product[];
-    'Search Suggestions'?: SearchSuggestion[];
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any | undefined;
-  };
-}
 
 export type Product = {
   data: {

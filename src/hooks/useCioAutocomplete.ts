@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useCioClient, { CioClientOptions } from './useCioClient';
+import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import { Item } from '../types';
@@ -37,7 +37,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);
-  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
+  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientConfig);
 
   const zeroStateSectionsActive = !query.length && zeroStateSections;
 

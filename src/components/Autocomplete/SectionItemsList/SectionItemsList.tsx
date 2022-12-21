@@ -33,7 +33,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ section }) => {
             item={item}
             index={index}
             sectionIdentifier={section?.identifier}
-            key={`${section?.identifier}_${item.data.id}`}
+            key={`${section?.identifier}_${item?.data?.id}`}
           />
         ))}
       </ul>
