@@ -6,6 +6,8 @@
 
 /// <reference types="react" />
 
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { constructorIoConstructorioClientJavascript } from '@constructor-io/constructorio-client-javascript';
 import { Dispatch } from 'react';
 import { GetItemPropsOptions } from 'downshift';
 import { default as React_2 } from 'react';
@@ -56,15 +58,20 @@ export const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
         sectionIdentifier?: string | undefined;
     }) => any;
     getInputProps: () => any;
-    getFormProps: () => any;
+    getFormProps: () => {
+        onSubmit: (event: any) => {
+            query: string;
+        };
+        className: string;
+        'data-testid': string;
+    };
     setQuery: Dispatch<SetStateAction<string>>;
-    cioClient: CioClient;
+    cioClient: constructorIoConstructorioClientJavascript | undefined;
 };
 
 // Warnings were encountered during analysis:
 //
 // src/hooks/useCioAutocomplete.ts:25:63 - (ae-forgotten-export) The symbol "SectionConfiguration" needs to be exported by the entry point index.d.ts
-// src/hooks/useCioAutocomplete.ts:25:63 - (ae-forgotten-export) The symbol "CioClient" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

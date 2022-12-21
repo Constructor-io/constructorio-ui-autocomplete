@@ -22,7 +22,11 @@
   "exclude": [
     "node_modules",
     "build",
-    "storybook-static"
+    "storybook-static",
+    "lib",
+    ".storybook",
+    "docs",
+    "temp"
   ],
   "typedocOptions": {
     "entryPoints": ["src/index.ts"],

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import useCioClient, { CioClientOptions } from './useCioClient';
+import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { Item } from '../types';
+import { Item, RecommendationsSectionConfiguration } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
@@ -37,7 +37,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);
-  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientOptions);
+  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientConfig);
 
   const zeroStateSectionsActive = !query.length && zeroStateSections;
 
@@ -62,7 +62,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   );
   const recommendationsSections = activeSections?.filter(
     (config: SectionConfiguration) => config.type === 'recommendations'
-  );
+  ) as RecommendationsSectionConfiguration[];
 
   const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
@@ -88,7 +88,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   });
 
   const downshift = useDownShift({ setQuery, onChange, items, onSubmit, cioClient, previousQuery });
-  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, getComboboxProps } = downshift;
+  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu } = downshift;
 
   return {
     query,
@@ -130,7 +130,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       placeholder: placeholder
     }),
     getFormProps: () => ({
-      ...getComboboxProps(),
       onSubmit: (event) => {
         event.preventDefault();
         if (onSubmit) {
