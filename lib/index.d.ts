@@ -1,5 +1,7 @@
 /// <reference types="react" />
 
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { constructorIoConstructorioClientJavascript } from '@constructor-io/constructorio-client-javascript';
 import { Dispatch } from 'react';
 import { GetItemPropsOptions } from 'downshift';
 import { default as React_2 } from 'react';
@@ -7,35 +9,6 @@ import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { SetStateAction } from 'react';
 import { UseComboboxGetLabelPropsOptions } from 'downshift';
-
-declare interface AutocompleteApiResponse {
-    request: {
-        feature_variants: {
-            auto_generated_refined_query_rules: string;
-            filter_items: string;
-            manual_searchandizing: string;
-            personalization: string;
-            query_items: string;
-        };
-        features: {
-            auto_generated_refined_query_rules: boolean;
-            filter_items: boolean;
-            manual_searchandizing: boolean;
-            personalization: boolean;
-            query_items: boolean;
-        };
-        num_results_Products: number;
-        'num_results_Search Suggestions': number;
-        searchandized_items: Record<string, unknown>;
-        term: string;
-    };
-    result_id: string;
-    sections: {
-        Products?: Product[];
-        'Search Suggestions'?: SearchSuggestion[];
-        [key: string]: any | undefined;
-    };
-}
 
 export declare function AutocompleteResults(props: AutocompleteResultsProps): JSX.Element;
 
@@ -66,7 +39,7 @@ declare type BaseSectionConfiguration = {
 
 export declare function CioAutocomplete(props: CioAutocompleteProps): JSX.Element;
 
-declare type CioAutocompleteProps = CioClientOptions & {
+declare type CioAutocompleteProps = CioClientConfig & {
     openOnFocus?: boolean;
     onSubmit?: OnSubmit;
     onFocus?: () => void;
@@ -77,23 +50,9 @@ declare type CioAutocompleteProps = CioClientOptions & {
     zeroStateSections?: SectionConfiguration[];
 };
 
-declare interface CioClient {
-    autocomplete: {
-        getAutocompleteResults: (term: string, options: any) => Promise<AutocompleteApiResponse>;
-    };
-    tracker: {
-        trackInputFocus: () => true | Error;
-        trackSearchSubmit: TrackSearchSubmit;
-        trackAutocompleteSelect: TrackAutocompleteSelect;
-    };
-    recommendations: {
-        getRecommendations: (podId: string, parameters: any) => Promise<RecommendationsApiResponse>;
-    };
-}
-
-declare type CioClientOptions = {
+declare type CioClientConfig = {
     apiKey?: string;
-    cioJsClient?: CioClient;
+    cioJsClient?: ConstructorIOClient;
 };
 
 declare interface CustomSectionConfiguration extends BaseSectionConfiguration {
@@ -107,14 +66,16 @@ declare type GetItemProps = (options: ItemPropsOptions) => object;
 
 declare type Item = Product | SearchSuggestion | ItemBase;
 
-declare type ItemBase = {
-    value: string;
+declare interface ItemBase extends Record<string, any> {
+    id?: string;
+    url?: string;
+}
+
+declare interface ItemBase extends Record<string, any> {
+    value?: string;
     section: string;
-    data: {
-        id: string;
-        url?: string;
-    };
-};
+    data?: Record<string, any>;
+}
 
 declare type ItemPropsOptions = DownshiftGetItemPropsOptions & {
     sectionName: string;
@@ -143,38 +104,6 @@ declare type Product = {
     value: string;
     section: 'Products';
 };
-
-declare type RecommendationPodResponse = {
-    pod: {
-        id: string;
-        display_name: string;
-    };
-    results: Product[];
-    total_num_results: number;
-};
-
-declare interface RecommendationsApiResponse {
-    request: {
-        feature_variants?: {
-            auto_generated_refined_query_rules: string;
-            filter_items: string;
-            manual_searchandizing: string;
-            personalization: string;
-            query_items: string;
-        };
-        features?: {
-            auto_generated_refined_query_rules: boolean;
-            filter_items: boolean;
-            manual_searchandizing: boolean;
-            personalization: boolean;
-            query_items: boolean;
-        };
-        num_results: number;
-        pod_id: string;
-    };
-    result_id: string;
-    response: RecommendationPodResponse;
-}
 
 declare interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
     type: 'recommendations';
@@ -235,15 +164,6 @@ declare type SectionItemsListProps = {
     children?: RenderSectionItemsList;
 };
 
-declare type TrackAutocompleteSelect = (term: string, parameters: {
-    original_query: string;
-    section: string;
-}) => true | Error;
-
-declare type TrackSearchSubmit = (term: string, parameters: {
-    original_query: string;
-}) => true | Error;
-
 export declare const useCioAutocomplete: (options: UseCioAutocompleteOptions) => {
     query: string;
     sections: SectionConfiguration[];
@@ -260,7 +180,7 @@ export declare const useCioAutocomplete: (options: UseCioAutocompleteOptions) =>
     getInputProps: () => any;
     getFormProps: () => any;
     setQuery: Dispatch<SetStateAction<string>>;
-    cioClient: CioClient;
+    cioClient: constructorIoConstructorioClientJavascript | undefined;
 };
 
 declare type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;

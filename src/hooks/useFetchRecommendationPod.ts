@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AutocompleteResultSections, SectionConfiguration, Item } from '../types';
-import { CioClient } from './useCioClient';
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
 const useFetchRecommendationPod = (
-  cioClient: CioClient,
+  cioClient: ConstructorIOClient | undefined,
   recommendationPods: SectionConfiguration[]
 ) => {
   const [recommendationResults, setRecommendationResults] = useState<AutocompleteResultSections>(
@@ -22,10 +22,12 @@ const useFetchRecommendationPod = (
 
       responses.forEach(({ response }) => {
         const { pod, results } = response;
-        recommendationPodResults[pod.id] = results.map((item: Item) => ({
-          ...item,
-          section: pod?.id
-        }));
+        if (pod?.id) {
+          recommendationPodResults[pod.id] = results?.map((item: Item) => ({
+            ...item,
+            section: pod.id
+          }));
+        }
       });
 
       setRecommendationResults(recommendationPodResults);
