@@ -60,16 +60,12 @@ When no values are passed for the \`sections\` argument, the following defaults 
   {
     identifier: 'Search Suggestions',
     type: 'autocomplete',
-    parameters: {
-      numResults: 8
-    }
+    numResults: 8
   },
   {
     identifier: 'Products',
     type: 'autocomplete',
-    parameters: {
-      numResults: 8
-    }
+    numResults: 8
   }
 ]
 \`\`\`

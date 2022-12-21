@@ -41,29 +41,20 @@ export type AutocompleteResultSections = {
 type BaseSectionConfiguration = {
   identifier: string;
   displayName?: string;
-  parameters?: Record<string, any>;
+  numResults?: number;
 };
 
 interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
   type?: 'autocomplete';
   data?: Item[];
-  parameters?: {
-    numResults?: number;
-    // filters: {}, We will add support this
-  };
 }
 
-interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
+export interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
   type: 'recommendations';
   data?: Item[];
-  parameters?: {
-    numResults?: number;
-    itemIds?: string[];
-    section?: string;
-    term?: string;
-    filters?: any; // Any for now, we can import these from client js
-    variationsMap?: any; // Any for now, we can import these from client js
-  };
+  itemIds?: string[];
+  section?: string;
+  term?: string;
 }
 
 interface CustomSectionConfiguration extends BaseSectionConfiguration {

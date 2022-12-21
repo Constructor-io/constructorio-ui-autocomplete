@@ -89,9 +89,7 @@ NumResults.args = {
   sections: [
     {
       identifier: 'Products',
-      parameters: {
-        numResults: 2
-      }
+      numResults: 2
     }
   ]
 };
@@ -131,7 +129,8 @@ Recommendations.args = {
     },
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
+      type: 'recommendations',
+      numResults: 4
     }
   ]
 };

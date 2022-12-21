@@ -51,7 +51,8 @@ Products.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products'
+      identifier: 'Products',
+      numResults: 4
     }
   ]
 };
@@ -74,9 +75,7 @@ NumResults.args = {
   sections: [
     {
       identifier: 'Products',
-      parameters: {
-        numResults: 2
-      }
+      numResults: 2
     }
   ]
 };

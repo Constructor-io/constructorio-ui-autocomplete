@@ -332,9 +332,7 @@ ZeroStateRenderProductsSection.args = {
   sections: [
     {
       identifier: 'Products',
-      parameters: {
-        numResults: 4
-      }
+      numResults: 4
     }
   ],
   zeroStateSections: [

@@ -42,7 +42,8 @@ ZeroStateSections.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
+      type: 'recommendations',
+      numResults: 3
     }
   ]
 };
