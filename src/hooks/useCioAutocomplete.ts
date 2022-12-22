@@ -123,6 +123,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (zeroStateSectionsActive && openOnFocus !== false) {
           downshift.openMenu();
         }
+        if (query?.length) {
+          downshift.openMenu();
+        }
         cioClient?.tracker?.trackInputFocus();
       },
       className: 'cio-input',
