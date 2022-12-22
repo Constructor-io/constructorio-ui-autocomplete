@@ -15,12 +15,17 @@
     "ecmaVersion": "latest",
     "project": "tsconfig.eslint.json"
   },
-  "plugins": ["@typescript-eslint", "prettier"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "prefer-const": "error",
     "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/no-unused-params": "off",
-    "prettier/prettier": ["error"]
+    "prettier/prettier": [
+      "error"
+    ]
   },
   "overrides": [
     {
@@ -31,5 +36,9 @@
       }
     }
   ],
-  "ignorePatterns": ["*.config.js", "lib/**/*.js", "lib/*.d.ts"]
+  "ignorePatterns": [
+    "*.config.js",
+    "lib/**/*.js",
+    "lib/*.d.ts"
+  ]
 }
