@@ -3,12 +3,7 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import {
-  ComponentTemplate,
-  getComponentStoryParams,
-  addComponentStoryDescription,
-  apiKey
-} from '.';
+import { ComponentTemplate, addComponentStoryDescription, apiKey } from '.';
 import {
   apiKeyDescription,
   cioJsClientDescription,
@@ -29,6 +24,10 @@ export default {
     }
   }
 };
+
+export const Default = ComponentTemplate.bind({});
+Default.args = { apiKey };
+addComponentStoryDescription(Default, `const args = ${stringify(Default.args)}`);
 
 export const ApiKey = ComponentTemplate.bind({});
 ApiKey.args = { apiKey };
