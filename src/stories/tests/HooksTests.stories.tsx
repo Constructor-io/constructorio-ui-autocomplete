@@ -237,17 +237,6 @@ SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }
   expect(canvas.getByTestId('cio-input')).toHaveValue(productSuggestionItem.textContent);
 };
 
-// - click Enter in input => network search submit event
-export const EnterKeySubmitSearch = HooksTemplate.bind({});
-EnterKeySubmitSearch.args = defaultArgs;
-EnterKeySubmitSearch.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
-  await sleep(1000);
-  await userEvent.keyboard('{Enter}');
-  expect(isTrackingRequestSent('/search?original_query=')).toBeTruthy();
-};
-
 // - focus in input field with zero state => render zero state section
 export const FocusRenderZeroStateSection = HooksTemplate.bind({});
 FocusRenderZeroStateSection.args = {
