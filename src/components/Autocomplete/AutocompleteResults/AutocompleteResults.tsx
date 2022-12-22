@@ -8,7 +8,6 @@ import {
 } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
-import '../Autocomplete.css';
 
 export type RenderResults = (renderResultsArguments: {
   sections: SectionConfiguration[];
