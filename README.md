@@ -116,7 +116,7 @@ npm run build-storybook   # generate storybook bundled static page that can be d
 
 ## Supporting Docs
 
-- [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
-- [Typescript Docs](https://www.typescriptlang.org/docs/)
+- [Storybook 7 Introduction](https://storybook.js.org/docs/7.0/react/get-started/introduction)
 - [Rollup](https://www.npmjs.com/package/rollup)
+- [Typescript Docs](https://www.typescriptlang.org/docs/)
 - [API Extractor](https://api-extractor.com/)
