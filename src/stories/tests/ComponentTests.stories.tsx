@@ -1,6 +1,4 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList } from '../../components';
 import { SectionItem } from '../../components';
