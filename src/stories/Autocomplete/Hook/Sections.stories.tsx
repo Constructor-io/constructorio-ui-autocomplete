@@ -1,4 +1,3 @@
-import { ComponentMeta } from '@storybook/react';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
@@ -25,7 +24,7 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
+};
 
 export const Default = HooksTemplate.bind({});
 Default.args = { apiKey };

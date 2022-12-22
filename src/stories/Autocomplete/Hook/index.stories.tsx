@@ -1,4 +1,3 @@
-import { ComponentMeta } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
@@ -22,11 +21,7 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
-
-export const Default = HooksTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
+};
 
 export const ApiKey = HooksTemplate.bind({});
 ApiKey.args = { apiKey };

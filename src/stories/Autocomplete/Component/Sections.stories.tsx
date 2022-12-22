@@ -1,4 +1,3 @@
-import { ComponentMeta } from '@storybook/react';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
@@ -32,7 +31,7 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
+};
 
 export const Default = ComponentTemplate.bind({});
 Default.args = { apiKey };

@@ -29,7 +29,7 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
+};
 
 const defaultArgs: CioAutocompleteProps = {
   apiKey,

@@ -1,4 +1,3 @@
-import { ComponentMeta } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
@@ -29,11 +28,7 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
-
-export const Default = ComponentTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
+};
 
 export const ApiKey = ComponentTemplate.bind({});
 ApiKey.args = { apiKey };
