@@ -2,9 +2,12 @@
 
 ## Introduction
 
-React Components that manage fetching and rendering logic for [Constructor.io's autocomplete services](https://constructor.io/products/autosuggest/).
+This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autocomplete services](https://constructor.io/products/autosuggest/).
+
+[Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore the behavior and configuration options for this UI Library.
 
 ![Autocomplete](docs-images/autocomplete.png)
+
 
 ## How to use this UI Library
 
@@ -94,14 +97,6 @@ function YourComponent() {
 }
 ```
 
-## Explore Functionality with Storybook
-
-[Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore this UI Library.
-
-![Storybook Canvas](docs-images/storybook-canvas.png)
-![Storybook Docs](docs-images/storybook-docs.png)
-![Show Code](docs-images/storybook-docs-show-code.png)
-
 ## Local Development
 
 ### Development scripts
@@ -121,7 +116,7 @@ npm run build-storybook   # generate storybook bundled static page that can be d
 
 ## Supporting Docs
 
-- [Storybook](https://storybook.js.org/docs/react/get-started/introduction)
-- [Typescript Docs](https://www.typescriptlang.org/docs/)
+- [Storybook 7 Introduction](https://storybook.js.org/docs/7.0/react/get-started/introduction)
 - [Rollup](https://www.npmjs.com/package/rollup)
+- [Typescript Docs](https://www.typescriptlang.org/docs/)
 - [API Extractor](https://api-extractor.com/)

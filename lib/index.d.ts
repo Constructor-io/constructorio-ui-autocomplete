@@ -19,9 +19,6 @@ declare type AutocompleteResultsProps = {
 declare interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
     type?: 'autocomplete';
     data?: Item[];
-    parameters?: {
-        numResults?: number;
-    };
 }
 
 declare type AutocompleteSubmitEvent = {
@@ -34,7 +31,7 @@ declare type AutocompleteSubmitEvent = {
 declare type BaseSectionConfiguration = {
     identifier: string;
     displayName?: string;
-    parameters?: Record<string, any>;
+    numResults?: number;
 };
 
 export declare function CioAutocomplete(props: CioAutocompleteProps): JSX.Element;
@@ -108,14 +105,9 @@ declare type Product = {
 declare interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
     type: 'recommendations';
     data?: Item[];
-    parameters?: {
-        numResults?: number;
-        itemIds?: string[];
-        section?: string;
-        term?: string;
-        filters?: any;
-        variationsMap?: any;
-    };
+    itemIds?: string[];
+    section?: string;
+    term?: string;
 }
 
 declare type RenderResults = (renderResultsArguments: {

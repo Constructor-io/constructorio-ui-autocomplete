@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { Item } from '../types';
+import { Item, RecommendationsSectionConfiguration } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
@@ -62,7 +62,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   );
   const recommendationsSections = activeSections?.filter(
     (config: SectionConfiguration) => config.type === 'recommendations'
-  );
+  ) as RecommendationsSectionConfiguration[];
 
   const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
@@ -121,6 +121,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           options.onFocus();
         }
         if (zeroStateSectionsActive && openOnFocus !== false) {
+          downshift.openMenu();
+        }
+        if (query?.length) {
           downshift.openMenu();
         }
         cioClient?.tracker?.trackInputFocus();

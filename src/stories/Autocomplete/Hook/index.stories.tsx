@@ -1,10 +1,14 @@
-import { ComponentMeta } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
-import { hookDescription } from '../../../constants';
+import { HooksTemplate, addHookStoryCode, apiKey } from '.';
+import {
+  apiKeyDescription,
+  cioJsClientDescription,
+  hookDescription,
+  placeholderDescription
+} from '../../../constants';
 
 export default {
   title: 'Autocomplete/Hook',
@@ -17,15 +21,15 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
+};
 
 export const Default = HooksTemplate.bind({});
 Default.args = { apiKey };
-Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
+addHookStoryCode(Default, `const args = ${stringify(Default.args)}`);
 
 export const ApiKey = HooksTemplate.bind({});
 ApiKey.args = { apiKey };
-addHookStoryCode(ApiKey, `const args = ${stringify(ApiKey.args)}`);
+addHookStoryCode(ApiKey, `const args = ${stringify(ApiKey.args)}`, apiKeyDescription);
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
 
@@ -36,11 +40,16 @@ addHookStoryCode(
   `import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
 const cioJsClient = new ConstructorIOClient({ apiKey: 'key_jaqzPcUDnK66puIO' });
-const args = { cioJsClient };`
+const args = { cioJsClient };`,
+  cioJsClientDescription
 );
 
 const placeholder = 'Custom placeholder';
 
 export const Placeholder = HooksTemplate.bind({});
 Placeholder.args = { apiKey, placeholder };
-addHookStoryCode(Placeholder, `const args = ${stringify(Placeholder.args)}`);
+addHookStoryCode(
+  Placeholder,
+  `const args = ${stringify(Placeholder.args)}`,
+  placeholderDescription
+);

@@ -1,10 +1,14 @@
+/////////////////////////////////
+// Storybook Folder Descriptions
+/////////////////////////////////
+
 export const componentDescription = `- import \`CioAutocomplete\` to render in your JSX.
 - This component handles state management, data fetching, and rendering logic.
 - To use this component, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
 - Use different props to configure the behavior of this component.
 - The following stories shows how different props affect the component's behavior
 
-> Note: when we say \`cioClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
+> Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
 `;
 
 export const hookDescription = `- import \`useCioAutocomplete\` and call this custom hook in a functional component.
@@ -21,6 +25,7 @@ const {
   query: string, // current input field value
   sections: [{...}], // array of sections data to render in menu list,
   getFormProps: () => ({...})), // prop getter for jsx form element
+  getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
   getItemProps: () => ({...})), // prop getter for jsx element serving as each result
@@ -29,14 +34,17 @@ const {
   // available for advanced hooks integration use cases
   openMenu: () => void, // open menu
   closeMenu: () => void, // close menu
-  getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   setQuery: () => void, // update the current input field value
-  cioClient, // instance of constructorio-client-javascript
+  cioJsClient, // instance of constructorio-client-javascript
  } = useCioAutocomplete(args);
 \`\`\`
 
-> Note: when we say \`cioClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
+> Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
 `;
+
+/////////////////////////////////
+// Storybook Pages
+/////////////////////////////////
 
 export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
 - to override this, pass a an array of sections objects
@@ -52,16 +60,12 @@ When no values are passed for the \`sections\` argument, the following defaults 
   {
     identifier: 'Search Suggestions',
     type: 'autocomplete',
-    parameters: {
-      numResults: 8
-    }
+    numResults: 8
   },
   {
     identifier: 'Products',
     type: 'autocomplete',
-    parameters: {
-      numResults: 8
-    }
+    numResults: 8
   }
 ]
 \`\`\`
@@ -84,3 +88,33 @@ export const zeroStateDescription = `- when the text input field has no text, we
 - each section object must have an \`identifier\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8`;
+
+/////////////////////////////////
+// Storybook Stories
+/////////////////////////////////
+
+export const apiKeyDescription = `Pass an \`apiKey\` to request results from constructor's servers`;
+export const cioJsClientDescription = `If you are already using an instance of the \`ConstructorIOClient\`, you can pass a \`cioJsClient\` instead of an \`apiKey\` to request results from constructor's servers
+
+> Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)`;
+export const placeholderDescription = `Pass a \`placeholder\` to override the default input field placeholder text shown to users before they start typing their query`;
+export const searchSuggestionsDescription = `Override default \`sections\` to only suggest search terms`;
+export const productsDescription = `Override default \`sections\` to only suggested products`;
+export const contentDescription = `Override default \`sections\` to only suggest content`;
+export const numResultsDescription = `Override default \`numResults\` to only suggest 2 products per query`;
+export const sectionOrderDescription = `Override default \`numResults\` to suggest products, then terms`;
+export const recommendationsDescription = `Use constructor's recommendations service, with \`"type": "recommendations"\``;
+export const customSectionDescription = `Use a custom section, by managing and passing your own data, with \`"type": "custom"\` and \`"data":[{...}]\``;
+export const onFocusDescription = `Pass an \`onFocus\` callback function to execute some code each time the user applies focus to the text input field`;
+export const onChangeDescription = `Pass an \`onChange\` callback function to execute some code each time the user changes the value of the text input field`;
+export const onSubmitDescription = `Pass an \`onSubmit\` callback function to execute some code after a user submits the search form.
+
+  Your callback function will be invoked with a submit event containing useful metadata about the submit event:
+  - if the user submits the text input:
+    - the \`query\` field will provide the value of that input field
+  - if the user selects a suggested item from the dropdown list:
+    - the \`originalQuery\` field will provide the value of the input field that generated the selected item
+    - an \`item\` object with information about the suggestion that the user selected`;
+export const zeroStateSectionsDescription = `Use \`zeroStateSections\` to show suggestions after a user applies focus to the search input field and before they start typing a query`;
+export const openOnFocusDescription = `Use \`openOnFocus: false\` to show suggestions after a user clears their query, but not when they initially apply focus to the search input field`;
+export const multipleSectionsDescription = `Use as many different \`recommendations\` and \`custom\` sections as you'd like and in whatever order you would like!`;

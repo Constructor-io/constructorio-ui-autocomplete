@@ -1,6 +1,4 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList } from '../../components';
 import { SectionItem } from '../../components';
@@ -29,7 +27,7 @@ export default {
       }
     }
   }
-} as ComponentMeta<typeof CioAutocomplete>;
+};
 
 const defaultArgs: CioAutocompleteProps = {
   apiKey,
@@ -240,17 +238,6 @@ SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }
   expect(canvas.getByTestId('cio-input')).toHaveValue(productSuggestionItem.textContent);
 };
 
-// - click Enter in input => network search submit event
-export const EnterKeySubmitSearch = ComponentTemplate.bind({});
-EnterKeySubmitSearch.args = defaultArgs;
-EnterKeySubmitSearch.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
-  await sleep(1000);
-  await userEvent.keyboard('{Enter}');
-  expect(isTrackingRequestSent('/search?original_query=')).toBeTruthy();
-};
-
 // - click search icon => network search submit event
 export const SearchIconSubmitSearch = ComponentTemplate.bind({});
 SearchIconSubmitSearch.args = defaultArgs;
@@ -355,9 +342,7 @@ ZeroStateRenderProductsSection.args = {
   sections: [
     {
       identifier: 'Products',
-      parameters: {
-        numResults: 4
-      }
+      numResults: 4
     }
   ],
   zeroStateSections: [

@@ -1,14 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useContext } from 'react';
-import {
-  AutocompleteResultSections,
-  GetItemProps,
-  SectionOrder,
-  SectionConfiguration
-} from '../../../types';
+import { GetItemProps, SectionConfiguration } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
-import '../Autocomplete.css';
 
 export type RenderResults = (renderResultsArguments: {
   sections: SectionConfiguration[];

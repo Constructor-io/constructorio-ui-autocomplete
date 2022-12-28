@@ -33,7 +33,7 @@ const useDebouncedFetchSection = (
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
       (acc, sectionConfig) => ({
         ...acc,
-        [sectionConfig.identifier]: sectionConfig?.parameters?.numResults || 8
+        [sectionConfig.identifier]: sectionConfig?.numResults || 8
       }),
       {}
     );
