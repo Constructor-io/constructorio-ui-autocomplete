@@ -98,7 +98,7 @@ export const cioJsClientDescription = `If you are already using an instance of t
 
 > Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)`;
 export const placeholderDescription = `Pass a \`placeholder\` to override the default input field placeholder text shown to users before they start typing their query`;
-export const searchSuggestionsDescription = `Override default \`sections\` to suggest search terms only`;
+export const searchSuggestionsDescription = `Override default \`sections\` to only suggest search terms`;
 export const productsDescription = `Override default \`sections\` to only suggested products`;
 export const contentDescription = `Override default \`sections\` to only suggest content`;
 export const numResultsDescription = `Override default \`numResults\` to only suggest 2 products per query`;
