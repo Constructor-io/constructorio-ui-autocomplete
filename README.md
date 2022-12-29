@@ -103,7 +103,7 @@ function YourComponent() {
 
 ```bash
 npm ci                  # install dependencies for local dev
-npm run storybook       # start a local dev server for Storybook
+npm run dev             # start a local dev server for Storybook
 npm run lint            # run linter
 ```
 

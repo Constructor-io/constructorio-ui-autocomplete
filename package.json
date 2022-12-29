@@ -13,7 +13,7 @@
     "copy-files": "copyfiles -u 1 src/**/*.css build",
     "prepare": "husky install",
     "clear": "rimraf build lib",
-    "storybook": "storybook dev -p 6006",
+    "dev": "storybook dev -p 6006",
     "storybook:ci": "storybook dev --ci --quiet -p 6006",
     "test-storybook": "test-storybook",
     "test-storybook:watch": "test-storybook --watch",
