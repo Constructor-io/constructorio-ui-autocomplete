@@ -1,5 +1,5 @@
-import React, { JSXElementConstructor } from 'react';
-import useCioAutocomplete, { UseCioAutocompleteOptions } from '../../../hooks/useCioAutocomplete';
+import React from 'react';
+import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
 import { isProduct } from '../../../typeGuards';
 import { getStoryParams } from '../../../utils';
 
@@ -54,8 +54,8 @@ export const HooksTemplate = function (args) {
           </div>
         </button>
         <button
-          className='cio-btn'
-          data-testid='cio-btn'
+          className='cio-submit-btn'
+          data-testid='cio-submit-btn'
           disabled={!inputProps.value}
           type='submit'
           aria-label='Submit Search'
@@ -166,8 +166,8 @@ function YourComponent() {
           </div>
         </button>
         <button
-          className='cio-btn'
-          data-testid='cio-btn'
+          className='cio-submit-btn'
+          data-testid='cio-submit-btn'
           disabled={!inputProps.value}
           type='submit'
           aria-label='Submit Search'>

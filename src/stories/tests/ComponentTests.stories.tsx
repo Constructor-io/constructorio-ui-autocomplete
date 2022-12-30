@@ -1,7 +1,4 @@
-import React from 'react';
 import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
-import { SectionItemsList } from '../../components';
-import { SectionItem } from '../../components';
 import { argTypes } from '../Autocomplete/argTypes';
 import { CioAutocompleteProps } from '../../components/Autocomplete/CioAutocompleteProvider';
 import { within, userEvent } from '@storybook/testing-library';
@@ -14,7 +11,6 @@ const apiKey = 'key_jaqzPcUDnK66puIO';
 export default {
   title: 'Autocomplete/Interaction Tests/Component',
   component: CioAutocomplete,
-  subcomponents: { SectionItemsList, SectionItem },
   argTypes,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
@@ -245,7 +241,7 @@ SearchIconSubmitSearch.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
   await sleep(1000);
-  await userEvent.click(canvas.getByTestId('cio-btn'));
+  await userEvent.click(canvas.getByTestId('cio-submit-btn'));
   expect(isTrackingRequestSent('/search?original_query=')).toBeTruthy();
 };
 
