@@ -93,7 +93,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   return {
     query,
     sections: activeSectionsWithData,
-    isOpen,
+    isOpen: isOpen && items?.length > 0,
     getMenuProps: () => ({
       ...getMenuProps(),
       className: 'cio-results',
