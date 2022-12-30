@@ -1,6 +1,5 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
-import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
 import { ComponentTemplate, addComponentStoryDescription, apiKey } from '.';
@@ -14,7 +13,6 @@ import {
 export default {
   title: 'Autocomplete/Component',
   component: CioAutocomplete,
-  subcomponents: { SearchInput, SectionItemsList, SectionItem },
   argTypes,
   parameters: {
     docs: {

@@ -1,5 +1,4 @@
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
-import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify, disableStoryActions } from '../../../utils';
 import {
@@ -18,7 +17,6 @@ import {
 export default {
   title: 'Autocomplete/Component/User Events',
   component: CioAutocomplete,
-  subcomponents: { SearchInput, SectionItemsList, SectionItem },
   argTypes,
   parameters: {
     docs: {
