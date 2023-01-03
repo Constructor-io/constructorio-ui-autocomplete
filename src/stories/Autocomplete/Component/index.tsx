@@ -3,8 +3,6 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { CioAutocompleteProps } from '../../../components/Autocomplete/CioAutocompleteProvider';
 import { getStoryParams } from '../../../utils';
 
-export const apiKey = 'key_jaqzPcUDnK66puIO';
-
 export const ComponentTemplate = (args: CioAutocompleteProps) => <CioAutocomplete {...args} />;
 
 const componentTemplateCode = `

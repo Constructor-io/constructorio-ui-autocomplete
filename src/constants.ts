@@ -1,3 +1,6 @@
+// Autocomplete key index
+export const apiKey = 'key_Gep3oQOu5IMcNh9A';
+
 /////////////////////////////////
 // Storybook Folder Descriptions
 /////////////////////////////////

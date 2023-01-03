@@ -5,9 +5,10 @@ import {
   onChangeDescription,
   onFocusDescription,
   onSubmitDescription,
-  userEventsDescription
+  userEventsDescription,
+  apiKey
 } from '../../../constants';
-import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
+import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
 export default {
   title: 'Autocomplete/Hook/User Events',

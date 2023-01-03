@@ -8,8 +8,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { isTrackingRequestSent, sleep } from '../../utils';
 import { ComponentTemplate } from '../Autocomplete/Component';
-
-const apiKey = 'key_jaqzPcUDnK66puIO';
+import { apiKey } from '../../constants';
 
 export default {
   title: 'Autocomplete/Interaction Tests/Component',
