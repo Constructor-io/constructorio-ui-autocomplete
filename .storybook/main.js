@@ -11,6 +11,8 @@ module.exports = {
     options: {}
   },
   docs: {
-    docsPage: 'automatic'
+    enabled: false,
+    defaultName: 'Docs',
+    autodocs: true
   }
 };
