@@ -9,9 +9,10 @@ import {
   recommendationsDescription,
   searchSuggestionsDescription,
   sectionOrderDescription,
-  sectionsDescription
+  sectionsDescription,
+  apiKey
 } from '../../../constants';
-import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
+import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
 export default {
   title: 'Autocomplete/Hook/Sections',

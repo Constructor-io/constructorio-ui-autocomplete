@@ -24,7 +24,6 @@
     "node_modules",
     "lib",
     "storybook-static",
-    ".storybook",
-    "src/stories"
+    ".storybook"
   ]
 }

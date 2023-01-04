@@ -10,14 +10,10 @@ import {
   recommendationsDescription,
   searchSuggestionsDescription,
   sectionOrderDescription,
-  sectionsDescription
-} from '../../../constants';
-import {
-  ComponentTemplate,
-  getComponentStoryParams,
-  addComponentStoryDescription,
+  sectionsDescription,
   apiKey
-} from '.';
+} from '../../../constants';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
 export default {
   title: 'Autocomplete/Component/Sections',
