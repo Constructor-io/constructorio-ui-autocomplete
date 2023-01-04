@@ -110,7 +110,7 @@ npm run lint            # run linter
 ### Maintain Library
 
 ```bash
-npm run bundle            # generate library bundle ready for publishing
+npm run compile           # generate lib folder for publishing
 npm run build-storybook   # generate storybook bundled static page that can be deployed
 ```
 
