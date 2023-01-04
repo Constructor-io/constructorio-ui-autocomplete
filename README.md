@@ -23,7 +23,7 @@ import { CioAutocomplete } from 'cio-autocomplete-ts';
 function YourComponent() {
   return (
     <div>
-      <CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" />
+      <CioAutocomplete apiKey="key_Gep3oQOu5IMcNh9A" />
     </div>
   );
 ```
