@@ -40,7 +40,7 @@ addHookStoryCode(
   CioJsClient,
   `import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
-const cioJsClient = new ConstructorIOClient({ apiKey: 'key_jaqzPcUDnK66puIO' });
+const cioJsClient = new ConstructorIOClient({ apiKey: '${apiKey}' });
 const args = { cioJsClient };`,
   cioJsClientDescription
 );
