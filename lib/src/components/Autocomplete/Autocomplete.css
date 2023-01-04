@@ -1,0 +1,114 @@
+.cio-autocomplete {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+}
+
+.cio-autocomplete .cio-items {
+  padding: 0;
+}
+
+.cio-autocomplete .cio-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cio-autocomplete .cio-item img {
+  width: 100%;
+}
+
+.cio-autocomplete .products.cio-section .cio-item {
+  align-items: center;
+  justify-content: start;
+}
+
+.cio-autocomplete .products.cio-section .cio-items {
+  display: flex;
+}
+
+.cio-autocomplete .cio-form {
+  position: relative;
+  z-index: 100;
+  width: 300px;
+  top: 0px;
+  right: -8px;
+  height: 30px;
+}
+
+.cio-autocomplete .cio-input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid gray;
+  padding: 0 10px;
+  border-radius: 3px;
+}
+
+.cio-autocomplete .cio-form .cio-btn,
+.cio-autocomplete .cio-form .cio-clear-btn {
+  position: absolute;
+  top: 1px;
+  bottom: -1px;
+  right: -21px;
+}
+
+.cio-autocomplete .cio-form .cio-btn[type='submit'] {
+  right: -21px;
+}
+
+.cio-autocomplete .cio-form .cio-clear-btn {
+  right: 10px;
+}
+
+.cio-autocomplete .cio-form .cio-icon {
+  display: flex;
+}
+
+.cio-autocomplete .cio-results {
+  background-color: white;
+  gap: 20px;
+  padding-left: 0px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  z-index: 1000;
+}
+
+.cio-autocomplete .cio-sectionName {
+  margin: 15px 0 20px 0;
+  font-size: 22px;
+}
+
+.cio-autocomplete .cio-results .cio-section.searchSuggestions .cio-items {
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.cio-autocomplete .cio-item {
+  list-style: none;
+}
+
+.cio-autocomplete .cio-item {
+  padding: 10px;
+  margin: 1px;
+  border-bottom: 3px solid transparent;
+}
+
+.cio-autocomplete .cio-item img {
+  max-width: 100px;
+}
+
+.cio-autocomplete [aria-selected='true'] {
+  background-color: hsl(0, 0%, 90%);
+  border-radius: 4px;
+}
+
+.cio-autocomplete .cio-results[role='listbox'].showing-content {
+  position: relative;
+  top: 2px;
+  left: 8px;
+  max-width: 90vw;
+  background: white;
+  margin: 0px;
+  box-shadow: 0 2px 2px 1px grey;
+  overflow: auto;
+}

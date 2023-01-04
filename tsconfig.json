@@ -5,31 +5,26 @@
     "removeComments": false,
     "jsx": "react",
     "sourceMap": true,
-    "target": "es2018",
-    "outDir": "build",
+    "target": "es2015",
+    "outDir": "lib/src",
     "declaration": true,
-    "declarationMap": true,
+    "declarationDir": "lib/types",
     "strict": true,
     "module": "ESNext",
     "noEmitOnError": true,
-    "lib": ["es2017"],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "esModuleInterop": false,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "importHelpers": true
   },
   "include": ["src/**/*.ts"],
   "exclude": [
     "node_modules",
-    "build",
-    "storybook-static",
     "lib",
+    "storybook-static",
     ".storybook",
-    "docs",
-    "temp"
-  ],
-  "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "out": "docs"
-  }
+    "src/stories"
+  ]
 }
