@@ -1,9 +1,13 @@
 name: Test and Build
 
 on:
-  pull_request:
+  push:
     branches:
-      - '**'
+      - '*'
+      - '!main'
+concurrency:
+  group: run-diffend-${{ github.head_ref }}
+  cancel-in-progress: true     
 jobs:
   test-storybook:
     timeout-minutes: 15

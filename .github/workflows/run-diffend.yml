@@ -1,9 +1,10 @@
 name: Run Diffend
 
 on:
-  pull_request:
+  push:
     branches:
-      - '**'
+      - '*'
+      - '!main'
 concurrency:
   group: run-diffend-${{ github.head_ref }}
   cancel-in-progress: true

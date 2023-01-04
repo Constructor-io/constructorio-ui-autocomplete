@@ -1,9 +1,10 @@
 name: Spell check
 
 on:
-  pull_request:
+  push:
     branches:
-      - '**'
+      - '*'
+      - '!main'
 concurrency:
   group: spell-check-${{ github.head_ref }}
   cancel-in-progress: true
