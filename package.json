@@ -18,7 +18,7 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
-    "compile": "rimraf lib && tsc && npm run copy-files"
+    "compile": "rm -rf lib && tsc && npm run copy-files"
   },
   "author": "",
   "license": "ISC",
@@ -48,10 +48,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-storybook": "^0.6.8",
     "husky": "^8.0.1",
-    "identity-obj-proxy": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rimraf": "^3.0.2",
     "start-server-and-test": "^1.15.2",
     "storybook": "^7.0.0-beta.15",
     "typescript": "^4.8.3",
