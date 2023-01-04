@@ -8,14 +8,10 @@ import {
   openOnFocusDescription,
   recommendationsDescription,
   zeroStateDescription,
-  zeroStateSectionsDescription
-} from '../../../constants';
-import {
-  ComponentTemplate,
-  getComponentStoryParams,
-  addComponentStoryDescription,
+  zeroStateSectionsDescription,
   apiKey
-} from '.';
+} from '../../../constants';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
 export default {
   title: 'Autocomplete/Component/Zero State',

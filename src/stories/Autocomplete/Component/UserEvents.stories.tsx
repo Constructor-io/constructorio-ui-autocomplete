@@ -6,14 +6,10 @@ import {
   onChangeDescription,
   onFocusDescription,
   onSubmitDescription,
-  userEventsDescription
-} from '../../../constants';
-import {
-  ComponentTemplate,
-  getComponentStoryParams,
-  addComponentStoryDescription,
+  userEventsDescription,
   apiKey
-} from '.';
+} from '../../../constants';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
 export default {
   title: 'Autocomplete/Component/User Events',
@@ -41,7 +37,7 @@ OnFocus.args = { apiKey, onFocus };
 addComponentStoryDescription(
   OnFocus,
   `const args = {
-    apiKey: 'key_jaqzPcUDnK66puIO',
+    apiKey: 'key_Gep3oQOu5IMcNh9A',
     onFocus: () => { console.log('Focus!') }
   }`,
   onFocusDescription
@@ -56,7 +52,7 @@ OnChange.args = { apiKey, onChange };
 addComponentStoryDescription(
   OnChange,
   `const args = {
-    apiKey: 'key_jaqzPcUDnK66puIO',
+    apiKey: 'key_Gep3oQOu5IMcNh9A',
     onChange: (inputFieldValue) => {
       console.log('New Query: ' + inputFieldValue);
     }
@@ -79,7 +75,7 @@ OnSubmit.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   OnSubmit,
   `const args = {
-    apiKey: 'key_jaqzPcUDnK66puIO',
+    apiKey: 'key_Gep3oQOu5IMcNh9A',
     onSubmit: (submitEvent) => {
       const { query, item, originalQuery } = submitEvent;
       if (query) {

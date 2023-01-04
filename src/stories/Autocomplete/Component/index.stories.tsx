@@ -3,12 +3,13 @@ import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { ComponentTemplate, addComponentStoryDescription, apiKey } from '.';
+import { ComponentTemplate, addComponentStoryDescription } from '.';
 import {
   apiKeyDescription,
   cioJsClientDescription,
   componentDescription,
-  placeholderDescription
+  placeholderDescription,
+  apiKey
 } from '../../../constants';
 
 export default {
