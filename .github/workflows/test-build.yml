@@ -31,13 +31,13 @@ jobs:
         run: npm ci
       - name: Build static storybook files for deploy to GitHub Pages
         run: npm run build-storybook
-      - name: Generate library bundle ready for publishing
-        run: npm run bundle
+      - name: Generate library ready for publishing
+        run: npm run compile
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
           author_name: GitHub Actions
           author_email: actions@github.com
-          message: 'Build library bundle and supporting storybook documentation'
+          message: 'Build library and supporting storybook documentation'
           add: '*'
           commit: --no-verify
