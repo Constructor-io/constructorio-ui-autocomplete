@@ -6,7 +6,7 @@ on:
       - '*'
       - '!main'
 concurrency:
-  group: run-diffend-${{ github.head_ref }}
+  group: run-tests-and-build-${{ github.head_ref }}
   cancel-in-progress: true     
 jobs:
   test-storybook:

@@ -20,10 +20,5 @@
     "importHelpers": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "storybook-static",
-    ".storybook"
-  ]
+  "exclude": ["node_modules", "lib", "storybook-static", ".storybook"]
 }

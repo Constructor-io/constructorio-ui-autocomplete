@@ -8,7 +8,6 @@ This UI Library provides React components that manage fetching and rendering log
 
 ![Autocomplete](docs-images/autocomplete.png)
 
-
 ## How to use this UI Library
 
 There are two main methods for consuming this UI Library in a React project:
