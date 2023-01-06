@@ -37,7 +37,7 @@ OnFocus.args = { apiKey, onFocus };
 addComponentStoryDescription(
   OnFocus,
   `const args = {
-    apiKey: 'key_Gep3oQOu5IMcNh9A',
+    apiKey: '${apiKey}',
     onFocus: () => { console.log('Focus!') }
   }`,
   onFocusDescription
@@ -52,7 +52,11 @@ OnChange.args = { apiKey, onChange };
 addComponentStoryDescription(
   OnChange,
   `const args = {
+<<<<<<< HEAD
+    apiKey: '${apiKey}',
+=======
     apiKey: 'key_Gep3oQOu5IMcNh9A',
+>>>>>>> main
     onChange: (inputFieldValue) => {
       console.log('New Query: ' + inputFieldValue);
     }
@@ -75,7 +79,11 @@ OnSubmit.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   OnSubmit,
   `const args = {
+<<<<<<< HEAD
+    apiKey: '${apiKey}',
+=======
     apiKey: 'key_Gep3oQOu5IMcNh9A',
+>>>>>>> main
     onSubmit: (submitEvent) => {
       const { query, item, originalQuery } = submitEvent;
       if (query) {

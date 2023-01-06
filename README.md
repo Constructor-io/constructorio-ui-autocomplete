@@ -8,7 +8,6 @@ This UI Library provides React components that manage fetching and rendering log
 
 ![Autocomplete](docs-images/autocomplete.png)
 
-
 ## How to use this UI Library
 
 There are two main methods for consuming this UI Library in a React project:
@@ -23,7 +22,7 @@ import { CioAutocomplete } from 'cio-autocomplete-ts';
 function YourComponent() {
   return (
     <div>
-      <CioAutocomplete apiKey="key_jaqzPcUDnK66puIO" />
+      <CioAutocomplete apiKey="key_Gep3oQOu5IMcNh9A" />
     </div>
   );
 ```
@@ -110,13 +109,11 @@ npm run lint            # run linter
 ### Maintain Library
 
 ```bash
-npm run bundle            # generate library bundle ready for publishing
+npm run compile           # generate lib folder for publishing
 npm run build-storybook   # generate storybook bundled static page that can be deployed
 ```
 
 ## Supporting Docs
 
 - [Storybook 7 Introduction](https://storybook.js.org/docs/7.0/react/get-started/introduction)
-- [Rollup](https://www.npmjs.com/package/rollup)
 - [Typescript Docs](https://www.typescriptlang.org/docs/)
-- [API Extractor](https://api-extractor.com/)
