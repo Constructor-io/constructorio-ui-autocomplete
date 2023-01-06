@@ -82,9 +82,7 @@ export const HooksTemplate = function (args) {
             {sections?.map((section) => (
               <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
-                  <div className='cio-sectionName'>
-                    {section?.displayName || section.identifier}
-                  </div>
+                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item, index) => (
                       <div
@@ -95,17 +93,15 @@ export const HooksTemplate = function (args) {
                         })}
                         key={item?.data?.id}
                       >
-                        <div>
-                          {isProduct(item) && (
-                            <img
-                              width='100%'
-                              src={item.data?.image_url}
-                              alt=''
-                              data-testid='cio-img'
-                            />
-                          )}
-                          <p>{item.value}</p>
-                        </div>
+                        {isProduct(item) && (
+                          <img
+                            width='100%'
+                            src={item.data?.image_url}
+                            alt=''
+                            data-testid='cio-img'
+                          />
+                        )}
+                        <p>{item.value}</p>
                       </div>
                     ))}
                   </div>
@@ -193,9 +189,7 @@ function YourComponent() {
             {sections?.map((section) => (
               <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
-                  <div className='cio-sectionName'>
-                    {section?.displayName || section.identifier}
-                  </div>
+                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item, index) => (
                       <div
@@ -205,17 +199,15 @@ function YourComponent() {
                           sectionIdentifier: section.identifier
                         })}
                         key={item?.data?.id}>
-                        <div>
-                          {isProduct(item) && (
-                            <img
-                              width='100%'
-                              src={item.data?.image_url}
-                              alt=''
-                              data-testid='cio-img'
-                            />
-                          )}
-                          <p>{item.value}</p>
-                        </div>
+                        {isProduct(item) && (
+                          <img
+                            width='100%'
+                            src={item.data?.image_url}
+                            alt=''
+                            data-testid='cio-img'
+                          />
+                        )}
+                        <p>{item.value}</p>
                       </div>
                     ))}
                   </div>

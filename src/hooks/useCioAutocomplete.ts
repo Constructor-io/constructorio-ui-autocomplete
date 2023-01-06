@@ -108,10 +108,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         activeSections: activeSectionsWithData,
         sectionIdentifier
       });
+      const sectionItemTestId = `cio-item-${sectionIdentifier.replace(' ', '')}`;
+
       return {
         ...downshift.getItemProps({ item, index: index + indexOffset }),
-        className: 'cio-item',
-        'data-testid': `cio-item-${sectionIdentifier.replace(' ', '')}`
+        className: `cio-item ${sectionItemTestId}`,
+        'data-testid': sectionItemTestId
       };
     },
     getInputProps: () => ({

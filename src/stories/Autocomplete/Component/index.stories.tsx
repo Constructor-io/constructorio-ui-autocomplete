@@ -7,7 +7,8 @@ import {
   apiKeyDescription,
   cioJsClientDescription,
   componentDescription,
-  placeholderDescription
+  placeholderDescription,
+  customStylesDescription
 } from '../../../constants';
 
 export default {
@@ -53,4 +54,14 @@ addComponentStoryDescription(
   Placeholder,
   `const args = ${stringify(Placeholder.args)}`,
   placeholderDescription
+);
+
+const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
+
+export const CustomStyles = ComponentTemplate.bind({});
+CustomStyles.args = { apiKey, autocompleteClassName };
+addComponentStoryDescription(
+  CustomStyles,
+  `const args = ${stringify(CustomStyles.args)}`,
+  customStylesDescription.replace(/\n/g, '\n\n')
 );

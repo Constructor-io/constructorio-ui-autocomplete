@@ -29,7 +29,7 @@ export default function SectionItem(props: SectionItemProps) {
   }
 
   return (
-    <li {...getItemProps({ item, index, sectionIdentifier })} className='cio-item'>
+    <li {...getItemProps({ item, index, sectionIdentifier })}>
       {children ? children : defaultChildren}
     </li>
   );

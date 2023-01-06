@@ -1,0 +1,53 @@
+.cio-autocomplete.custom-autocomplete-styles form {
+  height: 44px;
+  width: 600px;
+  border-radius: 8px;
+  background-color: rgb(247, 247, 247);
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-input {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-form button {
+  width: 44px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-clear-btn {
+  right: 24px;
+}
+.cio-autocomplete.custom-autocomplete-styles .cio-icon {
+  justify-content: center;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-sectionName {
+  font-size: 1rem;
+  margin: 5px 3px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-results {
+  width: 620px;
+  max-height: 1000px;
+  overflow: hidden;
+  border-radius: 0px 0px 8px 8px;
+  color: rgb(51, 51, 51);
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-item-SearchSuggestions {
+  width: 150px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .Products .cio-item {
+  display: inline-flex;
+  align-items: center;
+  width: 25%;
+  height: 140px;
+  margin: 0;
+  padding: 5px 0;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .Products p {
+  padding: 5px 5px 0;
+  overflow: hidden;
+}

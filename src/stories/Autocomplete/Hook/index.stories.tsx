@@ -7,7 +7,8 @@ import {
   apiKeyDescription,
   cioJsClientDescription,
   hookDescription,
-  placeholderDescription
+  placeholderDescription,
+  customStylesDescription
 } from '../../../constants';
 
 export default {
@@ -52,4 +53,14 @@ addHookStoryCode(
   Placeholder,
   `const args = ${stringify(Placeholder.args)}`,
   placeholderDescription
+);
+
+const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
+
+export const CustomStyles = HooksTemplate.bind({});
+CustomStyles.args = { apiKey, autocompleteClassName };
+addHookStoryCode(
+  CustomStyles,
+  `const args = ${stringify(CustomStyles.args)}`,
+  customStylesDescription.replace(/\n/g, '\n\n')
 );
