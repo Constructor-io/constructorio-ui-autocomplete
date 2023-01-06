@@ -32,7 +32,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     cioJsClient,
     placeholder = defaultPlaceholder,
     sections = defaultSections,
-    zeroStateSections
+    zeroStateSections,
+    autocompleteClassName = 'cio-autocomplete'
   } = options;
 
   const [query, setQuery] = useState('');
@@ -145,7 +146,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       'data-testid': 'cio-form'
     }),
     setQuery,
-    cioClient
+    cioClient,
+    autocompleteClassName
   };
 };
 

@@ -1,3 +1,4 @@
 .docs-story > div:first-child {
   min-height: 500px;
+  background-color: #212425;
 }

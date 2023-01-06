@@ -14,13 +14,14 @@ export const HooksTemplate = function (args) {
     getInputProps,
     getMenuProps,
     getItemProps,
-    setQuery
+    setQuery,
+    autocompleteClassName
   } = useCioAutocomplete(args);
 
   const inputProps = getInputProps();
 
   return (
-    <div className='cio-autocomplete'>
+    <div className={autocompleteClassName}>
       <form {...getFormProps()}>
         <label {...getLabelProps()} hidden>
           Search
@@ -84,7 +85,7 @@ export const HooksTemplate = function (args) {
                   <div className='cio-sectionName'>
                     {section?.displayName || section.identifier}
                   </div>
-                  <div className='cio-items'>
+                  <div className='cio-section-items'>
                     {section?.data?.map((item, index) => (
                       <div
                         {...getItemProps({
@@ -128,13 +129,14 @@ function YourComponent() {
     getInputProps,
     getMenuProps,
     getItemProps,
-    setQuery
+    setQuery,
+    autocompleteClassName
   } = useCioAutocomplete(args);
 
   const inputProps = getInputProps();
 
   return (
-    <div className='cio-autocomplete'>
+    <div className={autocompleteClassName}>
       <form {...getFormProps()}>
         <label {...getLabelProps()} hidden>
           Search
@@ -194,7 +196,7 @@ function YourComponent() {
                   <div className='cio-sectionName'>
                     {section?.displayName || section.identifier}
                   </div>
-                  <div className='cio-items'>
+                  <div className='cio-section-items'>
                     {section?.data?.map((item, index) => (
                       <div
                         {...getItemProps({

@@ -27,7 +27,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ section }) => {
       <h5 className='cio-sectionName' aria-hidden>
         {camelToStartCase(sectionName)}
       </h5>
-      <ul className='cio-items' role='none'>
+      <ul className='cio-section-items' role='none'>
         {section?.data?.map((item, index) => (
           <SectionItem
             item={item}
