@@ -161,7 +161,7 @@ This library provides some default styles. These default styles can provide as a
 
 .cio-autocomplete.custom-autocomplete-styles .cio-results {
   width: 620px;
-  max-height: 1000px;
+  max-height: 334px;
   overflow: hidden;
   border-radius: 0px 0px 8px 8px;
   color: rgb(51, 51, 51);
@@ -175,6 +175,7 @@ This library provides some default styles. These default styles can provide as a
   display: inline-flex;
   align-items: center;
   width: 25%;
+  max-height: 140px;
   height: 140px;
   margin: 0;
   padding: 5px 0;
@@ -183,6 +184,10 @@ This library provides some default styles. These default styles can provide as a
 .cio-autocomplete.custom-autocomplete-styles .Products p {
   padding: 5px 5px 0;
   overflow: hidden;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-item img {
+  max-height: 100px;
 }
 \`\`\`
 `;
