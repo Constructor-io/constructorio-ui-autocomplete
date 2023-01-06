@@ -1,7 +1,7 @@
 name: Version and Release and build storybook stories 
 
 on:
- push:
+  push:
     branches:
       - main
 jobs:
