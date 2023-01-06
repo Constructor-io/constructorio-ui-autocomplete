@@ -1,0 +1,24 @@
+name: Run Diffend
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+concurrency:
+  group: run-diffend-${{ github.head_ref }}
+  cancel-in-progress: true
+jobs:
+  diffend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.13.0'
+      - name: Install Diffend (Mend)
+        run: npm install -g https://my.diffend.io/releases/npm/stable.tgz
+      - name: Install dependencies with Diffend
+        run: diffend npm install

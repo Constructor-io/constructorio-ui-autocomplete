@@ -5,9 +5,10 @@ import {
   onChangeDescription,
   onFocusDescription,
   onSubmitDescription,
-  userEventsDescription
+  userEventsDescription,
+  apiKey
 } from '../../../constants';
-import { HooksTemplate, getHookStoryParams, addHookStoryCode, apiKey } from '.';
+import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
 export default {
   title: 'Autocomplete/Hook/User Events',
@@ -34,7 +35,7 @@ OnFocus.args = { apiKey, onFocus };
 addHookStoryCode(
   OnFocus,
   `const args = {
-    apiKey: 'key_jaqzPcUDnK66puIO',
+    apiKey: '${apiKey}',
     onFocus: () => { console.log('Focus!') }
   }`,
   onFocusDescription
@@ -49,7 +50,7 @@ OnChange.args = { apiKey, onChange };
 addHookStoryCode(
   OnChange,
   `const args = {
-    apiKey: 'key_jaqzPcUDnK66puIO',
+    apiKey: '${apiKey}',
     onChange: (inputFieldValue) => {
       console.log('New Query: ' + inputFieldValue);
     }
@@ -72,7 +73,7 @@ OnSubmit.args = { apiKey, onSubmit };
 addHookStoryCode(
   OnSubmit,
   `const args = {
-    apiKey: 'key_jaqzPcUDnK66puIO',
+    apiKey: '${apiKey}',
     onSubmit: (submitEvent) => {
       const { query, item, originalQuery } = submitEvent;
       if (query) {

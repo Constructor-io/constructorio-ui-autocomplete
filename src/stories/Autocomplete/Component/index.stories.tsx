@@ -2,13 +2,14 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
-import { ComponentTemplate, addComponentStoryDescription, apiKey } from '.';
+import { ComponentTemplate, addComponentStoryDescription } from '.';
 import {
   apiKeyDescription,
   cioJsClientDescription,
   componentDescription,
   placeholderDescription,
-  customStylesDescription
+  customStylesDescription,
+  apiKey
 } from '../../../constants';
 
 export default {
@@ -41,7 +42,7 @@ addComponentStoryDescription(
   `
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
-const cioJsClient = new ConstructorIOClient({ apiKey: 'key_jaqzPcUDnK66puIO' });
+const cioJsClient = new ConstructorIOClient({ apiKey: '${apiKey}' });
 const args = { cioJsClient };`,
   cioJsClientDescription
 );
