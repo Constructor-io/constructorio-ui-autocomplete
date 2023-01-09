@@ -124,7 +124,7 @@ export const multipleSectionsDescription = `Use as many different \`recommendati
 
 // from .storybook/custom-styles-story.css
 export const customStylesDescription = `
-This library provides some default styles. These default styles can provide as a foundation to build on top of or just as a reference for you to replace completely. All default styles in this library are scoped within the \`.cio-autocomplete\` css selector.
+This library provides some default styles. These default styles can be used as a foundation to build on top of or just as a reference for you to replace completely. All default styles in this library are scoped within the \`.cio-autocomplete\` css selector.
 
  - If you would like to remove all default styling, simply pass an empty string or your own custom autocomplete container className as the value for the \`autocompleteClassName\` prop
  - If you would like to layer your own custom styles on top of the library default styles, you can do so by passing additional className(s) of your choosing \`autocompleteClassName='cio-autocomplete custom-autocomplete-container'\`
