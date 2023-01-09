@@ -6,7 +6,7 @@ This UI Library provides React components that manage fetching and rendering log
 
 [Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore the behavior and configuration options for this UI Library.
 
-![Autocomplete](docs-images/autocomplete.png)
+![Autocomplete](assets/autosuggest-ui.gif)
 
 ## How to use this UI Library
 
