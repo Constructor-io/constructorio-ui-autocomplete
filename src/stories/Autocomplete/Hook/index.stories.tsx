@@ -63,5 +63,5 @@ CustomStyles.args = { apiKey, autocompleteClassName };
 addHookStoryCode(
   CustomStyles,
   `const args = ${stringify(CustomStyles.args)}`,
-  customStylesDescription.replace(/\n/g, '\n\n')
+  customStylesDescription
 );

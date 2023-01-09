@@ -64,5 +64,5 @@ CustomStyles.args = { apiKey, autocompleteClassName };
 addComponentStoryDescription(
   CustomStyles,
   `const args = ${stringify(CustomStyles.args)}`,
-  customStylesDescription.replace(/\n/g, '\n\n')
+  customStylesDescription
 );

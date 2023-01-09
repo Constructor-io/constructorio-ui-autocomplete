@@ -150,6 +150,7 @@ This library provides some default styles. These default styles can provide as a
 .cio-autocomplete.custom-autocomplete-styles .cio-clear-btn {
   right: 24px;
 }
+
 .cio-autocomplete.custom-autocomplete-styles .cio-icon {
   justify-content: center;
 }
