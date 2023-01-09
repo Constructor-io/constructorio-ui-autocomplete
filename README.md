@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autocomplete services](https://constructor.io/products/autosuggest/).
+This UI Library provides React components to manage fetching and rendering logic for [Constructor.io's autocomplete services](https://constructor.io/products/autosuggest/).
 
 [Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore the behavior and configuration options for this UI Library.
 
