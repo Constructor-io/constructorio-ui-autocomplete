@@ -6,7 +6,7 @@ This UI Library provides React components that manage fetching and rendering log
 
 [Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore the behavior and configuration options for this UI Library.
 
-![Autocomplete](docs-images/autocomplete.png)
+![Autocomplete](assets/autosuggest-ui.gif)
 
 ## How to use this UI Library
 
@@ -42,11 +42,12 @@ function YourComponent() {
     getLabelProps,
     getInputProps,
     getMenuProps,
-    getItemProps
+    getItemProps,
+    autocompleteClassName
   } = useCioAutocomplete(args);
 
   return (
-    <div className='cio-autocomplete'>
+    <div className={autocompleteClassName}>
       <form {...getFormProps()}>
         <label {...getLabelProps()} hidden>
           Search
@@ -96,15 +97,28 @@ function YourComponent() {
 }
 ```
 
+## Custom Styling
+
+### Library defaults
+
+This library provides some default styles. These default styles can be used as a foundation to build on top of or just as a reference for you to replace completely. All default styles in this library are scoped within the `.cio-autocomplete` css selector.
+
+ - If you would like to remove all default styling, simply pass an empty string or your own custom autocomplete container className as the value for the `autocompleteClassName` option
+ - If you would like to layer your own custom styles on top of the library default styles, you can do so by passing additional className(s) of your choosing `autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
+
 ## Local Development
 
 ### Development scripts
 
 ```bash
 npm ci                  # install dependencies for local dev
-npm run storybook       # start a local dev server for Storybook
+npm run dev             # start a local dev server for Storybook
 npm run lint            # run linter
 ```
+
+### Repo Workflows
+
+ - [Version and Release](https://constructor.slab.com/posts/autosuggest-ui-version-and-release-jqouccw5)
 
 ### Maintain Library
 

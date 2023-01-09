@@ -13,6 +13,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   children?: ReactNode;
   sections?: SectionConfiguration[];
   zeroStateSections?: SectionConfiguration[];
+  autocompleteClassName?: string;
 };
 
 export const CioAutocompleteContext = createContext<ReturnType<typeof useCioAutocomplete>>(
@@ -21,11 +22,11 @@ export const CioAutocompleteContext = createContext<ReturnType<typeof useCioAuto
 
 export default function CioAutocompleteProvider(props: CioAutocompleteProps) {
   const { children, ...restProps } = props;
-  const cioAutoComplete = useCioAutocomplete(restProps);
+  const cioAutocomplete = useCioAutocomplete(restProps);
 
   return (
-    <CioAutocompleteContext.Provider value={{ ...cioAutoComplete }}>
-      <div className='cio-autocomplete'>{children}</div>
+    <CioAutocompleteContext.Provider value={{ ...cioAutocomplete }}>
+      <div className={cioAutocomplete.autocompleteClassName}>{children}</div>
     </CioAutocompleteContext.Provider>
   );
 }

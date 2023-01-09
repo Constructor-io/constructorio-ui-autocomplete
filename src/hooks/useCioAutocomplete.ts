@@ -32,7 +32,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     cioJsClient,
     placeholder = defaultPlaceholder,
     sections = defaultSections,
-    zeroStateSections
+    zeroStateSections,
+    autocompleteClassName = 'cio-autocomplete'
   } = options;
 
   const [query, setQuery] = useState('');
@@ -93,7 +94,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   return {
     query,
     sections: activeSectionsWithData,
-    isOpen,
+    isOpen: isOpen && items?.length > 0,
     getMenuProps: () => ({
       ...getMenuProps(),
       className: 'cio-results',
@@ -107,10 +108,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         activeSections: activeSectionsWithData,
         sectionIdentifier
       });
+      const sectionItemTestId = `cio-item-${sectionIdentifier.replace(' ', '')}`;
+
       return {
         ...downshift.getItemProps({ item, index: index + indexOffset }),
-        className: 'cio-item',
-        'data-testid': `cio-item-${sectionIdentifier.replace(' ', '')}`
+        className: `cio-item ${sectionItemTestId}`,
+        'data-testid': sectionItemTestId
       };
     },
     getInputProps: () => ({
@@ -145,7 +148,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       'data-testid': 'cio-form'
     }),
     setQuery,
-    cioClient
+    cioClient,
+    autocompleteClassName
   };
 };
 

@@ -1,5 +1,5 @@
-import React, { JSXElementConstructor } from 'react';
-import useCioAutocomplete, { UseCioAutocompleteOptions } from '../../../hooks/useCioAutocomplete';
+import React from 'react';
+import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
 import { isProduct } from '../../../typeGuards';
 import { getStoryParams } from '../../../utils';
 
@@ -12,13 +12,14 @@ export const HooksTemplate = function (args) {
     getInputProps,
     getMenuProps,
     getItemProps,
-    setQuery
+    setQuery,
+    autocompleteClassName
   } = useCioAutocomplete(args);
 
   const inputProps = getInputProps();
 
   return (
-    <div className='cio-autocomplete'>
+    <div className={autocompleteClassName}>
       <form {...getFormProps()}>
         <label {...getLabelProps()} hidden>
           Search
@@ -50,8 +51,8 @@ export const HooksTemplate = function (args) {
           </div>
         </button>
         <button
-          className='cio-btn'
-          data-testid='cio-btn'
+          className='cio-submit-btn'
+          data-testid='cio-submit-btn'
           disabled={!inputProps.value}
           type='submit'
           aria-label='Submit Search'>
@@ -75,10 +76,8 @@ export const HooksTemplate = function (args) {
             {sections?.map((section) => (
               <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
-                  <div className='cio-sectionName'>
-                    {section?.displayName || section.identifier}
-                  </div>
-                  <div className='cio-items'>
+                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
+                  <div className='cio-section-items'>
                     {section?.data?.map((item, index) => (
                       <div
                         {...getItemProps({
@@ -87,17 +86,15 @@ export const HooksTemplate = function (args) {
                           sectionIdentifier: section.identifier
                         })}
                         key={item?.data?.id}>
-                        <div>
-                          {isProduct(item) && (
-                            <img
-                              width='100%'
-                              src={item.data?.image_url}
-                              alt=''
-                              data-testid='cio-img'
-                            />
-                          )}
-                          <p>{item.value}</p>
-                        </div>
+                        {isProduct(item) && (
+                          <img
+                            width='100%'
+                            src={item.data?.image_url}
+                            alt=''
+                            data-testid='cio-img'
+                          />
+                        )}
+                        <p>{item.value}</p>
                       </div>
                     ))}
                   </div>
@@ -121,13 +118,14 @@ function YourComponent() {
     getInputProps,
     getMenuProps,
     getItemProps,
-    setQuery
+    setQuery,
+    autocompleteClassName
   } = useCioAutocomplete(args);
 
   const inputProps = getInputProps();
 
   return (
-    <div className='cio-autocomplete'>
+    <div className={autocompleteClassName}>
       <form {...getFormProps()}>
         <label {...getLabelProps()} hidden>
           Search
@@ -159,8 +157,8 @@ function YourComponent() {
           </div>
         </button>
         <button
-          className='cio-btn'
-          data-testid='cio-btn'
+          className='cio-submit-btn'
+          data-testid='cio-submit-btn'
           disabled={!inputProps.value}
           type='submit'
           aria-label='Submit Search'>
@@ -184,10 +182,8 @@ function YourComponent() {
             {sections?.map((section) => (
               <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
-                  <div className='cio-sectionName'>
-                    {section?.displayName || section.identifier}
-                  </div>
-                  <div className='cio-items'>
+                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
+                  <div className='cio-section-items'>
                     {section?.data?.map((item, index) => (
                       <div
                         {...getItemProps({
@@ -196,17 +192,15 @@ function YourComponent() {
                           sectionIdentifier: section.identifier
                         })}
                         key={item?.data?.id}>
-                        <div>
-                          {isProduct(item) && (
-                            <img
-                              width='100%'
-                              src={item.data?.image_url}
-                              alt=''
-                              data-testid='cio-img'
-                            />
-                          )}
-                          <p>{item.value}</p>
-                        </div>
+                        {isProduct(item) && (
+                          <img
+                            width='100%'
+                            src={item.data?.image_url}
+                            alt=''
+                            data-testid='cio-img'
+                          />
+                        )}
+                        <p>{item.value}</p>
                       </div>
                     ))}
                   </div>

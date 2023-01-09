@@ -1,9 +1,11 @@
 .cio-autocomplete {
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  height: 2rem;
   padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.cio-autocomplete .cio-items {
+.cio-autocomplete .cio-section-items {
   padding: 0;
 }
 
@@ -17,22 +19,19 @@
   width: 100%;
 }
 
-.cio-autocomplete .products.cio-section .cio-item {
+.cio-autocomplete .products .cio-item {
   align-items: center;
   justify-content: start;
 }
 
-.cio-autocomplete .products.cio-section .cio-items {
+.cio-autocomplete .products .cio-section-items {
   display: flex;
 }
 
 .cio-autocomplete .cio-form {
   position: relative;
-  z-index: 100;
-  width: 300px;
-  top: 0px;
-  right: -8px;
-  height: 30px;
+  height: 100%;
+  width: 24rem;
 }
 
 .cio-autocomplete .cio-input {
@@ -43,27 +42,28 @@
   border-radius: 3px;
 }
 
-.cio-autocomplete .cio-form .cio-btn,
-.cio-autocomplete .cio-form .cio-clear-btn {
+.cio-autocomplete .cio-submit-btn,
+.cio-autocomplete .cio-clear-btn {
   position: absolute;
   top: 1px;
   bottom: -1px;
   right: -21px;
 }
 
-.cio-autocomplete .cio-form .cio-btn[type='submit'] {
+.cio-autocomplete .cio-submit-btn {
   right: -21px;
 }
 
-.cio-autocomplete .cio-form .cio-clear-btn {
+.cio-autocomplete .cio-clear-btn {
   right: 10px;
 }
 
-.cio-autocomplete .cio-form .cio-icon {
+.cio-autocomplete .cio-icon {
   display: flex;
 }
 
 .cio-autocomplete .cio-results {
+  position: absolute;
   background-color: white;
   gap: 20px;
   padding-left: 0px;
@@ -71,6 +71,7 @@
   display: flex;
   flex-direction: row;
   z-index: 1000;
+  margin-top: 5px;
 }
 
 .cio-autocomplete .cio-sectionName {
@@ -78,7 +79,7 @@
   font-size: 22px;
 }
 
-.cio-autocomplete .cio-results .cio-section.searchSuggestions .cio-items {
+.cio-autocomplete .searchSuggestions .cio-section-items {
   flex-direction: column;
   min-width: 200px;
 }
@@ -88,27 +89,20 @@
 }
 
 .cio-autocomplete .cio-item {
-  padding: 10px;
+  padding: 5px;
   margin: 1px;
   border-bottom: 3px solid transparent;
+}
+
+.cio-autocomplete .cio-item p {
+  margin: 0;
 }
 
 .cio-autocomplete .cio-item img {
   max-width: 100px;
 }
 
-.cio-autocomplete [aria-selected='true'] {
+.cio-autocomplete .cio-item[aria-selected='true'] {
   background-color: hsl(0, 0%, 90%);
   border-radius: 4px;
-}
-
-.cio-autocomplete .cio-results[role='listbox'].showing-content {
-  position: relative;
-  top: 2px;
-  left: 8px;
-  max-width: 90vw;
-  background: white;
-  margin: 0px;
-  box-shadow: 0 2px 2px 1px grey;
-  overflow: auto;
 }

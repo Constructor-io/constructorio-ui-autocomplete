@@ -121,3 +121,74 @@ export const onSubmitDescription = `Pass an \`onSubmit\` callback function to ex
 export const zeroStateSectionsDescription = `Use \`zeroStateSections\` to show suggestions after a user applies focus to the search input field and before they start typing a query`;
 export const openOnFocusDescription = `Use \`openOnFocus: false\` to show suggestions after a user clears their query, but not when they initially apply focus to the search input field`;
 export const multipleSectionsDescription = `Use as many different \`recommendations\` and \`custom\` sections as you'd like and in whatever order you would like!`;
+
+// from .storybook/custom-styles-story.css
+export const customStylesDescription = `
+This library provides some default styles. These default styles can be used as a foundation to build on top of or just as a reference for you to replace completely. All default styles in this library are scoped within the \`.cio-autocomplete\` css selector.
+
+ - If you would like to remove all default styling, simply pass an empty string or your own custom autocomplete container className as the value for the \`autocompleteClassName\` prop
+ - If you would like to layer your own custom styles on top of the library default styles, you can do so by passing additional className(s) of your choosing \`autocompleteClassName='cio-autocomplete custom-autocomplete-container'\`
+
+
+\`\`\`css
+.cio-autocomplete.custom-autocomplete-styles form {
+  height: 44px;
+  width: 600px;
+  border-radius: 8px;
+  background-color: rgb(247, 247, 247);
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-input {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-form button {
+  width: 44px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-clear-btn {
+  right: 24px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-icon {
+  justify-content: center;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-sectionName {
+  font-size: 1rem;
+  margin: 5px 3px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-results {
+  width: 620px;
+  max-height: 334px;
+  overflow: hidden;
+  border-radius: 0px 0px 8px 8px;
+  color: rgb(51, 51, 51);
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-item-SearchSuggestions {
+  width: 150px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .Products .cio-item {
+  display: inline-flex;
+  align-items: center;
+  width: 25%;
+  max-height: 140px;
+  height: 140px;
+  margin: 0;
+  padding: 5px 0;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .Products p {
+  padding: 5px 5px 0;
+  overflow: hidden;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-item img {
+  max-height: 100px;
+}
+\`\`\`
+`;

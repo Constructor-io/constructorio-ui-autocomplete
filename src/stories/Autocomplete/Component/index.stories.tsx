@@ -1,6 +1,5 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
-import { SectionItemsList, SectionItem, SearchInput } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
 import { ComponentTemplate, addComponentStoryDescription } from '.';
@@ -9,13 +8,13 @@ import {
   cioJsClientDescription,
   componentDescription,
   placeholderDescription,
+  customStylesDescription,
   apiKey
 } from '../../../constants';
 
 export default {
   title: 'Autocomplete/Component',
   component: CioAutocomplete,
-  subcomponents: { SearchInput, SectionItemsList, SectionItem },
   argTypes,
   parameters: {
     docs: {
@@ -56,4 +55,14 @@ addComponentStoryDescription(
   Placeholder,
   `const args = ${stringify(Placeholder.args)}`,
   placeholderDescription
+);
+
+const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
+
+export const CustomStyles = ComponentTemplate.bind({});
+CustomStyles.args = { apiKey, autocompleteClassName };
+addComponentStoryDescription(
+  CustomStyles,
+  `const args = ${stringify(CustomStyles.args)}`,
+  customStylesDescription
 );
