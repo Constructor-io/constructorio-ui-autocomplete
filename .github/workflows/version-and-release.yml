@@ -1,4 +1,4 @@
-name: Version and Release and build storybook stories 
+name: Version and Release and build storybook stories
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-        node-version: '16.13.0'
+          node-version: '16.13.0'
       - name: Install
         run: npm ci
       - name: Build static storybook files for deploy to GitHub Pages
