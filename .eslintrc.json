@@ -8,7 +8,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:@cspell/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -18,9 +19,42 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prefer-const": "error",
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-unused-params": "off",
-    "prettier/prettier": ["error"]
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "prettier/prettier": ["error"],
+    "global-require": "off",
+    "max-len": [
+      "error",
+      120,
+      2,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": false,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "object-curly-newline": "off",
+    "padded-blocks": "off",
+    "react/prefer-stateless-function": "off",
+    "max-depth": [
+      "error",
+      4
+    ],
+    "max-nested-callbacks": [
+      "error",
+      5
+    ],
+    "max-params": [
+      "error",
+      4
+    ],
+    "complexity": [
+      "error",
+      20
+    ],
+    "@cspell/spellchecker": ["error"]
   },
   "overrides": [
     {
