@@ -29,16 +29,16 @@ export const Default = HooksTemplate.bind({});
 Default.args = { apiKey };
 addHookStoryCode(Default, `const args = ${stringify(Default.args)}`);
 
-export const ApiKey = HooksTemplate.bind({});
-ApiKey.args = { apiKey };
-addHookStoryCode(ApiKey, `const args = ${stringify(ApiKey.args)}`, apiKeyDescription);
+export const ProvideAPIKey = HooksTemplate.bind({});
+ProvideAPIKey.args = { apiKey };
+addHookStoryCode(ProvideAPIKey, `const args = ${stringify(ProvideAPIKey.args)}`, apiKeyDescription);
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
 
-export const CioJsClient = HooksTemplate.bind({});
-CioJsClient.args = { cioJsClient };
+export const ProvideCIOClientInstance = HooksTemplate.bind({});
+ProvideCIOClientInstance.args = { cioJsClient };
 addHookStoryCode(
-  CioJsClient,
+  ProvideCIOClientInstance,
   `import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
 const cioJsClient = new ConstructorIOClient({ apiKey: '${apiKey}' });
@@ -48,20 +48,20 @@ const args = { cioJsClient };`,
 
 const placeholder = 'Custom placeholder';
 
-export const Placeholder = HooksTemplate.bind({});
-Placeholder.args = { apiKey, placeholder };
+export const ProvideCustomPlaceHolder = HooksTemplate.bind({});
+ProvideCustomPlaceHolder.args = { apiKey, placeholder };
 addHookStoryCode(
-  Placeholder,
-  `const args = ${stringify(Placeholder.args)}`,
+  ProvideCustomPlaceHolder,
+  `const args = ${stringify(ProvideCustomPlaceHolder.args)}`,
   placeholderDescription
 );
 
 const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
 
-export const CustomStyles = HooksTemplate.bind({});
-CustomStyles.args = { apiKey, autocompleteClassName };
+export const ProvideCustomStyles = HooksTemplate.bind({});
+ProvideCustomStyles.args = { apiKey, autocompleteClassName };
 addHookStoryCode(
-  CustomStyles,
-  `const args = ${stringify(CustomStyles.args)}`,
+  ProvideCustomStyles,
+  `const args = ${stringify(ProvideCustomStyles.args)}`,
   customStylesDescription
 );

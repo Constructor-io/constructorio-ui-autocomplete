@@ -31,8 +31,8 @@ export const Default = ComponentTemplate.bind({});
 Default.args = { apiKey };
 Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
 
-export const SearchSuggestions = ComponentTemplate.bind({});
-SearchSuggestions.args = {
+export const RenderSearchSuggestions = ComponentTemplate.bind({});
+RenderSearchSuggestions.args = {
   apiKey,
   sections: [
     {
@@ -41,13 +41,13 @@ SearchSuggestions.args = {
   ]
 };
 addComponentStoryDescription(
-  SearchSuggestions,
-  `const args = ${stringify(SearchSuggestions.args)}`,
+  RenderSearchSuggestions,
+  `const args = ${stringify(RenderSearchSuggestions.args)}`,
   searchSuggestionsDescription
 );
 
-export const Products = ComponentTemplate.bind({});
-Products.args = {
+export const RenderSuggestedProducts = ComponentTemplate.bind({});
+RenderSuggestedProducts.args = {
   apiKey,
   sections: [
     {
@@ -56,13 +56,13 @@ Products.args = {
   ]
 };
 addComponentStoryDescription(
-  Products,
-  `const args = ${stringify(Products.args)}`,
+  RenderSuggestedProducts,
+  `const args = ${stringify(RenderSuggestedProducts.args)}`,
   productsDescription
 );
 
-export const Content = ComponentTemplate.bind({});
-Content.args = {
+export const RenderSuggestedContent = ComponentTemplate.bind({});
+RenderSuggestedContent.args = {
   apiKey,
   sections: [
     {
@@ -71,13 +71,13 @@ Content.args = {
   ]
 };
 addComponentStoryDescription(
-  Content,
-  `const args = ${stringify(Content.args)}`,
+  RenderSuggestedContent,
+  `const args = ${stringify(RenderSuggestedContent.args)}`,
   contentDescription
 );
 
-export const NumResults = ComponentTemplate.bind({});
-NumResults.args = {
+export const ConfigureNumberOfResultsPerSection = ComponentTemplate.bind({});
+ConfigureNumberOfResultsPerSection.args = {
   apiKey,
   sections: [
     {
@@ -87,13 +87,13 @@ NumResults.args = {
   ]
 };
 addComponentStoryDescription(
-  NumResults,
-  `const args = ${stringify(NumResults.args)}`,
+  ConfigureNumberOfResultsPerSection,
+  `const args = ${stringify(ConfigureNumberOfResultsPerSection.args)}`,
   numResultsDescription
 );
 
-export const SectionOrder = ComponentTemplate.bind({});
-SectionOrder.args = {
+export const ConfigureOrderOfRenderedSections = ComponentTemplate.bind({});
+ConfigureOrderOfRenderedSections.args = {
   apiKey,
   sections: [
     {
@@ -105,13 +105,13 @@ SectionOrder.args = {
   ]
 };
 addComponentStoryDescription(
-  SectionOrder,
-  `const args = ${stringify(SectionOrder.args)}`,
+  ConfigureOrderOfRenderedSections,
+  `const args = ${stringify(ConfigureOrderOfRenderedSections.args)}`,
   sectionOrderDescription
 );
 
-export const Recommendations = ComponentTemplate.bind({});
-Recommendations.args = {
+export const RenderRecommendations = ComponentTemplate.bind({});
+RenderRecommendations.args = {
   apiKey,
   sections: [
     {
@@ -128,13 +128,13 @@ Recommendations.args = {
   ]
 };
 addComponentStoryDescription(
-  Recommendations,
-  `const args = ${stringify(Recommendations.args)}`,
+  RenderRecommendations,
+  `const args = ${stringify(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
-export const CustomSection = ComponentTemplate.bind({});
-CustomSection.args = {
+export const RenderCustomSection = ComponentTemplate.bind({});
+RenderCustomSection.args = {
   apiKey,
   sections: [
     {
@@ -164,7 +164,7 @@ CustomSection.args = {
   ]
 };
 addComponentStoryDescription(
-  CustomSection,
-  `const args = ${stringify(CustomSection.args)}`,
+  RenderCustomSection,
+  `const args = ${stringify(RenderCustomSection.args)}`,
   customSectionDescription
 );
