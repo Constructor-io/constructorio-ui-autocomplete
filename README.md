@@ -116,10 +116,6 @@ npm run dev             # start a local dev server for Storybook
 npm run lint            # run linter
 ```
 
-### Repo Workflows
-
- - [Version and Release](https://constructor.slab.com/posts/autosuggest-ui-version-and-release-jqouccw5)
-
 ### Maintain Library
 
 ```bash
