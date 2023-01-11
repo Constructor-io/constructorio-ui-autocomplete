@@ -31,8 +31,8 @@ export const Default = HooksTemplate.bind({});
 Default.args = { apiKey };
 Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
 
-export const SearchSuggestions = HooksTemplate.bind({});
-SearchSuggestions.args = {
+export const RenderSearchSuggestions = HooksTemplate.bind({});
+RenderSearchSuggestions.args = {
   apiKey,
   sections: [
     {
@@ -41,13 +41,13 @@ SearchSuggestions.args = {
   ]
 };
 addHookStoryCode(
-  SearchSuggestions,
-  `const args = ${stringify(SearchSuggestions.args)}`,
+  RenderSearchSuggestions,
+  `const args = ${stringify(RenderSearchSuggestions.args)}`,
   searchSuggestionsDescription
 );
 
-export const Products = HooksTemplate.bind({});
-Products.args = {
+export const RenderSuggestedProducts = HooksTemplate.bind({});
+RenderSuggestedProducts.args = {
   apiKey,
   sections: [
     {
@@ -56,10 +56,14 @@ Products.args = {
     }
   ]
 };
-addHookStoryCode(Products, `const args = ${stringify(Products.args)}`, productsDescription);
+addHookStoryCode(
+  RenderSuggestedProducts,
+  `const args = ${stringify(RenderSuggestedProducts.args)}`,
+  productsDescription
+);
 
-export const Content = HooksTemplate.bind({});
-Content.args = {
+export const RenderSuggestedContent = HooksTemplate.bind({});
+RenderSuggestedContent.args = {
   apiKey,
   sections: [
     {
@@ -67,10 +71,14 @@ Content.args = {
     }
   ]
 };
-addHookStoryCode(Content, `const args = ${stringify(Content.args)}`, contentDescription);
+addHookStoryCode(
+  RenderSuggestedContent,
+  `const args = ${stringify(RenderSuggestedContent.args)}`,
+  contentDescription
+);
 
-export const NumResults = HooksTemplate.bind({});
-NumResults.args = {
+export const ConfigureNumberOfResultsPerSection = HooksTemplate.bind({});
+ConfigureNumberOfResultsPerSection.args = {
   apiKey,
   sections: [
     {
@@ -79,10 +87,14 @@ NumResults.args = {
     }
   ]
 };
-addHookStoryCode(NumResults, `const args = ${stringify(NumResults.args)}`, numResultsDescription);
+addHookStoryCode(
+  ConfigureNumberOfResultsPerSection,
+  `const args = ${stringify(ConfigureNumberOfResultsPerSection.args)}`,
+  numResultsDescription
+);
 
-export const SectionOrder = HooksTemplate.bind({});
-SectionOrder.args = {
+export const ConfigureOrderOfRenderedSections = HooksTemplate.bind({});
+ConfigureOrderOfRenderedSections.args = {
   apiKey,
   sections: [
     {
@@ -94,13 +106,13 @@ SectionOrder.args = {
   ]
 };
 addHookStoryCode(
-  SectionOrder,
-  `const args = ${stringify(SectionOrder.args)}`,
+  ConfigureOrderOfRenderedSections,
+  `const args = ${stringify(ConfigureOrderOfRenderedSections.args)}`,
   sectionOrderDescription
 );
 
-export const Recommendations = HooksTemplate.bind({});
-Recommendations.args = {
+export const RenderRecommendations = HooksTemplate.bind({});
+RenderRecommendations.args = {
   apiKey,
   sections: [
     {
@@ -116,13 +128,13 @@ Recommendations.args = {
   ]
 };
 addHookStoryCode(
-  Recommendations,
-  `const args = ${stringify(Recommendations.args)}`,
+  RenderRecommendations,
+  `const args = ${stringify(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
-export const CustomSection = HooksTemplate.bind({});
-CustomSection.args = {
+export const RenderCustomSection = HooksTemplate.bind({});
+RenderCustomSection.args = {
   apiKey,
   sections: [
     {
@@ -152,7 +164,7 @@ CustomSection.args = {
   ]
 };
 addHookStoryCode(
-  CustomSection,
-  `const args = ${stringify(CustomSection.args)}`,
+  RenderCustomSection,
+  `const args = ${stringify(RenderCustomSection.args)}`,
   customSectionDescription
 );

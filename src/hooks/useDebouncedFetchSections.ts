@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, Item, SectionConfiguration } from '../types';
+import { AutocompleteResultSections, SectionConfiguration } from '../types';
 
 interface IAutocompleteParameters {
   numResults: number;

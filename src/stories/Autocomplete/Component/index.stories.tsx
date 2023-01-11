@@ -29,16 +29,20 @@ export const Default = ComponentTemplate.bind({});
 Default.args = { apiKey };
 addComponentStoryDescription(Default, `const args = ${stringify(Default.args)}`);
 
-export const ApiKey = ComponentTemplate.bind({});
-ApiKey.args = { apiKey };
-addComponentStoryDescription(ApiKey, `const args = ${stringify(ApiKey.args)}`, apiKeyDescription);
+export const ProvideAPIKey = ComponentTemplate.bind({});
+ProvideAPIKey.args = { apiKey };
+addComponentStoryDescription(
+  ProvideAPIKey,
+  `const args = ${stringify(ProvideAPIKey.args)}`,
+  apiKeyDescription
+);
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
 
-export const CioJsClient = ComponentTemplate.bind({});
-CioJsClient.args = { cioJsClient };
+export const ProvideCIOClientInstance = ComponentTemplate.bind({});
+ProvideCIOClientInstance.args = { cioJsClient };
 addComponentStoryDescription(
-  CioJsClient,
+  ProvideCIOClientInstance,
   `
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 
@@ -49,20 +53,20 @@ const args = { cioJsClient };`,
 
 const placeholder = 'Custom placeholder';
 
-export const Placeholder = ComponentTemplate.bind({});
-Placeholder.args = { apiKey, placeholder };
+export const ProvideCustomPlaceHolder = ComponentTemplate.bind({});
+ProvideCustomPlaceHolder.args = { apiKey, placeholder };
 addComponentStoryDescription(
-  Placeholder,
-  `const args = ${stringify(Placeholder.args)}`,
+  ProvideCustomPlaceHolder,
+  `const args = ${stringify(ProvideCustomPlaceHolder.args)}`,
   placeholderDescription
 );
 
 const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
 
-export const CustomStyles = ComponentTemplate.bind({});
-CustomStyles.args = { apiKey, autocompleteClassName };
+export const ProvideCustomStyles = ComponentTemplate.bind({});
+ProvideCustomStyles.args = { apiKey, autocompleteClassName };
 addComponentStoryDescription(
-  CustomStyles,
-  `const args = ${stringify(CustomStyles.args)}`,
+  ProvideCustomStyles,
+  `const args = ${stringify(ProvideCustomStyles.args)}`,
   customStylesDescription
 );

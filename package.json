@@ -1,7 +1,7 @@
 {
   "name": "cio-autocomplete-ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Constructor.io Autocomplete UI library",
   "main": "lib/src/index.js",
   "files": [
     "lib"
@@ -20,14 +20,15 @@
     "serve-built-storybook": "npx http-server docs",
     "compile": "rm -rf lib && tsc && npm run copy-files"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "constructor.io",
+  "license": "MIT",
   "volta": {
     "node": "16.17.0",
     "npm": "8.19.2"
   },
   "devDependencies": {
     "@constructor-io/constructorio-client-javascript": "^2.34.1",
+    "@cspell/eslint-plugin": "^6.18.1",
     "@storybook/addon-a11y": "^7.0.0-beta.15",
     "@storybook/addon-actions": "^7.0.0-beta.15",
     "@storybook/addon-essentials": "^7.0.0-beta.15",

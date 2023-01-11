@@ -29,8 +29,8 @@ export const Default = ComponentTemplate.bind({});
 Default.args = { apiKey };
 Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
 
-export const ZeroStateSections = ComponentTemplate.bind({});
-ZeroStateSections.args = {
+export const RenderSections = ComponentTemplate.bind({});
+RenderSections.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -41,8 +41,8 @@ ZeroStateSections.args = {
   ]
 };
 addComponentStoryDescription(
-  ZeroStateSections,
-  `const args = ${stringify(ZeroStateSections.args)}`,
+  RenderSections,
+  `const args = ${stringify(RenderSections.args)}`,
   zeroStateSectionsDescription
 );
 
@@ -63,8 +63,8 @@ addComponentStoryDescription(
   openOnFocusDescription
 );
 
-export const Recommendations = ComponentTemplate.bind({});
-Recommendations.args = {
+export const RenderRecommendations = ComponentTemplate.bind({});
+RenderRecommendations.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -74,13 +74,13 @@ Recommendations.args = {
   ]
 };
 addComponentStoryDescription(
-  Recommendations,
-  `const args = ${stringify(Recommendations.args)}`,
+  RenderRecommendations,
+  `const args = ${stringify(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
-export const CustomSection = ComponentTemplate.bind({});
-CustomSection.args = {
+export const RenderCustomSection = ComponentTemplate.bind({});
+RenderCustomSection.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -107,13 +107,13 @@ CustomSection.args = {
   ]
 };
 addComponentStoryDescription(
-  CustomSection,
-  `const args = ${stringify(CustomSection.args)}`,
+  RenderCustomSection,
+  `const args = ${stringify(RenderCustomSection.args)}`,
   customSectionDescription
 );
 
-export const MultipleSections = ComponentTemplate.bind({});
-MultipleSections.args = {
+export const RenderMultipleSections = ComponentTemplate.bind({});
+RenderMultipleSections.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -144,7 +144,7 @@ MultipleSections.args = {
   ]
 };
 addComponentStoryDescription(
-  MultipleSections,
-  `const args = ${stringify(MultipleSections.args)}`,
+  RenderMultipleSections,
+  `const args = ${stringify(RenderMultipleSections.args)}`,
   multipleSectionsDescription
 );

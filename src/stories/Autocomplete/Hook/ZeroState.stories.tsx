@@ -28,8 +28,8 @@ export const Default = HooksTemplate.bind({});
 Default.args = { apiKey };
 Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
 
-export const ZeroStateSections = HooksTemplate.bind({});
-ZeroStateSections.args = {
+export const RenderSections = HooksTemplate.bind({});
+RenderSections.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -40,8 +40,8 @@ ZeroStateSections.args = {
   ]
 };
 addHookStoryCode(
-  ZeroStateSections,
-  `const args = ${stringify(ZeroStateSections.args)}`,
+  RenderSections,
+  `const args = ${stringify(RenderSections.args)}`,
   zeroStateDescription
 );
 
@@ -62,8 +62,8 @@ addHookStoryCode(
   openOnFocusDescription
 );
 
-export const Recommendations = HooksTemplate.bind({});
-Recommendations.args = {
+export const RenderRecommendations = HooksTemplate.bind({});
+RenderRecommendations.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -73,13 +73,13 @@ Recommendations.args = {
   ]
 };
 addHookStoryCode(
-  Recommendations,
-  `const args = ${stringify(Recommendations.args)}`,
+  RenderRecommendations,
+  `const args = ${stringify(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
-export const CustomSection = HooksTemplate.bind({});
-CustomSection.args = {
+export const RenderCustomSection = HooksTemplate.bind({});
+RenderCustomSection.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -106,13 +106,13 @@ CustomSection.args = {
   ]
 };
 addHookStoryCode(
-  CustomSection,
-  `const args = ${stringify(CustomSection.args)}`,
+  RenderCustomSection,
+  `const args = ${stringify(RenderCustomSection.args)}`,
   customSectionDescription
 );
 
-export const MultipleSections = HooksTemplate.bind({});
-MultipleSections.args = {
+export const RenderMultipleSections = HooksTemplate.bind({});
+RenderMultipleSections.args = {
   apiKey,
   zeroStateSections: [
     {
@@ -143,7 +143,7 @@ MultipleSections.args = {
   ]
 };
 addHookStoryCode(
-  MultipleSections,
-  `const args = ${stringify(MultipleSections.args)}`,
+  RenderMultipleSections,
+  `const args = ${stringify(RenderMultipleSections.args)}`,
   multipleSectionsDescription
 );
