@@ -116,15 +116,11 @@ npm run dev             # start a local dev server for Storybook
 npm run lint            # run linter
 ```
 
-### Repo Workflows
-
- - [Version and Release](https://constructor.slab.com/posts/autosuggest-ui-version-and-release-jqouccw5)
-
 ### Maintain Library
 
 ```bash
-npm run compile           # generate lib folder for publishing
-npm run build-storybook   # generate storybook bundled static page that can be deployed
+npm run compile           # generate lib folder for publishing to npm
+npm run build-storybook   # generate storybook static bundle for deploy with GH Pages
 ```
 
 ## Supporting Docs
