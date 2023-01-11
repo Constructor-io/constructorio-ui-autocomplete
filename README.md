@@ -119,8 +119,8 @@ npm run lint            # run linter
 ### Maintain Library
 
 ```bash
-npm run compile           # generate lib folder for publishing
-npm run build-storybook   # generate storybook bundled static page that can be deployed
+npm run compile           # generate lib folder for publishing to npm
+npm run build-storybook   # generate storybook static bundle for deploy with GH Pages
 ```
 
 ## Supporting Docs
