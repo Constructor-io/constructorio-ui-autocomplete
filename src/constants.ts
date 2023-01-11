@@ -139,7 +139,6 @@ This library provides some default styles. These default styles can be used as a
 }
 
 .cio-autocomplete.custom-autocomplete-styles .cio-input {
-  font-size: 1rem;
   font-weight: bold;
 }
 
@@ -151,12 +150,7 @@ This library provides some default styles. These default styles can be used as a
   right: 24px;
 }
 
-.cio-autocomplete.custom-autocomplete-styles .cio-icon {
-  justify-content: center;
-}
-
 .cio-autocomplete.custom-autocomplete-styles .cio-sectionName {
-  font-size: 1rem;
   margin: 5px 3px;
 }
 
@@ -168,27 +162,8 @@ This library provides some default styles. These default styles can be used as a
   color: rgb(51, 51, 51);
 }
 
-.cio-autocomplete.custom-autocomplete-styles .cio-item-SearchSuggestions {
-  width: 150px;
-}
-
-.cio-autocomplete.custom-autocomplete-styles .Products .cio-item {
-  display: inline-flex;
-  align-items: center;
-  width: 25%;
-  max-height: 140px;
-  height: 140px;
-  margin: 0;
-  padding: 5px 0;
-}
-
 .cio-autocomplete.custom-autocomplete-styles .Products p {
   padding: 5px 5px 0;
-  overflow: hidden;
-}
-
-.cio-autocomplete.custom-autocomplete-styles .cio-item img {
-  max-height: 100px;
 }
 \`\`\`
 `;

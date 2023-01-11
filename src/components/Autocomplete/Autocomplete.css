@@ -19,6 +19,7 @@
   border: 1px solid gray;
   padding: 0 10px;
   border-radius: 3px;
+  font-size: 1rem;
 }
 
 .cio-autocomplete .cio-submit-btn,
@@ -44,6 +45,7 @@
 
 .cio-autocomplete .cio-icon {
   display: flex;
+  justify-content: center;
 }
 
 /* Autosuggest Results */
@@ -60,21 +62,17 @@
 }
 
 .cio-autocomplete .cio-sectionName {
-  margin: 15px 0 20px 0;
-  font-size: 22px;
+  margin: 15px 0;
+  font-size: 1rem;
 }
 
 .cio-autocomplete .cio-section-items {
   padding: 0;
 }
 
-.cio-autocomplete .searchSuggestions .cio-section-items {
+.cio-autocomplete .cio-item-SearchSuggestions {
   flex-direction: column;
-  min-width: 200px;
-}
-
-.cio-autocomplete .products .cio-section-items {
-  display: flex;
+  min-width: 160px;
 }
 
 .cio-autocomplete .cio-item {
@@ -84,7 +82,6 @@
   cursor: pointer;
   list-style: none;
   padding: 5px;
-  margin: 1px;
   border-bottom: 3px solid transparent;
 }
 
@@ -93,16 +90,21 @@
   border-radius: 4px;
 }
 
-.cio-autocomplete .products .cio-item {
+.cio-autocomplete .Products .cio-item {
+  display: inline-flex;
   align-items: center;
-  justify-content: start;
+  width: 25%;
+  height: 140px;
+  padding: 5px 0;
 }
 
 .cio-autocomplete .cio-item p {
   margin: 0;
+  overflow: hidden;
 }
 
 .cio-autocomplete .cio-item img {
   width: 100%;
   max-width: 100px;
+  max-height: 100px;
 }
