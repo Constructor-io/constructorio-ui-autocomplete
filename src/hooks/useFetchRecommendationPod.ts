@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { AutocompleteResultSections, RecommendationsSectionConfiguration, Item } from '../types';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { AutocompleteResultSections, RecommendationsSectionConfiguration, Item } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: ConstructorIOClient | undefined,

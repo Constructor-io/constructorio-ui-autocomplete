@@ -2,9 +2,8 @@ import { useState } from 'react';
 import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { Item, RecommendationsSectionConfiguration } from '../types';
+import { Item, RecommendationsSectionConfiguration, SectionConfiguration } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
-import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
 import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
@@ -133,7 +132,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-input',
       'data-testid': 'cio-input',
-      placeholder: placeholder
+      placeholder
     }),
     getFormProps: () => ({
       onSubmit: (event) => {

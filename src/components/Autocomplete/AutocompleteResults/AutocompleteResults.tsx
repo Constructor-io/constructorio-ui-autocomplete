@@ -1,5 +1,4 @@
-import React, { ReactNode } from 'react';
-import { useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { GetItemProps, SectionConfiguration } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
@@ -12,6 +11,14 @@ export type RenderResults = (renderResultsArguments: {
 type AutocompleteResultsProps = {
   children?: RenderResults | ReactNode;
 };
+
+const DefaultRenderResults: RenderResults = ({ sections }) => (
+  <>
+    {sections?.map((section: SectionConfiguration) => (
+      <SectionItemsList section={section} key={section.identifier} />
+    ))}
+  </>
+);
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
@@ -32,11 +39,3 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
 
   return <ul {...menuProps}>{content}</ul>;
 }
-
-const DefaultRenderResults: RenderResults = ({ sections }) => (
-  <>
-    {sections?.map((section: SectionConfiguration) => (
-      <SectionItemsList section={section} key={section.identifier} />
-    ))}
-  </>
-);

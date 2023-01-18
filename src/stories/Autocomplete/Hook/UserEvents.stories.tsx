@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CioAutocomplete } from '../../../components';
 import { argTypes } from '../argTypes';
 import { stringify, disableStoryActions } from '../../../utils';
@@ -43,7 +44,7 @@ addHookStoryCode(
 disableStoryActions(OnFocus);
 
 const onChange = (inputFieldValue) => {
-  console.log('New Query: ' + inputFieldValue);
+  console.log(`New Query: ${inputFieldValue}`);
 };
 export const OnChange = HooksTemplate.bind({});
 OnChange.args = { apiKey, onChange };
@@ -62,9 +63,9 @@ disableStoryActions(OnChange);
 const onSubmit = (submitEvent) => {
   const { query, item, originalQuery } = submitEvent;
   if (query) {
-    console.log('Submitted query: ' + query);
+    console.log(`Submitted query: ${query}`);
   } else {
-    console.log('Selected a search suggestion for: ' + originalQuery);
+    console.log(`Selected a search suggestion for: ${originalQuery}`);
     console.dir(item);
   }
 };

@@ -1,5 +1,4 @@
-import React from 'react';
-import { createContext, ReactNode } from 'react';
+import React, { createContext, ReactNode } from 'react';
 import useCioAutocomplete from '../../hooks/useCioAutocomplete';
 import { CioClientConfig } from '../../hooks/useCioClient';
 import { OnSubmit, SectionConfiguration } from '../../types';

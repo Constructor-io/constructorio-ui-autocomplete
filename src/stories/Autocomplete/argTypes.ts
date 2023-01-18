@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export const argTypes = {
   placeholder: {
     description: 'Search input placeholder',
