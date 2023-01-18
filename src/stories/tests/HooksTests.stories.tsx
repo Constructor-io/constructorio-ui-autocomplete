@@ -1,8 +1,8 @@
+import { within, userEvent } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
 import { argTypes } from '../Autocomplete/argTypes';
 import { CioAutocompleteProps } from '../../components/Autocomplete/CioAutocompleteProvider';
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
 import { isTrackingRequestSent, sleep } from '../../utils';
 import { HooksTemplate } from '../Autocomplete/Hook/index';
 import { apiKey } from '../../constants';
