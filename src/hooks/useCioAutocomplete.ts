@@ -44,6 +44,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   let activeSections = zeroStateSectionsActive ? zeroStateSections : sections;
 
   if (sections && !Array.isArray(sections)) {
+    // eslint-disable-next-line
     console.error(
       'useCioAutocomplete expects sections to reference an array of section configuration objects'
     );
@@ -51,6 +52,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   if (zeroStateSections && !Array.isArray(zeroStateSections)) {
+    // eslint-disable-next-line
     console.error(
       'useCioAutocomplete expects zeroStateSections to reference an array of section configuration objects'
     );
