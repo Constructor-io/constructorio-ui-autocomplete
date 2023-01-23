@@ -33,7 +33,8 @@ const useFetchRecommendationPod = (
       setRecommendationResults(recommendationPodResults);
     };
     fetchRecommendationResults();
-  }, [cioClient, recommendationPods]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cioClient]);
 
   return recommendationResults;
 };

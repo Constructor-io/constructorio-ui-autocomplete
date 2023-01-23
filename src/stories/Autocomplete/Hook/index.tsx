@@ -22,8 +22,7 @@ export function HooksTemplate(args) {
   return (
     <div className={autocompleteClassName}>
       <form {...getFormProps()}>
-        <label htmlFor='cio-input' {...getLabelProps()} hidden>
-          Search
+        <label htmlFor='cio-input' {...getLabelProps()}>
           <input id='cio-input' {...inputProps} />
         </label>
         <button
