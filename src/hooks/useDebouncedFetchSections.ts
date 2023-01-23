@@ -13,6 +13,14 @@ interface IAutocompleteParameters {
   variationsMap: Record<string, any>;
 }
 
+const autocompleteParameters = {
+  resultsPerSection: {}
+  // numResults: 8,
+  // hiddenFields: [],
+  // filters: {},
+  // variationsMap: {}
+} as IAutocompleteParameters;
+
 const useDebouncedFetchSection = (
   query: string,
   cioClient?: ConstructorIOClient,
@@ -20,14 +28,6 @@ const useDebouncedFetchSection = (
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
-
-  const autocompleteParameters = {
-    resultsPerSection: {}
-    // numResults: 8,
-    // hiddenFields: [],
-    // filters: {},
-    // variationsMap: {}
-  } as IAutocompleteParameters;
 
   if (autocompleteSections) {
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(

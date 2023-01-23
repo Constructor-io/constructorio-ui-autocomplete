@@ -1,8 +1,9 @@
 import React from 'react';
-import CioAutocompleteProvider, { CioAutocompleteProps } from '../CioAutocompleteProvider';
+import CioAutocompleteProvider from '../CioAutocompleteProvider';
 import AutocompleteResults from '../AutocompleteResults/AutocompleteResults';
 import SearchInput from '../SearchInput/SearchInput';
 import '../Autocomplete.css';
+import { CioAutocompleteProps } from '../../../types';
 
 export default function CioAutocomplete(props: CioAutocompleteProps) {
   const { children } = props;

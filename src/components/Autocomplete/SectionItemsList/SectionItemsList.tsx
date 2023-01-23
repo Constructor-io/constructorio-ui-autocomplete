@@ -13,13 +13,8 @@ type SectionItemsListProps = {
   key?: string;
 };
 
-export default function SectionItemsList(props: SectionItemsListProps) {
-  const { section, children = DefaultRenderSectionItemsList } = props;
-
-  return children({ section });
-}
-
-const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ section }) => {
+// eslint-disable-next-line func-names
+const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
   const sectionName = section?.displayName || section?.identifier;
 
   return (
@@ -40,3 +35,9 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = ({ section }) => {
     </li>
   );
 };
+
+export default function SectionItemsList(props: SectionItemsListProps) {
+  const { section, children = DefaultRenderSectionItemsList } = props;
+
+  return children({ section });
+}

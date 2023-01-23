@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext } from 'react';
-import { CioAutocompleteContext, CioAutocompleteProps } from '../CioAutocompleteProvider';
+import { CioAutocompleteProps } from '../../../types';
+import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 type SearchInputProps = {
   children?: (args: Partial<Omit<CioAutocompleteProps, 'children'>>) => ReactElement;
@@ -10,10 +11,9 @@ function DefaultRenderInput({ getFormProps, getInputProps, getLabelProps, setQue
 
   return (
     <form {...getFormProps()}>
-      <label {...getLabelProps()} hidden>
-        Search
+      <label {...getLabelProps()} htmlFor='cio-input'>
+        <input id='cio-input' {...inputProps} />
       </label>
-      <input {...inputProps} />
       <button
         className='cio-clear-btn'
         data-testid='cio-clear-btn'

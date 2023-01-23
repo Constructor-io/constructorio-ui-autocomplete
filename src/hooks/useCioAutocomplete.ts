@@ -2,11 +2,15 @@ import { useState } from 'react';
 import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { Item, RecommendationsSectionConfiguration, SectionConfiguration } from '../types';
+import {
+  CioAutocompleteProps,
+  Item,
+  RecommendationsSectionConfiguration,
+  SectionConfiguration
+} from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
-import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
 
 export const defaultSections: SectionConfiguration[] = [
   {

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
 import { isProduct } from '../../../typeGuards';
@@ -21,10 +22,10 @@ export function HooksTemplate(args) {
   return (
     <div className={autocompleteClassName}>
       <form {...getFormProps()}>
-        <label {...getLabelProps()} hidden>
+        <label htmlFor='cio-input' {...getLabelProps()} hidden>
           Search
+          <input id='cio-input' {...inputProps} />
         </label>
-        <input {...inputProps} />
         <button
           className='cio-clear-btn'
           data-testid='cio-clear-btn'
@@ -71,38 +72,30 @@ export function HooksTemplate(args) {
         </button>
       </form>
       <div {...getMenuProps()}>
-        {isOpen && (
-          <>
-            {sections?.map((section) => (
-              <div key={section.identifier} className={section.identifier}>
-                <div className='cio-section'>
-                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
-                  <div className='cio-section-items'>
-                    {section?.data?.map((item, index) => (
-                      <div
-                        {...getItemProps({
-                          item,
-                          index,
-                          sectionIdentifier: section.identifier
-                        })}
-                        key={item?.data?.id}>
-                        {isProduct(item) && (
-                          <img
-                            width='100%'
-                            src={item.data?.image_url}
-                            alt=''
-                            data-testid='cio-img'
-                          />
-                        )}
-                        <p>{item.value}</p>
-                      </div>
-                    ))}
-                  </div>
+        {isOpen &&
+          sections?.map((section) => (
+            <div key={section.identifier} className={section.identifier}>
+              <div className='cio-section'>
+                <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
+                <div className='cio-section-items'>
+                  {section?.data?.map((item, index) => (
+                    <div
+                      {...getItemProps({
+                        item,
+                        index,
+                        sectionIdentifier: section.identifier
+                      })}
+                      key={item?.data?.id}>
+                      {isProduct(item) && (
+                        <img width='100%' src={item.data?.image_url} alt='' data-testid='cio-img' />
+                      )}
+                      <p>{item.value}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </>
-        )}
+            </div>
+          ))}
       </div>
     </div>
   );

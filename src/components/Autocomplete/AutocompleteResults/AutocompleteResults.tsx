@@ -12,13 +12,10 @@ type AutocompleteResultsProps = {
   children?: RenderResults | ReactNode;
 };
 
-const DefaultRenderResults: RenderResults = ({ sections }) => (
-  <>
-    {sections?.map((section: SectionConfiguration) => (
-      <SectionItemsList section={section} key={section.identifier} />
-    ))}
-  </>
-);
+const DefaultRenderResults: RenderResults = ({ sections }) =>
+  sections?.map((section: SectionConfiguration) => (
+    <SectionItemsList section={section} key={section.identifier} />
+  ));
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;

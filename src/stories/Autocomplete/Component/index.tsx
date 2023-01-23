@@ -1,6 +1,6 @@
 import React from 'react';
-import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
-import { CioAutocompleteProps } from '../../../components/Autocomplete/CioAutocompleteProvider';
+import { CioAutocomplete } from '../../../index';
+import { CioAutocompleteProps } from '../../../types';
 import { getStoryParams } from '../../../utils';
 
 export function ComponentTemplate(args: CioAutocompleteProps) {

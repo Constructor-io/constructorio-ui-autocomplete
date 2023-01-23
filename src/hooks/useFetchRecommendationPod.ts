@@ -33,7 +33,7 @@ const useFetchRecommendationPod = (
       setRecommendationResults(recommendationPodResults);
     };
     fetchRecommendationResults();
-  }, [cioClient]);
+  }, [cioClient, recommendationPods]);
 
   return recommendationResults;
 };

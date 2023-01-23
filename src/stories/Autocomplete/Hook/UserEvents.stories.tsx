@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { CioAutocomplete } from '../../../components';
+import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { stringify, disableStoryActions } from '../../../utils';
 import {

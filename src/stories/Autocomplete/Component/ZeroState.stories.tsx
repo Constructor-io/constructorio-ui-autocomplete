@@ -1,4 +1,4 @@
-import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
+import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { stringify } from '../../../utils';
 import {
