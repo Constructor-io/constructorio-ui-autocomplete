@@ -6,7 +6,7 @@ import { OnSubmit, SectionConfiguration } from '../../types';
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
-  onSubmit?: OnSubmit;
+  onSubmit: OnSubmit;
   onFocus?: () => void;
   onChange?: () => void;
   placeholder?: string;
