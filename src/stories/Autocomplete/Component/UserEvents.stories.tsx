@@ -1,4 +1,5 @@
-import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
+/* eslint-disable no-console */
+import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { stringify, disableStoryActions } from '../../../utils';
 import {
@@ -43,18 +44,14 @@ addComponentStoryDescription(
 disableStoryActions(OnFocus);
 
 const onChange = (inputFieldValue) => {
-  console.log('New Query: ' + inputFieldValue);
+  console.log(`New Query: ${inputFieldValue}`);
 };
 export const OnChange = ComponentTemplate.bind({});
 OnChange.args = { apiKey, onChange };
 addComponentStoryDescription(
   OnChange,
   `const args = {
-<<<<<<< HEAD
     apiKey: '${apiKey}',
-=======
-    apiKey: 'key_Gep3oQOu5IMcNh9A',
->>>>>>> main
     onChange: (inputFieldValue) => {
       console.log('New Query: ' + inputFieldValue);
     }
@@ -66,9 +63,9 @@ disableStoryActions(OnChange);
 const onSubmit = (submitEvent) => {
   const { query, item, originalQuery } = submitEvent;
   if (query) {
-    console.log('Submitted query: ' + query);
+    console.log(`Submitted query: ${query}`);
   } else {
-    console.log('Selected a search suggestion for: ' + originalQuery);
+    console.log(`Selected a search suggestion for: ${originalQuery}`);
     console.dir(item);
   }
 };
@@ -77,11 +74,7 @@ OnSubmit.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   OnSubmit,
   `const args = {
-<<<<<<< HEAD
     apiKey: '${apiKey}',
-=======
-    apiKey: 'key_Gep3oQOu5IMcNh9A',
->>>>>>> main
     onSubmit: (submitEvent) => {
       const { query, item, originalQuery } = submitEvent;
       if (query) {

@@ -2,12 +2,15 @@ import { useState } from 'react';
 import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
-import { Item, RecommendationsSectionConfiguration } from '../types';
+import {
+  CioAutocompleteProps,
+  Item,
+  RecommendationsSectionConfiguration,
+  SectionConfiguration
+} from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
-import { SectionConfiguration } from '../types';
 import usePrevious from './usePrevious';
 import { getIndexOffset } from '../utils';
-import { CioAutocompleteProps } from '../components/Autocomplete/CioAutocompleteProvider';
 
 export const defaultSections: SectionConfiguration[] = [
   {
@@ -45,6 +48,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   let activeSections = zeroStateSectionsActive ? zeroStateSections : sections;
 
   if (sections && !Array.isArray(sections)) {
+    // eslint-disable-next-line
     console.error(
       'useCioAutocomplete expects sections to reference an array of section configuration objects'
     );
@@ -52,6 +56,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   if (zeroStateSections && !Array.isArray(zeroStateSections)) {
+    // eslint-disable-next-line
     console.error(
       'useCioAutocomplete expects zeroStateSections to reference an array of section configuration objects'
     );
@@ -133,7 +138,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-input',
       'data-testid': 'cio-input',
-      placeholder: placeholder
+      placeholder
     }),
     getFormProps: () => ({
       onSubmit: (event) => {

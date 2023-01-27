@@ -1,5 +1,4 @@
-import React from 'react';
-import { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
 import { isProduct } from '../../../typeGuards';
@@ -29,8 +28,6 @@ export default function SectionItem(props: SectionItemProps) {
   }
 
   return (
-    <li {...getItemProps({ item, index, sectionIdentifier })}>
-      {children ? children : defaultChildren}
-    </li>
+    <li {...getItemProps({ item, index, sectionIdentifier })}>{children || defaultChildren}</li>
   );
 }

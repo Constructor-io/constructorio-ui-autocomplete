@@ -28,7 +28,7 @@ const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
   useEffect(() => {
     if (apiKey && !cioJsClient) {
       const client = new ConstructorIOClient({
-        apiKey: apiKey,
+        apiKey,
         sendTrackingEvents: true
       });
 
