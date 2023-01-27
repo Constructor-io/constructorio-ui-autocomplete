@@ -1,6 +1,6 @@
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils';
 import {
   customSectionDescription,
   multipleSectionsDescription,
@@ -8,7 +8,8 @@ import {
   recommendationsDescription,
   zeroStateDescription,
   zeroStateSectionsDescription,
-  apiKey
+  apiKey,
+  onSubmitDefault as onSubmit
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -26,12 +27,13 @@ export default {
 };
 
 export const Default = ComponentTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
+Default.args = { apiKey, onSubmit };
+Default.parameters = getComponentStoryParams(`const args = ${stringifyWithDefaults(Default.args)}`);
 
 export const RenderSections = ComponentTemplate.bind({});
 RenderSections.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'bestsellers',
@@ -42,13 +44,14 @@ RenderSections.args = {
 };
 addComponentStoryDescription(
   RenderSections,
-  `const args = ${stringify(RenderSections.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSections.args)}`,
   zeroStateSectionsDescription
 );
 
 export const NoOpenOnFocus = ComponentTemplate.bind({});
 NoOpenOnFocus.args = {
   apiKey,
+  onSubmit,
   openOnFocus: false,
   zeroStateSections: [
     {
@@ -59,13 +62,14 @@ NoOpenOnFocus.args = {
 };
 addComponentStoryDescription(
   NoOpenOnFocus,
-  `const args = ${stringify(NoOpenOnFocus.args)}`,
+  `const args = ${stringifyWithDefaults(NoOpenOnFocus.args)}`,
   openOnFocusDescription
 );
 
 export const RenderRecommendations = ComponentTemplate.bind({});
 RenderRecommendations.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'bestsellers',
@@ -75,13 +79,14 @@ RenderRecommendations.args = {
 };
 addComponentStoryDescription(
   RenderRecommendations,
-  `const args = ${stringify(RenderRecommendations.args)}`,
+  `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
 RenderCustomSection.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'recent_searches',
@@ -108,13 +113,14 @@ RenderCustomSection.args = {
 };
 addComponentStoryDescription(
   RenderCustomSection,
-  `const args = ${stringify(RenderCustomSection.args)}`,
+  `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
   customSectionDescription
 );
 
 export const RenderMultipleSections = ComponentTemplate.bind({});
 RenderMultipleSections.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'bestsellers',
@@ -145,6 +151,6 @@ RenderMultipleSections.args = {
 };
 addComponentStoryDescription(
   RenderMultipleSections,
-  `const args = ${stringify(RenderMultipleSections.args)}`,
+  `const args = ${stringifyWithDefaults(RenderMultipleSections.args)}`,
   multipleSectionsDescription
 );

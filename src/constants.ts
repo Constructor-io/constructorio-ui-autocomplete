@@ -1,3 +1,5 @@
+import { AutocompleteSubmitEvent } from './types';
+
 // Autocomplete key index
 export const apiKey = 'key_Gep3oQOu5IMcNh9A';
 
@@ -7,7 +9,7 @@ export const apiKey = 'key_Gep3oQOu5IMcNh9A';
 
 export const componentDescription = `- import \`CioAutocomplete\` to render in your JSX.
 - This component handles state management, data fetching, and rendering logic.
-- To use this component, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
+- To use this component, an \`apiKey\` or \`cioJsClient\` are required, and an \`onSubmit\` callback must be passed. All other values are optional.
 - Use different props to configure the behavior of this component.
 - The following stories shows how different props affect the component's behavior
 
@@ -16,7 +18,7 @@ export const componentDescription = `- import \`CioAutocomplete\` to render in y
 
 export const hookDescription = `- import \`useCioAutocomplete\` and call this custom hook in a functional component.
 - This hook handles state management & data fetching, but leaves rendering logic up to you
-- To use this hook, an \`apiKey\` or \`cioJsClient\` are required, all other values are optional.
+- To use this hook, an \`apiKey\` or \`cioJsClient\` are required, and an \`onSubmit\` callback must be passed. All other values are optional.
 - Pass different options to the \`useCioAutocomplete\` hook to configure behavior.
 - The following stories shows how different options affect the hook's behavior
 
@@ -50,7 +52,7 @@ const {
 /////////////////////////////////
 
 export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
-- to override this, pass a an array of sections objects
+- to override this, pass an array of sections objects
 - the order of the objects in the \`sections\` array determines the order of the results
 - each section object must have an \`identifier\`
 - each section object can specify a \`type\`
@@ -77,7 +79,7 @@ When no values are passed for the \`sections\` argument, the following defaults 
 export const userEventsDescription = `- pass callback functions to respond to user events
 - if provided, the onFocus callback function will be called each time the user focuses on the text input field
 - if provided, the onChange callback function will be called each time the user changes the value in the text input field
-- if provided, the onSubmit callback function will be called each time the user submits the form
+- the onSubmit callback function will be called each time the user submits the form
 - the user can submit the form by pressing the enter key in the text input field, clicking a submit button within the form, clicking on a result, or pressing enter while a result is selected
 
 > ⚠️ NOTE ⚠️ Use the Storybook Canvas Actions tab to explore the behavior of all of these \`OnEvent\` callback functions as you interact with our Default User Events example rendered in the Canvas. In the stories below, Storybook Canvas Actions have been disabled to focus on each of these callback functions in isolation. Each of the example callback functions in the stories below log output to the console tab of the browser's developer tools.`;
@@ -118,6 +120,7 @@ export const onSubmitDescription = `Pass an \`onSubmit\` callback function to ex
   - if the user selects a suggested item from the dropdown list:
     - the \`originalQuery\` field will provide the value of the input field that generated the selected item
     - an \`item\` object with information about the suggestion that the user selected`;
+export const onSubmitDefault = (submitEvent: AutocompleteSubmitEvent) => console.dir(submitEvent);
 export const zeroStateSectionsDescription = `Use \`zeroStateSections\` to show suggestions after a user applies focus to the search input field and before they start typing a query`;
 export const openOnFocusDescription = `Use \`openOnFocus: false\` to show suggestions after a user clears their query, but not when they initially apply focus to the search input field`;
 export const multipleSectionsDescription = `Use as many different \`recommendations\` and \`custom\` sections as you'd like and in whatever order you would like!`;

@@ -4,7 +4,7 @@ import { FormEvent } from 'react';
 
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
-type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
+export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
 
 export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
 

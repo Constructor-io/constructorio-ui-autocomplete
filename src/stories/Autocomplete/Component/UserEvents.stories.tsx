@@ -1,12 +1,13 @@
 import CioAutocomplete from '../../../components/Autocomplete/CioAutocomplete';
 import { argTypes } from '../argTypes';
-import { stringify, disableStoryActions } from '../../../utils';
+import { stringifyWithDefaults, disableStoryActions, defaultArgumentsCode } from '../../../utils';
 import {
   onChangeDescription,
   onFocusDescription,
   onSubmitDescription,
   userEventsDescription,
-  apiKey
+  apiKey,
+  onSubmitDefault
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -24,20 +25,20 @@ export default {
 };
 
 export const Default = ComponentTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
+Default.args = { apiKey, onSubmit: onSubmitDefault };
+Default.parameters = getComponentStoryParams(`const args = ${stringifyWithDefaults(Default.args)}`);
 
 const onFocus = () => {
   console.log('Focus!');
 };
 export const OnFocus = ComponentTemplate.bind({});
-OnFocus.args = { apiKey, onFocus };
+OnFocus.args = { apiKey, onSubmit: onSubmitDefault, onFocus };
 addComponentStoryDescription(
   OnFocus,
   `const args = {
-    apiKey: '${apiKey}',
-    onFocus: () => { console.log('Focus!') }
-  }`,
+  ${defaultArgumentsCode(apiKey)},
+  "onFocus": () => { console.log('Focus!') }
+}`,
   onFocusDescription
 );
 disableStoryActions(OnFocus);
@@ -46,15 +47,15 @@ const onChange = (inputFieldValue) => {
   console.log('New Query: ' + inputFieldValue);
 };
 export const OnChange = ComponentTemplate.bind({});
-OnChange.args = { apiKey, onChange };
+OnChange.args = { apiKey, onSubmit: onSubmitDefault, onChange };
 addComponentStoryDescription(
   OnChange,
   `const args = {
-    apiKey: '${apiKey}',
-    onChange: (inputFieldValue) => {
-      console.log('New Query: ' + inputFieldValue);
-    }
-  }`,
+  ${defaultArgumentsCode(apiKey)}
+  "onChange": (inputFieldValue) => {
+    console.log('New Query: ' + inputFieldValue);
+  }
+}`,
   onChangeDescription
 );
 disableStoryActions(OnChange);
@@ -73,17 +74,17 @@ OnSubmit.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   OnSubmit,
   `const args = {
-    apiKey: '${apiKey}',
-    onSubmit: (submitEvent) => {
-      const { query, item, originalQuery } = submitEvent;
-      if (query) {
-        console.log('Submitted query: ' + query);
-      } else {
-        console.log('Selected a search suggestion for: ' + originalQuery);
-        console.dir(item);
-      }
+  "apiKey": "${apiKey}",
+  "onSubmit": (submitEvent) => {
+    const { query, item, originalQuery } = submitEvent;
+    if (query) {
+      console.log('Submitted query: ' + query);
+    } else {
+      console.log('Selected a search suggestion for: ' + originalQuery);
+      console.dir(item);
     }
-  }`,
+  }
+}`,
   onSubmitDescription
 );
 disableStoryActions(OnSubmit);

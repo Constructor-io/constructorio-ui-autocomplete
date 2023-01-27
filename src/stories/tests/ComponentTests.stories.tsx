@@ -5,7 +5,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { isTrackingRequestSent, sleep } from '../../utils';
 import { ComponentTemplate } from '../Autocomplete/Component';
-import { apiKey } from '../../constants';
+import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 
 export default {
   title: 'Autocomplete/Interaction Tests/Component',
@@ -26,6 +26,7 @@ export default {
 
 const defaultArgs: CioAutocompleteProps = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions'
