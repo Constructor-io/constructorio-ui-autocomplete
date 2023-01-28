@@ -3,9 +3,9 @@ import { AutocompleteSubmitEvent } from './types';
 // Autocomplete key index
 export const apiKey = 'key_Gep3oQOu5IMcNh9A';
 
-/////////////////////////////////
+/// //////////////////////////////
 // Storybook Folder Descriptions
-/////////////////////////////////
+/// //////////////////////////////
 
 export const componentDescription = `- import \`CioAutocomplete\` to render in your JSX.
 - This component handles state management, data fetching, and rendering logic.
@@ -47,9 +47,9 @@ const {
 > Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
 `;
 
-/////////////////////////////////
+/// //////////////////////////////
 // Storybook Pages
-/////////////////////////////////
+/// //////////////////////////////
 
 export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
 - to override this, pass an array of sections objects
@@ -94,9 +94,9 @@ export const zeroStateDescription = `- when the text input field has no text, we
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8`;
 
-/////////////////////////////////
+/// //////////////////////////////
 // Storybook Stories
-/////////////////////////////////
+/// //////////////////////////////
 
 export const apiKeyDescription = `Pass an \`apiKey\` to request results from constructor's servers`;
 export const cioJsClientDescription = `If you are already using an instance of the \`ConstructorIOClient\`, you can pass a \`cioJsClient\` instead of an \`apiKey\` to request results from constructor's servers

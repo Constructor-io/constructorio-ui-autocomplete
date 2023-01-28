@@ -1,6 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GetItemPropsOptions } from 'downshift';
-import { FormEvent } from 'react';
+import { FormEvent, ReactNode } from 'react';
+import { CioClientConfig } from './hooks/useCioClient';
+
+export type CioAutocompleteProps = CioClientConfig & {
+  openOnFocus?: boolean;
+  onSubmit: OnSubmit;
+  onFocus?: () => void;
+  onChange?: () => void;
+  placeholder?: string;
+  children?: ReactNode;
+  sections?: SectionConfiguration[];
+  zeroStateSections?: SectionConfiguration[];
+  autocompleteClassName?: string;
+};
 
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
@@ -22,9 +35,6 @@ export type GetItemProps = (options: ItemPropsOptions) => object;
 export interface ItemBase extends Record<string, any> {
   id?: string;
   url?: string;
-}
-
-export interface ItemBase extends Record<string, any> {
   value?: string;
   section: string;
   data?: Record<string, any>;

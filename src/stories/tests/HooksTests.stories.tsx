@@ -1,11 +1,11 @@
-import CioAutocomplete from '../../components/Autocomplete/CioAutocomplete';
-import { argTypes } from '../Autocomplete/argTypes';
-import { CioAutocompleteProps } from '../../components/Autocomplete/CioAutocompleteProvider';
 import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+import { CioAutocomplete } from '../../index';
+import { argTypes } from '../Autocomplete/argTypes';
 import { isTrackingRequestSent, sleep } from '../../utils';
 import { HooksTemplate } from '../Autocomplete/Hook/index';
 import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
+import { CioAutocompleteProps } from '../../types';
 
 export default {
   title: 'Autocomplete/Interaction Tests/Hook',

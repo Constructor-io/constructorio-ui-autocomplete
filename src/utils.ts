@@ -26,11 +26,10 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
     // insert a space before all caps
     .replace(/([A-Z])/g, ' $1')
     // uppercase the first character
-    .replace(/^./, function (str) {
-      return str.toUpperCase();
-    });
+    .replace(/^./, (str) => str.toUpperCase());
 
 export function isTrackingRequestSent(trackingRequestUrl) {
+  // eslint-disable-next-line
   const trackingRequestsQueue = window.localStorage?._constructorio_requests;
 
   return (
@@ -40,6 +39,7 @@ export function isTrackingRequestSent(trackingRequestUrl) {
 }
 
 export function clearConstructorRequests() {
+  // eslint-disable-next-line
   if (window.localStorage?._constructorio_requests) {
     window.localStorage.removeItem('_constructorio_requests');
   }
@@ -47,6 +47,7 @@ export function clearConstructorRequests() {
 
 // Function to emulate pausing between interactions
 export function sleep(ms) {
+  // eslint-disable-next-line
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
@@ -83,5 +84,6 @@ export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit 
 };
 
 export const disableStoryActions = (story) => {
+  // eslint-disable-next-line
   story.parameters.actions = { argTypesRegex: null };
 };

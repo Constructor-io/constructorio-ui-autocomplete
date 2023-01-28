@@ -1,5 +1,5 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { CioAutocomplete } from '../../../components';
+import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { defaultOnSubmitCode, stringifyWithDefaults } from '../../../utils';
 import { HooksTemplate, addHookStoryCode } from '.';

@@ -24,9 +24,9 @@ const useDownShift: UseDownShift = ({
   cioClient,
   previousQuery = '',
   onChange
-}) => {
-  return useCombobox({
-    id: `cio-autocomplete-${idCounter++}`,
+}) =>
+  useCombobox({
+    id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
     items,
     itemToString: (item) => item?.value || '',
     onInputValueChange: async ({ inputValue = '' }) => {
@@ -53,6 +53,5 @@ const useDownShift: UseDownShift = ({
       }
     }
   });
-};
 
 export default useDownShift;

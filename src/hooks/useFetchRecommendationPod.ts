@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { AutocompleteResultSections, RecommendationsSectionConfiguration, Item } from '../types';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { AutocompleteResultSections, RecommendationsSectionConfiguration, Item } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: ConstructorIOClient | undefined,
@@ -33,6 +33,7 @@ const useFetchRecommendationPod = (
       setRecommendationResults(recommendationPodResults);
     };
     fetchRecommendationResults();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cioClient]);
 
   return recommendationResults;
