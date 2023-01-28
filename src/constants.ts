@@ -120,6 +120,7 @@ export const onSubmitDescription = `Pass an \`onSubmit\` callback function to ex
   - if the user selects a suggested item from the dropdown list:
     - the \`originalQuery\` field will provide the value of the input field that generated the selected item
     - an \`item\` object with information about the suggestion that the user selected`;
+// eslint-disable-next-line no-console
 export const onSubmitDefault = (submitEvent: AutocompleteSubmitEvent) => console.dir(submitEvent);
 export const zeroStateSectionsDescription = `Use \`zeroStateSections\` to show suggestions after a user applies focus to the search input field and before they start typing a query`;
 export const openOnFocusDescription = `Use \`openOnFocus: false\` to show suggestions after a user clears their query, but not when they initially apply focus to the search input field`;
