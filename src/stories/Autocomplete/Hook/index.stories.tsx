@@ -44,9 +44,9 @@ export const ProvideCIOClientInstance = HooksTemplate.bind({});
 ProvideCIOClientInstance.args = { cioJsClient, onSubmit };
 addHookStoryCode(
   ProvideCIOClientInstance,
-  `import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+  `import ConstructorIOClient from "@constructor-io/constructorio-client-javascript";
 
-const cioJsClient = new ConstructorIOClient({ apiKey: '${apiKey}' });
+const cioJsClient = new ConstructorIOClient({ apiKey: "${apiKey}" });
 const args = { cioJsClient, ${defaultOnSubmitCode} };`,
   cioJsClientDescription
 );

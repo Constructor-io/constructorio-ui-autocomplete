@@ -38,7 +38,7 @@ addHookStoryCode(
   OnFocus,
   `const args = {              
   ${defaultArgumentsCode(apiKey)},
-  onFocus: () => { console.log('Focus!') }
+  onFocus: () => { console.log("Focus!") }
 }`,
   onFocusDescription
 );
@@ -54,7 +54,7 @@ addHookStoryCode(
   `const args = {
   ${defaultArgumentsCode(apiKey)},
   onChange: (inputFieldValue) => {
-    console.log('New Query: ' + inputFieldValue);
+    console.log("New Query: " + inputFieldValue);
   }
 }`,
   onChangeDescription
@@ -75,13 +75,13 @@ OnSubmit.args = { apiKey, onSubmit };
 addHookStoryCode(
   OnSubmit,
   `const args = {
-  apiKey: '${apiKey}',
-  onSubmit: (submitEvent) => {
+  "apiKey": '${apiKey}',
+  "onSubmit": (submitEvent) => {
     const { query, item, originalQuery } = submitEvent;
     if (query) {
-      console.log('Submitted query: ' + query);
+      console.log("Submitted query: " + query);
     } else {
-      console.log('Selected a search suggestion for: ' + originalQuery);
+      console.log("Selected a search suggestion for: " + originalQuery);
       console.dir(item);
     }
   }

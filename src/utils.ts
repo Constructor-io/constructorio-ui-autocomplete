@@ -78,8 +78,18 @@ export const defaultArgumentsCode = (apiKey: string) => `"apiKey": "${apiKey}",
 export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { apiKey, onSubmit, ...rest } = obj;
-  let res = JSON.stringify(rest, null, '  ');
-  res = res.replace('{', ` {${defaultArgumentsCode(apiKey)}`);
+  let res;
+  if (Object.keys(rest).length > 0) {
+    res = JSON.stringify(rest, null, '  ');
+  } else {
+    res = `{
+}`;
+  }
+  res = res.replace(
+    '{',
+    `{
+  ${defaultArgumentsCode(apiKey)}`
+  );
   return res;
 };
 
