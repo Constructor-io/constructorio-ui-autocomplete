@@ -1,12 +1,12 @@
-# Constructor.io Autocomplete UI Library
+# Constructor.io Autosuggest UI Library
 
 ## Introduction
 
 This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autocomplete services](https://constructor.io/products/autosuggest/).
 
-[Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore the behavior and configuration options for this UI Library.
+[Our storybook docs](https://constructor-io.github.io/constructorio-ui-autosuggest) are the best place to explore the behavior and configuration options for this UI Library.
 
-![Autocomplete](assets/autosuggest-ui.gif)
+![Autosuggest](assets/autosuggest-ui.gif)
 
 ## How to use this UI Library
 
