@@ -9,7 +9,7 @@ import {
   hookDescription,
   placeholderDescription,
   customStylesDescription,
-  apiKey
+  apiKey,
 } from '../../../constants';
 
 export default {
@@ -19,10 +19,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: hookDescription
-      }
-    }
-  }
+        component: hookDescription,
+      },
+    },
+  },
 };
 
 export const Default = HooksTemplate.bind({});

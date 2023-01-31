@@ -7,7 +7,7 @@ import {
   onFocusDescription,
   onSubmitDescription,
   userEventsDescription,
-  apiKey
+  apiKey,
 } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
@@ -18,10 +18,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: userEventsDescription
-      }
-    }
-  }
+        component: userEventsDescription,
+      },
+    },
+  },
 };
 
 export const Default = HooksTemplate.bind({});

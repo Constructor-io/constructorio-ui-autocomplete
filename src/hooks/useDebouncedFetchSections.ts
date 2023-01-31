@@ -14,7 +14,7 @@ interface IAutocompleteParameters {
 }
 
 const autocompleteParameters = {
-  resultsPerSection: {}
+  resultsPerSection: {},
   // numResults: 8,
   // hiddenFields: [],
   // filters: {},
@@ -33,7 +33,7 @@ const useDebouncedFetchSection = (
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
       (acc, sectionConfig) => ({
         ...acc,
-        [sectionConfig.identifier]: sectionConfig?.numResults || 8
+        [sectionConfig.identifier]: sectionConfig?.numResults || 8,
       }),
       {}
     );
@@ -48,7 +48,7 @@ const useDebouncedFetchSection = (
           Object.keys(response.sections).forEach((section: string) => {
             newSectionsData[section] = response.sections[section].map((item) => ({
               ...item,
-              section
+              section,
             }));
           });
           setSectionsData(newSectionsData);

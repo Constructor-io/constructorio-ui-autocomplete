@@ -6,7 +6,7 @@ import {
   CioAutocompleteProps,
   Item,
   RecommendationsSectionConfiguration,
-  SectionConfiguration
+  SectionConfiguration,
 } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import usePrevious from './usePrevious';
@@ -15,12 +15,12 @@ import { getIndexOffset } from '../utils';
 export const defaultSections: SectionConfiguration[] = [
   {
     identifier: 'Search Suggestions',
-    type: 'autocomplete'
+    type: 'autocomplete',
   },
   {
     identifier: 'Products',
-    type: 'autocomplete'
-  }
+    type: 'autocomplete',
+  },
 ];
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
@@ -36,7 +36,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     placeholder = defaultPlaceholder,
     sections = defaultSections,
     zeroStateSections,
-    autocompleteClassName = 'cio-autocomplete'
+    autocompleteClassName = 'cio-autocomplete',
   } = options;
 
   const [query, setQuery] = useState('');
@@ -103,7 +103,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     getMenuProps: () => ({
       ...getMenuProps(),
       className: 'cio-results',
-      'data-testid': 'cio-results'
+      'data-testid': 'cio-results',
     }),
     getLabelProps,
     openMenu,
@@ -111,14 +111,14 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     getItemProps: ({ item, index = 0, sectionIdentifier = 'Products' }) => {
       const indexOffset = getIndexOffset({
         activeSections: activeSectionsWithData,
-        sectionIdentifier
+        sectionIdentifier,
       });
       const sectionItemTestId = `cio-item-${sectionIdentifier.replace(' ', '')}`;
 
       return {
         ...downshift.getItemProps({ item, index: index + indexOffset }),
         className: `cio-item ${sectionItemTestId}`,
-        'data-testid': sectionItemTestId
+        'data-testid': sectionItemTestId,
       };
     },
     getInputProps: () => ({
@@ -138,7 +138,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-input',
       'data-testid': 'cio-input',
-      placeholder
+      placeholder,
     }),
     getFormProps: () => ({
       onSubmit: (event) => {
@@ -150,11 +150,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         return { query };
       },
       className: 'cio-form',
-      'data-testid': 'cio-form'
+      'data-testid': 'cio-form',
     }),
     setQuery,
     cioClient,
-    autocompleteClassName
+    autocompleteClassName,
   };
 };
 

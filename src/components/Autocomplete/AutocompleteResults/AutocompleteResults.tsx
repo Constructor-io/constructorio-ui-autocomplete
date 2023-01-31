@@ -31,7 +31,7 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   }
 
   const menuProps = {
-    ...getMenuProps()
+    ...getMenuProps(),
   };
 
   return <ul {...menuProps}>{content}</ul>;

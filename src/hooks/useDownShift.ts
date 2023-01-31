@@ -23,7 +23,7 @@ const useDownShift: UseDownShift = ({
   onSubmit,
   cioClient,
   previousQuery = '',
-  onChange
+  onChange,
 }) =>
   useCombobox({
     id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
@@ -42,16 +42,16 @@ const useDownShift: UseDownShift = ({
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
           if (!selectedItem?.data?.url) {
             cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
-              original_query: previousQuery
+              original_query: previousQuery,
             });
           }
           cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
             original_query: previousQuery,
-            section: selectedItem.section
+            section: selectedItem.section,
           });
         }
       }
-    }
+    },
   });
 
 export default useDownShift;
