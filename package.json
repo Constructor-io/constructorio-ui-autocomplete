@@ -17,6 +17,7 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
+    "version": "npm run compile",
     "compile": "rm -rf lib && tsc && npm run copy-files"
   },
   "author": "constructor.io",
@@ -33,7 +34,7 @@
     "url": "https://github.com/Constructor-io/constructorio-ui-autocomplete/issues"
   },
   "files": [
-    "lib"
+    "lib/**/*"
   ],
   "devDependencies": {
     "@constructor-io/constructorio-client-javascript": "^2.34.1",
