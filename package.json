@@ -2,13 +2,19 @@
   "name": "@constructor-io/constructorio-ui-autocomplete",
   "version": "1.1.5",
   "description": "Constructor.io Autocomplete UI library for web applications",
-  "main": "lib/src/index.js",
-  "module": "lib/src/index.js",
+  "main": "lib/cjs/index.js",
+  "module": "lib/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/mjs/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
   "homepage": "https://github.com/Constructor-io/constructorio-ui-autocomplete#readme",
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src --ext js,ts,jsx,tsx",
-    "copy-files": "copyfiles -u 1 src/**/*.css lib/src",
+    "copy-files": "copyfiles -u 1 src/**/*.css lib/cjs && copyfiles -u 1 src/**/*.css lib/mjs",
     "prepare": "husky install",
     "dev": "storybook dev -p 6006",
     "storybook:ci": "storybook dev --ci --quiet -p 6006",
@@ -18,7 +24,7 @@
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
     "version": "npm run compile",
-    "compile": "rm -rf lib && tsc && npm run copy-files"
+    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-files"
   },
   "author": "constructor.io",
   "license": "MIT",
