@@ -1,7 +1,7 @@
 {
-  "name": "cio-autocomplete-ts",
+  "name": "@constructor-io/constructorio-ui-autosuggest",
   "version": "1.1.1",
-  "description": "Constructor.io Autocomplete UI library",
+  "description": "Constructor.io Autosuggest UI library for web applications",
   "main": "lib/src/index.js",
   "files": [
     "lib"
