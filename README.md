@@ -1,10 +1,10 @@
-# Constructor.io Autosuggest UI Library
+# Constructor.io Autocomplete UI Library
 
 ## Introduction
 
 This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autosuggest services](https://constructor.io/products/autosuggest/).
 
-[Our storybook docs](https://constructor-io.github.io/constructorio-ui-autosuggest) are the best place to explore the behavior and configuration options for this UI Library.
+[Our storybook docs](https://constructor-io.github.io/constructorio-ui-autocomplete) are the best place to explore the behavior and configuration options for this UI Library.
 
 ![Autosuggest](assets/autosuggest-ui.gif)
 
@@ -17,7 +17,7 @@ There are two main methods for consuming this UI Library in a React project:
 The `CioAutocomplete` component handles state management, data fetching, and rendering logic.
 
 ```jsx
-import { CioAutocomplete } from 'constructorio-ui-autosuggest';
+import { CioAutocomplete } from 'constructorio-ui-autocomplete';
 
 function YourComponent() {
   return (
@@ -32,7 +32,7 @@ function YourComponent() {
 The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you.
 
 ```jsx
-import { useCioAutocomplete } from 'constructorio-ui-autosuggest';
+import { useCioAutocomplete } from 'constructorio-ui-autocomplete';
 
 function YourComponent() {
   const {
