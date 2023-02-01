@@ -207,7 +207,7 @@ function YourComponent() {
 };
 `;
 
-const importHook = `import { useCioAutocomplete } from 'cio-autocomplete-ts';`;
+const importHook = `import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';`;
 
 export const getHookStoryParams = (storyCode) =>
   getStoryParams(storyCode, hooksTemplateCode, importHook);
