@@ -23,7 +23,7 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
-    "version": "npm run build-storybook && git add ./docs/* && npm run compile",
+    "version": "npm run build-storybook && git add -u ./docs && git add ./docs/* && npm run compile",
     "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-files"
   },
   "author": "constructor.io",
