@@ -25,10 +25,6 @@ export default {
   }
 };
 
-export const Default = HooksTemplate.bind({});
-Default.args = { apiKey };
-addHookStoryCode(Default, `const args = ${stringify(Default.args)}`);
-
 export const ProvideAPIKey = HooksTemplate.bind({});
 ProvideAPIKey.args = { apiKey };
 addHookStoryCode(ProvideAPIKey, `const args = ${stringify(ProvideAPIKey.args)}`, apiKeyDescription);

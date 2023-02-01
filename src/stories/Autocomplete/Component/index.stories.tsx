@@ -25,10 +25,6 @@ export default {
   }
 };
 
-export const Default = ComponentTemplate.bind({});
-Default.args = { apiKey };
-addComponentStoryDescription(Default, `const args = ${stringify(Default.args)}`);
-
 export const ProvideAPIKey = ComponentTemplate.bind({});
 ProvideAPIKey.args = { apiKey };
 addComponentStoryDescription(

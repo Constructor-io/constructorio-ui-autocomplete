@@ -25,7 +25,7 @@ export const parameters = {
       <>
         <Title />
         <Description />
-        <Stories />
+        <Stories includePrimary />
       </>
     )
   }
