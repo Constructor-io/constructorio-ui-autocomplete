@@ -64,9 +64,9 @@ ${templateCode}
         code,
         language: 'jsx',
         format: true,
-        type: 'code'
-      }
-    }
+        type: 'code',
+      },
+    },
   };
 };
 

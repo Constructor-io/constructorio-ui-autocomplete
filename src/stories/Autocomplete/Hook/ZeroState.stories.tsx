@@ -7,7 +7,7 @@ import {
   openOnFocusDescription,
   recommendationsDescription,
   zeroStateDescription,
-  apiKey
+  apiKey,
 } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
@@ -18,10 +18,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: zeroStateDescription
-      }
-    }
-  }
+        component: zeroStateDescription,
+      },
+    },
+  },
 };
 
 export const Default = HooksTemplate.bind({});
@@ -35,9 +35,9 @@ RenderSections.args = {
     {
       identifier: 'bestsellers',
       type: 'recommendations',
-      numResults: 5
-    }
-  ]
+      numResults: 5,
+    },
+  ],
 };
 addHookStoryCode(
   RenderSections,
@@ -52,9 +52,9 @@ NoOpenOnFocus.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 addHookStoryCode(
   NoOpenOnFocus,
@@ -68,9 +68,9 @@ RenderRecommendations.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 addHookStoryCode(
   RenderRecommendations,
@@ -91,19 +91,19 @@ RenderCustomSection.args = {
           section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
-            id: '1'
-          }
+            id: '1',
+          },
         },
         {
           section: 'recent_searches',
           value: 'Dresses',
           data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
 };
 addHookStoryCode(
   RenderCustomSection,
@@ -117,7 +117,7 @@ RenderMultipleSections.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
+      type: 'recommendations',
     },
     {
       identifier: 'recent_searches',
@@ -128,19 +128,19 @@ RenderMultipleSections.args = {
           section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
-            id: '1'
-          }
+            id: '1',
+          },
         },
         {
           section: 'recent_searches',
           value: 'Dresses',
           data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
 };
 addHookStoryCode(
   RenderMultipleSections,

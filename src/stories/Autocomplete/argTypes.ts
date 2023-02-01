@@ -4,58 +4,58 @@ export const argTypes = {
     description: 'Search input placeholder',
     table: {
       type: {
-        summary: 'string'
-      }
+        summary: 'string',
+      },
     },
     control: {
-      type: 'text'
-    }
+      type: 'text',
+    },
   },
   apiKey: {
     type: { name: 'string' },
     description: 'Your constructor API key',
     table: {
       type: {
-        summary: 'string'
-      }
+        summary: 'string',
+      },
     },
     control: {
-      type: 'text'
-    }
+      type: 'text',
+    },
   },
   onSubmit: {
     type: {
-      name: 'function'
+      name: 'function',
     },
     description: `On search submit callback function`,
     table: {
       type: {
-        summary: 'Function'
-      }
+        summary: 'Function',
+      },
     },
-    control: null
+    control: null,
   },
   onFocus: {
     type: {
-      name: 'function'
+      name: 'function',
     },
     description: `On focus callback function`,
     table: {
       type: {
-        summary: 'Function'
-      }
+        summary: 'Function',
+      },
     },
-    control: null
+    control: null,
   },
   openOnFocus: {
     description: 'Open results on focus',
     table: {
       type: {
-        summary: 'boolean'
-      }
+        summary: 'boolean',
+      },
     },
     control: {
-      type: 'boolean'
-    }
-  }
+      type: 'boolean',
+    },
+  },
 };

@@ -10,7 +10,7 @@ import {
   searchSuggestionsDescription,
   sectionOrderDescription,
   sectionsDescription,
-  apiKey
+  apiKey,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -21,10 +21,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: sectionsDescription
-      }
-    }
-  }
+        component: sectionsDescription,
+      },
+    },
+  },
 };
 
 export const Default = ComponentTemplate.bind({});
@@ -36,9 +36,9 @@ RenderSearchSuggestions.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions'
-    }
-  ]
+      identifier: 'Search Suggestions',
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderSearchSuggestions,
@@ -51,9 +51,9 @@ RenderSuggestedProducts.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products'
-    }
-  ]
+      identifier: 'Products',
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderSuggestedProducts,
@@ -66,9 +66,9 @@ RenderSuggestedContent.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Content'
-    }
-  ]
+      identifier: 'Content',
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderSuggestedContent,
@@ -82,9 +82,9 @@ ConfigureNumberOfResultsPerSection.args = {
   sections: [
     {
       identifier: 'Products',
-      numResults: 2
-    }
-  ]
+      numResults: 2,
+    },
+  ],
 };
 addComponentStoryDescription(
   ConfigureNumberOfResultsPerSection,
@@ -97,12 +97,12 @@ ConfigureOrderOfRenderedSections.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products'
+      identifier: 'Products',
     },
     {
-      identifier: 'Search Suggestions'
-    }
-  ]
+      identifier: 'Search Suggestions',
+    },
+  ],
 };
 addComponentStoryDescription(
   ConfigureOrderOfRenderedSections,
@@ -115,17 +115,17 @@ RenderRecommendations.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions'
+      identifier: 'Search Suggestions',
     },
     {
-      identifier: 'Products'
+      identifier: 'Products',
     },
     {
       identifier: 'bestsellers',
       type: 'recommendations',
-      numResults: 4
-    }
-  ]
+      numResults: 4,
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderRecommendations,
@@ -138,7 +138,7 @@ RenderCustomSection.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions'
+      identifier: 'Search Suggestions',
     },
     {
       identifier: 'recent_searches',
@@ -149,19 +149,19 @@ RenderCustomSection.args = {
           section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
-            id: '1'
-          }
+            id: '1',
+          },
         },
         {
           section: 'recent_searches',
           value: 'Dresses',
           data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderCustomSection,

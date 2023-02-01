@@ -9,7 +9,7 @@ import {
   componentDescription,
   placeholderDescription,
   customStylesDescription,
-  apiKey
+  apiKey,
 } from '../../../constants';
 
 export default {
@@ -19,10 +19,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: componentDescription
-      }
-    }
-  }
+        component: componentDescription,
+      },
+    },
+  },
 };
 
 export const ProvideAPIKey = ComponentTemplate.bind({});
