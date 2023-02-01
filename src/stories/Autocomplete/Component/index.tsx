@@ -16,7 +16,7 @@ function YourComponent() {
   );
 }
 `;
-const importComponent = `import { CioAutocomplete } from '@constructor-io/constructorio-client-javascript';`;
+const importComponent = `import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';`;
 
 export const getComponentStoryParams = (storyParams) =>
   getStoryParams(storyParams, componentTemplateCode, importComponent);
