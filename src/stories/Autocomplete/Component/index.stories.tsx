@@ -10,7 +10,7 @@ import {
   placeholderDescription,
   customStylesDescription,
   apiKey,
-  onSubmitDefault as onSubmit
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 
 export default {
@@ -20,15 +20,11 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: componentDescription
-      }
-    }
-  }
+        component: componentDescription,
+      },
+    },
+  },
 };
-
-export const Default = ComponentTemplate.bind({});
-Default.args = { apiKey, onSubmit };
-addComponentStoryDescription(Default, `const args = ${stringifyWithDefaults(Default.args)}`);
 
 export const ProvideAPIKey = ComponentTemplate.bind({});
 ProvideAPIKey.args = { apiKey, onSubmit };
@@ -68,6 +64,7 @@ export const ProvideCustomStyles = ComponentTemplate.bind({});
 ProvideCustomStyles.args = { apiKey, onSubmit, autocompleteClassName };
 addComponentStoryDescription(
   ProvideCustomStyles,
-  `const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
+  `import 'node_modules/@constructor-io/constructorio-ui-autocomplete/lib/mjs/components/Autocomplete/Autocomplete.css';
+  const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
   customStylesDescription
 );

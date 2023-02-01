@@ -14,7 +14,7 @@ export function HooksTemplate(args) {
     getMenuProps,
     getItemProps,
     setQuery,
-    autocompleteClassName
+    autocompleteClassName,
   } = useCioAutocomplete(args);
 
   const inputProps = getInputProps();
@@ -82,7 +82,7 @@ export function HooksTemplate(args) {
                       {...getItemProps({
                         item,
                         index,
-                        sectionIdentifier: section.identifier
+                        sectionIdentifier: section.identifier,
                       })}
                       key={item?.data?.id}>
                       {isProduct(item) && (
@@ -207,7 +207,7 @@ function YourComponent() {
 };
 `;
 
-const importHook = `import { useCioAutocomplete } from 'cio-autocomplete-ts';`;
+const importHook = `import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';`;
 
 export const getHookStoryParams = (storyCode) =>
   getStoryParams(storyCode, hooksTemplateCode, importHook);
@@ -220,6 +220,6 @@ ${description}
 
 \`\`\`jsx
 ${code}
-\`\`\``
+\`\`\``,
   };
 };

@@ -1,15 +1,20 @@
 {
-  "name": "cio-autocomplete-ts",
-  "version": "1.1.1",
-  "description": "Constructor.io Autocomplete UI library",
-  "main": "lib/src/index.js",
-  "files": [
-    "lib"
-  ],
+  "name": "@constructor-io/constructorio-ui-autocomplete",
+  "version": "1.1.7",
+  "description": "Constructor.io Autocomplete UI library for web applications",
+  "main": "lib/cjs/index.js",
+  "module": "lib/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./lib/mjs/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
+  "homepage": "https://github.com/Constructor-io/constructorio-ui-autocomplete#readme",
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src --ext js,ts,jsx,tsx",
-    "copy-files": "copyfiles -u 1 src/**/*.css lib/src",
+    "copy-files": "copyfiles -u 1 src/**/*.css lib/cjs && copyfiles -u 1 src/**/*.css lib/mjs",
     "prepare": "husky install",
     "dev": "storybook dev -p 6006",
     "storybook:ci": "storybook dev --ci --quiet -p 6006",
@@ -18,7 +23,8 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
-    "compile": "rm -rf lib && tsc && npm run copy-files"
+    "version": "npm run build-storybook && git add ./docs/* && npm run compile",
+    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-files"
   },
   "author": "constructor.io",
   "license": "MIT",
@@ -26,6 +32,16 @@
     "node": "16.17.0",
     "npm": "8.19.2"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Constructor-io/constructorio-ui-autocomplete.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Constructor-io/constructorio-ui-autocomplete/issues"
+  },
+  "files": [
+    "lib/**/*"
+  ],
   "devDependencies": {
     "@constructor-io/constructorio-client-javascript": "^2.34.1",
     "@cspell/eslint-plugin": "^6.18.1",
@@ -34,10 +50,12 @@
     "@storybook/addon-essentials": "^7.0.0-beta.15",
     "@storybook/addon-interactions": "^7.0.0-beta.15",
     "@storybook/addon-links": "^7.0.0-beta.15",
+    "@storybook/addons": "^7.0.0-beta.15",
     "@storybook/jest": "^0.0.11-next.0",
     "@storybook/react-webpack5": "7.0.0-beta.15",
     "@storybook/test-runner": "^0.10.0-next.4",
     "@storybook/testing-library": "^0.0.14-next.1",
+    "@storybook/theming": "^7.0.0-beta.15",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
@@ -47,9 +65,9 @@
     "eslint": "^8.23.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",

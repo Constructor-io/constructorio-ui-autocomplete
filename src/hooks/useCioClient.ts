@@ -29,7 +29,7 @@ const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
     if (apiKey && !cioJsClient) {
       const client = new ConstructorIOClient({
         apiKey,
-        sendTrackingEvents: true
+        sendTrackingEvents: true,
       });
 
       setCioClient(client);

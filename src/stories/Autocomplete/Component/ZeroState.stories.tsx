@@ -9,7 +9,7 @@ import {
   zeroStateDescription,
   zeroStateSectionsDescription,
   apiKey,
-  onSubmitDefault as onSubmit
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -20,10 +20,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: zeroStateDescription
-      }
-    }
-  }
+        component: zeroStateDescription,
+      },
+    },
+  },
 };
 
 export const Default = ComponentTemplate.bind({});
@@ -38,9 +38,9 @@ RenderSections.args = {
     {
       identifier: 'bestsellers',
       type: 'recommendations',
-      numResults: 3
-    }
-  ]
+      numResults: 3,
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderSections,
@@ -56,9 +56,9 @@ NoOpenOnFocus.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 addComponentStoryDescription(
   NoOpenOnFocus,
@@ -73,9 +73,9 @@ RenderRecommendations.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderRecommendations,
@@ -97,19 +97,19 @@ RenderCustomSection.args = {
           section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
-            id: '1'
-          }
+            id: '1',
+          },
         },
         {
           section: 'recent_searches',
           value: 'Dresses',
           data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderCustomSection,
@@ -124,7 +124,7 @@ RenderMultipleSections.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
+      type: 'recommendations',
     },
     {
       identifier: 'recent_searches',
@@ -135,19 +135,19 @@ RenderMultipleSections.args = {
           section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
-            id: '1'
-          }
+            id: '1',
+          },
         },
         {
           section: 'recent_searches',
           value: 'Dresses',
           data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
 };
 addComponentStoryDescription(
   RenderMultipleSections,

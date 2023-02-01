@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "removeComments": false,
+    "jsx": "react",
+    "sourceMap": true,
+    "target": "es2015",
+    "outDir": "lib/cjs",
+    "declaration": true,
+    "declarationDir": "lib/types",
+    "strict": true,
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "esModuleInterop": false,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "importHelpers": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "lib", "storybook-static", ".storybook"]
+}

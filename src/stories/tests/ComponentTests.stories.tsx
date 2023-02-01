@@ -18,10 +18,10 @@ export default {
       source: {
         language: 'jsx',
         format: true,
-        type: 'code'
-      }
-    }
-  }
+        type: 'code',
+      },
+    },
+  },
 };
 
 const defaultArgs: CioAutocompleteProps = {
@@ -29,12 +29,12 @@ const defaultArgs: CioAutocompleteProps = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions'
+      identifier: 'Search Suggestions',
     },
     {
-      identifier: 'Products'
-    }
-  ]
+      identifier: 'Products',
+    },
+  ],
 };
 
 // - No Interaction => Correctly render default state
@@ -84,9 +84,9 @@ TypeSearchTermRenderSearchSuggestions.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions'
-    }
-  ]
+      identifier: 'Search Suggestions',
+    },
+  ],
 };
 TypeSearchTermRenderSearchSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -102,9 +102,9 @@ TypeSearchTermRenderProducts.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products'
-    }
-  ]
+      identifier: 'Products',
+    },
+  ],
 };
 TypeSearchTermRenderProducts.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -123,9 +123,9 @@ TypeSearchTermRenderRecommendations.args = {
   sections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 TypeSearchTermRenderRecommendations.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -141,16 +141,16 @@ TypeSearchTermRenderSectionsDefaultOrder.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions'
+      identifier: 'Search Suggestions',
     },
     {
-      identifier: 'Products'
+      identifier: 'Products',
     },
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -172,16 +172,16 @@ TypeSearchTermRenderSectionsCustomOrder.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products'
+      identifier: 'Products',
     },
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
+      type: 'recommendations',
     },
     {
-      identifier: 'Search Suggestions'
-    }
-  ]
+      identifier: 'Search Suggestions',
+    },
+  ],
 };
 TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -263,9 +263,9 @@ FocusRenderZeroStateSection.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 FocusRenderZeroStateSection.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -282,10 +282,10 @@ NoOpenOnFocusDontRenderZeroStateSection.args = {
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
+      type: 'recommendations',
+    },
   ],
-  openOnFocus: false
+  openOnFocus: false,
 };
 NoOpenOnFocusDontRenderZeroStateSection.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -308,19 +308,19 @@ ZeroStateRenderCustomSection.args = {
           section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
-            id: '1'
-          }
+            id: '1',
+          },
         },
         {
           section: 'recent_searches',
           value: 'Dresses',
           data: {
-            id: '2'
-          }
-        }
-      ]
-    }
-  ]
+            id: '2',
+          },
+        },
+      ],
+    },
+  ],
 };
 ZeroStateRenderCustomSection.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
@@ -338,15 +338,15 @@ ZeroStateRenderProductsSection.args = {
   sections: [
     {
       identifier: 'Products',
-      numResults: 4
-    }
+      numResults: 4,
+    },
   ],
   zeroStateSections: [
     {
       identifier: 'bestsellers',
-      type: 'recommendations'
-    }
-  ]
+      type: 'recommendations',
+    },
+  ],
 };
 
 // - focus => render zero state

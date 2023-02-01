@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autocomplete services](https://constructor.io/products/autosuggest/).
+This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autosuggest services](https://constructor.io/products/autosuggest/).
 
-[Our storybook docs](https://constructor-io.github.io/cio-autocomplete-ts) are the best place to explore the behavior and configuration options for this UI Library.
+[Our storybook docs](https://constructor-io.github.io/constructorio-ui-autocomplete) are the best place to explore the behavior and configuration options for this UI Library.
 
-![Autocomplete](assets/autosuggest-ui.gif)
+![Autosuggest](assets/autosuggest-ui.gif)
 
 ## How to use this UI Library
 
@@ -17,7 +17,7 @@ There are two main methods for consuming this UI Library in a React project:
 The `CioAutocomplete` component handles state management, data fetching, and rendering logic.
 
 ```jsx
-import { CioAutocomplete } from 'cio-autocomplete-ts';
+import { CioAutocomplete } from 'constructorio-ui-autocomplete';
 
 function YourComponent() {
   return (
@@ -32,7 +32,7 @@ function YourComponent() {
 The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you.
 
 ```jsx
-import { useCioAutocomplete } from 'cio-autocomplete-ts';
+import { useCioAutocomplete } from 'constructorio-ui-autocomplete';
 
 function YourComponent() {
   const {
@@ -101,10 +101,24 @@ function YourComponent() {
 
 ### Library defaults
 
-This library provides some default styles. These default styles can be used as a foundation to build on top of or just as a reference for you to replace completely. All default styles in this library are scoped within the `.cio-autocomplete` css selector.
+By default, importing react components or hooks from this library does not pull any css into your project.
 
- - If you would like to remove all default styling, simply pass an empty string or your own custom autocomplete container className as the value for the `autocompleteClassName` option
- - If you would like to layer your own custom styles on top of the library default styles, you can do so by passing additional className(s) of your choosing `autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
+If you wish to use some starter styles from this library, add an import statement similar to the example import statement below:
+
+```js
+import 'node_modules/@constructor-io/constructorio-ui-autocomplete/lib/mjs/components/Autocomplete/Autocomplete.css';
+```
+
+> Note: the path and syntax in this example may change slightly depending on your module bundling strategy
+
+ - These starter styles can be used as a foundation to build on top of, or just as a reference for you to replace completely.
+ - To opt out of all default styling, do not import the `Autocomplete.css` stylesheet.
+ - All starter styles in this library are scoped within the `.cio-autocomplete` css selector.
+ - These starter styles are intended to be extended by layering in your own css rules
+- If you like, you can override the container's className like so:
+`autocompleteClassName='custom-autocomplete-container'`
+ - If you like, you can pass additional className(s) of your choosing like so:
+`autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
 
 ## Local Development
 

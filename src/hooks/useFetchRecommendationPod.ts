@@ -25,7 +25,7 @@ const useFetchRecommendationPod = (
         if (pod?.id) {
           recommendationPodResults[pod.id] = results?.map((item: Item) => ({
             ...item,
-            section: pod.id
+            section: pod.id,
           }));
         }
       });
