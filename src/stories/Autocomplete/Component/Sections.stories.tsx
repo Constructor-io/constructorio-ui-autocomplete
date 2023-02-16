@@ -1,6 +1,6 @@
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils';
 import {
   contentDescription,
   customSectionDescription,
@@ -11,6 +11,7 @@ import {
   sectionOrderDescription,
   sectionsDescription,
   apiKey,
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -28,12 +29,13 @@ export default {
 };
 
 export const Default = ComponentTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getComponentStoryParams(`const args = ${stringify(Default.args)}`);
+Default.args = { apiKey, onSubmit };
+Default.parameters = getComponentStoryParams(`const args = ${stringifyWithDefaults(Default.args)}`);
 
 export const RenderSearchSuggestions = ComponentTemplate.bind({});
 RenderSearchSuggestions.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
@@ -42,13 +44,14 @@ RenderSearchSuggestions.args = {
 };
 addComponentStoryDescription(
   RenderSearchSuggestions,
-  `const args = ${stringify(RenderSearchSuggestions.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSearchSuggestions.args)}`,
   searchSuggestionsDescription
 );
 
 export const RenderSuggestedProducts = ComponentTemplate.bind({});
 RenderSuggestedProducts.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Products',
@@ -57,13 +60,14 @@ RenderSuggestedProducts.args = {
 };
 addComponentStoryDescription(
   RenderSuggestedProducts,
-  `const args = ${stringify(RenderSuggestedProducts.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSuggestedProducts.args)}`,
   productsDescription
 );
 
 export const RenderSuggestedContent = ComponentTemplate.bind({});
 RenderSuggestedContent.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Content',
@@ -72,13 +76,14 @@ RenderSuggestedContent.args = {
 };
 addComponentStoryDescription(
   RenderSuggestedContent,
-  `const args = ${stringify(RenderSuggestedContent.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSuggestedContent.args)}`,
   contentDescription
 );
 
 export const ConfigureNumberOfResultsPerSection = ComponentTemplate.bind({});
 ConfigureNumberOfResultsPerSection.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Products',
@@ -88,13 +93,14 @@ ConfigureNumberOfResultsPerSection.args = {
 };
 addComponentStoryDescription(
   ConfigureNumberOfResultsPerSection,
-  `const args = ${stringify(ConfigureNumberOfResultsPerSection.args)}`,
+  `const args = ${stringifyWithDefaults(ConfigureNumberOfResultsPerSection.args)}`,
   numResultsDescription
 );
 
 export const ConfigureOrderOfRenderedSections = ComponentTemplate.bind({});
 ConfigureOrderOfRenderedSections.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Products',
@@ -106,13 +112,14 @@ ConfigureOrderOfRenderedSections.args = {
 };
 addComponentStoryDescription(
   ConfigureOrderOfRenderedSections,
-  `const args = ${stringify(ConfigureOrderOfRenderedSections.args)}`,
+  `const args = ${stringifyWithDefaults(ConfigureOrderOfRenderedSections.args)}`,
   sectionOrderDescription
 );
 
 export const RenderRecommendations = ComponentTemplate.bind({});
 RenderRecommendations.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
@@ -129,13 +136,14 @@ RenderRecommendations.args = {
 };
 addComponentStoryDescription(
   RenderRecommendations,
-  `const args = ${stringify(RenderRecommendations.args)}`,
+  `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
 RenderCustomSection.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
@@ -165,6 +173,6 @@ RenderCustomSection.args = {
 };
 addComponentStoryDescription(
   RenderCustomSection,
-  `const args = ${stringify(RenderCustomSection.args)}`,
+  `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
   customSectionDescription
 );

@@ -5,7 +5,7 @@ import { CioClientConfig } from './hooks/useCioClient';
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
-  onSubmit?: OnSubmit;
+  onSubmit: OnSubmit;
   onFocus?: () => void;
   onChange?: () => void;
   placeholder?: string;
@@ -17,7 +17,7 @@ export type CioAutocompleteProps = CioClientConfig & {
 
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;
 
-type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
+export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
 
 export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
 
