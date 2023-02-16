@@ -63,7 +63,7 @@ export const ProvideCustomStyles = ComponentTemplate.bind({});
 ProvideCustomStyles.args = { apiKey, autocompleteClassName };
 addComponentStoryDescription(
   ProvideCustomStyles,
-  `import 'node_modules/@constructor-io/constructorio-ui-autocomplete/lib/mjs/components/Autocomplete/Autocomplete.css';
+  `import '@constructor-io/constructorio-ui-autocomplete/starter-styles.css';
 
 const args = ${stringify(ProvideCustomStyles.args)}`,
   customStylesDescription
