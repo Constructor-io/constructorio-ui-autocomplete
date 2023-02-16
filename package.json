@@ -5,7 +5,7 @@
   "main": "lib/cjs/index.js",
   "module": "lib/mjs/index.js",
   "exports": {
-    "./starter-styles.css": "./lib/starter-styles.css",
+    "./styles.css": "./lib/styles.css",
     ".": {
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
@@ -15,7 +15,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src --ext js,ts,jsx,tsx",
-    "copy-styles": "cp src/starter-styles.css lib/starter-styles.css",
+    "copy-styles": "cp src/styles.css lib/styles.css",
     "prepare": "husky install",
     "dev": "storybook dev -p 6006",
     "storybook:ci": "storybook dev --ci --quiet -p 6006",

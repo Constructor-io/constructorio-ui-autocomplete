@@ -1,7 +1,7 @@
 import { Title, Description, Stories } from '@storybook/addon-docs';
 import './custom-styles-story.css';
 import './storybook-styles.css';
-import '../src/starter-styles.css';
+import '../src/styles.css';
 
 export const parameters = {
   actions: { argTypesRegex: '^on.*' },

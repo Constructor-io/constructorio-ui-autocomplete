@@ -63,7 +63,8 @@ export const ProvideCustomStyles = HooksTemplate.bind({});
 ProvideCustomStyles.args = { apiKey, onSubmit, autocompleteClassName };
 addHookStoryCode(
   ProvideCustomStyles,
-  `import '@constructor-io/constructorio-ui-autocomplete/starter-styles.css';
-  const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
+  `import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
   customStylesDescription
 );
