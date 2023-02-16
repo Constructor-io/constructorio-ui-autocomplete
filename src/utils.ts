@@ -1,4 +1,4 @@
-import { SectionConfiguration } from './types';
+import { OnSubmit, SectionConfiguration } from './types';
 
 export type GetIndexOffset = (args: {
   activeSections: SectionConfiguration[];
@@ -70,7 +70,28 @@ ${templateCode}
   };
 };
 
-export const stringify = (obj) => JSON.stringify(obj, null, '  ');
+export const defaultOnSubmitCode = `"onSubmit": (submitEvent) => console.dir(submitEvent)`;
+
+export const defaultArgumentsCode = (apiKey: string) => `"apiKey": "${apiKey}",
+  ${defaultOnSubmitCode}`;
+
+export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { apiKey, onSubmit, ...rest } = obj;
+  let res;
+  if (Object.keys(rest).length > 0) {
+    res = JSON.stringify(rest, null, '  ');
+  } else {
+    res = `{
+}`;
+  }
+  res = res.replace(
+    '{',
+    `{
+  ${defaultArgumentsCode(apiKey)}`
+  );
+  return res;
+};
 
 export const disableStoryActions = (story) => {
   // eslint-disable-next-line

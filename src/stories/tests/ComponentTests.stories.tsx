@@ -4,7 +4,7 @@ import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
 import { isTrackingRequestSent, sleep } from '../../utils';
 import { ComponentTemplate } from '../Autocomplete/Component';
-import { apiKey } from '../../constants';
+import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 import { CioAutocompleteProps } from '../../types';
 
 export default {
@@ -26,6 +26,7 @@ export default {
 
 const defaultArgs: CioAutocompleteProps = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
