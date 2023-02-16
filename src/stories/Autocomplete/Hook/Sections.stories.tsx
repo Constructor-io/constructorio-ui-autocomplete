@@ -1,6 +1,6 @@
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils';
 import {
   contentDescription,
   customSectionDescription,
@@ -11,6 +11,7 @@ import {
   sectionOrderDescription,
   sectionsDescription,
   apiKey,
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
@@ -28,12 +29,13 @@ export default {
 };
 
 export const Default = HooksTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
+Default.args = { apiKey, onSubmit };
+Default.parameters = getHookStoryParams(`const args = ${stringifyWithDefaults(Default.args)}`);
 
 export const RenderSearchSuggestions = HooksTemplate.bind({});
 RenderSearchSuggestions.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
@@ -42,13 +44,14 @@ RenderSearchSuggestions.args = {
 };
 addHookStoryCode(
   RenderSearchSuggestions,
-  `const args = ${stringify(RenderSearchSuggestions.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSearchSuggestions.args)}`,
   searchSuggestionsDescription
 );
 
 export const RenderSuggestedProducts = HooksTemplate.bind({});
 RenderSuggestedProducts.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Products',
@@ -58,13 +61,14 @@ RenderSuggestedProducts.args = {
 };
 addHookStoryCode(
   RenderSuggestedProducts,
-  `const args = ${stringify(RenderSuggestedProducts.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSuggestedProducts.args)}`,
   productsDescription
 );
 
 export const RenderSuggestedContent = HooksTemplate.bind({});
 RenderSuggestedContent.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Content',
@@ -73,13 +77,14 @@ RenderSuggestedContent.args = {
 };
 addHookStoryCode(
   RenderSuggestedContent,
-  `const args = ${stringify(RenderSuggestedContent.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSuggestedContent.args)}`,
   contentDescription
 );
 
 export const ConfigureNumberOfResultsPerSection = HooksTemplate.bind({});
 ConfigureNumberOfResultsPerSection.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Products',
@@ -89,13 +94,14 @@ ConfigureNumberOfResultsPerSection.args = {
 };
 addHookStoryCode(
   ConfigureNumberOfResultsPerSection,
-  `const args = ${stringify(ConfigureNumberOfResultsPerSection.args)}`,
+  `const args = ${stringifyWithDefaults(ConfigureNumberOfResultsPerSection.args)}`,
   numResultsDescription
 );
 
 export const ConfigureOrderOfRenderedSections = HooksTemplate.bind({});
 ConfigureOrderOfRenderedSections.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Products',
@@ -107,13 +113,14 @@ ConfigureOrderOfRenderedSections.args = {
 };
 addHookStoryCode(
   ConfigureOrderOfRenderedSections,
-  `const args = ${stringify(ConfigureOrderOfRenderedSections.args)}`,
+  `const args = ${stringifyWithDefaults(ConfigureOrderOfRenderedSections.args)}`,
   sectionOrderDescription
 );
 
 export const RenderRecommendations = HooksTemplate.bind({});
 RenderRecommendations.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
@@ -129,13 +136,14 @@ RenderRecommendations.args = {
 };
 addHookStoryCode(
   RenderRecommendations,
-  `const args = ${stringify(RenderRecommendations.args)}`,
+  `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
 export const RenderCustomSection = HooksTemplate.bind({});
 RenderCustomSection.args = {
   apiKey,
+  onSubmit,
   sections: [
     {
       identifier: 'Search Suggestions',
@@ -165,6 +173,6 @@ RenderCustomSection.args = {
 };
 addHookStoryCode(
   RenderCustomSection,
-  `const args = ${stringify(RenderCustomSection.args)}`,
+  `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
   customSectionDescription
 );

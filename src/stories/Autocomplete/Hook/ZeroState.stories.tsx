@@ -1,6 +1,6 @@
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils';
 import {
   customSectionDescription,
   multipleSectionsDescription,
@@ -8,6 +8,7 @@ import {
   recommendationsDescription,
   zeroStateDescription,
   apiKey,
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
@@ -25,12 +26,13 @@ export default {
 };
 
 export const Default = HooksTemplate.bind({});
-Default.args = { apiKey };
-Default.parameters = getHookStoryParams(`const args = ${stringify(Default.args)}`);
+Default.args = { apiKey, onSubmit };
+Default.parameters = getHookStoryParams(`const args = ${stringifyWithDefaults(Default.args)}`);
 
 export const RenderSections = HooksTemplate.bind({});
 RenderSections.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'bestsellers',
@@ -41,13 +43,14 @@ RenderSections.args = {
 };
 addHookStoryCode(
   RenderSections,
-  `const args = ${stringify(RenderSections.args)}`,
+  `const args = ${stringifyWithDefaults(RenderSections.args)}`,
   zeroStateDescription
 );
 
 export const NoOpenOnFocus = HooksTemplate.bind({});
 NoOpenOnFocus.args = {
   apiKey,
+  onSubmit,
   openOnFocus: false,
   zeroStateSections: [
     {
@@ -58,13 +61,14 @@ NoOpenOnFocus.args = {
 };
 addHookStoryCode(
   NoOpenOnFocus,
-  `const args = ${stringify(NoOpenOnFocus.args)}`,
+  `const args = ${stringifyWithDefaults(NoOpenOnFocus.args)}`,
   openOnFocusDescription
 );
 
 export const RenderRecommendations = HooksTemplate.bind({});
 RenderRecommendations.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'bestsellers',
@@ -74,13 +78,14 @@ RenderRecommendations.args = {
 };
 addHookStoryCode(
   RenderRecommendations,
-  `const args = ${stringify(RenderRecommendations.args)}`,
+  `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
 );
 
 export const RenderCustomSection = HooksTemplate.bind({});
 RenderCustomSection.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'recent_searches',
@@ -107,13 +112,14 @@ RenderCustomSection.args = {
 };
 addHookStoryCode(
   RenderCustomSection,
-  `const args = ${stringify(RenderCustomSection.args)}`,
+  `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
   customSectionDescription
 );
 
 export const RenderMultipleSections = HooksTemplate.bind({});
 RenderMultipleSections.args = {
   apiKey,
+  onSubmit,
   zeroStateSections: [
     {
       identifier: 'bestsellers',
@@ -144,6 +150,6 @@ RenderMultipleSections.args = {
 };
 addHookStoryCode(
   RenderMultipleSections,
-  `const args = ${stringify(RenderMultipleSections.args)}`,
+  `const args = ${stringifyWithDefaults(RenderMultipleSections.args)}`,
   multipleSectionsDescription
 );

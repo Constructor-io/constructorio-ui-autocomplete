@@ -1,7 +1,7 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringify } from '../../../utils';
+import { defaultOnSubmitCode, stringifyWithDefaults } from '../../../utils';
 import { ComponentTemplate, addComponentStoryDescription } from '.';
 import {
   apiKeyDescription,
@@ -10,6 +10,7 @@ import {
   placeholderDescription,
   customStylesDescription,
   apiKey,
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 
 export default {
@@ -26,45 +27,44 @@ export default {
 };
 
 export const ProvideAPIKey = ComponentTemplate.bind({});
-ProvideAPIKey.args = { apiKey };
+ProvideAPIKey.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   ProvideAPIKey,
-  `const args = ${stringify(ProvideAPIKey.args)}`,
+  `const args = ${stringifyWithDefaults(ProvideAPIKey.args)}`,
   apiKeyDescription
 );
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
 
 export const ProvideCIOClientInstance = ComponentTemplate.bind({});
-ProvideCIOClientInstance.args = { cioJsClient };
+ProvideCIOClientInstance.args = { cioJsClient, onSubmit };
 addComponentStoryDescription(
   ProvideCIOClientInstance,
   `
-import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import ConstructorIOClient from "@constructor-io/constructorio-client-javascript";
 
-const cioJsClient = new ConstructorIOClient({ apiKey: '${apiKey}' });
-const args = { cioJsClient };`,
+const cioJsClient = new ConstructorIOClient({ "apiKey": "${apiKey}" });
+const args = { cioJsClient, ${defaultOnSubmitCode} };`,
   cioJsClientDescription
 );
 
 const placeholder = 'Custom placeholder';
 
 export const ProvideCustomPlaceHolder = ComponentTemplate.bind({});
-ProvideCustomPlaceHolder.args = { apiKey, placeholder };
+ProvideCustomPlaceHolder.args = { apiKey, onSubmit, placeholder };
 addComponentStoryDescription(
   ProvideCustomPlaceHolder,
-  `const args = ${stringify(ProvideCustomPlaceHolder.args)}`,
+  `const args = ${stringifyWithDefaults(ProvideCustomPlaceHolder.args)}`,
   placeholderDescription
 );
 
 const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
 
 export const ProvideCustomStyles = ComponentTemplate.bind({});
-ProvideCustomStyles.args = { apiKey, autocompleteClassName };
+ProvideCustomStyles.args = { apiKey, onSubmit, autocompleteClassName };
 addComponentStoryDescription(
   ProvideCustomStyles,
   `import '@constructor-io/constructorio-ui-autocomplete/starter-styles.css';
-
-const args = ${stringify(ProvideCustomStyles.args)}`,
+  const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
   customStylesDescription
 );

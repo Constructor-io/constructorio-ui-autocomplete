@@ -7,7 +7,7 @@ let idCounter = 0;
 type UseDownShiftOptions = {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   items: Item[];
-  onSubmit?: OnSubmit;
+  onSubmit: OnSubmit;
   previousQuery?: string;
   cioClient?: ConstructorIOClient;
   onChange?: (string) => void;
