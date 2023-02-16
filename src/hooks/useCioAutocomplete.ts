@@ -94,7 +94,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   });
 
   const downshift = useDownShift({ setQuery, onChange, items, onSubmit, cioClient, previousQuery });
-  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu } = downshift;
+  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, highlightedIndex } = downshift;
 
   return {
     query,
@@ -139,6 +139,16 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       className: 'cio-input',
       'data-testid': 'cio-input',
       placeholder,
+      onKeyDownCapture: ({ code }) => {
+        const isEnter = code === 'Enter';
+        const isUserInput = highlightedIndex < 0;
+        if (isOpen && isEnter && isUserInput && query?.length) {
+          if (onSubmit) {
+            onSubmit({ query });
+          }
+          cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
+        }
+      },
     }),
     getFormProps: () => ({
       onSubmit: (event) => {
