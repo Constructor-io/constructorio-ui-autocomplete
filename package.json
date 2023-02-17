@@ -24,7 +24,8 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
-    "version": "npm run build-storybook && git add -u ./docs && git add ./docs/* && npm run compile",
+    "verify-node-version": "chmod +x ./scripts/verify-node-version.sh && ./scripts/verify-node-version.sh",
+    "version": "npm run verify-node-version && npm run build-storybook && git add -u ./docs && git add ./docs/* && npm run compile",
     "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles"
   },
   "author": "constructor.io",
