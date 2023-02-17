@@ -1,10 +1,11 @@
 {
   "name": "@constructor-io/constructorio-ui-autocomplete",
-  "version": "1.1.8",
+  "version": "1.2.2",
   "description": "Constructor.io Autocomplete UI library for web applications",
   "main": "lib/cjs/index.js",
   "module": "lib/mjs/index.js",
   "exports": {
+    "./styles.css": "./lib/styles.css",
     ".": {
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
@@ -14,7 +15,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src --ext js,ts,jsx,tsx",
-    "copy-files": "copyfiles -u 1 src/**/*.css lib/cjs && copyfiles -u 1 src/**/*.css lib/mjs",
+    "copy-styles": "cp src/styles.css lib/styles.css",
     "prepare": "husky install",
     "dev": "storybook dev -p 6006",
     "storybook:ci": "storybook dev --ci --quiet -p 6006",
@@ -25,7 +26,7 @@
     "serve-built-storybook": "npx http-server docs",
     "verify-node-version": "chmod +x ./scripts/verify-node-version.sh && ./scripts/verify-node-version.sh",
     "version": "npm run verify-node-version && npm run build-storybook && git add -u ./docs && git add ./docs/* && npm run compile",
-    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-files"
+    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles"
   },
   "author": "constructor.io",
   "license": "MIT",
@@ -46,22 +47,19 @@
   "devDependencies": {
     "@constructor-io/constructorio-client-javascript": "^2.34.1",
     "@cspell/eslint-plugin": "^6.18.1",
-    "@storybook/addon-a11y": "^7.0.0-beta.15",
-    "@storybook/addon-actions": "^7.0.0-beta.15",
-    "@storybook/addon-essentials": "^7.0.0-beta.15",
-    "@storybook/addon-interactions": "^7.0.0-beta.15",
-    "@storybook/addon-links": "^7.0.0-beta.15",
-    "@storybook/addons": "^7.0.0-beta.15",
+    "@storybook/addon-a11y": "^7.0.0-beta.40",
+    "@storybook/addon-actions": "^7.0.0-beta.40",
+    "@storybook/addon-essentials": "^7.0.0-beta.40",
+    "@storybook/addon-interactions": "^7.0.0-beta.40",
+    "@storybook/addon-links": "^7.0.0-beta.40",
     "@storybook/jest": "^0.0.11-next.0",
-    "@storybook/react-webpack5": "7.0.0-beta.15",
-    "@storybook/test-runner": "^0.10.0-next.4",
+    "@storybook/react-webpack5": "7.0.0-beta.40",
+    "@storybook/test-runner": "^0.10.0-next.8",
     "@storybook/testing-library": "^0.0.14-next.1",
-    "@storybook/theming": "^7.0.0-beta.15",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
-    "copyfiles": "^2.4.1",
     "downshift": "^7.0.5",
     "eslint": "^8.23.1",
     "eslint-config-airbnb": "^19.0.4",
@@ -77,7 +75,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "start-server-and-test": "^1.15.2",
-    "storybook": "^7.0.0-beta.15",
+    "storybook": "^7.0.0-beta.40",
     "typescript": "^4.8.3",
     "webpack": "^5.75.0"
   },
