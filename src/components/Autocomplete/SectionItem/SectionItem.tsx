@@ -1,7 +1,6 @@
 import React, { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
-import { isProduct } from '../../../typeGuards';
 
 export interface SectionItemProps {
   item: Item;
@@ -13,8 +12,13 @@ export interface SectionItemProps {
 
 export default function SectionItem(props: SectionItemProps) {
   const { item, index, sectionIdentifier, children } = props;
-  const { getItemProps, featureVariants } = useContext(CioAutocompleteContext);
+  const { getItemProps } = useContext(CioAutocompleteContext);
 
+  const featureVariants = {
+    custom_autosuggest_ui_image: true,
+    custom_autosuggest_ui_image_result_count: true,
+    custom_autosuggest_ui_result_count: true,
+  };
   const showSuggestionImageAndResultCount =
     featureVariants?.custom_autosuggest_ui_image_result_count;
   const showResultCount =
@@ -35,12 +39,14 @@ export default function SectionItem(props: SectionItemProps) {
     defaultChildren = (
       <>
         {showSuggestionImage && (
-          <img data-testid='cio-suggestion-img' src={item.data?.image_url} alt={item.value} />
+          <img
+            data-testid='cio-suggestion-img'
+            src='https://constructorio-integrations.s3.amazonaws.com/react-example/6-27-2022/A802397.jpg'
+            alt={item.value}
+          />
         )}
         <span className='cio-suggestion-value'>{item.value}</span>
-        {showResultCount && (
-          <span className='cio-suggestion-count'> {item.data?.count} Products </span>
-        )}
+        {showResultCount && <span className='cio-suggestion-count'> 13 Products </span>}
       </>
     );
   }
