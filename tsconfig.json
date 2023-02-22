@@ -13,7 +13,7 @@
     "module": "esnext",
     "noEmitOnError": true,
     "lib": ["esnext", "dom", "dom.iterable"],
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
