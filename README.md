@@ -17,7 +17,7 @@ There are two main methods for consuming this UI Library in a React project:
 The `CioAutocomplete` component handles state management, data fetching, and rendering logic.
 
 ```jsx
-import { CioAutocomplete } from 'constructorio-ui-autocomplete';
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 
 function YourComponent() {
   return (
@@ -32,7 +32,7 @@ function YourComponent() {
 The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you.
 
 ```jsx
-import { useCioAutocomplete } from 'constructorio-ui-autocomplete';
+import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 
 function YourComponent() {
   const {
