@@ -40,7 +40,7 @@ export interface ItemBase extends Record<string, any> {
   data?: Record<string, any>;
 }
 
-export type Item = Product | SearchSuggestion | ItemBase;
+export type Item = ItemBase;
 
 export type SectionOrder = string[];
 

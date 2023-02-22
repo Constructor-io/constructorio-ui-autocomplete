@@ -13,10 +13,17 @@ export interface SectionItemProps {
 
 export default function SectionItem(props: SectionItemProps) {
   const { item, index, sectionIdentifier, children } = props;
-  const { getItemProps } = useContext(CioAutocompleteContext);
+  const { getItemProps, featureVariants } = useContext(CioAutocompleteContext);
+
+  const showSuggestionImageAndResultCount =
+    featureVariants?.custom_autosuggest_ui_image_result_count;
+  const showResultCount =
+    featureVariants?.custom_autosuggest_ui_result_count || showSuggestionImageAndResultCount;
+  const showSuggestionImage =
+    featureVariants?.custom_autosuggest_ui_image || showSuggestionImageAndResultCount;
 
   let defaultChildren;
-  if (isProduct(item)) {
+  if (sectionIdentifier === 'Products') {
     defaultChildren = (
       <>
         <img data-testid='cio-img' src={item.data?.image_url} alt={item.value} />
@@ -24,7 +31,18 @@ export default function SectionItem(props: SectionItemProps) {
       </>
     );
   } else {
-    defaultChildren = item.value;
+    // Is a Suggestion
+    defaultChildren = (
+      <>
+        {showSuggestionImage && (
+          <img data-testid='cio-suggestion-img' src={item.data?.image_url} alt={item.value} />
+        )}
+        <span className='cio-suggestion-value'>{item.value}</span>
+        {showResultCount && (
+          <span className='cio-suggestion-count'> {item.data?.count} Products </span>
+        )}
+      </>
+    );
   }
 
   return (

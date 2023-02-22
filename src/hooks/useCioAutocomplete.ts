@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useCioClient, { CioClientConfig } from './useCioClient';
 import useDownShift from './useDownShift';
-import useDebouncedFetchSection from './useDebouncedFetchSections';
+import useAutocompleteResults from './useAutocompleteResults';
 import {
   CioAutocompleteProps,
   Item,
@@ -70,7 +70,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     (config: SectionConfiguration) => config.type === 'recommendations'
   ) as RecommendationsSectionConfiguration[];
 
-  const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
+  const { sectionsData: autocompleteResults, featureVariants } = useAutocompleteResults(
+    query,
+    cioClient,
+    autocompleteSections
+  );
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
@@ -165,6 +169,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     setQuery,
     cioClient,
     autocompleteClassName,
+    featureVariants,
   };
 };
 

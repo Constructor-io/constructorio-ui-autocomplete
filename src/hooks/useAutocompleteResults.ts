@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { RequestFeatureVariant } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
 import { AutocompleteResultSections, SectionConfiguration } from '../types';
 
@@ -21,12 +22,13 @@ const autocompleteParameters = {
   // variationsMap: {}
 } as IAutocompleteParameters;
 
-const useDebouncedFetchSection = (
+const useAutocompleteResults = (
   query: string,
   cioClient?: ConstructorIOClient,
   autocompleteSections?: SectionConfiguration[]
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
+  const [featureVariants, setFeatureVariants] = useState<Partial<RequestFeatureVariant>>();
   const debouncedSearchTerm = useDebounce(query);
 
   if (autocompleteSections) {
@@ -52,13 +54,16 @@ const useDebouncedFetchSection = (
             }));
           });
           setSectionsData(newSectionsData);
+          if (response.request.features?.custom_autosuggest_ui) {
+            setFeatureVariants(response.request.feature_variants);
+          }
         });
     } else if (!debouncedSearchTerm) {
       setSectionsData({});
     }
   }, [debouncedSearchTerm, cioClient]);
 
-  return sectionsData;
+  return { sectionsData, featureVariants };
 };
 
-export default useDebouncedFetchSection;
+export default useAutocompleteResults;
