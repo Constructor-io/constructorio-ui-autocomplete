@@ -1,3 +1,4 @@
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { OnSubmit, SectionConfiguration } from './types';
 
 export type GetIndexOffset = (args: {
@@ -96,4 +97,14 @@ export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit 
 export const disableStoryActions = (story) => {
   // eslint-disable-next-line
   story.parameters.actions = { argTypesRegex: null };
+};
+
+export const getCioClient = (apiKey?: string) => {
+  if (apiKey) {
+    return new ConstructorIOClient({
+      apiKey,
+    });
+  }
+
+  return null;
 };

@@ -1,5 +1,6 @@
 import { useCombobox, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import { Item, OnSubmit } from '../types';
 
 let idCounter = 0;
@@ -9,7 +10,7 @@ type UseDownShiftOptions = {
   items: Item[];
   onSubmit: OnSubmit;
   previousQuery?: string;
-  cioClient?: ConstructorIOClient;
+  cioClient: Nullable<ConstructorIOClient>;
   onChange?: (string) => void;
 };
 
