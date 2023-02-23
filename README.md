@@ -120,6 +120,23 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
  - If you like, you can pass additional className(s) of your choosing like so:
 `autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
 
+## Troubleshooting
+
+### Known Issues
+
+**ESLint**
+
+There is a known issue with ESLint where it fails to resolve the paths exposed in the `exports` statement of NPM packages. If you are receiving the following error, you can safely disable ESLint using `// eslint-disable-line` for that line.
+
+`Unable to resolve path to module '@constructor-io/constructorio-ui-autocomplete/styles.css'`
+
+Relevant open issues:
+
+[Issue 1868](https://github.com/import-js/eslint-plugin-import/issues/1868)
+
+[Issue 1810](https://github.com/import-js/eslint-plugin-import/issues/1810)
+
+
 ## Local Development
 
 ### Development scripts
