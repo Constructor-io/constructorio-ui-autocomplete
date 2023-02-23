@@ -106,13 +106,13 @@ By default, importing react components or hooks from this library does not pull 
 If you wish to use some starter styles from this library, add an import statement similar to the example import statement below:
 
 ```js
-import 'node_modules/@constructor-io/constructorio-ui-autocomplete/lib/mjs/components/Autocomplete/Autocomplete.css';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 ```
 
 > Note: the path and syntax in this example may change slightly depending on your module bundling strategy
 
  - These starter styles can be used as a foundation to build on top of, or just as a reference for you to replace completely.
- - To opt out of all default styling, do not import the `Autocomplete.css` stylesheet.
+ - To opt out of all default styling, do not import the `styles.css` stylesheet.
  - All starter styles in this library are scoped within the `.cio-autocomplete` css selector.
  - These starter styles are intended to be extended by layering in your own css rules
 - If you like, you can override the container's className like so:
