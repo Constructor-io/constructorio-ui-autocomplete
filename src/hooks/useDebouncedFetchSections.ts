@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, SectionConfiguration } from '../types';
+import { AutocompleteResultSections, SectionConfiguration, IAutocompleteParameters } from '../types';
 
 interface IAdvancedParameters {
   numResults?: number;
@@ -10,16 +10,6 @@ interface IAdvancedParameters {
   filters?: Record<string, any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   variationsMap?: Record<string, any>;
-}
-
-interface IAutocompleteParameters {
-  resultsPerSection: Record<string, number>;
-  numResults: number;
-  hiddenFields: string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  filters: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  variationsMap: Record<string, any>;
 }
 
 const autocompleteParameters = {

@@ -3,6 +3,16 @@ import { GetItemPropsOptions } from 'downshift';
 import { FormEvent, ReactNode } from 'react';
 import { CioClientConfig } from './hooks/useCioClient';
 
+export interface IAutocompleteParameters {
+  resultsPerSection: Record<string, number>;
+  numResults: number;
+  hiddenFields: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filters: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  variationsMap: Record<string, any>;
+}
+
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
   onSubmit: OnSubmit;
@@ -13,6 +23,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   sections?: SectionConfiguration[];
   zeroStateSections?: SectionConfiguration[];
   autocompleteClassName?: string;
+  advancedParameters?: IAutocompleteParameters;
 };
 
 export type FormSubmitEvent = FormEvent<HTMLFormElement>;

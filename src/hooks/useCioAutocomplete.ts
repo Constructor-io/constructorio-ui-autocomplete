@@ -32,6 +32,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     onChange,
     openOnFocus,
     apiKey,
+    advancedParameters,
     cioJsClient,
     placeholder = defaultPlaceholder,
     sections = defaultSections,
@@ -70,7 +71,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     (config: SectionConfiguration) => config.type === 'recommendations'
   ) as RecommendationsSectionConfiguration[];
 
-  const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
+  const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections, advancedParameters);
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
