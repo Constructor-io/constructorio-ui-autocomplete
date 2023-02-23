@@ -8,6 +8,7 @@ type UseCioClient = (cioClientConfig: CioClientConfig) => Nullable<ConstructorIO
 
 const useCioClient: UseCioClient = ({ apiKey, cioJsClient }) => {
   if (!apiKey && !cioJsClient) {
+    // eslint-disable-next-line no-console
     console.error('Either apiKey or cioJsClient is required');
   }
 
