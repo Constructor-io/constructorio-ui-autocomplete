@@ -5,7 +5,10 @@
   "main": "lib/cjs/index.js",
   "module": "lib/mjs/index.js",
   "exports": {
-    "./styles.css": "./lib/styles.css",
+    "./styles.css": {
+      "import": "./lib/styles.css",
+      "require": "./lib/styles.css"
+    },
     ".": {
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
