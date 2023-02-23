@@ -9,8 +9,9 @@ import {
   componentDescription,
   placeholderDescription,
   customStylesDescription,
+  advancedParametersDescription,
   apiKey,
-  onSubmitDefault as onSubmit,
+  onSubmitDefault as onSubmit
 } from '../../../constants';
 
 export default {
@@ -20,10 +21,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: componentDescription,
-      },
-    },
-  },
+        component: componentDescription
+      }
+    }
+  }
 };
 
 export const ProvideAPIKey = ComponentTemplate.bind({});
@@ -68,4 +69,16 @@ addComponentStoryDescription(
 
 const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
   customStylesDescription
+);
+
+const advancedParameters = {
+  filters: []
+};
+
+export const ProvideAdvancedParameters = ComponentTemplate.bind({});
+ProvideAdvancedParameters.args = { apiKey, onSubmit, advancedParameters };
+addComponentStoryDescription(
+  ProvideAdvancedParameters,
+  `const args = ${stringifyWithDefaults(ProvideAdvancedParameters.args)}`,
+  advancedParametersDescription
 );

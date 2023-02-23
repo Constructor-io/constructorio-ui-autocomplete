@@ -13,11 +13,7 @@ interface IAdvancedParameters {
 }
 
 const autocompleteParameters = {
-  resultsPerSection: {},
   numResults: 8,
-  hiddenFields: [],
-  filters: {},
-  variationsMap: {}
 } as IAutocompleteParameters;
 
 const useDebouncedFetchSection = (
@@ -33,7 +29,7 @@ const useDebouncedFetchSection = (
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
       (acc, sectionConfig) => ({
         ...acc,
-        [sectionConfig.identifier]: sectionConfig?.numResults || advancedParameters?.numResults || 8,
+        [sectionConfig.identifier]: sectionConfig?.numResults || advancedParameters?.numResults,
       }),
       {}
     );

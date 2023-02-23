@@ -187,3 +187,7 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 }
 \`\`\`
 `;
+
+export const advancedParametersDescription = `
+Advanced Parameters
+`;
