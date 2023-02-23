@@ -14,6 +14,7 @@ This UI Library provides React components that manage fetching and rendering log
 ```bash
 npm i @constructor-io/constructorio-ui-autocomplete
 ```
+
 There are two main methods for consuming this UI Library in a React project:
 
 ### Component based
