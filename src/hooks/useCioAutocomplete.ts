@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import useCioClient, { CioClientConfig } from './useCioClient';
+import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import {
   CioAutocompleteProps,
+  CioClientConfig,
   Item,
   RecommendationsSectionConfiguration,
   SectionConfiguration,
