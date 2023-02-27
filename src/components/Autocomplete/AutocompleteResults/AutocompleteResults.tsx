@@ -23,16 +23,19 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
 
   const hasResults = sections && sections.some((section) => section?.data?.length);
 
+  const menuProps = {
+    ...getMenuProps(),
+  };
+
   let content;
   if (isOpen && hasResults) {
     content = typeof children === 'function' ? children({ sections, getItemProps }) : children;
   } else {
     content = null;
+    menuProps.style = {
+      display: 'none',
+    };
   }
-
-  const menuProps = {
-    ...getMenuProps(),
-  };
 
   return <ul {...menuProps}>{content}</ul>;
 }
