@@ -109,7 +109,17 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     getLabelProps,
     openMenu,
     closeMenu,
-    getItemProps: ({ item, index = 0, sectionIdentifier = 'Products' }) => {
+    getItemProps: ({ item, index, sectionIdentifier }) => {
+      if (Number.isNaN(index)) {
+        // eslint-disable-next-line no-console
+        console.error(`getItemProps expects a numerical value to be passed for 'index'`);
+        return {};
+      }
+      if (typeof sectionIdentifier !== 'string') {
+        // eslint-disable-next-line no-console
+        console.error(`getItemProps expects a string value to be passed for 'sectionIdentifier'`);
+        return {};
+      }
       const indexOffset = getIndexOffset({
         activeSections: activeSectionsWithData,
         sectionIdentifier,

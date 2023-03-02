@@ -33,7 +33,11 @@ const {
   getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
-  getItemProps: () => ({...})), // prop getter for jsx element serving as each result
+  getItemProps: ({
+    item,
+    index,
+    sectionIdentifier
+  }) => ({...})), // prop getter for jsx element serving as each result
   isOpen: boolean,
 
   // available for advanced hooks integration use cases
