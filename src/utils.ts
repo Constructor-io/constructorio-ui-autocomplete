@@ -1,23 +1,35 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { OnSubmit, SectionConfiguration } from './types';
+import { OnSubmit, SectionConfiguration, Item } from './types';
 
-export type GetIndexOffset = (args: {
-  activeSections: SectionConfiguration[];
-  sectionIdentifier: string;
-}) => number;
+export type GetItemPosition = (args: {
+  item: Item;
+  activeSectionsWithData: SectionConfiguration[];
+}) => {
+  index: number;
+  sectionId: string;
+};
 
-export const getIndexOffset: GetIndexOffset = ({ activeSections, sectionIdentifier }) => {
-  let indexOffset = 0;
+export const getItemPosition: GetItemPosition = ({ item, activeSectionsWithData }) => {
+  let index = 0;
+  let sectionId;
 
-  if (sectionIdentifier) {
-    activeSections.find((config: SectionConfiguration) => {
-      if (config?.identifier === sectionIdentifier) return true; // break out of loop
-      indexOffset += config?.data?.length || 0;
-      return false; // continue
-    });
-  }
+  activeSectionsWithData.find(({ identifier, data: sectionResults }) => {
+    const indexInSection = sectionResults?.findIndex(
+      ({ data: result }) => result?.id === item?.data?.id
+    );
+    const notInThisSection = indexInSection === -1;
+    if (notInThisSection) {
+      index += sectionResults?.length || 0;
+      return false; // continue looping through sections
+    }
 
-  return indexOffset;
+    // else, item found in current section
+    sectionId = identifier;
+    index += indexInSection || 0;
+    return true; // stop looping through sections
+  });
+
+  return { index, sectionId };
 };
 
 type CamelToStartCase = (camelCaseString: string) => string;

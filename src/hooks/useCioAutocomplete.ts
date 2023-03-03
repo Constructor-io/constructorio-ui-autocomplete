@@ -11,7 +11,7 @@ import {
 } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import usePrevious from './usePrevious';
-import { getIndexOffset } from '../utils';
+import { getItemPosition } from '../utils';
 
 export const defaultSections: SectionConfiguration[] = [
   {
@@ -109,25 +109,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     getLabelProps,
     openMenu,
     closeMenu,
-    getItemProps: ({ item, index, sectionIdentifier }) => {
-      if (Number.isNaN(index)) {
-        // eslint-disable-next-line no-console
-        console.error(`getItemProps expects a numerical value to be passed for 'index'`);
-        return {};
-      }
-      if (typeof sectionIdentifier !== 'string') {
-        // eslint-disable-next-line no-console
-        console.error(`getItemProps expects a string value to be passed for 'sectionIdentifier'`);
-        return {};
-      }
-      const indexOffset = getIndexOffset({
-        activeSections: activeSectionsWithData,
-        sectionIdentifier,
-      });
-      const sectionItemTestId = `cio-item-${sectionIdentifier.replace(' ', '')}`;
+    getItemProps: (item) => {
+      const { index, sectionId } = getItemPosition({ item, activeSectionsWithData });
+      const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
       return {
-        ...downshift.getItemProps({ item, index: index + indexOffset }),
+        ...downshift.getItemProps({ item, index }),
         className: `cio-item ${sectionItemTestId}`,
         'data-testid': sectionItemTestId,
       };

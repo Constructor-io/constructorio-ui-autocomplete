@@ -5,14 +5,12 @@ import { isProduct } from '../../../typeGuards';
 
 export interface SectionItemProps {
   item: Item;
-  index: number;
-  sectionIdentifier: string;
   children?: ReactNode;
   key?: string;
 }
 
 export default function SectionItem(props: SectionItemProps) {
-  const { item, index, sectionIdentifier, children } = props;
+  const { item, children } = props;
   const { getItemProps } = useContext(CioAutocompleteContext);
 
   let defaultChildren;
@@ -27,7 +25,5 @@ export default function SectionItem(props: SectionItemProps) {
     defaultChildren = item.value;
   }
 
-  return (
-    <li {...getItemProps({ item, index, sectionIdentifier })}>{children || defaultChildren}</li>
-  );
+  return <li {...getItemProps(item)}>{children || defaultChildren}</li>;
 }
