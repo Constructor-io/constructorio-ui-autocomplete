@@ -4,3 +4,4 @@ export { default as SearchInput } from './components/Autocomplete/SearchInput/Se
 export { default as SectionItem } from './components/Autocomplete/SectionItem/SectionItem';
 export { default as SectionItemsList } from './components/Autocomplete/SectionItemsList/SectionItemsList';
 export { default as useCioAutocomplete } from './hooks/useCioAutocomplete';
+export * from './types';
