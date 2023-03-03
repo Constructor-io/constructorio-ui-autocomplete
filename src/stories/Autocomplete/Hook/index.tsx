@@ -72,23 +72,30 @@ export function HooksTemplate(args) {
       </form>
       <div {...getMenuProps()}>
         {isOpen &&
-          sections?.map((section) => (
-            <div key={section.identifier} className={section.identifier}>
-              <div className='cio-section'>
-                <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
-                <div className='cio-section-items'>
-                  {section?.data?.map((item) => (
-                    <div {...getItemProps(item)} key={item?.data?.id}>
-                      {isProduct(item) && (
-                        <img width='100%' src={item.data?.image_url} alt='' data-testid='cio-img' />
-                      )}
-                      <p>{item.value}</p>
-                    </div>
-                  ))}
+          sections?.map((section) =>
+            !section?.data?.length ? null : (
+              <div key={section.identifier} className={section.identifier}>
+                <div className='cio-section'>
+                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
+                  <div className='cio-section-items'>
+                    {section?.data?.map((item) => (
+                      <div {...getItemProps(item)} key={item?.data?.id}>
+                        {isProduct(item) && (
+                          <img
+                            width='100%'
+                            src={item.data?.image_url}
+                            alt=''
+                            data-testid='cio-img'
+                          />
+                        )}
+                        <p>{item.value}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
       </div>
     </div>
   );
@@ -165,7 +172,7 @@ function YourComponent() {
       <div {...getMenuProps()}>
         {isOpen && (
           <>
-            {sections?.map((section) => (
+            {sections?.map((section) => !section?.data?.length ? null : (
               <div key={section.identifier} className={section.identifier}>
                 <div className='cio-section'>
                   <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>

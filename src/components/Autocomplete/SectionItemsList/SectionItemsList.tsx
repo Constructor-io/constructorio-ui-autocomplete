@@ -5,7 +5,7 @@ import { camelToStartCase } from '../../../utils';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: SectionConfiguration;
-}) => ReactElement;
+}) => ReactElement | null;
 
 type SectionItemsListProps = {
   section: SectionConfiguration;
@@ -16,6 +16,8 @@ type SectionItemsListProps = {
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
   const sectionName = section?.displayName || section?.identifier;
+
+  if (!section?.data?.length) return null;
 
   return (
     <li className={`${sectionName} cio-section`} role='none'>
