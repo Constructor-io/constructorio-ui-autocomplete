@@ -55,7 +55,7 @@ type BaseSectionConfiguration = {
   numResults?: number;
 };
 
-interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
+export interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
   type?: 'autocomplete';
   data?: Item[];
 }
@@ -68,7 +68,7 @@ export interface RecommendationsSectionConfiguration extends BaseSectionConfigur
   term?: string;
 }
 
-interface CustomSectionConfiguration extends BaseSectionConfiguration {
+export interface CustomSectionConfiguration extends BaseSectionConfiguration {
   type: 'custom';
   data: Item[];
 }
