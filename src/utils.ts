@@ -10,26 +10,24 @@ export type GetItemPosition = (args: {
 };
 
 export const getItemPosition: GetItemPosition = ({ item, activeSectionsWithData }) => {
-  let index = 0;
+  let indexAcrossSections = -1;
   let sectionId;
 
-  activeSectionsWithData.find(({ identifier, data: sectionResults }) => {
-    const indexInSection = sectionResults?.findIndex(
-      ({ data: result }) => result?.id === item?.data?.id
-    );
-    const notInThisSection = indexInSection === -1;
-    if (notInThisSection) {
-      index += sectionResults?.length || 0;
-      return false; // continue looping through sections
+  activeSectionsWithData.find((section) => {
+    const indexInSection = section.data?.findIndex(({ data: result }) => {
+      indexAcrossSections += 1;
+      return result?.id === item?.data?.id;
+    });
+
+    if (indexInSection === -1) {
+      return false; // continue searching through sections
     }
 
-    // else, item found in current section
-    sectionId = identifier;
-    index += indexInSection || 0;
+    sectionId = section.identifier; // item found in current section
     return true; // stop looping through sections
   });
 
-  return { index, sectionId };
+  return { sectionId, index: indexAcrossSections };
 };
 
 type CamelToStartCase = (camelCaseString: string) => string;
