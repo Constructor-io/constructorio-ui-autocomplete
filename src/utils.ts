@@ -1,10 +1,7 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { OnSubmit, SectionConfiguration, Item } from './types';
+import { OnSubmit, Section, Item } from './types';
 
-export type GetItemPosition = (args: {
-  item: Item;
-  activeSectionsWithData: SectionConfiguration[];
-}) => {
+export type GetItemPosition = (args: { item: Item; activeSectionsWithData: Section[] }) => {
   index: number;
   sectionId: string;
 };

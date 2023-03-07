@@ -18,6 +18,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src --ext js,ts,jsx,tsx",
+    "check-types": "npx tsc --noEmit",
     "copy-styles": "cp src/styles.css lib/styles.css",
     "prepare": "husky install",
     "dev": "storybook dev -p 6006",

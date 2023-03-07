@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, SectionConfiguration } from '../types';
+import { AutocompleteResultSections, Section } from '../types';
 
 interface IAutocompleteParameters {
   numResults: number;
@@ -25,7 +25,7 @@ const autocompleteParameters = {
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
-  autocompleteSections?: SectionConfiguration[]
+  autocompleteSections?: Section[]
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
