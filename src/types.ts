@@ -57,7 +57,7 @@ export type SectionConfiguration = {
   numResults?: number;
 };
 
-interface AutocompleteSection extends SectionConfiguration {
+export interface AutocompleteSection extends SectionConfiguration {
   type?: 'autocomplete';
   data?: Item[];
 }
@@ -70,7 +70,7 @@ export interface RecommendationsSection extends SectionConfiguration {
   term?: string;
 }
 
-interface CustomSection extends SectionConfiguration {
+export interface CustomSection extends SectionConfiguration {
   type: 'custom';
   data: Item[];
 }
