@@ -78,14 +78,8 @@ export function HooksTemplate(args) {
                 <div className='cio-section'>
                   <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
-                    {section?.data?.map((item, index) => (
-                      <div
-                        {...getItemProps({
-                          item,
-                          index,
-                          sectionIdentifier: section.identifier,
-                        })}
-                        key={item?.data?.id}>
+                    {section?.data?.map((item) => (
+                      <div {...getItemProps(item)} key={item?.data?.id}>
                         {isProduct(item) && (
                           <img
                             width='100%'
@@ -183,14 +177,8 @@ function YourComponent() {
                 <div className='cio-section'>
                   <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
-                    {section?.data?.map((item, index) => (
-                      <div
-                        {...getItemProps({
-                          item,
-                          index,
-                          sectionIdentifier: section.identifier
-                        })}
-                        key={item?.data?.id}>
+                    {section?.data?.map((item) => (
+                      <div {...getItemProps(item)} key={item?.data?.id}>
                         {isProduct(item) && (
                           <img
                             width='100%'
