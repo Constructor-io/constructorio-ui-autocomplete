@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
-import { AutocompleteResultSections, RecommendationsSectionConfiguration, Item } from '../types';
+import { AutocompleteResultSections, RecommendationsSection, Item } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
-  recommendationPods: RecommendationsSectionConfiguration[]
+  recommendationPods: RecommendationsSection[]
 ) => {
   const [recommendationResults, setRecommendationResults] = useState<AutocompleteResultSections>(
     {}

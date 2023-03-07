@@ -69,14 +69,8 @@ function YourComponent() {
                     {section?.displayName || section.identifier}
                   </div>
                   <div className='cio-items'>
-                    {section?.data?.map((item, index) => (
-                      <div
-                        {...getItemProps({
-                          item,
-                          index,
-                          sectionIdentifier: section.identifier
-                        })}
-                        key={item?.data?.id}>
+                    {section?.data?.map((item) => (
+                      <div {...getItemProps(item)} key={item?.data?.id}>
                         <div>
                           {isProduct(item) && (
                             <img
