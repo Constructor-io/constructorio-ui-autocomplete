@@ -12,8 +12,8 @@ export type CioAutocompleteProps = CioClientConfig & {
   onChange?: () => void;
   placeholder?: string;
   children?: ReactNode;
-  sections?: SectionConfiguration[];
-  zeroStateSections?: SectionConfiguration[];
+  sections?: Section[];
+  zeroStateSections?: Section[];
   autocompleteClassName?: string;
 };
 
@@ -48,19 +48,21 @@ export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { num
 export type AutocompleteResultSections = {
   [key: string]: Item[] | undefined;
 };
+type SectionType = 'autocomplete' | 'recommendations' | 'custom';
 
-type BaseSectionConfiguration = {
+export type SectionConfiguration = {
+  type?: SectionType;
   identifier: string;
   displayName?: string;
   numResults?: number;
 };
 
-interface AutocompleteSectionConfiguration extends BaseSectionConfiguration {
+interface AutocompleteSection extends SectionConfiguration {
   type?: 'autocomplete';
   data?: Item[];
 }
 
-export interface RecommendationsSectionConfiguration extends BaseSectionConfiguration {
+export interface RecommendationsSection extends SectionConfiguration {
   type: 'recommendations';
   data?: Item[];
   itemIds?: string[];
@@ -68,15 +70,12 @@ export interface RecommendationsSectionConfiguration extends BaseSectionConfigur
   term?: string;
 }
 
-interface CustomSectionConfiguration extends BaseSectionConfiguration {
+interface CustomSection extends SectionConfiguration {
   type: 'custom';
   data: Item[];
 }
 
-export type SectionConfiguration =
-  | AutocompleteSectionConfiguration
-  | RecommendationsSectionConfiguration
-  | CustomSectionConfiguration;
+export type Section = AutocompleteSection | RecommendationsSection | CustomSection;
 
 export type Product = {
   data: {

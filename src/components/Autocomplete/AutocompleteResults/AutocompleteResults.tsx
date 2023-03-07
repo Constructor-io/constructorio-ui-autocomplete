@@ -1,10 +1,10 @@
 import React, { ReactNode, useContext } from 'react';
-import { GetItemProps, SectionConfiguration } from '../../../types';
+import { GetItemProps, Section } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
 
 export type RenderResults = (renderResultsArguments: {
-  sections: SectionConfiguration[];
+  sections: Section[];
   getItemProps: GetItemProps;
 }) => ReactNode;
 
@@ -13,7 +13,7 @@ type AutocompleteResultsProps = {
 };
 
 const DefaultRenderResults: RenderResults = ({ sections }) =>
-  sections?.map((section: SectionConfiguration) => (
+  sections?.map((section: Section) => (
     <SectionItemsList section={section} key={section.identifier} />
   ));
 

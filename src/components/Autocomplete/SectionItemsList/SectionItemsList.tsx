@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
-import { SectionConfiguration } from '../../../types';
+import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase } from '../../../utils';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
-  section: SectionConfiguration;
+  section: Section;
 }) => ReactElement | null;
 
 type SectionItemsListProps = {
-  section: SectionConfiguration;
+  section: Section;
   children?: RenderSectionItemsList;
   key?: string;
 };

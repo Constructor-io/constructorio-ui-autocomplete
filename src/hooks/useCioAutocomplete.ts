@@ -6,14 +6,14 @@ import {
   CioAutocompleteProps,
   CioClientConfig,
   Item,
-  RecommendationsSectionConfiguration,
-  SectionConfiguration,
+  RecommendationsSection,
+  Section,
 } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import usePrevious from './usePrevious';
 import { getItemPosition } from '../utils';
 
-export const defaultSections: SectionConfiguration[] = [
+export const defaultSections: Section[] = [
   {
     identifier: 'Search Suggestions',
     type: 'autocomplete',
@@ -65,17 +65,17 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   const autocompleteSections = activeSections?.filter(
-    (config: SectionConfiguration) => config.type === 'autocomplete' || !config.type
+    (config: Section) => config.type === 'autocomplete' || !config.type
   );
   const recommendationsSections = activeSections?.filter(
-    (config: SectionConfiguration) => config.type === 'recommendations'
-  ) as RecommendationsSectionConfiguration[];
+    (config: Section) => config.type === 'recommendations'
+  ) as RecommendationsSection[];
 
   const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
-  const activeSectionsWithData: SectionConfiguration[] = [];
+  const activeSectionsWithData: Section[] = [];
 
   activeSections?.forEach((config) => {
     const { identifier, data: customData } = config;
@@ -88,7 +88,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const items: Item[] = [];
 
-  activeSectionsWithData?.forEach((config: SectionConfiguration) => {
+  activeSectionsWithData?.forEach((config: Section) => {
     if (config?.data) {
       items.push(...config.data);
     }
