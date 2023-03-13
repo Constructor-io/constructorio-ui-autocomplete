@@ -32,18 +32,19 @@ Calling the \`useCioAutocomplete\` hook returns an object with the following key
 const {
   // must be used for a hooks integrations
   query: string, // current input field value
-  isOpen: boolean, // current state of the menu list
   sections: [{...}], // array of sections data to render in menu list
   getFormProps: () => ({...})), // prop getter for jsx form element
-  getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
   getItemProps: (item) => ({...})), // prop getter for jsx element serving as each result
 
-  // available for advanced hooks integration use cases
+  // available for use, but not required for all use cases
+  selectedItem: item, // undefined or current selected item (via hover or arrow keys)
+  isOpen: boolean, // current state of the menu list
   openMenu: () => void, // open menu
   closeMenu: () => void, // close menu
   setQuery: () => void, // update the current input field value
+  getLabelProps: () => ({...})), // prop getter for a jsx label element
   cioJsClient, // instance of constructorio-client-javascript
  } = useCioAutocomplete(args);
 \`\`\`
