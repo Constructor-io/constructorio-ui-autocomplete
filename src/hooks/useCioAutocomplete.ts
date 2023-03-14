@@ -163,6 +163,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     setQuery,
     cioClient,
     autocompleteClassName,
+    selectedItem: items[highlightedIndex],
   };
 };
 

@@ -34,10 +34,22 @@ function YourComponent() {
 
 ### Hook based
 
-The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you.
+The `useCioAutocomplete` hook leaves rendering logic up to you, while handling:
+  - state management
+  - data fetching
+  - keyboard navigation
+  - mouse interactions
+  - focus and submit event handling
+
+An `apiKey` or `cioJsClient` must be passed to the `useCioAutocomplete` hook along with an `onSubmit` callback function. All other values are optional.
 
 ```jsx
 import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+
+const args = {
+  "apiKey": "key_Gep3oQOu5IMcNh9A",
+  "onSubmit": (submitEvent) => console.dir(submitEvent)
+};
 
 function YourComponent() {
   const {
