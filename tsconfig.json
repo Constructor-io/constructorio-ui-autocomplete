@@ -4,7 +4,6 @@
     "moduleResolution": "node",
     "removeComments": false,
     "jsx": "react",
-    "sourceMap": true,
     "target": "esnext",
     "outDir": "lib/mjs",
     "declaration": true,
