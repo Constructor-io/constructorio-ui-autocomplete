@@ -8,12 +8,14 @@ import {
   Item,
   RecommendationsSection,
   Section,
+  UserDefinedSection,
 } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import usePrevious from './usePrevious';
 import { getItemPosition } from '../utils';
+import { isCustomSection } from '../typeGuards';
 
-export const defaultSections: Section[] = [
+export const defaultSections: UserDefinedSection[] = [
   {
     identifier: 'Search Suggestions',
     type: 'autocomplete',
@@ -65,10 +67,10 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   const autocompleteSections = activeSections?.filter(
-    (config: Section) => config.type === 'autocomplete' || !config.type
+    (config: UserDefinedSection) => config.type === 'autocomplete' || !config.type
   );
   const recommendationsSections = activeSections?.filter(
-    (config: Section) => config.type === 'recommendations'
+    (config: UserDefinedSection) => config.type === 'recommendations'
   ) as RecommendationsSection[];
 
   const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
@@ -78,10 +80,16 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const activeSectionsWithData: Section[] = [];
 
   activeSections?.forEach((config) => {
-    const { identifier, data: customData } = config;
-    const data = sectionResults[identifier] || customData;
+    const { identifier } = config;
+    let data;
 
-    if (data && data !== undefined) {
+    if (isCustomSection(config)) {
+      data = config.data;
+    } else {
+      data = sectionResults[identifier];
+    }
+
+    if (Array.isArray(data)) {
       activeSectionsWithData.push({ ...config, data });
     }
   });
@@ -110,7 +118,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     openMenu,
     closeMenu,
     getItemProps: (item) => {
-      const { index, sectionId } = getItemPosition({ item, activeSectionsWithData });
+      const { index, sectionId } = getItemPosition({ item, items });
       const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
       return {

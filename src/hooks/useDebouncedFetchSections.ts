@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, Section } from '../types';
+import { AutocompleteResultSections, UserDefinedSection } from '../types';
 
 interface IAutocompleteParameters {
   numResults: number;
   resultsPerSection: Record<string, number>;
   hiddenFields: string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filters: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   variationsMap: Record<string, any>;
 }
 
@@ -25,10 +23,13 @@ const autocompleteParameters = {
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
-  autocompleteSections?: Section[]
+  autocompleteSections?: UserDefinedSection[]
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
+
+  const numTermsWithGroups = 1;
+  const numGroupsPerTerm = 3;
 
   if (autocompleteSections) {
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
@@ -47,10 +48,33 @@ const useDebouncedFetchSection = (
         .then((response) => {
           const newSectionsData: AutocompleteResultSections = {};
           Object.keys(response.sections).forEach((section: string) => {
-            newSectionsData[section] = response.sections[section].map((item) => ({
+            newSectionsData[section] = [];
+            const sectionItems = response.sections[section].map((item) => ({
               ...item,
+              id: item?.data?.id,
               section,
             }));
+            sectionItems.forEach((item, itemIndex) => {
+              newSectionsData[section]?.push(item);
+
+              if (
+                section === 'Search Suggestions' &&
+                item?.data?.groups?.length &&
+                itemIndex < numTermsWithGroups
+              ) {
+                item.data.groups.forEach((group, groupIndex) => {
+                  if (groupIndex < numGroupsPerTerm) {
+                    const inGroupSearchSuggestion = {
+                      ...item,
+                      id: `${item.data?.id}_${group.group_id}`,
+                      groupName: group.display_name,
+                      groupId: group.group_id,
+                    };
+                    newSectionsData[section]?.push(inGroupSearchSuggestion);
+                  }
+                });
+              }
+            });
           });
           setSectionsData(newSectionsData);
         });

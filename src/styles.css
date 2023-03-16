@@ -113,3 +113,7 @@
   max-width: 100px;
   max-height: 100px;
 }
+
+.cio-autocomplete .cio-term-in-group {
+  padding-left: 10px;
+}

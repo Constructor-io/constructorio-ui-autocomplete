@@ -35,8 +35,8 @@ const {
   sections: [{...}], // array of sections data to render in menu list
   getFormProps: () => ({...})), // prop getter for jsx form element
   getInputProps: () => ({...})), // prop getter for jsx input element
-  getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
-  getItemProps: (item) => ({...})), // prop getter for jsx element serving as each result
+  getMenuProps: () => ({...})), // prop getter for jsx element rendering the results container
+  getItemProps: (item) => ({...})), // prop getter for jsx element rendering each result
 
   // available for use, but not required for all use cases
   selectedItem: item, // undefined or current selected item (via hover or arrow keys)
