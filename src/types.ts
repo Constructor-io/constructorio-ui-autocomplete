@@ -5,6 +5,11 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 
 export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
+export type AdvancedParameters = {
+  numTermsWithGroupSuggestions?: number;
+  numGroupsSuggestedPerTerm?: number;
+};
+
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
   onSubmit: OnSubmit;
@@ -15,6 +20,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   sections?: Section[];
   zeroStateSections?: Section[];
   autocompleteClassName?: string;
+  advancedParameters?: AdvancedParameters;
 };
 
 export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };

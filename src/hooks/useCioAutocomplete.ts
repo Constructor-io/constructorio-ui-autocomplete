@@ -40,6 +40,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     sections = defaultSections,
     zeroStateSections,
     autocompleteClassName = 'cio-autocomplete',
+    advancedParameters,
   } = options;
 
   const [query, setQuery] = useState('');
@@ -73,7 +74,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     (config: UserDefinedSection) => config.type === 'recommendations'
   ) as RecommendationsSection[];
 
-  const autocompleteResults = useDebouncedFetchSection(query, cioClient, autocompleteSections);
+  const autocompleteResults = useDebouncedFetchSection(
+    query,
+    cioClient,
+    autocompleteSections,
+    advancedParameters
+  );
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
