@@ -23,14 +23,13 @@ const autocompleteParameters = {
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
-  autocompleteSections?: UserDefinedSection[],
-  advancedParameters?: AdvancedParameters
+  autocompleteSections: UserDefinedSection[],
+  advancedParameters: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
-  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
-    advancedParameters || {};
+  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
 
   if (autocompleteSections) {
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
