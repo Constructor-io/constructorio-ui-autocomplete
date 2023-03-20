@@ -194,3 +194,9 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 }
 \`\`\`
 `;
+
+export const advancedParametersDescription = `Pass an \`advancedParameters\` object to configure more options for the data included in the results requested from constructor's servers. The stories below show examples of the optional fields within this \`advancedParameters\` object that can be used to fine-tune the autosuggest data returned from constructor's servers.`;
+
+export const advancedParametersDefaultDescription = `Passing an \`advancedParameters\` object is optional. Passing an empty object for the \`advancedParameters\` field behaves the same as not passing an \`advancedParameters\` object at all. This has no impact on the results returned by default.`;
+
+export const termsWithGroupSuggestionsDescription = `Pass integers for the \`numTermsWithGroupSuggestions\` and \`numGroupsSuggestedPerTerm\` fields to add suggested group filters to search term suggestions.`;
