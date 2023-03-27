@@ -83,10 +83,8 @@ export type Product = {
     group_ids: string[];
     id: string;
     image_url: string;
-    price: number;
-    swatchColor: string;
     url: string;
-    variation_id: string;
+    variation_id?: string;
   };
   is_slotted: boolean;
   labels: Record<string, unknown>;
