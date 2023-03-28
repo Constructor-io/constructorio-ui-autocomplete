@@ -343,3 +343,37 @@ ZeroStateRenderProductsSection.play = async ({ canvasElement }) => {
   const productImageElement = canvas.getAllByTestId('cio-img')?.[0];
   expect(canvas.getAllByTestId('cio-item-Products')[0]).toContainElement(productImageElement);
 };
+
+export const InGroupSuggestions = HooksTemplate.bind({});
+InGroupSuggestions.args = {
+  apiKey,
+  advancedParameters: {
+    numTermsWithGroupSuggestions: 1,
+    numGroupsSuggestedPerTerm: 2,
+  },
+};
+
+InGroupSuggestions.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'bab', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getByText('in Bodysuits')).toBeVisible();
+  expect(canvas.getByText('in Baby Organic Cotton')).toBeVisible();
+};
+
+export const InGroupSuggestionsTwo = HooksTemplate.bind({});
+InGroupSuggestionsTwo.args = {
+  apiKey,
+  advancedParameters: {
+    numTermsWithGroupSuggestions: 3,
+    numGroupsSuggestedPerTerm: 1,
+  },
+};
+
+InGroupSuggestionsTwo.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  await userEvent.type(canvas.getByTestId('cio-input'), 'dan', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getAllByText('in Jackets & Coats').length).toBeGreaterThan(1);
+  expect(canvas.getByText('in Tops')).toBeVisible();
+};
