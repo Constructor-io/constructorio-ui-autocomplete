@@ -41,7 +41,7 @@ TermsWithGroupSuggestions.args = {
   onSubmit,
   advancedParameters: {
     numTermsWithGroupSuggestions: 1,
-    numGroupsSuggestedPerTerm: 3,
+    numGroupsSuggestedPerTerm: 2,
   },
 };
 addComponentStoryDescription(
