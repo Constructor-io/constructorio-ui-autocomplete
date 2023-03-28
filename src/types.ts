@@ -17,8 +17,8 @@ export type CioAutocompleteProps = CioClientConfig & {
   onChange?: () => void;
   placeholder?: string;
   children?: ReactNode;
-  sections?: Section[];
-  zeroStateSections?: Section[];
+  sections?: UserDefinedSection[];
+  zeroStateSections?: UserDefinedSection[];
   autocompleteClassName?: string;
   advancedParameters?: AdvancedParameters;
 };
