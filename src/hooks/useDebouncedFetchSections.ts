@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
 import {
   AutocompleteResultSections,
@@ -22,7 +23,7 @@ const autocompleteParameters = {
 
 const useDebouncedFetchSection = (
   query: string,
-  cioClient?: ConstructorIOClient,
+  cioClient: Nullable<ConstructorIOClient>,
   autocompleteSections?: SectionConfiguration[],
   advancedParameters?: IAdvancedParameters
 ) => {

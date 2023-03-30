@@ -1,18 +1,19 @@
 import { useState } from 'react';
-import useCioClient, { CioClientConfig } from './useCioClient';
+import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import {
   CioAutocompleteProps,
+  CioClientConfig,
   Item,
-  RecommendationsSectionConfiguration,
-  SectionConfiguration,
+  RecommendationsSection,
+  Section,
 } from '../types';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import usePrevious from './usePrevious';
-import { getIndexOffset } from '../utils';
+import { getItemPosition } from '../utils';
 
-export const defaultSections: SectionConfiguration[] = [
+export const defaultSections: Section[] = [
   {
     identifier: 'Search Suggestions',
     type: 'autocomplete',
@@ -65,11 +66,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   const autocompleteSections = activeSections?.filter(
-    (config: SectionConfiguration) => config.type === 'autocomplete' || !config.type
+    (config: Section) => config.type === 'autocomplete' || !config.type
   );
   const recommendationsSections = activeSections?.filter(
-    (config: SectionConfiguration) => config.type === 'recommendations'
-  ) as RecommendationsSectionConfiguration[];
+    (config: Section) => config.type === 'recommendations'
+  ) as RecommendationsSection[];
 
   const autocompleteResults = useDebouncedFetchSection(
     query,
@@ -80,7 +81,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
-  const activeSectionsWithData: SectionConfiguration[] = [];
+  const activeSectionsWithData: Section[] = [];
 
   activeSections?.forEach((config) => {
     const { identifier, data: customData } = config;
@@ -93,7 +94,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const items: Item[] = [];
 
-  activeSectionsWithData?.forEach((config: SectionConfiguration) => {
+  activeSectionsWithData?.forEach((config: Section) => {
     if (config?.data) {
       items.push(...config.data);
     }
@@ -114,15 +115,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     getLabelProps,
     openMenu,
     closeMenu,
-    getItemProps: ({ item, index = 0, sectionIdentifier = 'Products' }) => {
-      const indexOffset = getIndexOffset({
-        activeSections: activeSectionsWithData,
-        sectionIdentifier,
-      });
-      const sectionItemTestId = `cio-item-${sectionIdentifier.replace(' ', '')}`;
+    getItemProps: (item) => {
+      const { index, sectionId } = getItemPosition({ item, activeSectionsWithData });
+      const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
       return {
-        ...downshift.getItemProps({ item, index: index + indexOffset }),
+        ...downshift.getItemProps({ item, index }),
         className: `cio-item ${sectionItemTestId}`,
         'data-testid': sectionItemTestId,
       };
@@ -171,6 +169,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     setQuery,
     cioClient,
     autocompleteClassName,
+    selectedItem: items[highlightedIndex],
   };
 };
 

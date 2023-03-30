@@ -9,6 +9,11 @@ This UI Library provides React components that manage fetching and rendering log
 ![Autosuggest](assets/autosuggest-ui.gif)
 
 ## How to use this UI Library
+## Install
+
+```bash
+npm i @constructor-io/constructorio-ui-autocomplete
+```
 
 There are two main methods for consuming this UI Library in a React project:
 
@@ -17,7 +22,7 @@ There are two main methods for consuming this UI Library in a React project:
 The `CioAutocomplete` component handles state management, data fetching, and rendering logic.
 
 ```jsx
-import { CioAutocomplete } from 'constructorio-ui-autocomplete';
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 
 function YourComponent() {
   return (
@@ -29,10 +34,22 @@ function YourComponent() {
 
 ### Hook based
 
-The `useCioAutocomplete` hook handles state management and data fetching, but leaves rendering logic up to you.
+The `useCioAutocomplete` hook leaves rendering logic up to you, while handling:
+  - state management
+  - data fetching
+  - keyboard navigation
+  - mouse interactions
+  - focus and submit event handling
+
+An `apiKey` or `cioJsClient` must be passed to the `useCioAutocomplete` hook along with an `onSubmit` callback function. All other values are optional.
 
 ```jsx
-import { useCioAutocomplete } from 'constructorio-ui-autocomplete';
+import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+
+const args = {
+  "apiKey": "key_Gep3oQOu5IMcNh9A",
+  "onSubmit": (submitEvent) => console.dir(submitEvent)
+};
 
 function YourComponent() {
   const {
@@ -64,14 +81,8 @@ function YourComponent() {
                     {section?.displayName || section.identifier}
                   </div>
                   <div className='cio-items'>
-                    {section?.data?.map((item, index) => (
-                      <div
-                        {...getItemProps({
-                          item,
-                          index,
-                          sectionIdentifier: section.identifier
-                        })}
-                        key={item?.data?.id}>
+                    {section?.data?.map((item) => (
+                      <div {...getItemProps(item)} key={item?.data?.id}>
                         <div>
                           {isProduct(item) && (
                             <img
@@ -119,6 +130,23 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 `autocompleteClassName='custom-autocomplete-container'`
  - If you like, you can pass additional className(s) of your choosing like so:
 `autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
+
+## Troubleshooting
+
+### Known Issues
+
+**ESLint**
+
+There is a known issue with ESLint where it fails to resolve the paths exposed in the `exports` statement of NPM packages. If you are receiving the following error, you can safely disable ESLint using `// eslint-disable-line` for that line.
+
+`Unable to resolve path to module '@constructor-io/constructorio-ui-autocomplete/styles.css'`
+
+Relevant open issues:
+
+[Issue 1868](https://github.com/import-js/eslint-plugin-import/issues/1868)
+
+[Issue 1810](https://github.com/import-js/eslint-plugin-import/issues/1810)
+
 
 ## Local Development
 

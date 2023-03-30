@@ -1,11 +1,14 @@
 {
   "name": "@constructor-io/constructorio-ui-autocomplete",
-  "version": "1.2.2",
+  "version": "1.5.3",
   "description": "Constructor.io Autocomplete UI library for web applications",
   "main": "lib/cjs/index.js",
   "module": "lib/mjs/index.js",
   "exports": {
-    "./styles.css": "./lib/styles.css",
+    "./styles.css": {
+      "import": "./lib/styles.css",
+      "require": "./lib/styles.css"
+    },
     ".": {
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
@@ -15,6 +18,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src --ext js,ts,jsx,tsx",
+    "check-types": "npx tsc --noEmit",
     "copy-styles": "cp src/styles.css lib/styles.css",
     "prepare": "husky install",
     "dev": "storybook dev -p 6006",
@@ -44,8 +48,10 @@
   "files": [
     "lib/**/*"
   ],
+  "engines": {
+    "node": ">=14"
+  },
   "devDependencies": {
-    "@constructor-io/constructorio-client-javascript": "^2.34.1",
     "@cspell/eslint-plugin": "^6.18.1",
     "@storybook/addon-a11y": "^7.0.0-beta.40",
     "@storybook/addon-actions": "^7.0.0-beta.40",
@@ -60,7 +66,6 @@
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
-    "downshift": "^7.0.5",
     "eslint": "^8.23.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -80,10 +85,10 @@
     "webpack": "^5.75.0"
   },
   "peerDependencies": {
-    "@constructor-io/constructorio-client-javascript": "^2.29.11",
-    "downshift": "^6.1.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tslib": "^2.4.0"
+    "@constructor-io/constructorio-client-javascript": "^2.34.7",
+    "downshift": "^7.2.1",
+    "react": ">=16.12.0",
+    "react-dom": ">=16.12.0",
+    "tslib": "^2.5.0"
   }
 }

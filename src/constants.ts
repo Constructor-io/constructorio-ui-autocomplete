@@ -17,10 +17,14 @@ export const componentDescription = `- import \`CioAutocomplete\` to render in y
 `;
 
 export const hookDescription = `- import \`useCioAutocomplete\` and call this custom hook in a functional component.
-- This hook handles state management & data fetching, but leaves rendering logic up to you
-- To use this hook, an \`apiKey\` or \`cioJsClient\` are required, and an \`onSubmit\` callback must be passed. All other values are optional.
-- Pass different options to the \`useCioAutocomplete\` hook to configure behavior.
-- The following stories shows how different options affect the hook's behavior
+- This hook leaves rendering logic up to you, while handling:
+  - state management
+  - data fetching
+  - keyboard navigation
+  - mouse interactions
+  - focus and submit event handling
+- To use this hook, an \`apiKey\` or \`cioJsClient\` are required, and an \`onSubmit\` callback must be passed to the \`useCioAutocomplete\` hook to configure behavior. All other values are optional.
+- use the <a href="https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters" target="__blank">prop getters</a> and other variables returned by this hook (below) to leverage the functionality described above with jsx elements in your react component definitions
 
 Calling the \`useCioAutocomplete\` hook returns an object with the following keys:
 
@@ -28,23 +32,26 @@ Calling the \`useCioAutocomplete\` hook returns an object with the following key
 const {
   // must be used for a hooks integrations
   query: string, // current input field value
-  sections: [{...}], // array of sections data to render in menu list,
+  sections: [{...}], // array of sections data to render in menu list
   getFormProps: () => ({...})), // prop getter for jsx form element
-  getLabelProps: () => ({...})), // optional: prop getter for jsx label element
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
-  getItemProps: () => ({...})), // prop getter for jsx element serving as each result
-  isOpen: boolean,
+  getItemProps: (item) => ({...})), // prop getter for jsx element serving as each result
 
-  // available for advanced hooks integration use cases
+  // available for use, but not required for all use cases
+  selectedItem: item, // undefined or current selected item (via hover or arrow keys)
+  isOpen: boolean, // current state of the menu list
   openMenu: () => void, // open menu
   closeMenu: () => void, // close menu
   setQuery: () => void, // update the current input field value
+  getLabelProps: () => ({...})), // prop getter for a jsx label element
   cioJsClient, // instance of constructorio-client-javascript
  } = useCioAutocomplete(args);
 \`\`\`
 
 > Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
+
+The following stories show how different options affect the hook's behavior!
 `;
 
 /// //////////////////////////////
