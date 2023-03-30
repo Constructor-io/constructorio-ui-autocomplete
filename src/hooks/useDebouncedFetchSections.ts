@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, SectionConfiguration, IAutocompleteParameters } from '../types';
+import {
+  AutocompleteResultSections,
+  SectionConfiguration,
+  IAutocompleteParameters,
+} from '../types';
 
 interface IAdvancedParameters {
   numResults?: number;
@@ -29,7 +33,7 @@ const useDebouncedFetchSection = (
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
       (acc, sectionConfig) => ({
         ...acc,
-        [sectionConfig.identifier]: sectionConfig?.numResults || advancedParameters?.numResults,
+        [sectionConfig.identifier]: sectionConfig?.numResults || autocompleteParameters.numResults,
       }),
       {}
     );
@@ -40,16 +44,17 @@ const useDebouncedFetchSection = (
   }
 
   if (advancedParameters?.hiddenFields) {
-    autocompleteParameters.hiddenFields = advancedParameters.hiddenFields
+    autocompleteParameters.hiddenFields = advancedParameters.hiddenFields;
   }
 
   if (advancedParameters?.variationsMap) {
-    autocompleteParameters.variationsMap = advancedParameters.variationsMap
+    autocompleteParameters.variationsMap = advancedParameters.variationsMap;
   }
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       cioClient?.autocomplete
+        // @ts-ignore
         .getAutocompleteResults(debouncedSearchTerm, autocompleteParameters)
         .then((response) => {
           const newSectionsData: AutocompleteResultSections = {};

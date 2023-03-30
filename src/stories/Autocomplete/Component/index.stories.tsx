@@ -11,7 +11,7 @@ import {
   customStylesDescription,
   advancedParametersDescription,
   apiKey,
-  onSubmitDefault as onSubmit
+  onSubmitDefault as onSubmit,
 } from '../../../constants';
 
 export default {
@@ -21,10 +21,10 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: componentDescription
-      }
-    }
-  }
+        component: componentDescription,
+      },
+    },
+  },
 };
 
 export const ProvideAPIKey = ComponentTemplate.bind({});
@@ -72,7 +72,7 @@ const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
 );
 
 const advancedParameters = {
-  filters: []
+  filters: [],
 };
 
 export const ProvideAdvancedParameters = ComponentTemplate.bind({});
