@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
-import { isProduct } from '../../../typeGuards';
 import { getStoryParams } from '../../../utils';
 
 export function HooksTemplate(args) {
@@ -79,8 +78,8 @@ export function HooksTemplate(args) {
                   <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => (
-                      <div {...getItemProps(item)} key={item?.data?.id}>
-                        {isProduct(item) && (
+                      <div {...getItemProps(item)} key={item?.id}>
+                        {item.data?.image_url && (
                           <img
                             width='100%'
                             src={item.data?.image_url}
@@ -88,7 +87,11 @@ export function HooksTemplate(args) {
                             data-testid='cio-img'
                           />
                         )}
-                        <p>{item.value}</p>
+                        {item.groupName ? (
+                          <p className='cio-term-in-group'>in {item.groupName}</p>
+                        ) : (
+                          <p>{item.value}</p>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -178,8 +181,8 @@ function YourComponent() {
                   <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => (
-                      <div {...getItemProps(item)} key={item?.data?.id}>
-                        {isProduct(item) && (
+                      <div {...getItemProps(item)} key={item?.id}>
+                        {item.data?.image_url && (
                           <img
                             width='100%'
                             src={item.data?.image_url}
@@ -187,7 +190,11 @@ function YourComponent() {
                             data-testid='cio-img'
                           />
                         )}
-                        <p>{item.value}</p>
+                        {item.groupName ? (
+                          <p className='cio-term-in-group'>in {item.groupName}</p>
+                        ) : (
+                          <p>{item.value}</p>
+                        )}
                       </div>
                     ))}
                   </div>

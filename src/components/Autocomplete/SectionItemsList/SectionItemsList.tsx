@@ -26,7 +26,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
       </h5>
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => (
-          <SectionItem item={item} key={`${section?.identifier}_${item?.data?.id}`} />
+          <SectionItem item={item} key={item?.id} />
         ))}
       </ul>
     </li>

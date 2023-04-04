@@ -5,6 +5,11 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 
 export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
+export type AdvancedParameters = {
+  numTermsWithGroupSuggestions?: number;
+  numGroupsSuggestedPerTerm?: number;
+};
+
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
   onSubmit: OnSubmit;
@@ -12,9 +17,10 @@ export type CioAutocompleteProps = CioClientConfig & {
   onChange?: () => void;
   placeholder?: string;
   children?: ReactNode;
-  sections?: Section[];
-  zeroStateSections?: Section[];
+  sections?: UserDefinedSection[];
+  zeroStateSections?: UserDefinedSection[];
   autocompleteClassName?: string;
+  advancedParameters?: AdvancedParameters;
 };
 
 export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
@@ -33,14 +39,14 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 export type GetItemProps = (options: ItemPropsOptions) => object;
 
 export interface ItemBase extends Record<string, any> {
-  id?: string;
+  id: string;
+  section: string;
   url?: string;
   value?: string;
-  section: string;
   data?: Record<string, any>;
 }
 
-export type Item = Product | SearchSuggestion | ItemBase;
+export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
 
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
@@ -59,12 +65,12 @@ export type SectionConfiguration = {
 
 export interface AutocompleteSection extends SectionConfiguration {
   type?: 'autocomplete';
-  data?: Item[];
+  data: Item[];
 }
 
 export interface RecommendationsSection extends SectionConfiguration {
   type: 'recommendations';
-  data?: Item[];
+  data: Item[];
   itemIds?: string[];
   section?: string;
   term?: string;
@@ -77,7 +83,10 @@ export interface CustomSection extends SectionConfiguration {
 
 export type Section = AutocompleteSection | RecommendationsSection | CustomSection;
 
-export type Product = {
+export type UserDefinedSection = CustomSection | SectionConfiguration;
+
+export type Product = ItemBase & {
+  section: 'Products';
   data: {
     facets: { name: string; values: string[] }[];
     group_ids: string[];
@@ -90,18 +99,21 @@ export type Product = {
   labels: Record<string, unknown>;
   matched_terms: string[];
   value: string;
-  section: 'Products';
 };
 
-export type SearchSuggestion = {
+export type SearchSuggestion = ItemBase & {
+  section: 'Search Suggestions';
   data: {
     id: string;
     url?: string;
   };
-  id: string;
   is_slotted: boolean;
   labels: Record<string, unknown>;
   matched_terms: string[];
   value: string;
-  section: 'Search Suggestions';
+};
+
+export type InGroupSuggestion = SearchSuggestion & {
+  groupId: string;
+  groupName: string;
 };

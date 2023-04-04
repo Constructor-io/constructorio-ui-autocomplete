@@ -2,15 +2,49 @@ import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, Section } from '../types';
+import { AutocompleteResultSections, UserDefinedSection, AdvancedParameters } from '../types';
+
+const transformResponse = (response, options) => {
+  const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
+  const newSectionsData: AutocompleteResultSections = {};
+  Object.keys(response.sections).forEach((section: string) => {
+    newSectionsData[section] = [];
+    const sectionItems = response.sections[section].map((item) => ({
+      ...item,
+      id: item?.data?.id,
+      section,
+    }));
+    sectionItems.forEach((item, itemIndex) => {
+      newSectionsData[section]?.push(item);
+
+      if (
+        section === 'Search Suggestions' &&
+        item?.data?.groups?.length &&
+        itemIndex < numTermsWithGroupSuggestions
+      ) {
+        item.data.groups.forEach((group, groupIndex) => {
+          if (groupIndex < numGroupsSuggestedPerTerm) {
+            const inGroupSearchSuggestion = {
+              ...item,
+              id: `${item.data?.id}_${group.group_id}`,
+              groupName: group.display_name,
+              groupId: group.group_id,
+            };
+            newSectionsData[section]?.push(inGroupSearchSuggestion);
+          }
+        });
+      }
+    });
+  });
+
+  return newSectionsData;
+};
 
 interface IAutocompleteParameters {
   numResults: number;
   resultsPerSection: Record<string, number>;
   hiddenFields: string[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filters: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   variationsMap: Record<string, any>;
 }
 
@@ -25,10 +59,13 @@ const autocompleteParameters = {
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
-  autocompleteSections?: Section[]
+  autocompleteSections: UserDefinedSection[],
+  advancedParameters: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
+
+  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
 
   if (autocompleteSections) {
     autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
@@ -45,19 +82,16 @@ const useDebouncedFetchSection = (
       cioClient?.autocomplete
         .getAutocompleteResults(debouncedSearchTerm, autocompleteParameters)
         .then((response) => {
-          const newSectionsData: AutocompleteResultSections = {};
-          Object.keys(response.sections).forEach((section: string) => {
-            newSectionsData[section] = response.sections[section].map((item) => ({
-              ...item,
-              section,
-            }));
+          const newSectionsData = transformResponse(response, {
+            numTermsWithGroupSuggestions,
+            numGroupsSuggestedPerTerm,
           });
           setSectionsData(newSectionsData);
         });
     } else if (!debouncedSearchTerm) {
       setSectionsData({});
     }
-  }, [debouncedSearchTerm, cioClient]);
+  }, [debouncedSearchTerm, cioClient, numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm]);
 
   return sectionsData;
 };

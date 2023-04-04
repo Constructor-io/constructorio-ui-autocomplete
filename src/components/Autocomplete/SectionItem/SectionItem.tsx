@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
-import { isProduct } from '../../../typeGuards';
+import { isProduct, isInGroupSuggestion } from '../../../typeGuards';
 
 export interface SectionItemProps {
   item: Item;
@@ -21,8 +21,10 @@ export default function SectionItem(props: SectionItemProps) {
         <p data-testid='cio-text'>{item.value}</p>
       </>
     );
+  } else if (isInGroupSuggestion(item)) {
+    defaultChildren = <p className='cio-term-in-group'>in {item.groupName}</p>;
   } else {
-    defaultChildren = item.value;
+    defaultChildren = <p>{item.value}</p>;
   }
 
   return <li {...getItemProps(item)}>{children || defaultChildren}</li>;

@@ -1,30 +1,15 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { OnSubmit, Section, Item } from './types';
+import { OnSubmit, Item } from './types';
 
-export type GetItemPosition = (args: { item: Item; activeSectionsWithData: Section[] }) => {
+export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   index: number;
   sectionId: string;
 };
 
-export const getItemPosition: GetItemPosition = ({ item, activeSectionsWithData }) => {
-  let indexAcrossSections = -1;
-  let sectionId;
-
-  activeSectionsWithData.find((section) => {
-    const indexInSection = section.data?.findIndex(({ data: result }) => {
-      indexAcrossSections += 1;
-      return result?.id === item?.data?.id;
-    });
-
-    if (indexInSection === -1) {
-      return false; // continue searching through sections
-    }
-
-    sectionId = section.identifier; // item found in current section
-    return true; // stop looping through sections
-  });
-
-  return { sectionId, index: indexAcrossSections };
+export const getItemPosition: GetItemPosition = ({ item, items }) => {
+  const index = items.findIndex((itemInFlatList) => itemInFlatList?.id === item?.id);
+  const sectionId = items[index]?.section;
+  return { sectionId, index };
 };
 
 type CamelToStartCase = (camelCaseString: string) => string;

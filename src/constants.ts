@@ -35,8 +35,8 @@ const {
   sections: [{...}], // array of sections data to render in menu list
   getFormProps: () => ({...})), // prop getter for jsx form element
   getInputProps: () => ({...})), // prop getter for jsx input element
-  getMenuProps: () => ({...})), // prop getter for jsx element serving as menu container
-  getItemProps: (item) => ({...})), // prop getter for jsx element serving as each result
+  getMenuProps: () => ({...})), // prop getter for jsx element rendering the results container
+  getItemProps: (item) => ({...})), // prop getter for jsx element rendering each result
 
   // available for use, but not required for all use cases
   selectedItem: item, // undefined or current selected item (via hover or arrow keys)
@@ -194,3 +194,11 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 }
 \`\`\`
 `;
+
+export const advancedParametersDescription = `Pass an \`advancedParameters\` object to configure more options for the data included in the results requested from constructor's servers. The stories below show examples of the optional fields within this \`advancedParameters\` object that can be used to fine-tune the autosuggest data returned from constructor's servers.`;
+
+export const advancedParametersDefaultDescription = `Passing an \`advancedParameters\` object is optional. Passing an empty object for the \`advancedParameters\` field behaves the same as not passing an \`advancedParameters\` object at all. This has no impact on the results returned by default.`;
+
+export const termsWithGroupSuggestionsDescription = `Pass integers for the \`numTermsWithGroupSuggestions\` and \`numGroupsSuggestedPerTerm\` fields to add suggested group filters to search term suggestions. Not all suggested search terms will have group filters, so these integers are upper limits, used to specify the maximum number of terms with group filters and the maximum number of suggested group filters per term. To see this in action:
+- type "bab" in the example below. Notice how the user is presented with a search term of "baby" as well as "baby in Bodysuits" and "baby in Baby Organic Cotton"
+- navigate to the "Terms With Group Suggestions" story (using the navigation menu to the left), then use the Controls to adjust the values of \`numTermsWithGroupSuggestions\` to \`3\` and \`numGroupsSuggestedPerTerm\` to \`1\`. Next, type "dan" in the example autocomplete input field. Notice how the user is presented with three different search terms that have a maximum of one "in {group}" suggestion each`;

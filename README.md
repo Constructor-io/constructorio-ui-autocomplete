@@ -82,9 +82,9 @@ function YourComponent() {
                   </div>
                   <div className='cio-items'>
                     {section?.data?.map((item) => (
-                      <div {...getItemProps(item)} key={item?.data?.id}>
+                      <div {...getItemProps(item)} key={item?.id}>
                         <div>
-                          {isProduct(item) && (
+                          {item.data?.image_url && (
                             <img
                               width='100%'
                               src={item.data?.image_url}
@@ -92,7 +92,11 @@ function YourComponent() {
                               data-testid='cio-img'
                             />
                           )}
-                          <p>{item.value}</p>
+                          {item.groupName ? (
+                            <p className='cio-term-in-group'>in {item.groupName}</p>
+                          ) : (
+                            <p>{item.value}</p>
+                          )}
                         </div>
                       </div>
                     ))}
