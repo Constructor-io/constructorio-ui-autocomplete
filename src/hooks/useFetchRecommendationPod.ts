@@ -32,7 +32,11 @@ const useFetchRecommendationPod = (
         }
       });
 
-      setRecommendationResults(recommendationPodResults);
+      try {
+        setRecommendationResults(recommendationPodResults);
+      } catch (error: any) {
+        throw new Error(error);
+      }
     };
     fetchRecommendationResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
