@@ -1,5 +1,8 @@
 # Constructor.io Autocomplete UI Library
 
+[![npm](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
+
 ## Introduction
 
 This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autosuggest services](https://constructor.io/products/autosuggest/).
