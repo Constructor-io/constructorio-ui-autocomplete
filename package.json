@@ -13,9 +13,9 @@
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
     },
-    "./autocomplete-ui-bundled": {
-      "import": "./dist/autocomplete-ui-bundled.js",
-      "require": "./dist/autocomplete-ui-bundled.js"
+    "./constructorio-ui-autocomplete-bundled": {
+      "import": "./dist/constructorio-ui-autocomplete-bundled.js",
+      "require": "./dist/constructorio-ui-autocomplete-bundled.js"
     }
   },
   "homepage": "https://github.com/Constructor-io/constructorio-ui-autocomplete#readme",
