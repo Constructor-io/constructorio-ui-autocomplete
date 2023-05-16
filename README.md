@@ -11,8 +11,7 @@ This UI Library provides React components that manage fetching and rendering log
 
 ![Autosuggest](assets/autosuggest-ui.gif)
 
-## How to use this UI Library
-## Install
+## Installation
 
 ```bash
 npm i @constructor-io/constructorio-ui-autocomplete
@@ -20,7 +19,9 @@ npm i @constructor-io/constructorio-ui-autocomplete
 
 There are two main methods for consuming this UI Library in a React project:
 
-### Component based
+## Usage
+
+### Using the React Component
 
 The `CioAutocomplete` component handles state management, data fetching, and rendering logic.
 
@@ -35,14 +36,15 @@ function YourComponent() {
   );
 ```
 
-### Hook based
+### Using React Hooks
 
 The `useCioAutocomplete` hook leaves rendering logic up to you, while handling:
-  - state management
-  - data fetching
-  - keyboard navigation
-  - mouse interactions
-  - focus and submit event handling
+
+- state management
+- data fetching
+- keyboard navigation
+- mouse interactions
+- focus and submit event handling
 
 An `apiKey` or `cioJsClient` must be passed to the `useCioAutocomplete` hook along with an `onSubmit` callback function. All other values are optional.
 
@@ -50,8 +52,8 @@ An `apiKey` or `cioJsClient` must be passed to the `useCioAutocomplete` hook alo
 import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 
 const args = {
-  "apiKey": "key_Gep3oQOu5IMcNh9A",
-  "onSubmit": (submitEvent) => console.dir(submitEvent)
+  apiKey: 'key_Gep3oQOu5IMcNh9A',
+  onSubmit: (submitEvent) => console.dir(submitEvent),
 };
 
 function YourComponent() {
@@ -63,7 +65,7 @@ function YourComponent() {
     getInputProps,
     getMenuProps,
     getItemProps,
-    autocompleteClassName
+    autocompleteClassName,
   } = useCioAutocomplete(args);
 
   return (
@@ -115,6 +117,22 @@ function YourComponent() {
 }
 ```
 
+### Using the Javascript Bundle
+
+This is a framework agnostic method that can be used in any JavaScript project. The `CioAutocomplete` function provides a simple interface to inject an entire Autocomplete UI into the provided `selector`.
+In addition to [Autcomplete component props](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs), this function also accepts `selector` and `includeCSS`.
+
+```js
+import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/constructorio-ui-autocomplete-bundled';
+CioAutocomplete({
+  selector: '#autocomplete-container',
+  includeCSS: true, // Include the default CSS styles. Defaults to true.
+  apiKey: 'key_Gep3oQOu5IMcNh9A',
+  onSubmit: (submitEvent) => console.dir(submitEvent),
+  // ... additional arguments
+});
+```
+
 ## Custom Styling
 
 ### Library defaults
@@ -129,14 +147,14 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
 > Note: the path and syntax in this example may change slightly depending on your module bundling strategy
 
- - These starter styles can be used as a foundation to build on top of, or just as a reference for you to replace completely.
- - To opt out of all default styling, do not import the `styles.css` stylesheet.
- - All starter styles in this library are scoped within the `.cio-autocomplete` css selector.
- - These starter styles are intended to be extended by layering in your own css rules
+- These starter styles can be used as a foundation to build on top of, or just as a reference for you to replace completely.
+- To opt out of all default styling, do not import the `styles.css` stylesheet.
+- All starter styles in this library are scoped within the `.cio-autocomplete` css selector.
+- These starter styles are intended to be extended by layering in your own css rules
 - If you like, you can override the container's className like so:
-`autocompleteClassName='custom-autocomplete-container'`
- - If you like, you can pass additional className(s) of your choosing like so:
-`autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
+  `autocompleteClassName='custom-autocomplete-container'`
+- If you like, you can pass additional className(s) of your choosing like so:
+  `autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
 
 ## Troubleshooting
 
@@ -153,7 +171,6 @@ Relevant open issues:
 [Issue 1868](https://github.com/import-js/eslint-plugin-import/issues/1868)
 
 [Issue 1810](https://github.com/import-js/eslint-plugin-import/issues/1810)
-
 
 ## Local Development
 
