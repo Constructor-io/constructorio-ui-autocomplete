@@ -17,8 +17,6 @@ This UI Library provides React components that manage fetching and rendering log
 npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
-There are two main methods for consuming this UI Library in a React project:
-
 ## Usage
 
 ### Using the React Component
@@ -120,10 +118,11 @@ function YourComponent() {
 ### Using the Javascript Bundle
 
 This is a framework agnostic method that can be used in any JavaScript project. The `CioAutocomplete` function provides a simple interface to inject an entire Autocomplete UI into the provided `selector`.
-In addition to [Autcomplete component props](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs), this function also accepts `selector` and `includeCSS`.
+In addition to [Autocomplete component props](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs), this function also accepts `selector` and `includeCSS`.
 
 ```js
 import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/constructorio-ui-autocomplete-bundled';
+
 CioAutocomplete({
   selector: '#autocomplete-container',
   includeCSS: true, // Include the default CSS styles. Defaults to true.
