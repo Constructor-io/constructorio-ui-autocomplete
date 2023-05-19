@@ -35,7 +35,7 @@ const useFetchRecommendationPod = (
       try {
         setRecommendationResults(recommendationPodResults);
       } catch (error: any) {
-        throw new Error(error);
+        console.log(error);
       }
     };
     fetchRecommendationResults();

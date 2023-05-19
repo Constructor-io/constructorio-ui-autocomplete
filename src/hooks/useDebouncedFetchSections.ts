@@ -91,7 +91,7 @@ const useDebouncedFetchSection = (
           });
           setSectionsData(newSectionsData);
         } catch (error: any) {
-          throw new Error(error);
+          console.log(error);
         }
       } else if (!debouncedSearchTerm) {
         setSectionsData({});

@@ -36,9 +36,11 @@ export default function useSections(
 
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
+  const activeSectionsWithData = getActiveSectionsWithData(activeSections, sectionResults);
+
   return {
     activeSections,
-    activeSectionsWithData: getActiveSectionsWithData(activeSections, sectionResults),
+    activeSectionsWithData,
     zeroStateActiveSections,
   };
 }
