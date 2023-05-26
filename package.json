@@ -12,6 +12,10 @@
     ".": {
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
+    },
+    "./constructorio-ui-autocomplete-bundled": {
+      "import": "./dist/constructorio-ui-autocomplete-bundled.js",
+      "require": "./dist/constructorio-ui-autocomplete-bundled.js"
     }
   },
   "homepage": "https://github.com/Constructor-io/constructorio-ui-autocomplete#readme",
@@ -30,7 +34,7 @@
     "serve-built-storybook": "npx http-server docs",
     "verify-node-version": "chmod +x ./scripts/verify-node-version.sh && ./scripts/verify-node-version.sh",
     "version": "npm run verify-node-version && npm run build-storybook && git add -u ./docs && git add ./docs/* && npm run compile",
-    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles"
+    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build"
   },
   "author": "constructor.io",
   "license": "MIT",
@@ -46,7 +50,8 @@
     "url": "https://github.com/Constructor-io/constructorio-ui-autocomplete/issues"
   },
   "files": [
-    "lib/**/*"
+    "lib/**/*",
+    "dist/constructorio-ui-autocomplete-bundled.js"
   ],
   "engines": {
     "node": ">=14"
@@ -82,6 +87,8 @@
     "start-server-and-test": "^1.15.2",
     "storybook": "^7.0.0-beta.40",
     "typescript": "^4.8.3",
+    "vite": "^4.3.7",
+    "vite-plugin-css-injected-by-js": "^3.1.1",
     "webpack": "^5.75.0"
   },
   "peerDependencies": {
