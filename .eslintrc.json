@@ -10,7 +10,8 @@
     "airbnb-typescript",
     "prettier",
     "plugin:storybook/recommended",
-    "plugin:@cspell/recommended"
+    "plugin:@cspell/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,7 +20,8 @@
   },
   "plugins": [
     "@typescript-eslint",
-    "prettier"
+    "prettier",
+    "jsx-a11y"
   ],
   "rules": {
     "react/require-default-props": "off",
