@@ -56,7 +56,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, highlightedIndex } = downshift;
 
   // Log console errors
-  useConsoleErrors(sections, activeSections, zeroStateSections);
+  useConsoleErrors(sections, activeSections);
 
   return {
     query,
