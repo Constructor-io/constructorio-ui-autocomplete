@@ -2,7 +2,7 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
-import { isTrackingRequestSent, sleep } from '../../utils';
+import { getCioClient, isTrackingRequestSent, sleep } from '../../utils';
 import { ComponentTemplate } from '../Autocomplete/Component';
 import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 import { CioAutocompleteProps } from '../../types';
@@ -76,6 +76,43 @@ FocusNoZeroStateShowNoResults.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId('cio-input'));
   expect(canvas.getByTestId('cio-results')).toBeEmptyDOMElement();
+};
+
+// - type whitespace search term => doesn't run an autocomplete request
+export const TypeWhitespaceSearchTermNoError = ComponentTemplate.bind({});
+TypeWhitespaceSearchTermNoError.args = {
+  apiKey,
+};
+let isAutocompleteResultsError = false;
+const cioJsClientStub = getCioClient(apiKey);
+
+if (cioJsClientStub != null) {
+  const getAutocompleteResultsDefault = cioJsClientStub.autocomplete.getAutocompleteResults.bind(
+    cioJsClientStub.autocomplete
+  );
+  const getAutocompleteResultsStub = (...args) =>
+    getAutocompleteResultsDefault(...args)
+      .then((res) => {
+        isAutocompleteResultsError = false;
+        return res;
+      })
+      .catch(() => {
+        isAutocompleteResultsError = true;
+      });
+
+  cioJsClientStub.autocomplete.getAutocompleteResults = getAutocompleteResultsStub;
+  TypeWhitespaceSearchTermNoError.args.cioJsClient = cioJsClientStub;
+}
+
+TypeWhitespaceSearchTermNoError.play = async ({ canvasElement }) => {
+  const whitespaceInput = '    ';
+  const canvas = within(canvasElement);
+
+  await userEvent.type(canvas.getByTestId('cio-input'), whitespaceInput, { delay: 100 });
+  await sleep(1000);
+
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe(whitespaceInput);
+  expect(isAutocompleteResultsError).toBeFalsy();
 };
 
 // - type search term => render term suggestions
