@@ -42,6 +42,10 @@ export default function useSections(
   const activeSectionsWithData = getActiveSectionsWithData(activeSections, sectionResults);
 
   useEffect(() => {
+    setActiveSections(zeroStateActiveSections ? zeroStateSections : sections);
+  }, [query, sections, zeroStateSections, zeroStateActiveSections]);
+
+  useEffect(() => {
     if (sections && !Array.isArray(sections)) {
       setActiveSections([]);
     }
