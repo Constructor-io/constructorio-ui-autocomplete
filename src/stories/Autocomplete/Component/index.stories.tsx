@@ -1,7 +1,7 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { defaultOnSubmitCode, stringifyWithDefaults } from '../../../utils';
+import { functionStrings, stringifyWithDefaults } from '../../../utils';
 import { ComponentTemplate, addComponentStoryDescription } from '.';
 import {
   apiKeyDescription,
@@ -44,7 +44,7 @@ addComponentStoryDescription(
 import ConstructorIOClient from "@constructor-io/constructorio-client-javascript";
 
 const cioJsClient = new ConstructorIOClient({ "apiKey": "${apiKey}" });
-const args = { cioJsClient, ${defaultOnSubmitCode} };`,
+const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
   cioJsClientDescription
 );
 
