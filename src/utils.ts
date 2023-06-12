@@ -81,7 +81,7 @@ export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit 
     const functionString = functionStrings[key];
 
     if (functionString) {
-      res = res.replace(codePlaceholder, functionString);
+      res = res.replaceAll(codePlaceholder, functionString);
     } else {
       console.error(`Function string for ${key} not found.`); // eslint-disable-line
     }
