@@ -68,12 +68,14 @@ export const functionStrings = {
 };
 
 export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit }) => {
+  // Stringify non-function values normally. Add a template block for functions to be replaced later
   let res = JSON.stringify(
     obj,
     (key, value) => (value instanceof Function ? `${key}_CODE` : value),
     '  '
   );
 
+  // Replace template blocks with function strings
   Array.from(res.matchAll(/"(\w*)_CODE"/g)).forEach((match) => {
     const [codePlaceholder, key] = match;
     const functionString = functionStrings[key];
