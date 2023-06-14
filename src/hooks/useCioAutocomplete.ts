@@ -110,7 +110,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, highlightedIndex } = downshift;
-  
+
   return {
     query,
     sections: activeSectionsWithData,
@@ -134,11 +134,14 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       };
     },
     getInputProps: () => ({
-      ...downshift.getInputProps({onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value);
-        if (onChange) {
-          onChange(e.target.value)
-      }}}),
+      ...downshift.getInputProps({
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+          setQuery(e.target.value);
+          if (onChange) {
+            onChange(e.target.value);
+          }
+        },
+      }),
       value: query,
       onFocus: () => {
         if (options.onFocus) {
