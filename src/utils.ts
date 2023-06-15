@@ -64,26 +64,30 @@ ${templateCode}
   };
 };
 
-export const defaultOnSubmitCode = `"onSubmit": (submitEvent) => console.dir(submitEvent)`;
-
-export const defaultArgumentsCode = (apiKey: string) => `"apiKey": "${apiKey}",
-  ${defaultOnSubmitCode}`;
+export const functionStrings = {
+  onSubmit: `(submitEvent) => console.dir(submitEvent)`,
+};
 
 export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { apiKey, onSubmit, ...rest } = obj;
-  let res;
-  if (Object.keys(rest).length > 0) {
-    res = JSON.stringify(rest, null, '  ');
-  } else {
-    res = `{
-}`;
-  }
-  res = res.replace(
-    '{',
-    `{
-  ${defaultArgumentsCode(apiKey)}`
+  // Stringify non-function values normally. Add a template block for functions to be replaced later
+  let res = JSON.stringify(
+    obj,
+    (key, value) => (value instanceof Function ? `${key}_CODE` : value),
+    '  '
   );
+
+  // Replace template blocks with function strings
+  Array.from(res.matchAll(/"(\w*)_CODE"/g)).forEach((match) => {
+    const [codePlaceholder, key] = match;
+    const functionString = functionStrings[key];
+
+    if (functionString) {
+      res = res.replaceAll(codePlaceholder, functionString);
+    } else {
+      console.error(`Function string for ${key} not found.`); // eslint-disable-line
+    }
+  });
+
   return res;
 };
 
