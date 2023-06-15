@@ -1,19 +1,12 @@
 import { useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
-import useDebouncedFetchSection from './useDebouncedFetchSections';
-import {
-  CioAutocompleteProps,
-  CioClientConfig,
-  Item,
-  RecommendationsSection,
-  Section,
-  UserDefinedSection,
-} from '../types';
-import useFetchRecommendationPod from './useFetchRecommendationPod';
+import { CioAutocompleteProps, CioClientConfig, UserDefinedSection } from '../types';
 import usePrevious from './usePrevious';
 import { getItemPosition } from '../utils';
-import { isCustomSection } from '../typeGuards';
+import useConsoleErrors from './useConsoleErrors';
+import useSections from './useSections';
+import useItems from './useItems';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -29,14 +22,13 @@ export const defaultSections: UserDefinedSection[] = [
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
-  const defaultPlaceholder = 'What can we help you find today?';
   const {
     onSubmit,
     onChange,
     openOnFocus,
     apiKey,
     cioJsClient,
-    placeholder = defaultPlaceholder,
+    placeholder = 'What can we help you find today?',
     sections = defaultSections,
     zeroStateSections,
     autocompleteClassName = 'cio-autocomplete',
@@ -47,69 +39,23 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientConfig);
 
-  const zeroStateSectionsActive = !query.length && zeroStateSections;
-
-  let activeSections = zeroStateSectionsActive ? zeroStateSections : sections;
-
-  if (sections && !Array.isArray(sections)) {
-    // eslint-disable-next-line
-    console.error(
-      'useCioAutocomplete expects sections to reference an array of section configuration objects'
-    );
-    activeSections = [];
-  }
-
-  if (zeroStateSections && !Array.isArray(zeroStateSections)) {
-    // eslint-disable-next-line
-    console.error(
-      'useCioAutocomplete expects zeroStateSections to reference an array of section configuration objects'
-    );
-    activeSections = [];
-  }
-
-  const autocompleteSections = activeSections?.filter(
-    (config: UserDefinedSection) => config.type === 'autocomplete' || !config.type
-  );
-  const recommendationsSections = activeSections?.filter(
-    (config: UserDefinedSection) => config.type === 'recommendations'
-  ) as RecommendationsSection[];
-
-  const autocompleteResults = useDebouncedFetchSection(
+  // Get autocomplete sections (autocomplete + recommendations + custom)
+  const { activeSections, activeSectionsWithData, zeroStateActiveSections } = useSections(
     query,
     cioClient,
-    autocompleteSections,
+    sections,
+    zeroStateSections,
     advancedParameters
   );
-  const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
-  const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
-  const activeSectionsWithData: Section[] = [];
-
-  activeSections?.forEach((config) => {
-    const { identifier } = config;
-    let data;
-
-    if (isCustomSection(config)) {
-      data = config.data;
-    } else {
-      data = sectionResults[identifier];
-    }
-
-    if (Array.isArray(data)) {
-      activeSectionsWithData.push({ ...config, data });
-    }
-  });
-
-  const items: Item[] = [];
-
-  activeSectionsWithData?.forEach((config: Section) => {
-    if (config?.data) {
-      items.push(...config.data);
-    }
-  });
+  // Get dropdown items array from active sections (autocomplete + recommendations + custom)
+  const items = useItems(activeSectionsWithData);
 
   const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, highlightedIndex } = downshift;
+
+  // Log console errors
+  useConsoleErrors(sections, activeSections);
 
   return {
     query,
@@ -147,7 +93,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (options.onFocus) {
           options.onFocus();
         }
-        if (zeroStateSectionsActive && openOnFocus !== false) {
+        if (zeroStateActiveSections && openOnFocus !== false) {
           downshift.openMenu();
         }
         if (query?.length) {

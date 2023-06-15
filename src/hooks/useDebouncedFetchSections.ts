@@ -78,19 +78,25 @@ const useDebouncedFetchSection = (
   }
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
-      cioClient?.autocomplete
-        .getAutocompleteResults(debouncedSearchTerm, autocompleteParameters)
-        .then((response) => {
+    (async () => {
+      if (debouncedSearchTerm) {
+        try {
+          const response = await cioClient?.autocomplete.getAutocompleteResults(
+            debouncedSearchTerm,
+            autocompleteParameters
+          );
           const newSectionsData = transformResponse(response, {
             numTermsWithGroupSuggestions,
             numGroupsSuggestedPerTerm,
           });
           setSectionsData(newSectionsData);
-        });
-    } else if (!debouncedSearchTerm) {
-      setSectionsData({});
-    }
+        } catch (error: any) {
+          console.log(error);
+        }
+      } else if (!debouncedSearchTerm) {
+        setSectionsData({});
+      }
+    })();
   }, [debouncedSearchTerm, cioClient, numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm]);
 
   return sectionsData;
