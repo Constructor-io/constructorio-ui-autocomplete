@@ -1,5 +1,6 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { OnSubmit, Item } from './types';
+import { isCustomSection } from './typeGuards';
+import { OnSubmit, Item, Section, UserDefinedSection, AutocompleteResultSections } from './types';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   index: number;
@@ -104,4 +105,27 @@ export const getCioClient = (apiKey?: string) => {
   }
 
   return null;
+};
+
+export const getActiveSectionsWithData = (
+  activeSections: UserDefinedSection[],
+  sectionResults: AutocompleteResultSections
+) => {
+  const activeSectionsWithData: Section[] = [];
+  activeSections?.forEach((config) => {
+    const { identifier } = config;
+    let data;
+
+    if (isCustomSection(config)) {
+      data = config.data;
+    } else {
+      data = sectionResults[identifier];
+    }
+
+    if (Array.isArray(data)) {
+      activeSectionsWithData.push({ ...config, data });
+    }
+  });
+
+  return activeSectionsWithData;
 };
