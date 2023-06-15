@@ -14,7 +14,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
   onSubmit: OnSubmit;
   onFocus?: () => void;
-  onChange?: () => void;
+  onChange?: (string) => void;
   placeholder?: string;
   children?: ReactNode;
   sections?: UserDefinedSection[];

@@ -11,31 +11,17 @@ type UseDownShiftOptions = {
   onSubmit: OnSubmit;
   previousQuery?: string;
   cioClient: Nullable<ConstructorIOClient>;
-  onChange?: (string) => void;
 };
 
 export type DownShift = UseComboboxReturnValue<Item>;
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
 
-const useDownShift: UseDownShift = ({
-  setQuery,
-  items,
-  onSubmit,
-  cioClient,
-  previousQuery = '',
-  onChange,
-}) =>
+const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, previousQuery = '' }) =>
   useCombobox({
     id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
     items,
     itemToString: (item) => item?.value || '',
-    onInputValueChange: async ({ inputValue = '' }) => {
-      setQuery(inputValue);
-      if (onChange) {
-        onChange(inputValue);
-      }
-    },
     onSelectedItemChange({ selectedItem }) {
       if (selectedItem) {
         setQuery(selectedItem.value || '');

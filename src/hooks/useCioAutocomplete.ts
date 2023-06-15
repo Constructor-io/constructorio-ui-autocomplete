@@ -51,8 +51,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   // Get dropdown items array from active sections (autocomplete + recommendations + custom)
   const items = useItems(activeSectionsWithData);
 
-  // Downshift
-  const downshift = useDownShift({ setQuery, onChange, items, onSubmit, cioClient, previousQuery });
+  const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
   const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, highlightedIndex } = downshift;
 
   // Log console errors
@@ -81,7 +80,14 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       };
     },
     getInputProps: () => ({
-      ...downshift.getInputProps(),
+      ...downshift.getInputProps({
+        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+          setQuery(e.target.value);
+          if (onChange) {
+            onChange(e.target.value);
+          }
+        },
+      }),
       value: query,
       onFocus: () => {
         if (options.onFocus) {
