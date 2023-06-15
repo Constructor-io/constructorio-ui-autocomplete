@@ -79,7 +79,7 @@ const useDebouncedFetchSection = (
 
   useEffect(() => {
     (async () => {
-      if (debouncedSearchTerm) {
+      if (debouncedSearchTerm.trim()) {
         try {
           const response = await cioClient?.autocomplete.getAutocompleteResults(
             debouncedSearchTerm,
