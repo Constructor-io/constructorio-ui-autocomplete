@@ -48,7 +48,7 @@ interface IAutocompleteParameters {
   variationsMap: Record<string, any>;
 }
 
-const autocompleteParameters = {
+let autocompleteParameters = {
   resultsPerSection: {},
   // numResults: 8,
   // hiddenFields: [],
@@ -76,6 +76,11 @@ const useDebouncedFetchSection = (
       {}
     );
   }
+
+  autocompleteParameters = {
+    ...autocompleteParameters,
+    ...advancedParameters?.autocompleteParameters,
+  };
 
   useEffect(() => {
     (async () => {
