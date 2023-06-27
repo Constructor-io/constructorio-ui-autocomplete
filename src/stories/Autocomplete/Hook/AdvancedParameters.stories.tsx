@@ -8,6 +8,7 @@ import {
   advancedParametersDefaultDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  termsWithFiltersDescription,
 } from '../../../constants';
 
 export default {
@@ -48,4 +49,22 @@ addHookStoryCode(
   TermsWithGroupSuggestions,
   `const args = ${stringifyWithDefaults(TermsWithGroupSuggestions.args)}`,
   termsWithGroupSuggestionsDescription
+);
+
+export const TermsWithFilters = HooksTemplate.bind({});
+TermsWithFilters.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    autocompleteParameters: {
+      filters: {
+        'Products][color': 'Black',
+      },
+    },
+  },
+};
+addHookStoryCode(
+  TermsWithFilters,
+  `const args = ${stringifyWithDefaults(TermsWithFilters.args)}`,
+  termsWithFiltersDescription
 );
