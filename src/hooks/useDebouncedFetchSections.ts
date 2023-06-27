@@ -77,10 +77,12 @@ const useDebouncedFetchSection = (
     );
   }
 
-  autocompleteParameters = {
-    ...autocompleteParameters,
-    ...advancedParameters?.autocompleteParameters,
-  };
+  if (advancedParameters?.autocompleteParameters) {
+    autocompleteParameters = {
+      ...autocompleteParameters,
+      ...advancedParameters?.autocompleteParameters,
+    };
+  }
 
   useEffect(() => {
     (async () => {
