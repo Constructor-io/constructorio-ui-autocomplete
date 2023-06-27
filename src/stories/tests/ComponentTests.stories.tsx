@@ -433,6 +433,6 @@ InGroupSuggestionsTwo.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'dan', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Bottoms').length).toBeGreaterThan(1);
+  expect(canvas.getAllByText('in Jackets & Coats').length).toBeGreaterThan(1);
   expect(canvas.getByText('in Tops')).toBeVisible();
 };
