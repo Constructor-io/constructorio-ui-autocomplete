@@ -355,10 +355,10 @@ InGroupSuggestions.args = {
 
 InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  await userEvent.type(canvas.getByTestId('cio-input'), 'bab', { delay: 100 });
+  await userEvent.type(canvas.getByTestId('cio-input'), 'shir', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getByText('in Bodysuits')).toBeVisible();
-  expect(canvas.getByText('in Baby Organic Cotton')).toBeVisible();
+  expect(canvas.getByText('in Casual Shirts')).toBeVisible();
+  expect(canvas.getByText('in Machine Washable Dress Clothes')).toBeVisible();
 };
 
 export const InGroupSuggestionsTwo = HooksTemplate.bind({});
@@ -372,8 +372,7 @@ InGroupSuggestionsTwo.args = {
 
 InGroupSuggestionsTwo.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  await userEvent.type(canvas.getByTestId('cio-input'), 'dan', { delay: 100 });
+  await userEvent.type(canvas.getByTestId('cio-input'), 'suit', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Jackets & Coats').length).toBeGreaterThan(1);
-  expect(canvas.getByText('in Tops')).toBeVisible();
+  expect(canvas.getAllByText('in Shirts & Sweaters').length).toBeGreaterThan(1);
 };
