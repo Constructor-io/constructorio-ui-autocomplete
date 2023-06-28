@@ -355,7 +355,7 @@ InGroupSuggestions.args = {
 
 InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
-  await userEvent.type(canvas.getByTestId('cio-input'), 'shir', { delay: 100 });
+  await userEvent.type(canvas.getByTestId('cio-input'), 'shirt', { delay: 100 });
   await sleep(1000);
   expect(canvas.getByText('in Casual Shirts')).toBeVisible();
   expect(canvas.getByText('in Machine Washable Dress Clothes')).toBeVisible();
