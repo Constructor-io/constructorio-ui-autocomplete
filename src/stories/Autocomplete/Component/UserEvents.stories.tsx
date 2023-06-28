@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringifyWithDefaults, disableStoryActions, defaultArgumentsCode } from '../../../utils';
+import { stringifyWithDefaults, disableStoryActions, functionStrings } from '../../../utils';
 import {
   onChangeDescription,
   onFocusDescription,
@@ -37,7 +37,8 @@ OnFocus.args = { apiKey, onSubmit: onSubmitDefault, onFocus };
 addComponentStoryDescription(
   OnFocus,
   `const args = {
-  ${defaultArgumentsCode(apiKey)},
+  "apiKey": ${apiKey},
+  "onSubmit": ${functionStrings.onSubmit}
   "onFocus": () => { console.log("Focus!") }
 }`,
   onFocusDescription
@@ -52,7 +53,8 @@ OnChange.args = { apiKey, onSubmit: onSubmitDefault, onChange };
 addComponentStoryDescription(
   OnChange,
   `const args = {
-  ${defaultArgumentsCode(apiKey)}
+  "apiKey": ${apiKey},
+  "onSubmit": ${functionStrings.onSubmit}
   "onChange": (inputFieldValue) => {
     console.log("New Query: " + inputFieldValue);
   }

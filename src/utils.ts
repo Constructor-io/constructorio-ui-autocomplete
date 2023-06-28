@@ -1,5 +1,6 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { OnSubmit, Item } from './types';
+import { isCustomSection } from './typeGuards';
+import { OnSubmit, Item, Section, UserDefinedSection, AutocompleteResultSections } from './types';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   index: number;
@@ -63,26 +64,30 @@ ${templateCode}
   };
 };
 
-export const defaultOnSubmitCode = `"onSubmit": (submitEvent) => console.dir(submitEvent)`;
-
-export const defaultArgumentsCode = (apiKey: string) => `"apiKey": "${apiKey}",
-  ${defaultOnSubmitCode}`;
+export const functionStrings = {
+  onSubmit: `(submitEvent) => console.dir(submitEvent)`,
+};
 
 export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { apiKey, onSubmit, ...rest } = obj;
-  let res;
-  if (Object.keys(rest).length > 0) {
-    res = JSON.stringify(rest, null, '  ');
-  } else {
-    res = `{
-}`;
-  }
-  res = res.replace(
-    '{',
-    `{
-  ${defaultArgumentsCode(apiKey)}`
+  // Stringify non-function values normally. Add a template block for functions to be replaced later
+  let res = JSON.stringify(
+    obj,
+    (key, value) => (value instanceof Function ? `${key}_CODE` : value),
+    '  '
   );
+
+  // Replace template blocks with function strings
+  Array.from(res.matchAll(/"(\w*)_CODE"/g)).forEach((match) => {
+    const [codePlaceholder, key] = match;
+    const functionString = functionStrings[key];
+
+    if (functionString) {
+      res = res.replaceAll(codePlaceholder, functionString);
+    } else {
+      console.error(`Function string for ${key} not found.`); // eslint-disable-line
+    }
+  });
+
   return res;
 };
 
@@ -100,4 +105,27 @@ export const getCioClient = (apiKey?: string) => {
   }
 
   return null;
+};
+
+export const getActiveSectionsWithData = (
+  activeSections: UserDefinedSection[],
+  sectionResults: AutocompleteResultSections
+) => {
+  const activeSectionsWithData: Section[] = [];
+  activeSections?.forEach((config) => {
+    const { identifier } = config;
+    let data;
+
+    if (isCustomSection(config)) {
+      data = config.data;
+    } else {
+      data = sectionResults[identifier];
+    }
+
+    if (Array.isArray(data)) {
+      activeSectionsWithData.push({ ...config, data });
+    }
+  });
+
+  return activeSectionsWithData;
 };
