@@ -29,7 +29,7 @@ import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 function YourComponent() {
   return (
     <div>
-      <CioAutocomplete apiKey="key_Gep3oQOu5IMcNh9A" />
+      <CioAutocomplete apiKey="key_M57QS8SMPdLdLx4x" />
     </div>
   );
 ```
@@ -50,8 +50,8 @@ An `apiKey` or `cioJsClient` must be passed to the `useCioAutocomplete` hook alo
 import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 
 const args = {
-  apiKey: 'key_Gep3oQOu5IMcNh9A',
-  onSubmit: (submitEvent) => console.dir(submitEvent),
+  "apiKey": "key_M57QS8SMPdLdLx4x",
+  "onSubmit": (submitEvent) => console.dir(submitEvent)
 };
 
 function YourComponent() {
