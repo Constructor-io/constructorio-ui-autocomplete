@@ -1,7 +1,7 @@
 import { AutocompleteSubmitEvent } from './types';
 
 // Autocomplete key index
-export const apiKey = 'key_Gep3oQOu5IMcNh9A';
+export const apiKey = 'key_M57QS8SMPdLdLx4x';
 
 /// //////////////////////////////
 // Storybook Folder Descriptions
