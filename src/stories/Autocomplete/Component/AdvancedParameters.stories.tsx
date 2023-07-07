@@ -6,9 +6,9 @@ import {
   advancedParametersDescription,
   termsWithGroupSuggestionsDescription,
   advancedParametersDefaultDescription,
+  filteredSuggestionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
-  termsWithFiltersDescription,
 } from '../../../constants';
 
 export default {
@@ -51,20 +51,20 @@ addComponentStoryDescription(
   termsWithGroupSuggestionsDescription
 );
 
-export const TermsWithFilters = ComponentTemplate.bind({});
-TermsWithFilters.args = {
+export const FilteredSuggestions = ComponentTemplate.bind({});
+FilteredSuggestions.args = {
   apiKey,
   onSubmit,
   advancedParameters: {
     autocompleteParameters: {
       filters: {
-        'Products][color': 'Black',
+        group_id: 'W127086',
       },
     },
   },
 };
 addComponentStoryDescription(
-  TermsWithFilters,
-  `const args = ${stringifyWithDefaults(TermsWithFilters.args)}`,
-  termsWithFiltersDescription
+  FilteredSuggestions,
+  `const args = ${stringifyWithDefaults(FilteredSuggestions.args)}`,
+  filteredSuggestionsDescription
 );
