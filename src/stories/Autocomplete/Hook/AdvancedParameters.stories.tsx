@@ -58,7 +58,7 @@ FilteredSuggestions.args = {
   advancedParameters: {
     autocompleteParameters: {
       filters: {
-        group_id: 'W127086',
+        group_id: '1130',
       },
     },
   },

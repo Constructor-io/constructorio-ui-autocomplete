@@ -48,7 +48,7 @@ interface IAutocompleteParameters {
   variationsMap: Record<string, any>;
 }
 
-let autocompleteParameters = {
+const autocompleteParameters = {
   resultsPerSection: {},
   // numResults: 8,
   // hiddenFields: [],
@@ -77,20 +77,13 @@ const useDebouncedFetchSection = (
     );
   }
 
-  if (advancedParameters?.autocompleteParameters) {
-    autocompleteParameters = {
-      ...autocompleteParameters,
-      ...advancedParameters?.autocompleteParameters,
-    };
-  }
-
   useEffect(() => {
     (async () => {
       if (debouncedSearchTerm.trim()) {
         try {
           const response = await cioClient?.autocomplete.getAutocompleteResults(
             debouncedSearchTerm,
-            autocompleteParameters
+            { ...autocompleteParameters, ...advancedParameters.autocompleteParameters }
           );
           const newSectionsData = transformResponse(response, {
             numTermsWithGroupSuggestions,
@@ -104,7 +97,13 @@ const useDebouncedFetchSection = (
         setSectionsData({});
       }
     })();
-  }, [debouncedSearchTerm, cioClient, numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm]);
+  }, [
+    debouncedSearchTerm,
+    cioClient,
+    numTermsWithGroupSuggestions,
+    numGroupsSuggestedPerTerm,
+    advancedParameters?.autocompleteParameters,
+  ]);
 
   return sectionsData;
 };
