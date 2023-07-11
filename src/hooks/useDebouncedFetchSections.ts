@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
@@ -48,14 +48,6 @@ interface IAutocompleteParameters {
   variationsMap: Record<string, any>;
 }
 
-const autocompleteParameters = {
-  resultsPerSection: {},
-  // numResults: 8,
-  // hiddenFields: [],
-  // filters: {},
-  // variationsMap: {}
-} as IAutocompleteParameters;
-
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
@@ -64,6 +56,10 @@ const useDebouncedFetchSection = (
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
+  const autocompleteParameters = {
+    resultsPerSection: {},
+    ...advancedParameters,
+  } as IAutocompleteParameters;
 
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
 
@@ -83,7 +79,7 @@ const useDebouncedFetchSection = (
         try {
           const response = await cioClient?.autocomplete.getAutocompleteResults(
             debouncedSearchTerm,
-            { ...autocompleteParameters, ...advancedParameters.autocompleteParameters }
+            autocompleteParameters
           );
           const newSectionsData = transformResponse(response, {
             numTermsWithGroupSuggestions,
@@ -97,13 +93,8 @@ const useDebouncedFetchSection = (
         setSectionsData({});
       }
     })();
-  }, [
-    debouncedSearchTerm,
-    cioClient,
-    numTermsWithGroupSuggestions,
-    numGroupsSuggestedPerTerm,
-    advancedParameters?.autocompleteParameters,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchTerm, cioClient, numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm]);
 
   return sectionsData;
 };

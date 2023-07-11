@@ -9,8 +9,7 @@ export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClie
 export type AdvancedParameters = {
   numTermsWithGroupSuggestions?: number;
   numGroupsSuggestedPerTerm?: number;
-  autocompleteParameters?: Omit<IAutocompleteParameters, 'resultsPerSection'>;
-};
+} & Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;

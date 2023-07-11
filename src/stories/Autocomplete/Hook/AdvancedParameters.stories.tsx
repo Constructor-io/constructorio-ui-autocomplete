@@ -56,10 +56,8 @@ FilteredSuggestions.args = {
   apiKey,
   onSubmit,
   advancedParameters: {
-    autocompleteParameters: {
-      filters: {
-        group_id: '1130',
-      },
+    filters: {
+      group_id: '1130',
     },
   },
 };
