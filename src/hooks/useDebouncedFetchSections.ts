@@ -52,29 +52,28 @@ const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
   autocompleteSections: UserDefinedSection[],
-  advancedParameters: AdvancedParameters
+  advancedParameters?: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
-  const [autocompleteParameters, setAutocompleteParameters] =
-    useState<Partial<IAutocompleteParameters>>(advancedParameters);
   const debouncedSearchTerm = useDebounce(query);
 
-  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
+  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
+    advancedParameters || {};
+  const autocompleteParameters = useMemo(() => {
+    const decorated = { ...advancedParameters } as IAutocompleteParameters;
 
-  useEffect(() => {
     if (autocompleteSections) {
-      setAutocompleteParameters((state) => ({
-        ...state,
-        resultsPerSection: autocompleteSections.reduce(
-          (acc, sectionConfig) => ({
-            ...acc,
-            [sectionConfig.identifier]: sectionConfig?.numResults || 8,
-          }),
-          {}
-        ),
-      }));
+      decorated.resultsPerSection = autocompleteSections.reduce(
+        (acc, sectionConfig) => ({
+          ...acc,
+          [sectionConfig.identifier]: sectionConfig?.numResults || 8,
+        }),
+        {}
+      );
     }
-  }, [autocompleteSections]);
+
+    return decorated;
+  }, [autocompleteSections, advancedParameters]);
 
   useEffect(() => {
     (async () => {

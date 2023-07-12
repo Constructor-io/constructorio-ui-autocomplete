@@ -32,7 +32,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     sections = defaultSections,
     zeroStateSections,
     autocompleteClassName = 'cio-autocomplete',
-    advancedParameters = {},
+    advancedParameters,
   } = options;
 
   const [query, setQuery] = useState('');

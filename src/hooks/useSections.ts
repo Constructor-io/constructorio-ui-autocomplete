@@ -12,7 +12,7 @@ export default function useSections(
   cioClient: Nullable<ConstructorIO>,
   sections: UserDefinedSection[],
   zeroStateSections: UserDefinedSection[] | undefined,
-  advancedParameters: AdvancedParameters
+  advancedParameters?: AdvancedParameters
 ) {
   const zeroStateActiveSections = !query.length && zeroStateSections;
   const [activeSections, setActiveSections] = useState(
