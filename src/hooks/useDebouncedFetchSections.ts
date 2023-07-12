@@ -59,9 +59,7 @@ const useDebouncedFetchSection = (
     useState<Partial<IAutocompleteParameters>>(advancedParameters);
   const debouncedSearchTerm = useDebounce(query);
 
-  // const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
-  const numTermsWithGroupSuggestions = 0;
-  const numGroupsSuggestedPerTerm = 0;
+  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
 
   useEffect(() => {
     if (autocompleteSections) {
