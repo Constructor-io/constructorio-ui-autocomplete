@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
@@ -55,25 +55,30 @@ const useDebouncedFetchSection = (
   advancedParameters: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
+  const [autocompleteParameters, setAutocompleteParameters] =
+    useState<Partial<IAutocompleteParameters>>(advancedParameters);
   const debouncedSearchTerm = useDebounce(query);
 
-  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
+  // const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
+  const numTermsWithGroupSuggestions = 0;
+  const numGroupsSuggestedPerTerm = 0;
 
   useEffect(() => {
-    const autocompleteParameters = {
-      ...advancedParameters,
-    } as IAutocompleteParameters;
-
     if (autocompleteSections) {
-      autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
-        (acc, sectionConfig) => ({
-          ...acc,
-          [sectionConfig.identifier]: sectionConfig?.numResults || 8,
-        }),
-        {}
-      );
+      setAutocompleteParameters((state) => ({
+        ...state,
+        resultsPerSection: autocompleteSections.reduce(
+          (acc, sectionConfig) => ({
+            ...acc,
+            [sectionConfig.identifier]: sectionConfig?.numResults || 8,
+          }),
+          {}
+        ),
+      }));
     }
+  }, [autocompleteSections]);
 
+  useEffect(() => {
     (async () => {
       if (debouncedSearchTerm.trim()) {
         try {
@@ -98,8 +103,7 @@ const useDebouncedFetchSection = (
     cioClient,
     numTermsWithGroupSuggestions,
     numGroupsSuggestedPerTerm,
-    advancedParameters,
-    autocompleteSections,
+    autocompleteParameters,
   ]);
 
   return sectionsData;
