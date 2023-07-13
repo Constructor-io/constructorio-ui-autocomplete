@@ -60,10 +60,10 @@ const useDebouncedFetchSection = (
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
     advancedParameters || {};
   const autocompleteParameters = useMemo(() => {
-    const decorated = { ...advancedParameters } as IAutocompleteParameters;
+    const decoratedParameters = { ...advancedParameters } as IAutocompleteParameters;
 
     if (autocompleteSections) {
-      decorated.resultsPerSection = autocompleteSections.reduce(
+      decoratedParameters.resultsPerSection = autocompleteSections.reduce(
         (acc, sectionConfig) => ({
           ...acc,
           [sectionConfig.identifier]: sectionConfig?.numResults || 8,
@@ -72,7 +72,7 @@ const useDebouncedFetchSection = (
       );
     }
 
-    return decorated;
+    return decoratedParameters;
   }, [autocompleteSections, advancedParameters]);
 
   useEffect(() => {
