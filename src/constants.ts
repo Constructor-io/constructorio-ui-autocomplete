@@ -195,10 +195,28 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 \`\`\`
 `;
 
-export const advancedParametersDescription = `Pass an \`advancedParameters\` object to configure more options for the data included in the results requested from constructor's servers. The stories below show examples of the optional fields within this \`advancedParameters\` object that can be used to fine-tune the autosuggest data returned from constructor's servers.`;
+export const advancedParametersDescription = `The stories below show how optional fields within this \`advancedParameters\` object that can be used to fine-tune the autosuggest data returned from constructor's servers.`;
 
-export const advancedParametersDefaultDescription = `Passing an \`advancedParameters\` object is optional. Passing an empty object for the \`advancedParameters\` field behaves the same as not passing an \`advancedParameters\` object at all. This has no impact on the results returned by default.`;
+export const advancedParametersDefaultDescription = `Passing an \`advancedParameters\` object is optional. Passing an empty object for the \`advancedParameters\` field behaves the same as not passing an \`advancedParameters\` object at all.`;
 
-export const termsWithGroupSuggestionsDescription = `Pass integers for the \`numTermsWithGroupSuggestions\` and \`numGroupsSuggestedPerTerm\` fields to add suggested group filters to search term suggestions. Not all suggested search terms will have group filters, so these integers are upper limits, used to specify the maximum number of terms with group filters and the maximum number of suggested group filters per term. To see this in action:
-- type "bab" in the example below. Notice how the user is presented with a search term of "baby" as well as "baby in Bodysuits" and "baby in Baby Organic Cotton"
-- navigate to the "Terms With Group Suggestions" story (using the navigation menu to the left), then use the Controls to adjust the values of \`numTermsWithGroupSuggestions\` to \`3\` and \`numGroupsSuggestedPerTerm\` to \`1\`. Next, type "dan" in the example autocomplete input field. Notice how the user is presented with three different search terms that have a maximum of one "in {group}" suggestion each`;
+export const termsWithGroupSuggestionsDescription = `Pass integers for the \`numTermsWithGroupSuggestions\` and \`numGroupsSuggestedPerTerm\` fields to add suggested group filters to search term suggestions. Not all suggested search terms will have group filters, so these integers are upper limits, used to specify the maximum number of terms with group filters and the maximum number of suggested group filters per term.
+
+To see this in action:
+1. Type "pan" in the example below.
+  - Notice how the user is presented with a search term of "all week flex pant" as well as "all week flex pant in Chinos" and "all week flex pant baby in Athleisure Pants & Joggers"
+2. Navigate to the "Terms With Group Suggestions" story (using the navigation menu to the left)
+3. Then use the Controls to adjust the values of \`numTermsWithGroupSuggestions\` to \`3\` and \`numGroupsSuggestedPerTerm\` to \`1\`
+4. Next, type "pan" in the example autocomplete input field.
+  - Notice how the user is presented with three different search terms that have a maximum of one "in {group}" suggestion each`;
+
+export const filteredSuggestionsDescription = `Pass a \`filters\` object under \`advancedParameters\` to apply filters to the suggestions. Any parameter supported by <a href="https://docs.constructor.io/rest_api/autocomplete_queries/" target="__blank">our autocomplete endpoint</a> can be passed under \`advancedParameters\`.
+
+To see this in action:
+1. Type "short" in the example below.
+  - Notice how the user is presented with only short pants as results.
+  - This is because the results are currently filtered to belong to the "Shorts" group.
+2. Navigate to the "Filtered Suggestions" story (using the navigation menu to the left)
+3. Then use the Controls to adjust the values of \`"group_id"\` to \`"1030"\`.
+4. Next, type "short" in the example autocomplete input field.
+  - Notice how the user is presented with only short sleeved items as results.
+  - This is because we are filtering to the "Shirts" group`;

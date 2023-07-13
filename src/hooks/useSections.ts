@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 /* eslint-disable max-params */
 import ConstructorIO from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
@@ -12,15 +12,19 @@ export default function useSections(
   cioClient: Nullable<ConstructorIO>,
   sections: UserDefinedSection[],
   zeroStateSections: UserDefinedSection[] | undefined,
-  advancedParameters: AdvancedParameters
+  advancedParameters?: AdvancedParameters
 ) {
   const zeroStateActiveSections = !query.length && zeroStateSections;
   const [activeSections, setActiveSections] = useState(
     zeroStateActiveSections ? zeroStateSections : sections
   );
 
-  const autocompleteSections = activeSections?.filter(
-    (config: UserDefinedSection) => config.type === 'autocomplete' || !config.type
+  const autocompleteSections = useMemo(
+    () =>
+      activeSections?.filter(
+        (config: UserDefinedSection) => config.type === 'autocomplete' || !config.type
+      ),
+    [activeSections]
   );
   const recommendationsSections = activeSections?.filter(
     (config: UserDefinedSection) => config.type === 'recommendations'

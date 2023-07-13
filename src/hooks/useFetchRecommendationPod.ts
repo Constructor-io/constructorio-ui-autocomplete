@@ -35,6 +35,7 @@ const useFetchRecommendationPod = (
       try {
         setRecommendationResults(recommendationPodResults);
       } catch (error: any) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
     };

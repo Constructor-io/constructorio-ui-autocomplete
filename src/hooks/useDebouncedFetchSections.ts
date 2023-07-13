@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
@@ -48,34 +48,32 @@ interface IAutocompleteParameters {
   variationsMap: Record<string, any>;
 }
 
-const autocompleteParameters = {
-  resultsPerSection: {},
-  // numResults: 8,
-  // hiddenFields: [],
-  // filters: {},
-  // variationsMap: {}
-} as IAutocompleteParameters;
-
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
   autocompleteSections: UserDefinedSection[],
-  advancedParameters: AdvancedParameters
+  advancedParameters?: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
   const debouncedSearchTerm = useDebounce(query);
 
-  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } = advancedParameters;
+  const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
+    advancedParameters || {};
+  const autocompleteParameters = useMemo(() => {
+    const decoratedParameters = { ...advancedParameters } as IAutocompleteParameters;
 
-  if (autocompleteSections) {
-    autocompleteParameters.resultsPerSection = autocompleteSections.reduce(
-      (acc, sectionConfig) => ({
-        ...acc,
-        [sectionConfig.identifier]: sectionConfig?.numResults || 8,
-      }),
-      {}
-    );
-  }
+    if (autocompleteSections) {
+      decoratedParameters.resultsPerSection = autocompleteSections.reduce(
+        (acc, sectionConfig) => ({
+          ...acc,
+          [sectionConfig.identifier]: sectionConfig?.numResults || 8,
+        }),
+        {}
+      );
+    }
+
+    return decoratedParameters;
+  }, [autocompleteSections, advancedParameters]);
 
   useEffect(() => {
     (async () => {
@@ -91,13 +89,20 @@ const useDebouncedFetchSection = (
           });
           setSectionsData(newSectionsData);
         } catch (error: any) {
+          // eslint-disable-next-line no-console
           console.log(error);
         }
       } else if (!debouncedSearchTerm) {
         setSectionsData({});
       }
     })();
-  }, [debouncedSearchTerm, cioClient, numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm]);
+  }, [
+    debouncedSearchTerm,
+    cioClient,
+    numTermsWithGroupSuggestions,
+    numGroupsSuggestedPerTerm,
+    autocompleteParameters,
+  ]);
 
   return sectionsData;
 };

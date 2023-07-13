@@ -6,6 +6,7 @@ import {
   advancedParametersDescription,
   termsWithGroupSuggestionsDescription,
   advancedParametersDefaultDescription,
+  filteredSuggestionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
 } from '../../../constants';
@@ -48,4 +49,20 @@ addComponentStoryDescription(
   TermsWithGroupSuggestions,
   `const args = ${stringifyWithDefaults(TermsWithGroupSuggestions.args)}`,
   termsWithGroupSuggestionsDescription
+);
+
+export const FilteredSuggestions = ComponentTemplate.bind({});
+FilteredSuggestions.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    filters: {
+      group_id: '1130',
+    },
+  },
+};
+addComponentStoryDescription(
+  FilteredSuggestions,
+  `const args = ${stringifyWithDefaults(FilteredSuggestions.args)}`,
+  filteredSuggestionsDescription
 );

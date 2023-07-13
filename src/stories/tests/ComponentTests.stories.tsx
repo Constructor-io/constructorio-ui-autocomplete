@@ -417,7 +417,7 @@ InGroupSuggestions.play = async ({ canvasElement }) => {
   await userEvent.type(canvas.getByTestId('cio-input'), 'shirt', { delay: 100 });
   await sleep(1000);
   expect(canvas.getByText('in Casual Shirts')).toBeVisible();
-  expect(canvas.getByText('in Machine Washable Dress Clothes')).toBeVisible();
+  expect(canvas.getByText('in Short Sleeve Shirts')).toBeVisible();
 };
 
 export const InGroupSuggestionsTwo = ComponentTemplate.bind({});

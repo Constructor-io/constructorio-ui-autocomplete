@@ -2,12 +2,27 @@
   "version": "0.2",
   "language": "en",
   "allowCompoundWords": false,
-  "dictionaries": ["en_US", "html", "css"],
-  "ignorePaths": ["lib", "docs"],
+  "dictionaries": [
+    "en_US",
+    "html",
+    "css"
+  ],
+  "ignorePaths": [
+    "lib",
+    "docs"
+  ],
   // flagWords - list of words to be always considered incorrect
   // This is useful for offensive words and common spelling errors.
   // For example "hte" should be "the"
   "flagWords": [],
   // List of ignored words to avoid checking.
-  "words": ["constructorio", "Combobox", "searchandizing", "testid", "subcomponents", "Dont"]
+  "words": [
+    "Athleisure",
+    "Combobox",
+    "constructorio",
+    "Dont",
+    "searchandizing",
+    "subcomponents",
+    "testid"
+  ]
 }

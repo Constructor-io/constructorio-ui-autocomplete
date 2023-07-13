@@ -2,13 +2,14 @@
 import { GetItemPropsOptions } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
 export type AdvancedParameters = {
   numTermsWithGroupSuggestions?: number;
   numGroupsSuggestedPerTerm?: number;
-};
+} & Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
