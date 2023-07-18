@@ -1,6 +1,6 @@
 {
   "name": "@constructor-io/constructorio-ui-autocomplete",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Constructor.io Autocomplete UI library for web applications",
   "main": "lib/cjs/index.js",
   "module": "lib/mjs/index.js",
