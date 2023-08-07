@@ -28,14 +28,24 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
         if (selectedItem?.value) {
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
           if (!selectedItem?.data?.url) {
-            cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
-              original_query: previousQuery,
-            });
+            try {
+              cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
+                original_query: previousQuery,
+              });
+            } catch (error) {
+              // eslint-disable-next-line no-console
+              console.log(error);
+            }
           }
-          cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
-            original_query: previousQuery,
-            section: selectedItem.section,
-          });
+          try {
+            cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
+              original_query: previousQuery,
+              section: selectedItem.section,
+            });
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+          }
         }
       }
     },
