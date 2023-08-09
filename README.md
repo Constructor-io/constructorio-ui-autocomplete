@@ -192,3 +192,6 @@ npm run build-storybook   # generate storybook static bundle for deploy with GH 
 
 - [Storybook 7 Introduction](https://storybook.js.org/docs/7.0/react/get-started/introduction)
 - [Typescript Docs](https://www.typescriptlang.org/docs/)
+
+## Usage examples
+- [Javascript](https://codesandbox.io/s/autocomplete-ui-integration-plain-y9zjl7)
