@@ -99,7 +99,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (query?.length) {
           downshift.openMenu();
         }
-        cioClient?.tracker?.trackInputFocus();
+        try {
+          cioClient?.tracker?.trackInputFocus();
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
       },
       className: 'cio-input',
       'data-testid': 'cio-input',
@@ -111,7 +116,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           if (onSubmit) {
             onSubmit({ query });
           }
-          cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
+          try {
+            cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+          }
         }
       },
     }),
@@ -121,7 +131,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (onSubmit) {
           onSubmit({ query });
         }
-        cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
+        try {
+          cioClient?.tracker.trackSearchSubmit(query, { original_query: query });
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        }
         return { query };
       },
       className: 'cio-form',
