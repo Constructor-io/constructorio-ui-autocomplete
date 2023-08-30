@@ -30,11 +30,11 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
           try {
             if (!selectedItem?.data?.url) {
               cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
-                original_query: previousQuery,
+                originalQuery: previousQuery,
               });
             }
             cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
-              original_query: previousQuery,
+              originalQuery: previousQuery,
               section: selectedItem.section,
             });
           } catch (error) {

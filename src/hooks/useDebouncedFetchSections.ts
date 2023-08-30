@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, UserDefinedSection, AdvancedParameters } from '../types';
+import {
+  AutocompleteResultSections,
+  UserDefinedSection,
+  AdvancedParameters,
+  IAutocompleteParameters,
+} from '../types';
 
 const transformResponse = (response, options) => {
   const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
@@ -39,14 +44,6 @@ const transformResponse = (response, options) => {
 
   return newSectionsData;
 };
-
-interface IAutocompleteParameters {
-  numResults: number;
-  resultsPerSection: Record<string, number>;
-  hiddenFields: string[];
-  filters: Record<string, any>;
-  variationsMap: Record<string, any>;
-}
 
 const useDebouncedFetchSection = (
   query: string,
