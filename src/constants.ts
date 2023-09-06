@@ -220,3 +220,5 @@ To see this in action:
 4. Next, type "short" in the example autocomplete input field.
   - Notice how the user is presented with only short sleeved items as results.
   - This is because we are filtering to the "Shirts" group`;
+
+export const termsWithImagesAndCountsDescription = `Pass boolean flags for \`displaySearchSuggestionImages\` and \`displaySearchSuggestionResultCounts\` fields to display images and counts for search suggestions.`;

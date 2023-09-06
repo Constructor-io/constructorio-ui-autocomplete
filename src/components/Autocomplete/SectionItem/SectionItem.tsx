@@ -35,11 +35,11 @@ export default function SectionItem(props: SectionItemProps) {
   } else if (isSearchSuggestion(item)) {
     defaultChildren = (
       <>
-        {displaySearchSuggestionImages && (
+        {displaySearchSuggestionImages && item.data?.image_url && (
           <img src={item.data?.image_url} alt={item.value} className='cio-suggestion-image' />
         )}
         <p className='cio-suggestion-text'>{item.value}</p>
-        {displaySearchSuggestionResultCounts && (
+        {displaySearchSuggestionResultCounts && item.data?.total_num_results && (
           <p className='cio-suggestion-count'>({item.data?.total_num_results})</p>
         )}
       </>
