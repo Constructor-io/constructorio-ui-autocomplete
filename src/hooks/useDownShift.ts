@@ -1,6 +1,6 @@
 import { useCombobox, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
+import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/index';
 import { Item, OnSubmit } from '../types';
 
 let idCounter = 0;
@@ -30,11 +30,11 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
           try {
             if (!selectedItem?.data?.url) {
               cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
-                original_query: previousQuery,
+                originalQuery: previousQuery,
               });
             }
             cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
-              original_query: previousQuery,
+              originalQuery: previousQuery,
               section: selectedItem.section,
             });
           } catch (error) {

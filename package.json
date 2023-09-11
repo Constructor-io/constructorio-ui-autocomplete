@@ -94,7 +94,7 @@
     "webpack": "^5.75.0"
   },
   "peerDependencies": {
-    "@constructor-io/constructorio-client-javascript": "^2.34.7",
+    "@constructor-io/constructorio-client-javascript": "git+ssh://git@github.com/Constructor-io/constructorio-client-javascript.git#nocsl-add-alias-to-events-dependency",
     "downshift": "^7.2.1",
     "react": ">=16.12.0",
     "react-dom": ">=16.12.0",

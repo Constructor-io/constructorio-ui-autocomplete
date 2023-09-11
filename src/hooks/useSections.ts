@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 /* eslint-disable max-params */
 import ConstructorIO from '@constructor-io/constructorio-client-javascript';
-import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
+import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/index';
 import { AdvancedParameters, RecommendationsSection, UserDefinedSection } from '../types';
 import { getActiveSectionsWithData } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
