@@ -101,6 +101,7 @@ export const getCioClient = (apiKey?: string) => {
     return new ConstructorIOClient({
       apiKey,
       sendTrackingEvents: true,
+      version: 'ciojs-os-ui-autocomplete',
     });
   }
 
