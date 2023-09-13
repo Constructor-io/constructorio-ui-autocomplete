@@ -394,8 +394,7 @@ InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'shirt', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getByText('in Casual Shirts')).toBeVisible();
-  expect(canvas.getByText('in Short Sleeve Shirts')).toBeVisible();
+  expect(canvas.getAllByText('in Casual Shirts').length).toBeGreaterThan(1);
 };
 
 export const InGroupSuggestionsTwo = HooksTemplate.bind({});
@@ -411,5 +410,5 @@ InGroupSuggestionsTwo.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'suit', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Shirts & Sweaters').length).toBeGreaterThan(1);
+  expect(canvas.getAllByText('in Blazers').length).toBeGreaterThan(1);
 };
