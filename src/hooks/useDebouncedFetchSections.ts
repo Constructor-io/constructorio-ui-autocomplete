@@ -1,8 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
+import { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
 import useDebounce from './useDebounce';
-import { AutocompleteResultSections, UserDefinedSection, AdvancedParameters } from '../types';
+import {
+  AutocompleteResultSections,
+  UserDefinedSection,
+  AdvancedParameters,
+  AdvancedParametersBase,
+} from '../types';
 
 const transformResponse = (response, options) => {
   const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
@@ -40,14 +46,6 @@ const transformResponse = (response, options) => {
   return newSectionsData;
 };
 
-interface IAutocompleteParameters {
-  numResults: number;
-  resultsPerSection: Record<string, number>;
-  hiddenFields: string[];
-  filters: Record<string, any>;
-  variationsMap: Record<string, any>;
-}
-
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
@@ -60,7 +58,9 @@ const useDebouncedFetchSection = (
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
     advancedParameters || {};
   const autocompleteParameters = useMemo(() => {
-    const decoratedParameters = { ...advancedParameters } as IAutocompleteParameters;
+    const decoratedParameters: AdvancedParametersBase & IAutocompleteParameters = {
+      ...advancedParameters,
+    };
 
     if (autocompleteSections) {
       decoratedParameters.resultsPerSection = autocompleteSections.reduce(

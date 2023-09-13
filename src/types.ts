@@ -6,10 +6,13 @@ import { IAutocompleteParameters } from '@constructor-io/constructorio-client-ja
 
 export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
-export type AdvancedParameters = {
+export interface AdvancedParametersBase {
   numTermsWithGroupSuggestions?: number;
   numGroupsSuggestedPerTerm?: number;
-} & Omit<IAutocompleteParameters, 'resultsPerSection'>;
+}
+
+export type AdvancedParameters = AdvancedParametersBase &
+  Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
