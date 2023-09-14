@@ -1,6 +1,6 @@
 import { useCombobox, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
+import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
 
 let idCounter = 0;

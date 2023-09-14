@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
+import {
+  Nullable,
+  IAutocompleteParameters,
+} from '@constructor-io/constructorio-client-javascript/lib/types';
 import useDebounce from './useDebounce';
 import {
   AutocompleteResultSections,
   UserDefinedSection,
   AdvancedParameters,
-  IAutocompleteParameters,
+  AdvancedParametersBase,
 } from '../types';
 
 const transformResponse = (response, options) => {
@@ -57,7 +60,9 @@ const useDebouncedFetchSection = (
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
     advancedParameters || {};
   const autocompleteParameters = useMemo(() => {
-    const decoratedParameters = { ...advancedParameters } as IAutocompleteParameters;
+    const decoratedParameters: AdvancedParametersBase & IAutocompleteParameters = {
+      ...advancedParameters,
+    };
 
     if (autocompleteSections) {
       decoratedParameters.resultsPerSection = autocompleteSections.reduce(

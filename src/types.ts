@@ -13,12 +13,15 @@ export type { IAutocompleteParameters } from '@constructor-io/constructorio-clie
 
 export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
-export type AdvancedParameters = {
+export interface AdvancedParametersBase {
   numTermsWithGroupSuggestions?: number;
   numGroupsSuggestedPerTerm?: number;
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
-} & Omit<IAutocompleteParameters, 'resultsPerSection'>;
+}
+
+export type AdvancedParameters = AdvancedParametersBase &
+  Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
