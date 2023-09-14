@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types/types';
-import { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
+import {
+  Nullable,
+  IAutocompleteParameters,
+} from '@constructor-io/constructorio-client-javascript/lib/types';
 import useDebounce from './useDebounce';
 import {
   AutocompleteResultSections,
