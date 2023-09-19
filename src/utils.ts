@@ -118,7 +118,11 @@ export const getActiveSectionsWithData = (
     let data;
 
     if (isCustomSection(config)) {
-      data = config.data;
+      // Copy id from data to the top level
+      data = config.data.map((item) => ({
+        ...item,
+        id: item?.id || item?.data?.id,
+      }));
     } else {
       data = sectionResults[identifier];
     }
