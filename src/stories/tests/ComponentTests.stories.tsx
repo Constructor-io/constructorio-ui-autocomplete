@@ -416,7 +416,7 @@ InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'shirt', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Casual Shirts').length).toBeGreaterThan(1);
+  expect(canvas.getAllByText('in Casual Shirts').length).toEqual(1);
 };
 
 export const InGroupSuggestionsTwo = ComponentTemplate.bind({});
