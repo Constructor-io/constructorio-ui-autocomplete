@@ -41,7 +41,12 @@ export function HooksTemplate(args) {
     return (
       <div {...getItemProps(item)} key={item?.id}>
         {displayImage && (
-          <img src={item.data?.image_url} alt={item.value} className={imageClassName} />
+          <img
+            src={item.data?.image_url}
+            alt={item.value}
+            className={imageClassName}
+            data-testid='cio-img'
+          />
         )}
         {item.groupName ? (
           <p className='cio-term-in-group'>in {item.groupName}</p>
@@ -163,7 +168,12 @@ function YourComponent() {
     return (
       <div {...getItemProps(item)} key={item?.id}>
         {displayImage && (
-          <img src={item.data?.image_url} alt={item.value} className={imageClassName} />
+          <img
+            src={item.data?.image_url}
+            alt={item.value}
+            className={imageClassName}
+            data-testid='cio-img'
+          />
         )}
         {item.groupName ? (
           <p className='cio-term-in-group'>in {item.groupName}</p>
