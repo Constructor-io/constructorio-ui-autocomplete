@@ -9,6 +9,7 @@ import {
   filteredSuggestionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  termsWithImagesAndCountsDescription,
 } from '../../../constants';
 
 export default {
@@ -65,4 +66,19 @@ addComponentStoryDescription(
   FilteredSuggestions,
   `const args = ${stringifyWithDefaults(FilteredSuggestions.args)}`,
   filteredSuggestionsDescription
+);
+
+export const TermsWithImagesAndCounts = ComponentTemplate.bind({});
+TermsWithImagesAndCounts.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    displaySearchSuggestionImages: true,
+    displaySearchSuggestionResultCounts: true,
+  },
+};
+addComponentStoryDescription(
+  TermsWithImagesAndCounts,
+  `const args = ${stringifyWithDefaults(TermsWithImagesAndCounts.args)}`,
+  termsWithImagesAndCountsDescription
 );

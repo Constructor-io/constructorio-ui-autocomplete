@@ -9,6 +9,7 @@ import {
   filteredSuggestionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  termsWithImagesAndCountsDescription,
 } from '../../../constants';
 
 export default {
@@ -65,4 +66,19 @@ addHookStoryCode(
   FilteredSuggestions,
   `const args = ${stringifyWithDefaults(FilteredSuggestions.args)}`,
   filteredSuggestionsDescription
+);
+
+export const TermsWithImagesAndCounts = HooksTemplate.bind({});
+TermsWithImagesAndCounts.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    displaySearchSuggestionImages: true,
+    displaySearchSuggestionResultCounts: true,
+  },
+};
+addHookStoryCode(
+  TermsWithImagesAndCounts,
+  `const args = ${stringifyWithDefaults(TermsWithImagesAndCounts.args)}`,
+  termsWithImagesAndCountsDescription
 );

@@ -70,9 +70,11 @@
   padding: 0;
 }
 
-.cio-autocomplete .cio-item-SearchSuggestions {
-  flex-direction: column;
+.cio-autocomplete .cio-item.cio-item-SearchSuggestions {
+  flex-direction: row;
   min-width: 160px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .cio-autocomplete .cio-item {
@@ -103,12 +105,12 @@
   padding: 5px 0;
 }
 
-.cio-autocomplete .cio-item p {
+.cio-autocomplete .cio-item .cio-product-text {
   margin: 0;
   overflow: hidden;
 }
 
-.cio-autocomplete .cio-item img {
+.cio-autocomplete .cio-item .cio-product-image {
   width: 100%;
   max-width: 100px;
   max-height: 100px;
@@ -116,4 +118,20 @@
 
 .cio-autocomplete .cio-term-in-group {
   padding-left: 10px;
+}
+
+.cio-autocomplete .cio-suggestion-image {
+  height: 32px;
+  width: 32px;
+  margin-right: 8px;
+  object-fit: contain;
+}
+
+.cio-autocomplete .cio-suggestion-text {
+  flex-grow: 1;
+}
+
+.cio-autocomplete .cio-suggestion-count {
+  font-size: 0.8rem;
+  margin-left: 8px;
 }

@@ -2,13 +2,22 @@
 import { GetItemPropsOptions } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
+import {
+  IAutocompleteParameters,
+  SearchSuggestion as SearchSuggestionFromClient,
+  Product as ProductFromClient,
+  Item as ItemBase,
+} from '@constructor-io/constructorio-client-javascript/lib/types';
+
+export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
 
 export interface AdvancedParametersBase {
   numTermsWithGroupSuggestions?: number;
   numGroupsSuggestedPerTerm?: number;
+  displaySearchSuggestionImages?: boolean;
+  displaySearchSuggestionResultCounts?: boolean;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
@@ -41,14 +50,6 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 };
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
-
-export interface ItemBase extends Record<string, any> {
-  id: string;
-  section: string;
-  url?: string;
-  value?: string;
-  data?: Record<string, any>;
-}
 
 export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
 
@@ -89,32 +90,12 @@ export type Section = AutocompleteSection | RecommendationsSection | CustomSecti
 
 export type UserDefinedSection = CustomSection | SectionConfiguration;
 
-export type Product = ItemBase & {
+export type Product = ProductFromClient & {
   section: 'Products';
-  data: {
-    facets: { name: string; values: string[] }[];
-    group_ids: string[];
-    id: string;
-    image_url: string;
-    url: string;
-    variation_id?: string;
-  };
-  is_slotted: boolean;
-  labels: Record<string, unknown>;
-  matched_terms: string[];
-  value: string;
 };
 
-export type SearchSuggestion = ItemBase & {
+export type SearchSuggestion = SearchSuggestionFromClient & {
   section: 'Search Suggestions';
-  data: {
-    id: string;
-    url?: string;
-  };
-  is_slotted: boolean;
-  labels: Record<string, unknown>;
-  matched_terms: string[];
-  value: string;
 };
 
 export type InGroupSuggestion = SearchSuggestion & {

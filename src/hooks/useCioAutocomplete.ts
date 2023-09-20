@@ -146,6 +146,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     cioClient,
     autocompleteClassName,
     selectedItem: items[highlightedIndex],
+    advancedParameters,
   };
 };
 
