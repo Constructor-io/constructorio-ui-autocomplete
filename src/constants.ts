@@ -105,6 +105,8 @@ export const zeroStateDescription = `- when the text input field has no text, we
 // Storybook Stories
 /// //////////////////////////////
 
+export const fullFeaturedAndStyledExampleDescription = `Using the default options, the library displays clean and minimal visual elements, with the intent of making it easy for consumers to easily extend and customize the styles to suit unique needs. The example below shows a full featured and styled example to demonstrate what is possible using Constructor.io's advanced Autocomplete UI library.`;
+
 export const apiKeyDescription = `Pass an \`apiKey\` to request results from constructor's servers`;
 export const cioJsClientDescription = `If you are already using an instance of the \`ConstructorIOClient\`, you can pass a \`cioJsClient\` instead of an \`apiKey\` to request results from constructor's servers
 
