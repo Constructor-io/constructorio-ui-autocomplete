@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext, useEffect } from 'react';
+/* cspell:disable-next-line */
 import * as DOMPurify from 'dompurify';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
