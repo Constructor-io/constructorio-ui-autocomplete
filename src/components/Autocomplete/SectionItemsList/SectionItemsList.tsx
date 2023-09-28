@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext, useEffect } from 'react';
+import * as DOMPurify from 'dompurify';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase } from '../../../utils';
@@ -44,10 +45,10 @@ export default function SectionItemsList(props: SectionItemsListProps) {
     const regex = new RegExp(`(${query})`, 'gi');
 
     document.querySelectorAll('.cio-suggestion-text, .cio-product-text').forEach((el: Element) => {
-      const currentText = el.textContent || '';
+      const currentText = el?.textContent || '';
       const boldText = currentText.replace(regex, '<b>$1</b>');
       // eslint-disable-next-line no-param-reassign
-      if (el) el.innerHTML = boldText;
+      if (el) el.innerHTML = DOMPurify.sanitize(boldText);
     });
   };
 

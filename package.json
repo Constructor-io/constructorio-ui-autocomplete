@@ -99,5 +99,8 @@
     "react": ">=16.12.0",
     "react-dom": ">=16.12.0",
     "tslib": "^2.5.0"
+  },
+  "dependencies": {
+    "dompurify": "^3.0.6"
   }
 }
