@@ -1,10 +1,7 @@
-import React, { ReactElement, useContext, useEffect } from 'react';
-/* cspell:disable-next-line */
-import * as DOMPurify from 'dompurify';
+import React, { ReactElement } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase } from '../../../utils';
-import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: Section;
@@ -38,25 +35,6 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
 
 export default function SectionItemsList(props: SectionItemsListProps) {
   const { section, children = DefaultRenderSectionItemsList } = props;
-
-  // Highlight search suggestion and products words similar to search term
-  const { query, sections } = useContext(CioAutocompleteContext);
-
-  const handleBoldSearchTerm = () => {
-    const regex = new RegExp(`(${query})`, 'gi');
-
-    document.querySelectorAll('.cio-suggestion-text, .cio-product-text').forEach((el: Element) => {
-      const currentText = el?.textContent || '';
-      const boldText = currentText.replace(regex, '<b>$1</b>');
-      // eslint-disable-next-line no-param-reassign
-      if (el) el.innerHTML = DOMPurify.sanitize(boldText);
-    });
-  };
-
-  useEffect(() => {
-    handleBoldSearchTerm();
-    // eslint-disable-next-line react/destructuring-assignment, react-hooks/exhaustive-deps
-  }, [query, sections]);
 
   return children({ section });
 }
