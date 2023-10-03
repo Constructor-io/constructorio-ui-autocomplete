@@ -66,6 +66,7 @@ export type SectionConfiguration = {
   identifier: string;
   displayName?: string;
   numResults?: number;
+  displaySearchTermHighlights?: boolean;
 };
 
 export interface AutocompleteSection extends SectionConfiguration {

@@ -12,6 +12,7 @@ import {
   sectionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  displaySearchTermHighlightsDescription,
 } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
@@ -138,6 +139,32 @@ addHookStoryCode(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
+);
+
+export const DisplaySearchTermHighlights = HooksTemplate.bind({});
+DisplaySearchTermHighlights.args = {
+  apiKey,
+  onSubmit,
+  sections: [
+    {
+      identifier: 'Search Suggestions',
+      displaySearchTermHighlights: true,
+    },
+    {
+      identifier: 'Products',
+      displaySearchTermHighlights: true,
+    },
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations',
+      displaySearchTermHighlights: true,
+    },
+  ],
+};
+addHookStoryCode(
+  DisplaySearchTermHighlights,
+  `const args = ${stringifyWithDefaults(DisplaySearchTermHighlights.args)}`,
+  displaySearchTermHighlightsDescription
 );
 
 export const RenderCustomSection = HooksTemplate.bind({});
