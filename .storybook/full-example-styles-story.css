@@ -27,18 +27,21 @@
   height: 44px;
   width: 450px;
   border-radius: 8px;
-  background-color: rgb(247, 247, 247);
 }
 
 .cio-autocomplete.full-example-autocomplete-styles .cio-input {
-  border-radius: 10px;
+  border-radius: 100px;
   box-sizing: border-box;
+  box-shadow: none;
+  border-color: #8080806b;
+  padding-left: 20px;
 }
 
 .cio-autocomplete.full-example-autocomplete-styles .cio-form button {
   width: 30px;
   background: transparent;
   border: none;
+  margin-right: 10px;
 }
 
 .cio-autocomplete.full-example-autocomplete-styles .cio-submit-btn {
@@ -62,8 +65,8 @@
   width: 690px;
   max-height: fit-content;
   overflow: hidden;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border-radius: 8px;
+  box-shadow: 0 0px 3px 0 rgba(0, 0, 0, -0.8), 0 -0.1px 8px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 4px;
   padding: 25px;
   left: -30%;
   color: rgb(70, 70, 70);
@@ -92,11 +95,26 @@
   height: 100%;
   max-width: unset;
   max-height: unset;
-  border-radius: 5px;
+}
+
+.cio-autocomplete.full-example-autocomplete-styles .cio-item[aria-selected='true']  {
+  background-color: transparent;
+  /* background-color: hsl(0, 0%, 95%); */
+  text-decoration: underline;
+  border-radius: 0px;
 }
 
 .cio-autocomplete.full-example-autocomplete-styles .Products p {
   padding: 5px 5px 0;
+}
+
+.cio-autocomplete.full-example-autocomplete-styles .cio-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.cio-autocomplete.full-example-autocomplete-styles .cio-suggestion-image {
+  height: 100%;
 }
 
 @media screen and (max-width: 690px) {
@@ -104,6 +122,10 @@
     left: 0;
     right: 0;
     width: unset;
+  }
+
+  .cio-autocomplete.full-example-autocomplete-styles .Products.cio-section {
+    display: none;
   }
 }
 
@@ -120,9 +142,5 @@
 
   .cio-autocomplete.full-example-autocomplete-styles form {
     width: 100%;
-  }
-
-  .cio-autocomplete.full-example-autocomplete-styles .Products.cio-section {
-    display: none;
   }
 }
