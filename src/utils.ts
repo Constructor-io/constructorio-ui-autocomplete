@@ -1,7 +1,7 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { isCustomSection } from './typeGuards';
 import { OnSubmit, Item, Section, UserDefinedSection, AutocompleteResultSections } from './types';
-import { version as packageVersion } from '../package.json';
+import packageJSON from '../package.json';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   index: number;
@@ -102,7 +102,7 @@ export const getCioClient = (apiKey?: string) => {
     return new ConstructorIOClient({
       apiKey,
       sendTrackingEvents: true,
-      version: `cio-ui-autocomplete-${packageVersion}`,
+      version: `cio-ui-autocomplete-${packageJSON.version}`,
     });
   }
 
