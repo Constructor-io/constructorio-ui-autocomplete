@@ -25,8 +25,9 @@ export default function SectionItemText({
 
       return (
         <>
-          {splitText.map((split) => {
-            if (queryRegex.test(split)) return <b>{split}</b>;
+          {splitText.map((split, index) => {
+            // eslint-disable-next-line react/no-array-index-key
+            if (queryRegex.test(split)) return <b key={`matched-word-${index}`}>{split}</b>;
             return split;
           })}
         </>
