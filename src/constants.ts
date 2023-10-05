@@ -116,6 +116,7 @@ export const contentDescription = `Override default \`sections\` to only suggest
 export const numResultsDescription = `Override default \`numResults\` to only suggest 2 products per query`;
 export const sectionOrderDescription = `Override default \`numResults\` to suggest products, then terms`;
 export const recommendationsDescription = `Use constructor's recommendations service, with \`"type": "recommendations"\``;
+export const displaySearchTermHighlightsDescription = `Use constructor's auto highlighting of words that match the search keyword, with \`"displaySearchTermHighlights": true\``;
 export const customSectionDescription = `Use a custom section, by managing and passing your own data, with \`"type": "custom"\` and \`"data":[{...}]\``;
 export const onFocusDescription = `Pass an \`onFocus\` callback function to execute some code each time the user applies focus to the text input field`;
 export const onChangeDescription = `Pass an \`onChange\` callback function to execute some code each time the user changes the value of the text input field`;

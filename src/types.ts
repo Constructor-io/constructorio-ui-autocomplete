@@ -66,6 +66,8 @@ export type SectionConfiguration = {
   identifier: string;
   displayName?: string;
   numResults?: number;
+  // This property will only take effect when using the component and not the hook
+  displaySearchTermHighlights?: boolean;
 };
 
 export interface AutocompleteSection extends SectionConfiguration {
