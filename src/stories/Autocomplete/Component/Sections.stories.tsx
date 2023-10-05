@@ -12,6 +12,7 @@ import {
   sectionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  displaySearchTermHighlightsDescription,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -138,6 +139,32 @@ addComponentStoryDescription(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
+);
+
+export const DisplaySearchTermHighlights = ComponentTemplate.bind({});
+DisplaySearchTermHighlights.args = {
+  apiKey,
+  onSubmit,
+  sections: [
+    {
+      identifier: 'Search Suggestions',
+      displaySearchTermHighlights: true,
+    },
+    {
+      identifier: 'Products',
+      displaySearchTermHighlights: true,
+    },
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations',
+      displaySearchTermHighlights: true,
+    },
+  ],
+};
+addComponentStoryDescription(
+  DisplaySearchTermHighlights,
+  `const args = ${stringifyWithDefaults(DisplaySearchTermHighlights.args)}`,
+  displaySearchTermHighlightsDescription
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
