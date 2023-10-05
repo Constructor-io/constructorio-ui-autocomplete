@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import { CioAutocompleteProps, CioClientConfig, UserDefinedSection } from '../types';
 import usePrevious from './usePrevious';
-import { getItemPosition, handleSectionSearchTermHighlights } from '../utils';
+import { getItemPosition } from '../utils';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useItems from './useItems';
@@ -56,16 +56,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   // Log console errors
   useConsoleErrors(sections, activeSections);
-
-  const handleItemsChange = useCallback(
-    () => handleSectionSearchTermHighlights(query, sections),
-    [query, sections]
-  );
-
-  useEffect(() => {
-    handleItemsChange();
-    // eslint-disable-next-line react/destructuring-assignment, react-hooks/exhaustive-deps
-  }, [items]);
 
   return {
     query,

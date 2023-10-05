@@ -1,5 +1,3 @@
-/* cspell:disable-next-line */
-import DOMPurify from 'dompurify';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { isCustomSection } from './typeGuards';
 import { OnSubmit, Item, Section, UserDefinedSection, AutocompleteResultSections } from './types';
@@ -138,32 +136,4 @@ export const getActiveSectionsWithData = (
   return activeSectionsWithData;
 };
 
-export const handleSectionSearchTermHighlights = (
-  query: string,
-  sections: UserDefinedSection[]
-) => {
-  // Escape query from special characters
-  function escapeRegExp(string: string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
-
-  sections.forEach((section: UserDefinedSection) => {
-    if (section?.displaySearchTermHighlights) {
-      const sectionName = section?.displayName || section?.identifier;
-
-      document
-        .querySelector(`.${sectionName?.split(' ')?.join('.')}`)
-        ?.querySelectorAll(
-          '.cio-suggestion-text, .cio-product-text, .cio-custom-text, .cio-term-in-group'
-        )
-        .forEach((el: Element) => {
-          const currentText = el?.textContent || '';
-          const boldText = currentText.replace(regex, '<b>$1</b>');
-          // eslint-disable-next-line no-param-reassign
-          if (el) el.innerHTML = DOMPurify.sanitize(boldText);
-        });
-    }
-  });
-};
+export const escapeRegExp = (string: string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
