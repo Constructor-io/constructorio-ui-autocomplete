@@ -25,9 +25,10 @@ export default function SectionItemText({
 
       return (
         <>
-          {splitText[0]}
-          <b>{splitText[1]}</b>
-          {splitText[2]}
+          {splitText.map((split) => {
+            if (queryRegex.test(split)) return <b>{split}</b>;
+            return split;
+          })}
         </>
       );
     }
