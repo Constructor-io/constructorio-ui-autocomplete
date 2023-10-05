@@ -44,10 +44,12 @@ FullFeaturedAndStyledExample.args = {
     {
       identifier: 'Search Suggestions',
       numResults: 8,
+      displaySearchTermHighlights: true,
     },
     {
       identifier: 'Products',
       numResults: 6,
+      displaySearchTermHighlights: true,
     },
   ],
   zeroStateSections: [
