@@ -99,7 +99,6 @@
 
 .cio-autocomplete.full-example-autocomplete-styles .cio-item[aria-selected='true']  {
   background-color: transparent;
-  /* background-color: hsl(0, 0%, 95%); */
   text-decoration: underline;
   border-radius: 0px;
 }
