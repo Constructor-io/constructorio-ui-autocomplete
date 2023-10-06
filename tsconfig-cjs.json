@@ -18,6 +18,6 @@
     "noImplicitAny": false,
     "importHelpers": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "generateVersion.js"],
   "exclude": ["node_modules", "lib", "storybook-static", ".storybook"]
 }
