@@ -115,6 +115,7 @@
 
 .cio-autocomplete.full-example-autocomplete-styles .cio-suggestion-image {
   height: 100%;
+  min-height: 45px;
 }
 
 @media screen and (max-width: 690px) {
