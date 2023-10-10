@@ -2,8 +2,9 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { functionStrings, stringifyWithDefaults } from '../../../utils';
-import { ComponentTemplate, addComponentStoryDescription } from '.';
+import { ComponentTemplate, FullExampleTemplate, addComponentStoryDescription } from '.';
 import {
+  fullFeaturedAndStyledExampleDescription,
   apiKeyDescription,
   cioJsClientDescription,
   componentDescription,
@@ -25,6 +26,48 @@ export default {
     },
   },
 };
+
+let autocompleteClassName = 'cio-autocomplete full-example-autocomplete-styles';
+
+export const FullFeaturedAndStyledExample = FullExampleTemplate.bind({});
+FullFeaturedAndStyledExample.args = {
+  apiKey,
+  onSubmit,
+  autocompleteClassName,
+  placeholder: 'What can we help you find?',
+  advancedParameters: {
+    displaySearchSuggestionImages: true,
+    displaySearchSuggestionResultCounts: true,
+    numTermsWithGroupSuggestions: 6,
+  },
+  sections: [
+    {
+      identifier: 'Search Suggestions',
+      numResults: 8,
+      displaySearchTermHighlights: true,
+    },
+    {
+      identifier: 'Products',
+      numResults: 6,
+      displaySearchTermHighlights: true,
+    },
+  ],
+  zeroStateSections: [
+    {
+      identifier: 'bestsellers',
+      type: 'recommendations',
+      section: 'Products',
+      numResults: 6,
+    },
+  ],
+};
+addComponentStoryDescription(
+  FullFeaturedAndStyledExample,
+  `import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+const args = ${stringifyWithDefaults(FullFeaturedAndStyledExample.args)}`,
+  fullFeaturedAndStyledExampleDescription
+);
 
 export const ProvideAPIKey = ComponentTemplate.bind({});
 ProvideAPIKey.args = { apiKey, onSubmit };
@@ -58,7 +101,7 @@ addComponentStoryDescription(
   placeholderDescription
 );
 
-const autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
+autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
 
 export const ProvideCustomStyles = ComponentTemplate.bind({});
 ProvideCustomStyles.args = { apiKey, onSubmit, autocompleteClassName };

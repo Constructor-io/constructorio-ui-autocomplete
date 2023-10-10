@@ -7,6 +7,19 @@ export function ComponentTemplate(args: CioAutocompleteProps) {
   return <CioAutocomplete {...args} />;
 }
 
+export function FullExampleTemplate(args: CioAutocompleteProps) {
+  return (
+    <div className='cio-autocomplete full-example-autocomplete-styles header'>
+      <svg viewBox='0 0 70 45' width='35' height='35' fill='darkgray' className='menu-icon'>
+        <rect width='70' height='5' />
+        <rect y='20' width='70' height='5' />
+        <rect y='40' width='70' height='5' />
+      </svg>
+      <CioAutocomplete {...args} />
+    </div>
+  );
+}
+
 const componentTemplateCode = `
 function YourComponent() {
   return (
