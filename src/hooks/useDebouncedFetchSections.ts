@@ -10,11 +10,12 @@ import {
   UserDefinedSection,
   AdvancedParameters,
   AdvancedParametersBase,
+  SectionsData,
 } from '../types';
 
 const transformResponse = (response, options) => {
   const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
-  const newSectionsData: AutocompleteResultSections = {};
+  const newSectionsData: SectionsData = {};
   Object.keys(response.sections).forEach((section: string) => {
     newSectionsData[section] = [];
     const sectionItems = response.sections[section].map((item) => ({
@@ -45,7 +46,7 @@ const transformResponse = (response, options) => {
     });
   });
 
-  return newSectionsData;
+  return { sectionsData: newSectionsData, request: response?.request };
 };
 
 const useDebouncedFetchSection = (
@@ -54,7 +55,10 @@ const useDebouncedFetchSection = (
   autocompleteSections: UserDefinedSection[],
   advancedParameters?: AdvancedParameters
 ) => {
-  const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
+  const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({
+    sectionsData: {},
+    request: {},
+  });
   const debouncedSearchTerm = useDebounce(query);
 
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
@@ -95,7 +99,7 @@ const useDebouncedFetchSection = (
           console.log(error);
         }
       } else if (!debouncedSearchTerm) {
-        setSectionsData({});
+        setSectionsData({ sectionsData: {}, request: {} });
       }
     })();
   }, [

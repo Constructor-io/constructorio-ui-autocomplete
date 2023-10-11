@@ -40,7 +40,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientConfig);
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
-  const { activeSections, activeSectionsWithData, zeroStateActiveSections } = useSections(
+  const { activeSections, activeSectionsWithData, zeroStateActiveSections, request } = useSections(
     query,
     cioClient,
     sections,
@@ -60,6 +60,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   return {
     query,
     sections: activeSectionsWithData,
+    request,
     isOpen: isOpen && items?.length > 0,
     getMenuProps: () => ({
       ...getMenuProps(),
