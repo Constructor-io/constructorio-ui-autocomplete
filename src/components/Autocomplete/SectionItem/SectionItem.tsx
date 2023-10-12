@@ -1,5 +1,4 @@
 import React, { ReactNode, useContext } from 'react';
-import { AutocompleteRequestType } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
 import { isProduct, isInGroupSuggestion, isSearchSuggestion } from '../../../typeGuards';
@@ -12,36 +11,12 @@ export interface SectionItemProps {
   displaySearchTermHighlights?: boolean;
 }
 
-export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequestType>) {
-  let featureDisplaySearchSuggestionImages = false;
-  let featureDisplaySearchSuggestionResultCounts = false;
-  if (request?.features?.custom_autosuggest_ui === true) {
-    switch (request?.feature_variants?.custom_autosuggest_ui) {
-      case 'custom_autosuggest_ui_result_count':
-        featureDisplaySearchSuggestionResultCounts = true;
-        break;
-      case 'custom_autosuggest_ui_image':
-        featureDisplaySearchSuggestionImages = true;
-        break;
-      case 'custom_autosuggest_ui_image_result_count':
-        featureDisplaySearchSuggestionImages = true;
-        featureDisplaySearchSuggestionResultCounts = true;
-        break;
-      default:
-        break;
-    }
-  }
-  return {
-    featureDisplaySearchSuggestionImages,
-    featureDisplaySearchSuggestionResultCounts,
-  };
-}
-
 export default function SectionItem(props: SectionItemProps) {
   const { item, children, displaySearchTermHighlights } = props;
-  const { getItemProps, advancedParameters, query, request } = useContext(CioAutocompleteContext);
+  const { getItemProps, advancedParameters, query, featureToggles } =
+    useContext(CioAutocompleteContext);
   const { featureDisplaySearchSuggestionImages, featureDisplaySearchSuggestionResultCounts } =
-    getSearchSuggestionFeatures(request);
+    featureToggles;
   const {
     displaySearchSuggestionImages = featureDisplaySearchSuggestionImages,
     displaySearchSuggestionResultCounts = featureDisplaySearchSuggestionResultCounts,
