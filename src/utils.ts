@@ -1,13 +1,6 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { isCustomSection } from './typeGuards';
-import {
-  OnSubmit,
-  Item,
-  Section,
-  UserDefinedSection,
-  AutocompleteResultSections,
-  SectionsData,
-} from './types';
+import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
