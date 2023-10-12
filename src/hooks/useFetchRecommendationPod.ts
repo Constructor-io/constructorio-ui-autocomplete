@@ -7,9 +7,10 @@ const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
   recommendationPods: RecommendationsSection[]
 ) => {
-  const [recommendationResults, setRecommendationResults] = useState<AutocompleteResultSections>(
-    {}
-  );
+  const [recommendationResults, setRecommendationResults] = useState<AutocompleteResultSections>({
+    sectionsData: {},
+    request: {},
+  });
 
   useEffect(() => {
     if (!cioClient || !Array.isArray(recommendationPods) || recommendationPods.length === 0) return;
@@ -33,7 +34,7 @@ const useFetchRecommendationPod = (
       });
 
       try {
-        setRecommendationResults(recommendationPodResults);
+        setRecommendationResults({ sectionsData: recommendationPodResults, request: {} });
       } catch (error: any) {
         // eslint-disable-next-line no-console
         console.log(error);

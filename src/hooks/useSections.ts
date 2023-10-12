@@ -39,7 +39,10 @@ export default function useSections(
   );
 
   // Fetch Recommendations Results
-  const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
+  const { sectionsData: recommendationsResults } = useFetchRecommendationPod(
+    cioClient,
+    recommendationsSections
+  );
 
   const sectionResults = { ...autocompleteResults, ...recommendationsResults };
 
