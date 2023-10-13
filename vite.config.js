@@ -15,5 +15,6 @@ export default defineConfig({
         entryFileNames: `constructorio-ui-autocomplete-bundled.js`,
       },
     },
+    target: 'es2015'
   },
 });
