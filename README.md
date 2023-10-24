@@ -195,4 +195,4 @@ npm run build-storybook   # generate storybook static bundle for deploy with GH 
 
 ## Usage examples
 - [Javascript](https://codesandbox.io/s/autocomplete-ui-integration-plain-y9zjl7)
-- [Remix App](https://codesandbox.io/p/sandbox/remix-example-for-constructorio-ui-autocomplete-m3n4zt)
+- [Remix App](https://codesandbox.io/p/sandbox/remix-example-for-constructorio-ui-autocomplete-kk5vh5?file=%2Fapp%2Froutes%2Findex.tsx)
