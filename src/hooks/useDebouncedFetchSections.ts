@@ -55,7 +55,7 @@ const useDebouncedFetchSection = (
   advancedParameters?: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({});
-  const debouncedSearchTerm = useDebounce(query);
+  const debouncedSearchTerm = useDebounce(query, advancedParameters?.debounce);
 
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
     advancedParameters || {};
@@ -63,6 +63,9 @@ const useDebouncedFetchSection = (
     const decoratedParameters: AdvancedParametersBase & IAutocompleteParameters = {
       ...advancedParameters,
     };
+
+    // eslint-disable-next-line no-param-reassign
+    delete decoratedParameters?.debounce;
 
     if (autocompleteSections) {
       decoratedParameters.resultsPerSection = autocompleteSections.reduce(
