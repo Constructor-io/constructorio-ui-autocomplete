@@ -10,6 +10,7 @@ import {
   apiKey,
   onSubmitDefault as onSubmit,
   termsWithImagesAndCountsDescription,
+  debounceDescription,
 } from '../../../constants';
 
 export default {
@@ -81,4 +82,18 @@ addHookStoryCode(
   TermsWithImagesAndCounts,
   `const args = ${stringifyWithDefaults(TermsWithImagesAndCounts.args)}`,
   termsWithImagesAndCountsDescription
+);
+
+export const Debounce = HooksTemplate.bind({});
+Debounce.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    debounce: 100,
+  },
+};
+addHookStoryCode(
+  Debounce,
+  `const args = ${stringifyWithDefaults(Debounce.args)}`,
+  debounceDescription
 );
