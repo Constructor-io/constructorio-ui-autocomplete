@@ -19,6 +19,7 @@ export interface AdvancedParametersBase {
   numGroupsSuggestedPerTerm?: number;
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
+  debounce?: number;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
