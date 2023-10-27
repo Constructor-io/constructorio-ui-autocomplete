@@ -61,7 +61,6 @@ const useDebouncedFetchSection = (
   });
   const debouncedSearchTerm = useDebounce(query, advancedParameters?.debounce);
 
-
   const { numTermsWithGroupSuggestions = 0, numGroupsSuggestedPerTerm = 0 } =
     advancedParameters || {};
   const autocompleteParameters = useMemo(() => {
