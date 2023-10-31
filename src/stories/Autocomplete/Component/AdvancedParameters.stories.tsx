@@ -10,6 +10,7 @@ import {
   apiKey,
   onSubmitDefault as onSubmit,
   termsWithImagesAndCountsDescription,
+  debounceDescription,
 } from '../../../constants';
 
 export default {
@@ -81,4 +82,18 @@ addComponentStoryDescription(
   TermsWithImagesAndCounts,
   `const args = ${stringifyWithDefaults(TermsWithImagesAndCounts.args)}`,
   termsWithImagesAndCountsDescription
+);
+
+export const Debounce = ComponentTemplate.bind({});
+Debounce.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    debounce: 100,
+  },
+};
+addComponentStoryDescription(
+  Debounce,
+  `const args = ${stringifyWithDefaults(Debounce.args)}`,
+  debounceDescription
 );
