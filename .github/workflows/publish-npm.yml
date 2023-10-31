@@ -1,0 +1,52 @@
+name: 'Publish: Publish to NPM'
+
+on:
+  workflow_call:
+    inputs:
+      deploy-sha:
+        description: 'SHA of the commit to deploy'
+        required: true
+        type: string
+
+  # This workflow is intended to be called from the primary publish workflow
+  # automatically. The manual trigger is maintained for partially failed workflows
+  # or edge cases that require this be run independently.
+  workflow_dispatch:
+    inputs:
+      deploy-sha:
+        description: 'SHA of the commit to deploy'
+        required: true
+        type: string
+  
+jobs:
+  publish-to-npm:
+    name: Publish to NPM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.deploy-sha }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.x
+          registry-url: https://registry.npmjs.org/
+          scope: '@constructorio'
+          token: ${{ secrets.NPM_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Build compiled package for publishing
+        run: npm run compile
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Get new release version
+        id: get-version
+        run: echo "version=v$(npm pkg get version | tr -d '\"')" >> "$GITHUB_OUTPUT"
+      - name: Notify Slack about new publish to NPM
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          notification_title: "☁️ New constructor-ui-autocomplete release published to npm at version ${{ steps.get-version.outputs.version }}"
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
