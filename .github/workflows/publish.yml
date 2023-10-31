@@ -1,0 +1,97 @@
+name: Publish
+
+on:
+  # This allows us to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      version-strategy:
+        type: choice
+        description: 'Version strategy'
+        required: true
+        options:
+            - 'patch'
+            - 'minor'
+            - 'major'
+        default: patch
+      title:
+        type: string
+        description: 'Release title'
+        required: true
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+# We need these permissions create new GitHub releases
+permissions: write-all
+
+jobs:
+  update_package_version:
+    name: Update package version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Slack about new release
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          notification_title: "⏳ Starting new constructor-ui-autocomplete deployment"
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - uses: actions/checkout@v4
+      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.12.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Bump release version
+        run: npm version ${{ github.event.inputs.version-strategy }} -m "${{ github.event.inputs.title }}"
+      - name: Push main branch
+        run: git push origin main --follow-tags
+      - name: Set new release version
+        id: set-version
+        run: echo "version=v$(npm pkg get version | tr -d '\"')" >> "$GITHUB_OUTPUT"
+      - name: Set deployment SHA
+        id: set-deploy-sha
+        run: echo "deploy-sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Notify Slack about new package version
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          notification_title: "✅ constructor-ui-autocomplete package version bumped to ${{ steps.set-version.outputs.version }} successfully"
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    outputs:
+        version: ${{ steps.set-version.outputs.version }}
+        deploy-sha: ${{ steps.set-deploy-sha.outputs.deploy-sha }}
+  create_github_release:
+    name: Create GitHub release
+    needs: update_package_version
+    uses: ./.github/workflows/publish-create-github-release.yml
+    with:
+      version: ${{ needs.update_package_version.outputs.version }}
+      title: ${{ github.event.inputs.title }}
+      deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
+    secrets: inherit
+  publish_to_npm:
+    name: Publish to NPM
+    needs: update_package_version
+    uses: ./.github/workflows/publish-npm.yml
+    with:
+      deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
+    secrets: inherit
+  final_deployment_notification:
+    name: Final deployment notification
+    needs: [create_github_release, publish_to_npm]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Report deployment status to Slack
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          notification_title: "🏁 Constructor-ui-autocomplete deployment completed"
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
