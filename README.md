@@ -159,6 +159,20 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
 ### Known Issues
 
+**Older Javascript environments**
+
+The library provides two different builds. CommonJS (cjs) and ECMAScript Modules (mjs) 
+
+For ECMAScript Modules (mjs) build. The Javascript version is ESNext which might not be supported by your environment.
+If that's the case and your environment is using an older Javascript version like ES6 (ES2015), you might get this error.
+
+`Module parse failed: Unexpected token (15:32)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file`
+
+To solve this you can import the CommonJS (cjs) build which supports ES6 (ES2015) syntax:
+
+`import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/cjs'`
+
 **ESLint**
 
 There is a known issue with ESLint where it fails to resolve the paths exposed in the `exports` statement of NPM packages. If you are receiving the following error, you can safely disable ESLint using `// eslint-disable-line` for that line.
