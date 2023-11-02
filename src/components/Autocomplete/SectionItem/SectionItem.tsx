@@ -13,9 +13,14 @@ export interface SectionItemProps {
 
 export default function SectionItem(props: SectionItemProps) {
   const { item, children, displaySearchTermHighlights } = props;
-  const { getItemProps, advancedParameters, query } = useContext(CioAutocompleteContext);
-  const { displaySearchSuggestionImages, displaySearchSuggestionResultCounts } =
-    advancedParameters || {};
+  const { getItemProps, advancedParameters, query, featureToggles } =
+    useContext(CioAutocompleteContext);
+  const { featureDisplaySearchSuggestionImages, featureDisplaySearchSuggestionResultCounts } =
+    featureToggles;
+  const {
+    displaySearchSuggestionImages = featureDisplaySearchSuggestionImages,
+    displaySearchSuggestionResultCounts = featureDisplaySearchSuggestionResultCounts,
+  } = advancedParameters || {};
   let defaultChildren: ReactNode;
 
   if (isProduct(item)) {

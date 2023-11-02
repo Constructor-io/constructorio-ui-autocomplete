@@ -3,7 +3,7 @@ import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import { CioAutocompleteProps, CioClientConfig, UserDefinedSection } from '../types';
 import usePrevious from './usePrevious';
-import { getItemPosition } from '../utils';
+import { getItemPosition, getSearchSuggestionFeatures } from '../utils';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useItems from './useItems';
@@ -40,7 +40,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientConfig);
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
-  const { activeSections, activeSectionsWithData, zeroStateActiveSections } = useSections(
+  const { activeSections, activeSectionsWithData, zeroStateActiveSections, request } = useSections(
     query,
     cioClient,
     sections,
@@ -60,6 +60,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   return {
     query,
     sections: activeSectionsWithData,
+    request,
+    featureToggles: getSearchSuggestionFeatures(request),
     isOpen: isOpen && items?.length > 0,
     getMenuProps: () => ({
       ...getMenuProps(),

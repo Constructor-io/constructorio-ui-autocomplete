@@ -7,6 +7,7 @@ import {
   SearchSuggestion as SearchSuggestionFromClient,
   Product as ProductFromClient,
   Item as ItemBase,
+  AutocompleteRequestType,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
@@ -28,7 +29,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
   onSubmit: OnSubmit;
   onFocus?: () => void;
-  onChange?: (string) => void;
+  onChange?: (input: string) => void;
   placeholder?: string;
   children?: ReactNode;
   sections?: UserDefinedSection[];
@@ -56,9 +57,14 @@ export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
 
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
+export type SectionsData = {
+  [key: string]: Item[] | undefined;
+};
+
 /** CIO API Response Data */
 export type AutocompleteResultSections = {
-  [key: string]: Item[] | undefined;
+  sectionsData: SectionsData;
+  request: Partial<AutocompleteRequestType>;
 };
 type SectionType = 'autocomplete' | 'recommendations' | 'custom';
 

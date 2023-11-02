@@ -1,12 +1,38 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import { AutocompleteRequestType } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isCustomSection } from './typeGuards';
-import { OnSubmit, Item, Section, UserDefinedSection, AutocompleteResultSections } from './types';
+import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   index: number;
   sectionId: string;
 };
+
+export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequestType>) {
+  let featureDisplaySearchSuggestionImages = false;
+  let featureDisplaySearchSuggestionResultCounts = false;
+  if (request?.features?.custom_autosuggest_ui === true) {
+    switch (request?.feature_variants?.custom_autosuggest_ui) {
+      case 'custom_autosuggest_ui_result_count':
+        featureDisplaySearchSuggestionResultCounts = true;
+        break;
+      case 'custom_autosuggest_ui_image':
+        featureDisplaySearchSuggestionImages = true;
+        break;
+      case 'custom_autosuggest_ui_image_result_count':
+        featureDisplaySearchSuggestionImages = true;
+        featureDisplaySearchSuggestionResultCounts = true;
+        break;
+      default:
+        break;
+    }
+  }
+  return {
+    featureDisplaySearchSuggestionImages,
+    featureDisplaySearchSuggestionResultCounts,
+  };
+}
 
 export const getItemPosition: GetItemPosition = ({ item, items }) => {
   const index = items.findIndex((itemInFlatList) => itemInFlatList?.id === item?.id);
@@ -111,7 +137,7 @@ export const getCioClient = (apiKey?: string) => {
 
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
-  sectionResults: AutocompleteResultSections
+  sectionResults: SectionsData
 ) => {
   const activeSectionsWithData: Section[] = [];
   activeSections?.forEach((config) => {

@@ -31,7 +31,7 @@ export default function useSections(
   ) as RecommendationsSection[];
 
   // Fetch Autocomplete Results
-  const autocompleteResults = useDebouncedFetchSection(
+  const { sectionsData: autocompleteResults, request } = useDebouncedFetchSection(
     query,
     cioClient,
     autocompleteSections,
@@ -62,5 +62,6 @@ export default function useSections(
     activeSections,
     activeSectionsWithData,
     zeroStateActiveSections,
+    request,
   };
 }
