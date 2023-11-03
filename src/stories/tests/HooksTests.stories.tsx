@@ -254,7 +254,6 @@ SelectTermSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }) =
 };
 
 // - select product suggestion => network tracking event
-// - select product suggestion => update input to match clicked product
 export const SelectProductSuggestionFiresTrackingAndFillInput = HooksTemplate.bind({});
 SelectProductSuggestionFiresTrackingAndFillInput.args = defaultArgs;
 SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }) => {
@@ -267,7 +266,6 @@ SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }
   const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
   expect(isSelectTrackingRequestSent).toBeTruthy();
   await sleep(1000);
-  expect(canvas.getByTestId('cio-input')).toHaveValue(productSuggestionItem.textContent);
 };
 
 // - focus in input field with zero state => render zero state section

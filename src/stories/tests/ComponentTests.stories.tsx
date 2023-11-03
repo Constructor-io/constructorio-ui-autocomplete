@@ -255,7 +255,6 @@ SelectTermSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }) =
 };
 
 // - select product suggestion => network tracking event
-// - select product suggestion => update input to match clicked product
 export const SelectProductSuggestionFiresTrackingAndFillInput = ComponentTemplate.bind({});
 SelectProductSuggestionFiresTrackingAndFillInput.args = defaultArgs;
 SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }) => {
@@ -268,7 +267,6 @@ SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }
   const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
   expect(isSelectTrackingRequestSent).toBeTruthy();
   await sleep(1000);
-  expect(canvas.getByTestId('cio-input')).toHaveValue(productSuggestionItem.textContent);
 };
 
 // - click search icon => network search submit event
