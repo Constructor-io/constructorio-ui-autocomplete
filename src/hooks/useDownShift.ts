@@ -25,9 +25,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
     onSelectedItemChange({ selectedItem }) {
       if (selectedItem) {
         if (selectedItem?.section === 'Search Suggestions') {
-          setQuery(selectedItem.value);
-        } else {
-          setQuery('');
+          setQuery(selectedItem.value || '');
         }
         if (selectedItem?.value) {
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
