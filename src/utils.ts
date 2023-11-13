@@ -125,11 +125,15 @@ export const disableStoryActions = (story) => {
 
 export const getCioClient = (apiKey?: string) => {
   if (apiKey) {
-    return new ConstructorIOClient({
+    const cioClient = new ConstructorIOClient({
       apiKey,
       sendTrackingEvents: true,
       version: `cio-ui-autocomplete-${version}`,
     });
+
+    // eslint-disable-next-line no-console
+    cioClient.tracker.on('error', (error) => console.error(error));
+    return cioClient;
   }
 
   return null;
