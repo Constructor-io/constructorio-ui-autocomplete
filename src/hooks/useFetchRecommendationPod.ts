@@ -19,13 +19,13 @@ const useFetchRecommendationPod = (
       );
       const recommendationPodResults = {};
 
-      responses.forEach(({ response }) => {
+      responses.forEach(({ response }, index) => {
         const { pod, results } = response;
         if (pod?.id) {
           recommendationPodResults[pod.id] = results?.map((item: Item) => ({
             ...item,
             id: item?.data?.id,
-            section: pod.id,
+            section: recommendationPods[index]?.section || 'Products',
           }));
         }
       });
