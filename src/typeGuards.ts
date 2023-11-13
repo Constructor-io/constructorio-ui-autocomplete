@@ -8,7 +8,7 @@ import {
 } from './types';
 
 export function isProduct(item: Item): item is Product {
-  return (item as Product).section === 'Products';
+  return item.section !== 'Search Suggestions' && (item as Product).data?.image_url !== undefined;
 }
 
 export function isSearchSuggestion(item: Item): item is SearchSuggestion {
