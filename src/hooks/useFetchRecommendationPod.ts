@@ -26,6 +26,7 @@ const useFetchRecommendationPod = (
             ...item,
             id: item?.data?.id,
             section: recommendationPods[index]?.section || 'Products',
+            podId: pod.id,
           }));
         }
       });
