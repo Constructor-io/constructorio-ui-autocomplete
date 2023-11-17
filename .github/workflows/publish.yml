@@ -44,18 +44,51 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18.12.x'
+
       - name: Install dependencies
         run: npm ci
+
+      - name: Get latest release tag
+        id: last_release
+        uses: InsonusK/get-latest-release@v1.0.1
+        with:
+          myToken: ${{ github.token }}
+          view_top: 1
+
+      - name: Prepare version and strategy
+        id: prepare-args
+        run: |
+            # remove the "v" preffix.
+            version=$(echo "${{steps.last_release.outputs.tag_name}}" | tr -d 'v')
+
+            # maps the strategy so the "increment-semantic-version" can understand it.
+            strategy=$(node .github/workflows/helpers/map-strategy.js ${{ github.event.inputs.version-strategy }})
+
+            echo "strategy=$strategy" >> "$GITHUB_OUTPUT"
+            echo "version=$version" >> "$GITHUB_OUTPUT"
+
       - name: Bump release version
-        run: npm version ${{ github.event.inputs.version-strategy }} -m "${{ github.event.inputs.title }}"
-      - name: Push main branch
-        run: git push origin main --follow-tags
+        id: bump_version
+        uses: christian-draeger/increment-semantic-version@1.0.2
+        with:
+          current-version: ${{ steps.prepare-args.outputs.version }}
+          version-fragment: ${{ steps.prepare-args.outputs.strategy }}
+
       - name: Set new release version
         id: set-version
-        run: echo "version=v$(npm pkg get version | tr -d '\"')" >> "$GITHUB_OUTPUT"
+        run: echo "version=v${{ steps.bump_version.outputs.next-version }}" >> "$GITHUB_OUTPUT"
+
+      - name: Create release git tag
+        run: git tag -fa ${{ steps.set-version.outputs.version }} -m "${{ github.event.inputs.title }}"
+
+      - name: Push tag to main branch
+        # We use --force here to handle any already existing tags - In case we need to re-run this workflow.
+        run: git push --force origin ${{ steps.set-version.outputs.version }}
+
       - name: Set deployment SHA
         id: set-deploy-sha
         run: echo "deploy-sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Notify Slack about new package version
         uses: ravsamhq/notify-slack-action@v2
         with:
@@ -66,6 +99,7 @@ jobs:
     outputs:
         version: ${{ steps.set-version.outputs.version }}
         deploy-sha: ${{ steps.set-deploy-sha.outputs.deploy-sha }}
+
   create_github_release:
     name: Create GitHub release
     needs: update_package_version
@@ -75,6 +109,7 @@ jobs:
       title: ${{ github.event.inputs.title }}
       deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
     secrets: inherit
+    
   publish_to_npm:
     name: Publish to NPM
     needs: update_package_version
@@ -82,11 +117,11 @@ jobs:
     with:
       deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
     secrets: inherit
+    
   final_deployment_notification:
     name: Final deployment notification
     needs: [create_github_release, publish_to_npm]
     runs-on: ubuntu-latest
-    if: always()
     steps:
       - name: Report deployment status to Slack
         uses: ravsamhq/notify-slack-action@v2

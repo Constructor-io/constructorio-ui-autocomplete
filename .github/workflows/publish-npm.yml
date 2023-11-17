@@ -26,27 +26,48 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.deploy-sha }}
+          fetch-tags: true
+          # fetch all history so that git describe works
+          fetch-depth: 0
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18.12.x
           registry-url: https://registry.npmjs.org/
           scope: '@constructorio'
           token: ${{ secrets.NPM_TOKEN }}
+
       - name: Install dependencies
         run: npm ci
+
       - name: Build compiled package for publishing
         run: npm run compile
+
+      - name: Update package.json version field
+        id: update-version
+        run: |
+          # get the latest git tag
+          new_version=$(git describe --tags --abbrev=0 | tr -d 'v')
+
+          if [ "$new_version" = "" ]; then
+            echo "No new version found!"
+            exit 1
+          fi
+
+          # updates the package.json version field
+          jq --arg new_version "$new_version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
+          
+          echo "new-version=$new_version" >> $GITHUB_OUTPUT
+
       - name: Publish to NPM
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Get new release version
-        id: get-version
-        run: echo "version=v$(npm pkg get version | tr -d '\"')" >> "$GITHUB_OUTPUT"
+
       - name: Notify Slack about new publish to NPM
         uses: ravsamhq/notify-slack-action@v2
         with:
-          notification_title: "☁️ New constructor-ui-autocomplete release published to npm at version ${{ steps.get-version.outputs.version }}"
+          notification_title: "☁️ New constructor-ui-autocomplete release published to npm at version ${{ steps.update-version.outputs.new-version }}"
           status: ${{ job.status }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
