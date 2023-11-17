@@ -58,7 +58,7 @@ jobs:
       - name: Prepare version and strategy arguments
         id: prepare-args
         run: |
-            # remove the "v" preffix.
+            # remove the "v" prefix.
             version=$(echo "${{steps.last_release.outputs.tag_name}}" | tr -d 'v')
 
             # maps the strategy so the "increment-semantic-version" can understand it.
