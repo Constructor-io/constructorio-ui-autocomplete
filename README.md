@@ -202,6 +202,23 @@ npm run compile           # generate lib folder for publishing to npm
 npm run build-storybook   # generate storybook static bundle for deploy with GH Pages
 ```
 
+## Publishing new versions
+
+Dispatch the [Publish](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/publish.yml) workflow in GitHub Actions. You're required to provide two required arguments:
+- **Version Strategy**: `major`, `minor`, or `patch`.
+- **Title**: A title for the release.
+
+This workflow will automatically:
+1. Bump the library version using the provided strategy.
+2. Create a new git tag.
+3. Create a new GitHub release.
+4. Compile the library.
+5. Publish the new version to NPM.
+6. Report the progress on the [#integrations-os-ui-deployment-notifications](https://constructor.slack.com/archives/C061D3CFVR9) Slack channel.
+
+#### ℹ️ Note: Please don't manually increase the package.json version or create new git tags.
+The library version is tracked by releases and git tags. We intentionally keep the package.json version at `0.0.0` to avoid pushing changes to the `main` branch. This solves many security concerns by avoiding the need for branch-protection rule exceptions. 
+
 ## Supporting Docs
 
 - [Storybook 7 Introduction](https://storybook.js.org/docs/7.0/react/get-started/introduction)
