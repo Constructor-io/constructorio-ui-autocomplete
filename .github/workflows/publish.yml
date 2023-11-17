@@ -122,11 +122,23 @@ jobs:
     name: Final deployment notification
     needs: [create_github_release, publish_to_npm]
     runs-on: ubuntu-latest
+    if: always()
     steps:
+      - name: Set final pipeline status
+        id: set-final-pipeline-status
+        run: |
+          status="${{ needs.create_github_release.result }}"
+
+          if [ "$status" = "success" ]; then
+            status="${{ needs.publish_to_npm.result }}"
+          fi
+
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
       - name: Report deployment status to Slack
         uses: ravsamhq/notify-slack-action@v2
         with:
           notification_title: "🏁 Constructor-ui-autocomplete deployment completed"
-          status: ${{ job.status }}
+          status: ${{ steps.set-final-pipeline-status.outputs.status }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
