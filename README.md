@@ -214,7 +214,7 @@ This workflow will automatically:
 3. Create a new GitHub release.
 4. Compile the library.
 5. Publish the new version to NPM.
-6. Report the progress on the [#integrations-os-ui-deployment-notifications](https://constructor.slack.com/archives/C061D3CFVR9) Slack channel.
+6. Report the progress on the [relevant Slack channel](https://constructor.slack.com/archives/C061D3CFVR9).
 
 #### ℹ️ Note: Please don't manually increase the package.json version or create new git tags.
 The library version is tracked by releases and git tags. We intentionally keep the package.json version at `0.0.0` to avoid pushing changes to the `main` branch. This solves many security concerns by avoiding the need for branch-protection rule exceptions. 
