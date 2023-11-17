@@ -43,6 +43,7 @@ jobs:
       - name: Build compiled package for publishing
         run: npm run compile
 
+      # This is the only way to pass the version to npm publish :/
       - name: Update package.json version field
         id: update-version
         run: |
@@ -56,7 +57,7 @@ jobs:
 
           # updates the package.json version field
           jq --arg new_version "$new_version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
-          
+
           echo "new-version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Publish to NPM

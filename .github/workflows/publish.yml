@@ -55,7 +55,7 @@ jobs:
           myToken: ${{ github.token }}
           view_top: 1
 
-      - name: Prepare version and strategy
+      - name: Prepare version and strategy arguments
         id: prepare-args
         run: |
             # remove the "v" preffix.
@@ -81,7 +81,7 @@ jobs:
       - name: Create release git tag
         run: git tag -fa ${{ steps.set-version.outputs.version }} -m "${{ github.event.inputs.title }}"
 
-      - name: Push tag to main branch
+      - name: Push the created tag
         # We use --force here to handle any already existing tags - In case we need to re-run this workflow.
         run: git push --force origin ${{ steps.set-version.outputs.version }}
 
