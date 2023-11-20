@@ -1,0 +1,23 @@
+name: Compile Code
+
+description: 'Creates all code artefacts required to publish a new version.'
+
+inputs:
+  version: 
+    description: 'The current version.'
+    type: string
+    required: true
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Genarate new src/version.ts file
+      shell: bash
+      run: |
+        # remove the "v" preffix.
+        current_version=$(echo "${{ inputs.version }}" | tr -d 'v')
+
+        echo "export default '$current_version';" > src/version.ts
+      
+    - run: npm run compile
+      shell: bash

@@ -1,0 +1,57 @@
+name: Create new version tag
+
+inputs:
+  last-version: 
+    type: string
+    required: true
+
+  version-strategy:
+    type: string
+    required: true
+
+  slack-webhook-url: 
+    type: string
+    required: true
+
+outputs:
+  next-version:
+    value: ${{ steps.next-version.outputs.version }}
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Set package.json current version
+      shell: bash
+      run: |
+          # remove the "v" preffix.
+          current_version=$(echo "${{ inputs.last-version }}" | tr -d 'v')
+
+          # update the package.json file with the current version.
+          jq --arg current_version "$current_version" '.version = $current_version' package.json > tmp.json && mv tmp.json package.json
+
+    - name: Run npm version
+      shell: bash
+      run: "npm version ${{ inputs.version-strategy }} --git-tag-version=false --allow-same-version"
+
+    - name: Get next version
+      shell: bash
+      id: next-version
+      run: |
+        echo "version=v$(jq '.version' package.json --raw-output)" >> "$GITHUB_OUTPUT"
+
+    - name: Create release git tag
+      shell: bash
+      run: git tag -fa ${{ steps.next-version.outputs.version }} -m "${{ github.event.inputs.title }}"
+
+    - name: Push tag to main branch
+      shell: bash
+      # We use --force here to handle any already existing tags - In case we need to re-run this workflow.
+      run: git push --force origin ${{ steps.next-version.outputs.version }}
+
+    - name: Notify Slack about new package version
+      uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
+      with:
+        notification_title: "✅ constructor-ui-autocomplete package version bumped to ${{ steps.next-version.outputs.version }} successfully"
+        status: ${{ job.status }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.slack-webhook-url }}

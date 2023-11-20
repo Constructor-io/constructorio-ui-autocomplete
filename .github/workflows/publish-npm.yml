@@ -3,8 +3,8 @@ name: 'Publish: Publish to NPM'
 on:
   workflow_call:
     inputs:
-      deploy-sha:
-        description: 'SHA of the commit to deploy'
+      version:
+        description: 'The version to publish'
         required: true
         type: string
 
@@ -13,8 +13,8 @@ on:
   # or edge cases that require this be run independently.
   workflow_dispatch:
     inputs:
-      deploy-sha:
-        description: 'SHA of the commit to deploy'
+      version:
+        description: 'The version to publish.'
         required: true
         type: string
   
@@ -25,10 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.deploy-sha }}
-          fetch-tags: true
-          # fetch all history so that git describe works
-          fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
       - uses: actions/setup-node@v3
         with:
@@ -41,23 +38,19 @@ jobs:
         run: npm ci
 
       - name: Build compiled package for publishing
-        run: npm run compile
+        uses: "./.github/actions/compile"
+        with: 
+          version: ${{ inputs.version }}
 
-      # This is the only way to pass the version to npm publish :/
       - name: Update package.json version field
         id: update-version
         run: |
-          # get the latest git tag
-          new_version=$(git describe --tags --abbrev=0 | tr -d 'v')
-
-          if [ "$new_version" = "" ]; then
-            echo "No new version found!"
-            exit 1
-          fi
+          # removes the "v" preffix.
+          new_version=$(echo "${{ inputs.version }}" | tr -d 'v')
 
           # updates the package.json version field
           jq --arg new_version "$new_version" '.version = $new_version' package.json > tmp.json && mv tmp.json package.json
-
+          
           echo "new-version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Publish to NPM
@@ -66,7 +59,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Notify Slack about new publish to NPM
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2
         with:
           notification_title: "☁️ New constructor-ui-autocomplete release published to npm at version ${{ steps.update-version.outputs.new-version }}"
           status: ${{ job.status }}

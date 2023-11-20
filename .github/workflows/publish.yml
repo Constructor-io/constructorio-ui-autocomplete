@@ -22,25 +22,29 @@ concurrency:
   group: deploy
   cancel-in-progress: true
 
-# We need these permissions create new GitHub releases
-permissions: write-all
-
 jobs:
+  deploy_storybook:
+    name: Deploy Storybook
+    uses: ./.github/workflows/deploy-storybook.yml
+
   update_package_version:
     name: Update package version
     runs-on: ubuntu-latest
     steps:
       - name: Notify Slack about new release
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
         with:
           notification_title: "⏳ Starting new constructor-ui-autocomplete deployment"
           status: ${{ job.status }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - uses: actions/checkout@v4
-      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+
+      - uses: oleksiyrudenko/gha-git-credentials@ac5b66bcf3873df4259c681d957d8c145980171f # v2.1.1
         with:
           token: '${{ secrets.GITHUB_TOKEN }}'
+
       - uses: actions/setup-node@v3
         with:
           node-version: '18.12.x'
@@ -48,66 +52,31 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Get latest release tag
-        id: last_release
-        uses: InsonusK/get-latest-release@v1.0.1
+      - name: Get latest release
+        id: last-release
+        uses: pozetroninc/github-action-get-latest-release@d1dafdb6e338bdab109e6afce581a01858680dfb # v0.7.0
         with:
-          myToken: ${{ github.token }}
-          view_top: 1
+          repository: ${{ github.repository }}
+          excludes: "prerelease, draft"
 
-      - name: Prepare version and strategy arguments
-        id: prepare-args
-        run: |
-            # remove the "v" prefix.
-            version=$(echo "${{steps.last_release.outputs.tag_name}}" | tr -d 'v')
-
-            # maps the strategy so the "increment-semantic-version" can understand it.
-            strategy=$(node .github/workflows/helpers/map-strategy.js ${{ github.event.inputs.version-strategy }})
-
-            echo "strategy=$strategy" >> "$GITHUB_OUTPUT"
-            echo "version=$version" >> "$GITHUB_OUTPUT"
-
-      - name: Bump release version
-        id: bump_version
-        uses: christian-draeger/increment-semantic-version@1.0.2
+      - name: Create new git tag
+        uses: "./.github/actions/create-version-tag"
+        id: tag
         with:
-          current-version: ${{ steps.prepare-args.outputs.version }}
-          version-fragment: ${{ steps.prepare-args.outputs.strategy }}
+          last-version: ${{ steps.last-release.outputs.release }}
+          version-strategy: ${{ inputs.version-strategy }}
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
 
-      - name: Set new release version
-        id: set-version
-        run: echo "version=v${{ steps.bump_version.outputs.next-version }}" >> "$GITHUB_OUTPUT"
-
-      - name: Create release git tag
-        run: git tag -fa ${{ steps.set-version.outputs.version }} -m "${{ github.event.inputs.title }}"
-
-      - name: Push the created tag
-        # We use --force here to handle any already existing tags - In case we need to re-run this workflow.
-        run: git push --force origin ${{ steps.set-version.outputs.version }}
-
-      - name: Set deployment SHA
-        id: set-deploy-sha
-        run: echo "deploy-sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-
-      - name: Notify Slack about new package version
-        uses: ravsamhq/notify-slack-action@v2
-        with:
-          notification_title: "✅ constructor-ui-autocomplete package version bumped to ${{ steps.set-version.outputs.version }} successfully"
-          status: ${{ job.status }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     outputs:
-        version: ${{ steps.set-version.outputs.version }}
-        deploy-sha: ${{ steps.set-deploy-sha.outputs.deploy-sha }}
+        version: ${{ steps.tag.outputs.next-version }}
 
   create_github_release:
     name: Create GitHub release
     needs: update_package_version
-    uses: ./.github/workflows/publish-create-github-release.yml
+    uses: ./.github/workflows/create-github-release.yml
     with:
       version: ${{ needs.update_package_version.outputs.version }}
       title: ${{ github.event.inputs.title }}
-      deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
     secrets: inherit
 
   publish_to_npm:
@@ -115,7 +84,7 @@ jobs:
     needs: update_package_version
     uses: ./.github/workflows/publish-npm.yml
     with:
-      deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
+      version: ${{ needs.update_package_version.outputs.version }}
     secrets: inherit
 
   publish_to_cdn:
