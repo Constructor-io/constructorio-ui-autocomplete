@@ -109,7 +109,7 @@ jobs:
       title: ${{ github.event.inputs.title }}
       deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
     secrets: inherit
-    
+
   publish_to_npm:
     name: Publish to NPM
     needs: update_package_version
@@ -117,10 +117,18 @@ jobs:
     with:
       deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
     secrets: inherit
-    
+
+  publish_to_cdn:
+    name: Publish to CDN
+    needs: update_package_version
+    uses: ./.github/workflows/publish-cdn.yml
+    with:
+      version: ${{ needs.update_package_version.outputs.version }}
+    secrets: inherit
+
   final_deployment_notification:
     name: Final deployment notification
-    needs: [create_github_release, publish_to_npm]
+    needs: [create_github_release, publish_to_npm, publish_to_cdn]
     runs-on: ubuntu-latest
     if: always()
     steps:
