@@ -195,13 +195,6 @@ npm run dev             # start a local dev server for Storybook
 npm run lint            # run linter
 ```
 
-### Maintain Library
-
-```bash
-npm run compile           # generate lib folder for publishing to npm
-npm run build-storybook   # generate storybook static bundle for deploy with GH Pages
-```
-
 ## Publishing new versions
 
 Dispatch the [Publish](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/publish.yml) workflow in GitHub Actions. You're required to provide two required arguments:
@@ -218,6 +211,13 @@ This workflow will automatically:
 
 #### ℹ️ Note: Please don't manually increase the package.json version or create new git tags.
 The library version is tracked by releases and git tags. We intentionally keep the package.json version at `0.0.0` to avoid pushing changes to the `main` branch. This solves many security concerns by avoiding the need for branch-protection rule exceptions. 
+
+## New Storybook Version
+
+Dispatch the [Deploy Storybook](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/deploy-storybook.yml) workflow in GitHub Actions.
+
+#### ℹ️ Note: This is already done automatically when publishing a new version.
+
 
 ## Supporting Docs
 
