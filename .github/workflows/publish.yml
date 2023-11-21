@@ -23,10 +23,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy_storybook:
-    name: Deploy Storybook
-    uses: ./.github/workflows/deploy-storybook.yml
-
   update_package_version:
     name: Update package version
     runs-on: ubuntu-latest
@@ -78,7 +74,7 @@ jobs:
       version: ${{ needs.update_package_version.outputs.version }}
       title: ${{ github.event.inputs.title }}
     secrets: inherit
-
+    
   publish_to_npm:
     name: Publish to NPM
     needs: update_package_version
@@ -86,36 +82,33 @@ jobs:
     with:
       version: ${{ needs.update_package_version.outputs.version }}
     secrets: inherit
-
-  publish_to_cdn:
-    name: Publish to CDN
-    needs: update_package_version
-    uses: ./.github/workflows/publish-cdn.yml
-    with:
-      version: ${{ needs.update_package_version.outputs.version }}
-    secrets: inherit
+    
+  deploy_storybook:
+    needs: [create_github_release, publish_to_npm]
+    name: Deploy Storybook
+    uses: ./.github/workflows/deploy-storybook.yml
 
   final_deployment_notification:
     name: Final deployment notification
-    needs: [create_github_release, publish_to_npm, publish_to_cdn]
     runs-on: ubuntu-latest
     if: always()
+    needs: [
+      create_github_release, 
+      publish_to_npm, 
+      update_package_version, 
+      deploy_storybook
+    ]
     steps:
-      - name: Set final pipeline status
-        id: set-final-pipeline-status
-        run: |
-          status="${{ needs.create_github_release.result }}"
-
-          if [ "$status" = "success" ]; then
-            status="${{ needs.publish_to_npm.result }}"
-          fi
-
-          echo "status=$status" >> "$GITHUB_OUTPUT"
+      - name: Get workflow conclusion
+        id: workflow-conclusion
+        uses: technote-space/workflow-conclusion-action@45ce8e0eb155657ab8ccf346ade734257fd196a5 # v3.0.3
+        with:
+          STRICT_SUCCESS: true
 
       - name: Report deployment status to Slack
         uses: ravsamhq/notify-slack-action@v2
         with:
           notification_title: "🏁 Constructor-ui-autocomplete deployment completed"
-          status: ${{ steps.set-final-pipeline-status.outputs.status }}
+          status: ${{ steps.workflow-conclusion.outputs.conclusion }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
