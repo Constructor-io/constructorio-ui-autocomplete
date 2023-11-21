@@ -13,6 +13,10 @@
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
     },
+    "./cjs": {
+      "import": "./lib/cjs/index.js",
+      "require": "./lib/cjs/index.js"
+    },
     "./constructorio-ui-autocomplete-bundled": {
       "import": "./dist/constructorio-ui-autocomplete-bundled.js",
       "require": "./dist/constructorio-ui-autocomplete-bundled.js"
