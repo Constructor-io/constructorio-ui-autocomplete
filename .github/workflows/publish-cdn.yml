@@ -53,7 +53,7 @@ jobs:
 
       - name: Copy files to CDN
         run: |
-          cp dist/constructorio-ui-autocomplete-bundled dist/${{ inputs.version }}.js
+          cp dist/constructorio-ui-autocomplete-bundled.js dist/${{ inputs.version }}.js
           aws s3 sync dist/${{ inputs.version }}.js s3://constructor-frontend-dev/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
 
       - name: Notify Slack about new publish to CDN
