@@ -18,9 +18,12 @@ on:
         required: true
         type: string
 
-env:
-  GH_ACTION_ROLE: arn:aws:iam::073865013699:role/CDN_Autocomplete_UI_GHA_Role
-  AWS_REGION : us-east-1
+# It's required to set permissions to be able to:
+# - Authenticate to AWS with OIDC
+# See: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   publish-to-cdn:
@@ -38,15 +41,15 @@ jobs:
 
       - name: Build compiled package for publishing
         uses: "./.github/actions/compile"
-        with: 
+        with:
           version: ${{ inputs.version }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@010d0da01d0b5a38af31e9c3470dbfdabdecca3a # v4.0.1
         with:
+          role-to-assume: ${{ secrets.AWS_GHA_ROLE }}
           role-session-name: cdn-publish-action
-          role-to-assume: ${{ env.GH_ACTION_ROLE }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: us-east-1
 
       - name: Copy files to CDN
         run: |
