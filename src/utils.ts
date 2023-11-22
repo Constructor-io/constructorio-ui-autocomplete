@@ -3,7 +3,6 @@ import {
   AutocompleteRequestType,
   Nullable,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { DOMElement, ReactElement, ReactHTML, ReactHTMLElement } from 'react';
 import { isCustomSection } from './typeGuards';
 import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
 import version from './version';
