@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
 /* eslint-disable max-params */
+import { RefObject, createRef, useEffect, useMemo, useRef, useState } from 'react';
 import ConstructorIO from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { AdvancedParameters, RecommendationsSection, UserDefinedSection } from '../types';
+import { AdvancedParameters, RecommendationsSection, Section, UserDefinedSection } from '../types';
 import { getActiveSectionsWithData } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
@@ -15,10 +15,13 @@ export default function useSections(
   advancedParameters?: AdvancedParameters
 ) {
   const zeroStateActiveSections = !query.length && zeroStateSections;
-  const [activeSections, setActiveSections] = useState(
+
+  // Define All Sections
+  const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
     zeroStateActiveSections ? zeroStateSections : sections
   );
-
+  const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
+  const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
   const autocompleteSections = useMemo(
     () =>
       activeSections?.filter(
@@ -26,9 +29,13 @@ export default function useSections(
       ),
     [activeSections]
   );
-  const recommendationsSections = activeSections?.filter(
-    (config: UserDefinedSection) => config.type === 'recommendations'
-  ) as RecommendationsSection[];
+  const recommendationsSections = useMemo(
+    () =>
+      activeSections?.filter(
+        (config: UserDefinedSection) => config.type === 'recommendations'
+      ) as RecommendationsSection[],
+    [activeSections]
+  );
 
   // Fetch Autocomplete Results
   const { sectionsData: autocompleteResults, request } = useDebouncedFetchSection(
@@ -41,19 +48,20 @@ export default function useSections(
   // Fetch Recommendations Results
   const recommendationsResults = useFetchRecommendationPod(cioClient, recommendationsSections);
 
-  const sectionResults = { ...autocompleteResults, ...recommendationsResults };
-
-  const activeSectionsWithData = getActiveSectionsWithData(activeSections, sectionResults);
-
+  // Add to active sections the results data and refs when autocomplete results or recommendation results fetched
   useEffect(() => {
-    setActiveSections(zeroStateActiveSections ? zeroStateSections : sections);
-  }, [query, sections, zeroStateSections, zeroStateActiveSections]);
+    const sectionsResults = { ...autocompleteResults, ...recommendationsResults };
+    setActiveSectionsWithData(
+      getActiveSectionsWithData(activeSections, sectionsResults, sectionsRefs)
+    );
+  }, [autocompleteResults, recommendationsResults, activeSections]);
 
+  // Reset sections
   useEffect(() => {
-    if (sections && !Array.isArray(sections)) {
-      setActiveSections([]);
-    }
-    if (zeroStateSections && !Array.isArray(zeroStateSections)) {
+    if (
+      (sections && !Array.isArray(sections)) ||
+      (zeroStateSections && !Array.isArray(zeroStateSections))
+    ) {
       setActiveSections([]);
     }
   }, [sections, zeroStateSections]);

@@ -75,6 +75,7 @@ export type SectionConfiguration = {
   numResults?: number;
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
+  ref?: React.RefObject<HTMLElement>;
 };
 
 export interface AutocompleteSection extends SectionConfiguration {
