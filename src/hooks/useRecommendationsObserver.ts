@@ -7,7 +7,11 @@ function useRecommendationsObserver(
   menuIsOpen: boolean,
   sections: Section[],
   constructorIO: Nullable<ConstructorIO>,
-  callback: (target: Element, sections: Section[], constructorIO: Nullable<ConstructorIO>) => void
+  callback: (
+    target: HTMLElement,
+    sections: Section[],
+    constructorIO: Nullable<ConstructorIO>
+  ) => void
 ) {
   // Get refs for each section
   const refs = sections.map((section) => section.ref);
@@ -19,7 +23,7 @@ function useRecommendationsObserver(
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Call the callback, which will be trackRecommendationView in our case
-            callback(entry.target, sections, constructorIO);
+            callback(entry.target as HTMLElement, sections, constructorIO);
           }
         });
       },
