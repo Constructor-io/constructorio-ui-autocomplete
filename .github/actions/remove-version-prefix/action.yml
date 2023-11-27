@@ -15,8 +15,8 @@ runs:
       shell: bash
       id: action
       run: |
-        # remove the "v" prefix.
+        # Remove the "v" prefix.
         version=$(echo "${{ inputs.version }}" | tr -d 'v')
 
-        # update the package.json file with the current version.
+        # Adds the version to output.
         echo "version=$version" >> "$GITHUB_OUTPUT"
