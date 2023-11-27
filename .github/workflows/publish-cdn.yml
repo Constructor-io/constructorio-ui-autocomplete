@@ -52,9 +52,18 @@ jobs:
           aws-region: us-east-1
 
       - name: Copy files to CDN
+        shell: bash
         run: |
+          # remove the "v" prefix from the version
+          current_version=$(echo "${{ inputs.version }}" | tr -d 'v')
+
+          # create a new directory to use in aws s3 sync
           mkdir s3_dist
-          cp dist/constructorio-ui-autocomplete-bundled.js s3_dist/${{ inputs.version }}.js
+
+          # copy the files to the new directory
+          cp dist/constructorio-ui-autocomplete-bundled.js s3_dist/$current_version.js
+
+          # sync the files to the CDN
           aws s3 sync s3_dist s3://constructor-frontend-dev/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
 
       - name: Notify Slack about new publish to CDN
