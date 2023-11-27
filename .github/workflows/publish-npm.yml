@@ -45,7 +45,7 @@ jobs:
       - name: Update package.json version field
         id: update-version
         run: |
-          # removes the "v" preffix.
+          # removes the "v" prefix.
           new_version=$(echo "${{ inputs.version }}" | tr -d 'v')
 
           # updates the package.json version field

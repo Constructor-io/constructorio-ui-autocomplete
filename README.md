@@ -197,7 +197,7 @@ npm run lint            # run linter
 
 ## Publishing new versions
 
-Dispatch the [Publish](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/publish.yml) workflow in GitHub Actions. You're required to provide two required arguments:
+Dispatch the [Publish](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/publish.yml) workflow in GitHub Actions. You're required to provide two arguments:
 - **Version Strategy**: `major`, `minor`, or `patch`.
 - **Title**: A title for the release.
 
