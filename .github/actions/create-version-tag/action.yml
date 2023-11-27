@@ -21,14 +21,17 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Remove version prefix
+      uses: ./.github/actions/remove-version-prefix
+      id: last-version
+      with:
+        version: ${{ inputs.last-version }}
+
     - name: Set package.json current version
       shell: bash
       run: |
-          # remove the "v" prefix.
-          current_version=$(echo "${{ inputs.last-version }}" | tr -d 'v')
-
           # update the package.json file with the current version.
-          jq --arg current_version "$current_version" '.version = $current_version' package.json > tmp.json && mv tmp.json package.json
+          jq --arg current_version "${{ steps.last-version.outputs.without_prefix }}" '.version = $current_version' package.json > tmp.json && mv tmp.json package.json
 
     - name: Run npm version
       shell: bash
