@@ -74,7 +74,7 @@ jobs:
       version: ${{ needs.update_package_version.outputs.version }}
       title: ${{ github.event.inputs.title }}
     secrets: inherit
-    
+
   publish_to_npm:
     name: Publish to NPM
     needs: update_package_version
@@ -82,10 +82,8 @@ jobs:
     with:
       version: ${{ needs.update_package_version.outputs.version }}
     secrets: inherit
-  
-  # disabled until we fully test it
+
   publish_to_cdn:
-    if: false  
     name: Publish to CDN
     needs: update_package_version
     uses: ./.github/workflows/publish-cdn.yml
@@ -94,8 +92,7 @@ jobs:
     secrets: inherit
 
   deploy_storybook:
-    # also relies on publish_to_cdn - needs to be updated once we enable it
-    needs: [create_github_release, publish_to_npm]
+    needs: [create_github_release, publish_to_npm, publish_to_cdn]
     name: Deploy Storybook
     uses: ./.github/workflows/deploy-storybook.yml
 
@@ -104,9 +101,10 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     needs: [
-      create_github_release, 
-      publish_to_npm, 
-      update_package_version, 
+      create_github_release,
+      publish_to_npm,
+      publish_to_cdn,
+      update_package_version,
       deploy_storybook
     ]
     steps:
