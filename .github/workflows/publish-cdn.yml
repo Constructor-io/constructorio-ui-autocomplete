@@ -64,7 +64,7 @@ jobs:
           cp dist/constructorio-ui-autocomplete-bundled.js s3_dist/$current_version.js
 
           # sync the files to the CDN
-          aws s3 sync s3_dist s3://constructor-frontend-dev/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
+          aws s3 sync s3_dist s3://constructor-frontend-prod/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
 
       - name: Notify Slack about new publish to CDN
         uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
