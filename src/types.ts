@@ -8,11 +8,16 @@ import {
   Product as ProductFromClient,
   Item as ItemBase,
   AutocompleteRequestType,
+  ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
 
-export type CioClientConfig = { apiKey?: string; cioJsClient?: ConstructorIOClient };
+export type CioClientConfig = {
+  apiKey?: string;
+  cioJsClient?: ConstructorIOClient;
+  cioJsClientOptions?: ConstructorClientOptions;
+};
 
 export interface AdvancedParametersBase {
   numTermsWithGroupSuggestions?: number;
