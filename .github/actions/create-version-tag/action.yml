@@ -42,12 +42,12 @@ runs:
 
     - name: Create release git tag
       shell: bash
-      run: git tag -fa ${{ steps.next-version.outputs.version }} -m "${{ github.event.inputs.title }}"
+      run: git tag -a ${{ steps.next-version.outputs.version }} -m "${{ github.event.inputs.title }}"
 
     - name: Push tag to main branch
       shell: bash
-      # We use --force here to handle any already existing tags - In case we need to re-run this workflow.
-      run: git push --force origin ${{ steps.next-version.outputs.version }}
+      # Push just the new tag.
+      run: git push origin ${{ steps.next-version.outputs.version }}
 
     - name: Notify Slack about new package version
       uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
