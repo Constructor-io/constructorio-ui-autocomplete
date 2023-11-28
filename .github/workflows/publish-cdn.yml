@@ -32,6 +32,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Remove version prefix
+        uses: ./.github/actions/remove-version-prefix
+        id: version
+        with:
+          version: ${{ inputs.version }}
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18.12.x
@@ -52,9 +58,16 @@ jobs:
           aws-region: us-east-1
 
       - name: Copy files to CDN
+        shell: bash
         run: |
-          cp dist/constructorio-ui-autocomplete-bundled dist/${{ inputs.version }}.js
-          aws s3 sync dist/${{ inputs.version }}.js s3://constructor-frontend-dev/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
+          # create a new directory to use in aws s3 sync
+          mkdir s3_dist
+
+          # copy the files to the new directory
+          cp dist/constructorio-ui-autocomplete-bundled.js s3_dist/${{ steps.version.outputs.without_prefix }}.js
+
+          # sync the files to the CDN
+          aws s3 sync s3_dist s3://constructor-frontend-prod/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
 
       - name: Notify Slack about new publish to CDN
         uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0

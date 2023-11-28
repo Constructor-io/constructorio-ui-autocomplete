@@ -22,76 +22,102 @@ concurrency:
   group: deploy
   cancel-in-progress: true
 
-# We need these permissions create new GitHub releases
-permissions: write-all
-
 jobs:
   update_package_version:
     name: Update package version
     runs-on: ubuntu-latest
     steps:
       - name: Notify Slack about new release
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
         with:
           notification_title: "⏳ Starting new constructor-ui-autocomplete deployment"
           status: ${{ job.status }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - uses: actions/checkout@v4
-      - uses: oleksiyrudenko/gha-git-credentials@v2-latest
+
+      - uses: oleksiyrudenko/gha-git-credentials@ac5b66bcf3873df4259c681d957d8c145980171f # v2.1.1
         with:
           token: '${{ secrets.GITHUB_TOKEN }}'
+
       - uses: actions/setup-node@v3
         with:
           node-version: '18.12.x'
+
       - name: Install dependencies
         run: npm ci
-      - name: Bump release version
-        run: npm version ${{ github.event.inputs.version-strategy }} -m "${{ github.event.inputs.title }}"
-      - name: Push main branch
-        run: git push origin main --follow-tags
-      - name: Set new release version
-        id: set-version
-        run: echo "version=v$(npm pkg get version | tr -d '\"')" >> "$GITHUB_OUTPUT"
-      - name: Set deployment SHA
-        id: set-deploy-sha
-        run: echo "deploy-sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-      - name: Notify Slack about new package version
-        uses: ravsamhq/notify-slack-action@v2
+
+      - name: Get latest release
+        id: last-release
+        uses: pozetroninc/github-action-get-latest-release@d1dafdb6e338bdab109e6afce581a01858680dfb # v0.7.0
         with:
-          notification_title: "✅ constructor-ui-autocomplete package version bumped to ${{ steps.set-version.outputs.version }} successfully"
-          status: ${{ job.status }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          repository: ${{ github.repository }}
+          excludes: "prerelease, draft"
+
+      - name: Create new git tag
+        uses: "./.github/actions/create-version-tag"
+        id: tag
+        with:
+          last-version: ${{ steps.last-release.outputs.release }}
+          version-strategy: ${{ inputs.version-strategy }}
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+
     outputs:
-        version: ${{ steps.set-version.outputs.version }}
-        deploy-sha: ${{ steps.set-deploy-sha.outputs.deploy-sha }}
+        version: ${{ steps.tag.outputs.next-version }}
+
   create_github_release:
     name: Create GitHub release
     needs: update_package_version
-    uses: ./.github/workflows/publish-create-github-release.yml
+    uses: ./.github/workflows/create-github-release.yml
     with:
       version: ${{ needs.update_package_version.outputs.version }}
       title: ${{ github.event.inputs.title }}
-      deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
     secrets: inherit
+
   publish_to_npm:
     name: Publish to NPM
-    needs: update_package_version
+    needs: [create_github_release, update_package_version]
     uses: ./.github/workflows/publish-npm.yml
     with:
-      deploy-sha: ${{ needs.update_package_version.outputs.deploy-sha }}
+      version: ${{ needs.update_package_version.outputs.version }}
     secrets: inherit
+
+  publish_to_cdn:
+    name: Publish to CDN
+    needs: [publish_to_npm, update_package_version]
+    uses: ./.github/workflows/publish-cdn.yml
+    with:
+      version: ${{ needs.update_package_version.outputs.version }}
+    secrets: inherit
+
+  deploy_storybook:
+    needs: publish_to_cdn
+    name: Deploy Storybook
+    uses: ./.github/workflows/deploy-storybook.yml
+
   final_deployment_notification:
     name: Final deployment notification
-    needs: [create_github_release, publish_to_npm]
     runs-on: ubuntu-latest
     if: always()
+    needs: [
+      create_github_release,
+      publish_to_npm,
+      publish_to_cdn,
+      update_package_version,
+      deploy_storybook
+    ]
     steps:
+      - name: Get workflow conclusion
+        id: workflow-conclusion
+        uses: technote-space/workflow-conclusion-action@45ce8e0eb155657ab8ccf346ade734257fd196a5 # v3.0.3
+        with:
+          STRICT_SUCCESS: true
+
       - name: Report deployment status to Slack
         uses: ravsamhq/notify-slack-action@v2
         with:
           notification_title: "🏁 Constructor-ui-autocomplete deployment completed"
-          status: ${{ job.status }}
+          status: ${{ steps.workflow-conclusion.outputs.conclusion }}
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

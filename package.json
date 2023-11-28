@@ -1,6 +1,6 @@
 {
   "name": "@constructor-io/constructorio-ui-autocomplete",
-  "version": "1.14.1",
+  "version": "0.0.0",
   "description": "Constructor.io Autocomplete UI library for web applications",
   "main": "lib/cjs/index.js",
   "module": "lib/mjs/index.js",
@@ -37,9 +37,6 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
-    "verify-node-version": "chmod +x ./scripts/verify-node-version.sh && ./scripts/verify-node-version.sh",
-    "preversion": "node ./src/generateVersion.js",
-    "version": "npm run verify-node-version && npm run build-storybook && git add -u ./docs && git add ./docs/* && git add ./src/version.ts && npm run compile",
     "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build"
   },
   "author": "constructor.io",

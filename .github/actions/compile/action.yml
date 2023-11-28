@@ -11,13 +11,16 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Remove version prefix
+      uses: ./.github/actions/remove-version-prefix
+      id: version
+      with:
+        version: ${{ inputs.version }}
+
     - name: Generate new src/version.ts file
       shell: bash
       run: |
-        # remove the "v" prefix.
-        current_version=$(echo "${{ inputs.version }}" | tr -d 'v')
-
-        echo "export default '$current_version';" > src/version.ts
+        echo "export default '${{ steps.version.outputs.without_prefix }}';" > src/version.ts
 
     - run: npm run compile
       shell: bash
