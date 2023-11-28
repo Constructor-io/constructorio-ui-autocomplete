@@ -207,7 +207,7 @@ This workflow will automatically:
 3. Create a new GitHub release.
 4. Compile the library.
 5. Publish the new version to NPM.
-6. (_disabled for now_) Publish the new version to our public CDN.
+6. Publish the new version to our public CDN.
 7. Deploy the Storybook docs to GitHub Pages.
 8. Report the progress on the [relevant Slack channel](https://constructor.slack.com/archives/C061D3CFVR9).
 
