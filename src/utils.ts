@@ -2,6 +2,7 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 import {
   AutocompleteRequestType,
   Nullable,
+  ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isCustomSection } from './typeGuards';
 import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
@@ -126,12 +127,13 @@ export const disableStoryActions = (story) => {
   story.parameters.actions = { argTypesRegex: null };
 };
 
-export const getCioClient = (apiKey?: string) => {
+export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorClientOptions) => {
   if (apiKey) {
     const cioClient = new ConstructorIOClient({
       apiKey,
       sendTrackingEvents: true,
       version: `cio-ui-autocomplete-${version}`,
+      ...cioJsClientOptions,
     });
 
     // eslint-disable-next-line no-console

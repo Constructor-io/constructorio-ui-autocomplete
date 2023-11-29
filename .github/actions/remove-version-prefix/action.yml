@@ -1,0 +1,22 @@
+name: Remove Version Prefix
+
+inputs:
+  version: 
+    type: string
+
+outputs:
+  without_prefix:
+    value: ${{ steps.action.outputs.version }}
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Remove it
+      shell: bash
+      id: action
+      run: |
+        # Remove the "v" prefix.
+        version=$(echo "${{ inputs.version }}" | tr -d 'v')
+
+        # Adds the version to output.
+        echo "version=$version" >> "$GITHUB_OUTPUT"

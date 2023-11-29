@@ -33,6 +33,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     openOnFocus,
     apiKey,
     cioJsClient,
+    cioJsClientOptions,
     placeholder = 'What can we help you find today?',
     sections = defaultSections,
     zeroStateSections,
@@ -42,7 +43,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);
-  const cioClient = useCioClient({ apiKey, cioJsClient } as CioClientConfig);
+  const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
   const { activeSections, activeSectionsWithData, zeroStateActiveSections, request } = useSections(

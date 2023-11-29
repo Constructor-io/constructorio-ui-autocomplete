@@ -1,1 +1,5 @@
-export default '1.14.0';
+/**
+ * This file is generated automatically, using our "compile" action.
+ * @see {@link ../.github/actions/compile/action.yml}
+ */
+export default '0.0.0';

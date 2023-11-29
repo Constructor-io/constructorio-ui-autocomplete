@@ -1,0 +1,26 @@
+name: Compile Code
+
+description: 'Creates all code artifacts required to publish a new version.'
+
+inputs:
+  version:
+    description: 'The current version.'
+    type: string
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Remove version prefix
+      uses: ./.github/actions/remove-version-prefix
+      id: version
+      with:
+        version: ${{ inputs.version }}
+
+    - name: Generate new src/version.ts file
+      shell: bash
+      run: |
+        echo "export default '${{ steps.version.outputs.without_prefix }}';" > src/version.ts
+
+    - run: npm run compile
+      shell: bash

@@ -11,6 +11,7 @@ import {
   customStylesDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  cioJsClientOptionsDescription,
 } from '../../../constants';
 
 export default {
@@ -45,6 +46,16 @@ addHookStoryCode(
 const cioJsClient = new ConstructorIOClient({ apiKey: "${apiKey}" });
 const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
   cioJsClientDescription
+);
+
+const cioJsClientOptions = { serviceUrl: 'https://ac.cnstrc.com' };
+
+export const ProvideCIOClientOptions = HooksTemplate.bind({});
+ProvideCIOClientOptions.args = { apiKey, cioJsClientOptions, onSubmit };
+addHookStoryCode(
+  ProvideCIOClientOptions,
+  `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,
+  cioJsClientOptionsDescription
 );
 
 const placeholder = 'Custom placeholder';

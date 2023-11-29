@@ -1,0 +1,51 @@
+name: 'Publish: Create GitHub release'
+
+# We need these permissions create new GitHub releases
+permissions: write-all
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        description: 'Version to publish'
+        required: true
+      title:
+        type: string
+        description: 'Release title'
+        required: true
+
+  # This workflow is intended to be called from the primary publish workflow
+  # automatically. The manual trigger is maintained for partially failed workflows
+  # or edge cases that require this be run independently.
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: 'Version to publish'
+        required: true
+      title:
+        type: string
+        description: 'Release title'
+        required: true
+
+jobs:
+  create-github-release:
+    name: Create GitHub release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release
+        uses: ncipollo/release-action@6c75be85e571768fa31b40abf38de58ba0397db5 # v1.13.0
+        with:
+          name: ${{ inputs.title }}
+          tag: ${{ inputs.version }}
+          token: ${{ github.token }}
+          generateReleaseNotes: true
+
+      - name: Notify Slack about successful release
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
+        with:
+          notification_title: "😸 New constructor-ui-autocomplete GitHub release created at version ${{ inputs.version }}"
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

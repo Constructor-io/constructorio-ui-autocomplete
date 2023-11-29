@@ -12,6 +12,7 @@ import {
   customStylesDescription,
   apiKey,
   onSubmitDefault as onSubmit,
+  cioJsClientOptionsDescription,
 } from '../../../constants';
 
 export default {
@@ -89,6 +90,16 @@ import ConstructorIOClient from "@constructor-io/constructorio-client-javascript
 const cioJsClient = new ConstructorIOClient({ "apiKey": "${apiKey}" });
 const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
   cioJsClientDescription
+);
+
+const cioJsClientOptions = { serviceUrl: 'https://ac.cnstrc.com' };
+
+export const ProvideCIOClientOptions = ComponentTemplate.bind({});
+ProvideCIOClientOptions.args = { apiKey, cioJsClientOptions, onSubmit };
+addComponentStoryDescription(
+  ProvideCIOClientOptions,
+  `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,
+  cioJsClientOptionsDescription
 );
 
 const placeholder = 'Custom placeholder';

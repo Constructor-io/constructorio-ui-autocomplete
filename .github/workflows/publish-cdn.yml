@@ -1,0 +1,78 @@
+name: 'Publish: Publish to CDN'
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'The repository version to publish'
+        required: true
+        type: string
+
+  # This workflow is intended to be called from the primary publish workflow
+  # automatically. The manual trigger is maintained for partially failed workflows
+  # or edge cases that require this be run independently.
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The repository version to publish'
+        required: true
+        type: string
+
+# It's required to set permissions to be able to:
+# - Authenticate to AWS with OIDC
+# See: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  publish-to-cdn:
+    name: Publish to CDN
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove version prefix
+        uses: ./.github/actions/remove-version-prefix
+        id: version
+        with:
+          version: ${{ inputs.version }}
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.12.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build compiled package for publishing
+        uses: "./.github/actions/compile"
+        with:
+          version: ${{ inputs.version }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@010d0da01d0b5a38af31e9c3470dbfdabdecca3a # v4.0.1
+        with:
+          role-to-assume: ${{ secrets.AWS_GHA_ROLE }}
+          role-session-name: cdn-publish-action
+          aws-region: us-east-1
+
+      - name: Copy files to CDN
+        shell: bash
+        run: |
+          # create a new directory to use in aws s3 sync
+          mkdir s3_dist
+
+          # copy the files to the new directory
+          cp dist/constructorio-ui-autocomplete-bundled.js s3_dist/${{ steps.version.outputs.without_prefix }}.js
+
+          # sync the files to the CDN
+          aws s3 sync s3_dist s3://constructor-frontend-prod/ui/autocomplete --cache-control 'public, max-age=1800' --acl 'public-read'
+
+      - name: Notify Slack about new publish to CDN
+        uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
+        with:
+          notification_title: "☁️ New constructor-ui-autocomplete release published to CDN at version ${{ inputs.version }}"
+          status: ${{ job.status }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
