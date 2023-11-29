@@ -20,6 +20,12 @@ export default function useSections(
   const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
     zeroStateActiveSections ? zeroStateSections : sections
   );
+
+  useEffect(() => {
+    setActiveSections(zeroStateActiveSections ? zeroStateSections : sections);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zeroStateActiveSections]);
+
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
   const autocompleteSections = useMemo(
