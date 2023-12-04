@@ -14,7 +14,9 @@ function useRecommendationsObserver(
   ) => void
 ) {
   // Get refs for each section
-  const refs = sections.map((section) => section.ref);
+  const refs = sections
+    .filter((section) => section.type === 'recommendations')
+    .map((section) => section.ref);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
