@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import { CioAutocompleteProps, CioClientConfig, UserDefinedSection } from '../types';
@@ -10,16 +10,35 @@ import useItems from './useItems';
 
 export const defaultSections: UserDefinedSection[] = [
   {
-    identifier: 'Search Suggestions',
+    indexSection: 'Search Suggestions',
     type: 'autocomplete',
   },
   {
-    identifier: 'Products',
+    indexSection: 'Products',
     type: 'autocomplete',
   },
 ];
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+
+const convertLegacy = (sections: UserDefinedSection[]) =>
+  sections.map((config) => {
+    const { type } = config;
+
+    if (type === 'recommendations') {
+      if (config.identifier && !config.podId) {
+        return { ...config, podId: config.identifier };
+      }
+    }
+
+    if (type === 'autocomplete' || !type) {
+      if (config.identifier && !config.indexSection) {
+        return { ...config, indexSection: config.identifier };
+      }
+    }
+
+    return config;
+  });
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const {
@@ -30,11 +49,27 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     cioJsClient,
     cioJsClientOptions,
     placeholder = 'What can we help you find today?',
-    sections = defaultSections,
-    zeroStateSections,
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
   } = options;
+
+  let { sections = defaultSections, zeroStateSections } = options;
+
+  sections = useMemo(() => {
+    if (sections) {
+      return convertLegacy(sections);
+    }
+
+    return sections;
+  }, [sections]);
+
+  zeroStateSections = useMemo(() => {
+    if (zeroStateSections) {
+      return convertLegacy(zeroStateSections);
+    }
+
+    return zeroStateSections;
+  }, [zeroStateSections]);
 
   const [query, setQuery] = useState('');
   const previousQuery = usePrevious(query);

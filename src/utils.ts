@@ -52,7 +52,14 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
     // uppercase the first character
     .replace(/^./, (str) => str.toUpperCase());
 
-export function isTrackingRequestSent(trackingRequestUrl) {
+export const toKebabCase = (str: string): string =>
+  str
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+    .replace(/([a-z\d])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase();
+
+export function isTrackingRequestSent(trackingRequestUrl: string) {
   // eslint-disable-next-line
   const trackingRequestsQueue = window.localStorage?._constructorio_requests;
 
@@ -70,7 +77,7 @@ export function clearConstructorRequests() {
 }
 
 // Function to emulate pausing between interactions
-export function sleep(ms) {
+export function sleep(ms: number) {
   // eslint-disable-next-line
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -149,17 +156,23 @@ export const getActiveSectionsWithData = (
 ) => {
   const activeSectionsWithData: Section[] = [];
   activeSections?.forEach((config) => {
-    const { identifier } = config;
-    let data;
+    const { type } = config;
+    let data: Item[];
 
-    if (isCustomSection(config)) {
-      // Copy id from data to the top level
-      data = config.data.map((item) => ({
-        ...item,
-        id: item?.id || item?.data?.id,
-      }));
-    } else {
-      data = sectionResults[identifier];
+    switch (type) {
+      case 'recommendations':
+        data = sectionResults[config.podId];
+        break;
+      case 'custom':
+        // Copy id from data to the top level
+        data = config.data.map((item: Item) => ({
+          ...item,
+          id: item?.id || item?.data?.id,
+        }));
+        break;
+      default:
+        // Autocomplete
+        data = sectionResults[config.indexSection];
     }
 
     if (Array.isArray(data)) {

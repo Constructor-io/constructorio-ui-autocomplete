@@ -63,7 +63,8 @@ export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
 export type SectionsData = {
-  [key: string]: Item[] | undefined;
+  // TODO: I removed undefined from here
+  [key: string]: Item[];
 };
 
 /** CIO API Response Data */
@@ -75,34 +76,52 @@ type SectionType = 'autocomplete' | 'recommendations' | 'custom';
 
 export type SectionConfiguration = {
   type?: SectionType;
-  identifier: string;
   displayName?: string;
   numResults?: number;
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
 };
 
-export interface AutocompleteSection extends SectionConfiguration {
+export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   type?: 'autocomplete';
-  data: Item[];
+  indexSection: string;
+  // TODO: Add documentation about deprecation
+  identifier?: string;
 }
 
-export interface RecommendationsSection extends SectionConfiguration {
+export interface RecommendationsSectionConfiguration extends SectionConfiguration {
   type: 'recommendations';
-  data: Item[];
+  indexSection: string;
+  podId: string;
   itemIds?: string[];
-  section?: string;
   term?: string;
+  // TODO: Add documentation about deprecation
+  identifier?: string;
 }
 
-export interface CustomSection extends SectionConfiguration {
+export interface CustomSectionConfiguration extends SectionConfiguration {
   type: 'custom';
+  displayName: string;
+}
+
+export interface AutocompleteSection extends AutocompleteSectionConfiguration {
+  data: Item[];
+}
+
+export interface RecommendationsSection extends RecommendationsSectionConfiguration {
+  data: Item[];
+}
+
+export interface CustomSection extends CustomSectionConfiguration {
   data: Item[];
 }
 
 export type Section = AutocompleteSection | RecommendationsSection | CustomSection;
 
-export type UserDefinedSection = CustomSection | SectionConfiguration;
+export type UserDefinedSection =
+  | AutocompleteSectionConfiguration
+  | RecommendationsSectionConfiguration
+  | CustomSection;
 
 export type Product = ProductFromClient & {
   section: 'Products';

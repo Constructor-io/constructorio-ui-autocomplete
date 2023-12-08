@@ -15,12 +15,33 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
-  const sectionName = section?.displayName || section?.identifier;
+  const { type, displayName } = section;
+  let sectionName = displayName;
+
+  if (!sectionName) {
+    switch (type) {
+      case 'recommendations':
+        sectionName = section.podId;
+        break;
+      case 'autocomplete':
+        sectionName = section.indexSection;
+        break;
+      case 'custom':
+        sectionName = section.displayName;
+        break;
+      default:
+        sectionName = section.indexSection;
+        break;
+    }
+  }
 
   if (!section?.data?.length) return null;
 
+  // TODO: Add explanation here
+  const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
+
   return (
-    <li className={`${sectionName} cio-section`} role='none'>
+    <li className={`${sectionName} cio-section ${recommendationsSection}`} role='none'>
       <h5 className='cio-sectionName' aria-hidden>
         {camelToStartCase(sectionName)}
       </h5>

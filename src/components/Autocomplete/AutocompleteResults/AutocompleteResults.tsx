@@ -1,5 +1,6 @@
 import React, { ReactNode, useContext } from 'react';
 import { GetItemProps, Section } from '../../../types';
+import { toKebabCase } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
 
@@ -13,9 +14,27 @@ type AutocompleteResultsProps = {
 };
 
 const DefaultRenderResults: RenderResults = ({ sections }) =>
-  sections?.map((section: Section) => (
-    <SectionItemsList section={section} key={section.identifier} />
-  ));
+  sections?.map((section: Section) => {
+    const { type } = section;
+    let key = section.displayName;
+
+    switch (type) {
+      case 'recommendations':
+        key = section.podId;
+        break;
+      case 'custom':
+        key = toKebabCase(section.displayName);
+        break;
+      case 'autocomplete':
+        key = section.indexSection;
+        break;
+      default:
+        key = section.indexSection;
+        break;
+    }
+
+    return <SectionItemsList section={section} key={key} />;
+  });
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;

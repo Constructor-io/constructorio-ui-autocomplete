@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 /* eslint-disable max-params */
 import ConstructorIO from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { AdvancedParameters, RecommendationsSection, UserDefinedSection } from '../types';
+import {
+  AdvancedParameters,
+  AutocompleteSectionConfiguration,
+  RecommendationsSectionConfiguration,
+  UserDefinedSection,
+} from '../types';
 import { getActiveSectionsWithData } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
@@ -23,12 +28,12 @@ export default function useSections(
     () =>
       activeSections?.filter(
         (config: UserDefinedSection) => config.type === 'autocomplete' || !config.type
-      ),
+      ) as AutocompleteSectionConfiguration[],
     [activeSections]
   );
   const recommendationsSections = activeSections?.filter(
     (config: UserDefinedSection) => config.type === 'recommendations'
-  ) as RecommendationsSection[];
+  ) as RecommendationsSectionConfiguration[];
 
   // Fetch Autocomplete Results
   const { sectionsData: autocompleteResults, request } = useDebouncedFetchSection(

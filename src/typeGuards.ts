@@ -20,5 +20,5 @@ export function isInGroupSuggestion(item: Item): item is InGroupSuggestion {
 }
 
 export function isCustomSection(config: UserDefinedSection): config is CustomSection {
-  return (config as CustomSection).data !== undefined;
+  return (config as CustomSection).type === 'custom';
 }
