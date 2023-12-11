@@ -63,7 +63,6 @@ export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
 export type SectionsData = {
-  // TODO: I removed undefined from here
   [key: string]: Item[];
 };
 
@@ -85,7 +84,7 @@ export type SectionConfiguration = {
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   type?: 'autocomplete';
   indexSection: string;
-  // TODO: Add documentation about deprecation
+  /** @deprecated use indexSection field instead */
   identifier?: string;
 }
 
@@ -95,7 +94,7 @@ export interface RecommendationsSectionConfiguration extends SectionConfiguratio
   podId: string;
   itemIds?: string[];
   term?: string;
-  // TODO: Add documentation about deprecation
+  /** @deprecated use podId field instead */
   identifier?: string;
 }
 
