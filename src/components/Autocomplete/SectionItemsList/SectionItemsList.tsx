@@ -37,7 +37,9 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
 
   if (!section?.data?.length) return null;
 
-  // TODO: Add explanation here
+  // Add the indexSection as a class to the section container to make sure it gets the styles
+  // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
+  // ... they should be styled accordingly
   const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
 
   return (
