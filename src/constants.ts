@@ -67,6 +67,8 @@ export const sectionsDescription = `- by default, typing a query will fetch data
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8
 
+\`indexSection\` refers to a section under an index. The default sections are "Products" and "Search Suggestions". You can find all the sections that exist in your index under the "Indexes" tab of Constructor dashboard.
+
 When no values are passed for the \`sections\` argument, the following defaults are used:
 
 \`\`\`jsx
