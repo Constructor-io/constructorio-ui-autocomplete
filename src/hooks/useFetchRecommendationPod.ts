@@ -13,8 +13,11 @@ const useFetchRecommendationPod = (
     if (!cioClient || !Array.isArray(recommendationPods) || recommendationPods.length === 0) return;
     const fetchRecommendationResults = async () => {
       const responses = await Promise.all(
-        recommendationPods.map(({ podId, ...parameters }) =>
-          cioClient.recommendations.getRecommendations(podId, parameters)
+        recommendationPods.map(({ podId, indexSection, ...parameters }) =>
+          cioClient.recommendations.getRecommendations(podId, {
+            ...parameters,
+            section: indexSection,
+          })
         )
       );
       const recommendationPodResults = {};
