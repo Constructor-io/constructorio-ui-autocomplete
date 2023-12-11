@@ -58,10 +58,12 @@ The following stories show how different options affect the hook's behavior!
 // Storybook Pages
 /// //////////////////////////////
 
-export const sectionsDescription = `- by default, typing a query will fetch data for search suggestions and Products
+export const sectionsDescription = `- by default, typing a query will fetch data for Search Suggestions and Products
 - to override this, pass an array of sections objects
 - the order of the objects in the \`sections\` array determines the order of the results
-- each section object must have an \`identifier\`
+- each autocomplete section object must have a \`sectionIndex\`
+- each recommendation section object must have a \`podId\`
+- each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8
 
@@ -70,12 +72,12 @@ When no values are passed for the \`sections\` argument, the following defaults 
 \`\`\`jsx
 [
   {
-    identifier: 'Search Suggestions',
+    indexSection: 'Search Suggestions',
     type: 'autocomplete',
     numResults: 8
   },
   {
-    identifier: 'Products',
+    indexSection: 'Products',
     type: 'autocomplete',
     numResults: 8
   }

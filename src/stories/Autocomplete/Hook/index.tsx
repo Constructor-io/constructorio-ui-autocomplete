@@ -2,7 +2,7 @@
 import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
 import { Item } from '../../../types';
-import { getStoryParams } from '../../../utils';
+import { getStoryParams, toKebabCase } from '../../../utils';
 
 export function HooksTemplate(args) {
   const {
@@ -113,18 +113,41 @@ export function HooksTemplate(args) {
       </form>
       <div {...getMenuProps()}>
         {isOpen &&
-          sections?.map((section) =>
-            !section?.data?.length ? null : (
-              <div key={section.identifier} className={section.identifier}>
+          sections?.map((section) => {
+            if (!section?.data?.length) {
+              return null;
+            }
+            const { type, displayName } = section;
+            let sectionName = section.displayName;
+
+            switch (type) {
+              case 'recommendations':
+                sectionName = section.podId;
+                break;
+              case 'custom':
+                sectionName = toKebabCase(displayName);
+                break;
+              case 'autocomplete':
+                sectionName = section.indexSection;
+                break;
+              default:
+                sectionName = section.indexSection;
+                break;
+            }
+
+            const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
+
+            return (
+              <div key={sectionName} className={`${sectionName} ${recommendationsSection}`}>
                 <div className='cio-section'>
-                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
+                  <h5 className='cio-sectionName'>{sectionName}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>
                 </div>
               </div>
-            )
-          )}
+            );
+          })}
       </div>
     </div>
   );
@@ -240,18 +263,41 @@ function YourComponent() {
       </form>
       <div {...getMenuProps()}>
         {isOpen &&
-          sections?.map((section) =>
-            !section?.data?.length ? null : (
-              <div key={section.identifier} className={section.identifier}>
+          sections?.map((section) => {
+            if (!section?.data?.length) {
+              return null;
+            }
+            const { type, displayName } = section;
+            let sectionName = section.displayName;
+
+            switch (type) {
+              case 'recommendations':
+                sectionName = section.podId;
+                break;
+              case 'custom':
+                sectionName = toKebabCase(displayName);
+                break;
+              case 'autocomplete':
+                sectionName = section.indexSection;
+                break;
+              default:
+                sectionName = section.indexSection;
+                break;
+            }
+
+            const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
+
+            return (
+              <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>
                 <div className='cio-section'>
-                  <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
+                  <h5 className='cio-sectionName'>{sectionName}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>
                 </div>
               </div>
-            )
-          )}
+            );
+          })}
       </div>
     </div>
   );
