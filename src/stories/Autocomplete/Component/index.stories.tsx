@@ -57,7 +57,6 @@ FullFeaturedAndStyledExample.args = {
     {
       podId: 'bestsellers',
       type: 'recommendations',
-      section: 'Products',
       numResults: 6,
     },
   ],

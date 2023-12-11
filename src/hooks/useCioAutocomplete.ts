@@ -21,13 +21,17 @@ export const defaultSections: UserDefinedSection[] = [
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
-const convertLegacy = (sections: UserDefinedSection[]) =>
+const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =>
   sections.map((config) => {
     const { type } = config;
 
     if (type === 'recommendations') {
       if (config.identifier && !config.podId) {
         return { ...config, podId: config.identifier };
+      }
+
+      if (!config.indexSection) {
+        return { ...config, indexSection: 'Products' };
       }
     }
 
@@ -57,7 +61,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   sections = useMemo(() => {
     if (sections) {
-      return convertLegacy(sections);
+      return convertLegacyParametersAndAddDefaults(sections);
     }
 
     return sections;
@@ -65,7 +69,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   zeroStateSections = useMemo(() => {
     if (zeroStateSections) {
-      return convertLegacy(zeroStateSections);
+      return convertLegacyParametersAndAddDefaults(zeroStateSections);
     }
 
     return zeroStateSections;
