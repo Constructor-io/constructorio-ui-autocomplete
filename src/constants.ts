@@ -61,7 +61,7 @@ The following stories show how different options affect the hook's behavior!
 export const sectionsDescription = `- by default, typing a query will fetch data for Search Suggestions and Products
 - to override this, pass an array of sections objects
 - the order of the objects in the \`sections\` array determines the order of the results
-- each autocomplete section object must have a \`sectionIndex\`
+- each autocomplete section object must have a \`indexSection\`
 - each recommendation section object must have a \`podId\`
 - each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
