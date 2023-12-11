@@ -99,7 +99,9 @@ export const zeroStateDescription = `- when the text input field has no text, we
 - when \`zeroStateSections\` has sections, the menu will open on user focus by default
 - set \`openOnFocus\` to false, to only show \`zeroStateSections\` after user has typed and then cleared the text input, instead of as soon as the user focuses on the text input
 - the order of the objects in the \`zeroStateSections\` array determines the order of the results
-- each section object must have an \`identifier\`
+- each autocomplete section object must have a \`indexSection\`
+- each recommendation section object must have a \`podId\`
+- each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8`;
 
