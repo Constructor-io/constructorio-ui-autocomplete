@@ -1,7 +1,13 @@
 import { useMemo, useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
-import { CioAutocompleteProps, CioClientConfig, Section, UserDefinedSection } from '../types';
+import {
+  CioAutocompleteProps,
+  CioClientConfig,
+  Section,
+  UserDefinedSection,
+  HTMLPropsWithCioDataAttributes,
+} from '../types';
 import usePrevious from './usePrevious';
 import {
   getItemPosition,
@@ -165,23 +171,17 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }),
     getSectionProps: (section: Section) => {
       const sectionName = section?.displayName || section?.identifier;
-      let attributes: React.DetailedHTMLProps<React.HTMLAttributes<any>, any> = {
+      const attributes: HTMLPropsWithCioDataAttributes = {
         className: `${sectionName} cio-section`,
         ref: section.ref,
         role: 'none',
-      };
-
-      const cnstrcDataAttributes = {
-        'data-cnstrc-recommendations': true,
         'data-cnstrc-section': section.data[0]?.section,
-        'data-cnstrc-recommendations-pod-id': section.identifier,
       };
 
+      // Add data attributes for recommendations
       if (section.type === 'recommendations') {
-        attributes = {
-          ...attributes,
-          ...cnstrcDataAttributes,
-        };
+        attributes['data-cnstrc-recommendations'] = true;
+        attributes['data-cnstrc-recommendations-pod-id'] = section.identifier;
       }
       return attributes;
     },

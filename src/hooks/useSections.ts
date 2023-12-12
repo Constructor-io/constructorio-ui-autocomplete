@@ -17,15 +17,7 @@ export default function useSections(
   const zeroStateActiveSections = !query.length && zeroStateSections;
 
   // Define All Sections
-  const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
-    zeroStateActiveSections ? zeroStateSections : sections
-  );
-
-  useEffect(() => {
-    setActiveSections(zeroStateActiveSections ? zeroStateSections : sections);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zeroStateActiveSections]);
-
+  const activeSections = zeroStateActiveSections ? zeroStateSections : sections;
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
   const autocompleteSections = useMemo(
@@ -61,16 +53,6 @@ export default function useSections(
       getActiveSectionsWithData(activeSections, sectionsResults, sectionsRefs)
     );
   }, [autocompleteResults, recommendationsResults, activeSections]);
-
-  // Reset sections
-  useEffect(() => {
-    if (
-      (sections && !Array.isArray(sections)) ||
-      (zeroStateSections && !Array.isArray(zeroStateSections))
-    ) {
-      setActiveSections([]);
-    }
-  }, [sections, zeroStateSections]);
 
   return {
     activeSections,

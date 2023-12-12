@@ -117,3 +117,10 @@ export type InGroupSuggestion = SearchSuggestion & {
   groupId: string;
   groupName: string;
 };
+
+export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
+  React.HTMLAttributes<T>,
+  T
+> & {
+  [key: `data-cnstrc-${string}`]: any;
+};

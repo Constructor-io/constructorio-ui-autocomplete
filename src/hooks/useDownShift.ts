@@ -46,8 +46,10 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
                 section: selectedItem.section,
                 resultId: selectedItem.result_id,
               });
-              // Other Select tracking
-            } else {
+              // Select tracking for all other Constructor sections:
+              // (ie: Search Suggestions, Products, Custom Cio sections, etc)
+              // This does not apply to custom user defined sections that aren't part of Constructor index
+            } else if (selectedItem.result_id) {
               cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
                 originalQuery: previousQuery,
                 section: selectedItem.section,

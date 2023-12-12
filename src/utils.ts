@@ -170,10 +170,10 @@ export const getActiveSectionsWithData = (
         data: sectionData,
       };
 
-      if (sectionConfig.type === 'recommendations') {
-        // If user provided a ref in config, use it. Otherwise, use the ref from our refs array
-        section.ref = sectionConfig.ref || sectionsRefs.current[index];
-      }
+      // If user provided a ref in `sectionConfig`, use it. Otherwise, use the ref from our library generated refs array
+      const userDefinedSectionRef = sectionConfig.ref;
+      const libraryGeneratedSectionRef = sectionsRefs.current[index];
+      section.ref = userDefinedSectionRef || libraryGeneratedSectionRef;
 
       activeSectionsWithData.push(section);
     }
