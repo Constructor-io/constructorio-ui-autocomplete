@@ -127,7 +127,7 @@ export const disableStoryActions = (story) => {
 };
 
 export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorClientOptions) => {
-  if (apiKey) {
+  if (apiKey && typeof window !== 'undefined') {
     const cioClient = new ConstructorIOClient({
       apiKey,
       sendTrackingEvents: true,

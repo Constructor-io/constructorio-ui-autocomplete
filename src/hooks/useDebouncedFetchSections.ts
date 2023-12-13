@@ -16,7 +16,7 @@ import {
 const transformResponse = (response, options) => {
   const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
   const newSectionsData: SectionsData = {};
-  Object.keys(response.sections).forEach((section: string) => {
+  Object.keys(response?.sections || {}).forEach((section: string) => {
     newSectionsData[section] = [];
     const sectionItems = response.sections[section].map((item) => ({
       ...item,
