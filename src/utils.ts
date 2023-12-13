@@ -170,7 +170,8 @@ export const getActiveSectionsWithData = (
         data: sectionData,
       };
 
-      // If user provided a ref in `sectionConfig`, use it. Otherwise, use the ref from our library generated refs array
+      // If ref passed as part of `SectionConfiguration`, use it.
+      // Otherwise, use the ref from our library generated refs array
       const userDefinedSectionRef = sectionConfig.ref;
       const libraryGeneratedSectionRef = sectionsRefs.current[index];
       section.ref = userDefinedSectionRef || libraryGeneratedSectionRef;
