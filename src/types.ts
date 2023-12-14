@@ -25,6 +25,7 @@ export interface AdvancedParametersBase {
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
   debounce?: number;
+  translations?: Translations;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
@@ -115,4 +116,8 @@ export type SearchSuggestion = SearchSuggestionFromClient & {
 export type InGroupSuggestion = SearchSuggestion & {
   groupId: string;
   groupName: string;
+};
+
+export type Translations = {
+  in?: String;
 };
