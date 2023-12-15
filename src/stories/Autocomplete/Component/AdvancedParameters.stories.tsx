@@ -107,7 +107,7 @@ Translations.args = {
     numTermsWithGroupSuggestions: 1,
     numGroupsSuggestedPerTerm: 2,
     translations: {
-      in: 'Inside',
+      in: 'inside',
     },
   },
 };

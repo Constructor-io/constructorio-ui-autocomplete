@@ -2,7 +2,7 @@ import { Translations } from '../types';
 
 const useTranslate = (translations?: Translations) => {
   const localTranslations: Translations = {
-    in: 'In',
+    in: 'in',
   };
 
   const translate = (word: string) => {
