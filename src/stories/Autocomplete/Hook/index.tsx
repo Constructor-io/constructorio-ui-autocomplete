@@ -13,6 +13,7 @@ export function HooksTemplate(args) {
     getInputProps,
     getMenuProps,
     getItemProps,
+    getSectionProps,
     setQuery,
     autocompleteClassName,
     advancedParameters,
@@ -116,7 +117,7 @@ export function HooksTemplate(args) {
           sections?.map((section) =>
             !section?.data?.length ? null : (
               <div key={section.identifier} className={section.identifier}>
-                <div className='cio-section'>
+                <div {...getSectionProps(section)}>
                   <h5 className='cio-sectionName'>{section?.displayName || section.identifier}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}

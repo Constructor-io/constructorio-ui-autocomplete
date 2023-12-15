@@ -24,21 +24,37 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
     itemToString: (item) => item?.value || '',
     onSelectedItemChange({ selectedItem }) {
       if (selectedItem) {
-        if (selectedItem?.section === 'Search Suggestions') {
-          setQuery(selectedItem.value || '');
-        }
         if (selectedItem?.value) {
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
           try {
-            if (!selectedItem?.data?.url) {
+            if (selectedItem?.section === 'Search Suggestions') {
+              setQuery(selectedItem.value || '');
               cioClient?.tracker.trackSearchSubmit(selectedItem.value, {
                 originalQuery: previousQuery,
               });
             }
-            cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
-              originalQuery: previousQuery,
-              section: selectedItem.section,
-            });
+
+            // Autocomplete Select tracking
+            // Recommendation Select tracking
+            if (selectedItem.podId && selectedItem.data?.id) {
+              cioClient?.tracker.trackRecommendationClick({
+                itemName: selectedItem.value,
+                itemId: selectedItem.data.id,
+                variationId: selectedItem.data.variation_id,
+                podId: selectedItem.podId,
+                strategyId: selectedItem.strategy.id,
+                section: selectedItem.section,
+                resultId: selectedItem.result_id,
+              });
+              // Select tracking for all other Constructor sections:
+              // (ie: Search Suggestions, Products, Custom Cio sections, etc)
+              // This does not apply to custom user defined sections that aren't part of Constructor index
+            } else if (selectedItem.result_id) {
+              cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
+                originalQuery: previousQuery,
+                section: selectedItem.section,
+              });
+            }
           } catch (error) {
             // eslint-disable-next-line no-console
             console.log(error);

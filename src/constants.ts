@@ -37,6 +37,7 @@ const {
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element rendering the results container
   getItemProps: (item) => ({...})), // prop getter for jsx element rendering each result
+  getSectionProps: (section: Section) => ({...})), // prop getter for jsx element rendering each section.
 
   // available for use, but not required for all use cases
   selectedItem: item, // undefined or current selected item (via hover or arrow keys)
