@@ -25,7 +25,6 @@ export interface AdvancedParametersBase {
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
   debounce?: number;
-  translations?: Translations;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
@@ -81,6 +80,7 @@ export type SectionConfiguration = {
   numResults?: number;
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
+  ref?: React.RefObject<HTMLElement>;
 };
 
 export interface AutocompleteSection extends SectionConfiguration {
@@ -116,6 +116,13 @@ export type SearchSuggestion = SearchSuggestionFromClient & {
 export type InGroupSuggestion = SearchSuggestion & {
   groupId: string;
   groupName: string;
+};
+
+export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
+  React.HTMLAttributes<T>,
+  T
+> & {
+  [key: `data-cnstrc-${string}`]: any;
 };
 
 export type Translations = {
