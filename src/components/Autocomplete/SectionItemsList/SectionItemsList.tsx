@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
-import { camelToStartCase } from '../../../utils';
+import { camelToStartCase, toKebabCase } from '../../../utils';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: Section;
@@ -16,21 +16,21 @@ type SectionItemsListProps = {
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
   const { type, displayName } = section;
-  let sectionName = displayName;
+  let sectionTitle = displayName;
 
-  if (!sectionName) {
+  if (!sectionTitle) {
     switch (type) {
       case 'recommendations':
-        sectionName = section.podId;
+        sectionTitle = section.podId;
         break;
       case 'autocomplete':
-        sectionName = section.indexSection;
+        sectionTitle = section.indexSection;
         break;
       case 'custom':
-        sectionName = section.displayName;
+        sectionTitle = section.displayName;
         break;
       default:
-        sectionName = section.indexSection;
+        sectionTitle = section.indexSection;
         break;
     }
   }
@@ -40,12 +40,12 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
   // Add the indexSection as a class to the section container to make sure it gets the styles
   // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
   // ... they should be styled accordingly
-  const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
+  const indexSection = type !== 'custom' ? toKebabCase(section.indexSection) : '';
 
   return (
-    <li className={`${sectionName} cio-section ${recommendationsSection}`} role='none'>
+    <li className={`${sectionTitle} cio-section ${indexSection}`} role='none'>
       <h5 className='cio-sectionName' aria-hidden>
-        {camelToStartCase(sectionName)}
+        {camelToStartCase(sectionTitle)}
       </h5>
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => (
