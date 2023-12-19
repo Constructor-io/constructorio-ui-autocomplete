@@ -1,5 +1,6 @@
+import type { Meta, StoryObj } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import { CioAutocomplete } from '../../../index';
+import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
 import { argTypes } from '../argTypes';
 import { functionStrings, stringifyWithDefaults } from '../../../utils';
 import { ComponentTemplate, FullExampleTemplate, addComponentStoryDescription } from '.';
@@ -15,10 +16,9 @@ import {
   cioJsClientOptionsDescription,
 } from '../../../constants';
 
-export default {
+const meta: Meta<typeof CioAutocomplete> = {
   title: 'Autocomplete/Component',
   component: CioAutocomplete,
-  argTypes,
   parameters: {
     docs: {
       description: {
@@ -28,9 +28,14 @@ export default {
   },
 };
 
+export default meta;
+type Story = StoryObj<typeof CioAutocomplete>;
+
 let autocompleteClassName = 'cio-autocomplete full-example-autocomplete-styles';
 
-export const FullFeaturedAndStyledExample = FullExampleTemplate.bind({});
+export const FullFeaturedAndStyledExample: Story = {
+  render: FullExampleTemplate,
+};
 FullFeaturedAndStyledExample.args = {
   apiKey,
   onSubmit,
@@ -61,7 +66,7 @@ FullFeaturedAndStyledExample.args = {
       numResults: 6,
     },
   ],
-};
+} as CioAutocompleteProps;
 addComponentStoryDescription(
   FullFeaturedAndStyledExample,
   `import '@constructor-io/constructorio-ui-autocomplete/styles.css';
@@ -70,7 +75,9 @@ const args = ${stringifyWithDefaults(FullFeaturedAndStyledExample.args)}`,
   fullFeaturedAndStyledExampleDescription
 );
 
-export const ProvideAPIKey = ComponentTemplate.bind({});
+export const ProvideAPIKey: Story = {
+  render: ComponentTemplate,
+};
 ProvideAPIKey.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   ProvideAPIKey,
@@ -80,7 +87,9 @@ addComponentStoryDescription(
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
 
-export const ProvideCIOClientInstance = ComponentTemplate.bind({});
+export const ProvideCIOClientInstance: Story = {
+  render: ComponentTemplate,
+};
 ProvideCIOClientInstance.args = { cioJsClient, onSubmit };
 addComponentStoryDescription(
   ProvideCIOClientInstance,
@@ -92,9 +101,11 @@ const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
   cioJsClientDescription
 );
 
-const cioJsClientOptions = { serviceUrl: 'https://ac.cnstrc.com' };
+const cioJsClientOptions = { apiKey, serviceUrl: 'https://ac.cnstrc.com' };
 
-export const ProvideCIOClientOptions = ComponentTemplate.bind({});
+export const ProvideCIOClientOptions: Story = {
+  render: ComponentTemplate,
+};
 ProvideCIOClientOptions.args = { apiKey, cioJsClientOptions, onSubmit };
 addComponentStoryDescription(
   ProvideCIOClientOptions,
@@ -104,7 +115,9 @@ addComponentStoryDescription(
 
 const placeholder = 'Custom placeholder';
 
-export const ProvideCustomPlaceHolder = ComponentTemplate.bind({});
+export const ProvideCustomPlaceHolder: Story = {
+  render: ComponentTemplate,
+};
 ProvideCustomPlaceHolder.args = { apiKey, onSubmit, placeholder };
 addComponentStoryDescription(
   ProvideCustomPlaceHolder,
@@ -114,7 +127,9 @@ addComponentStoryDescription(
 
 autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
 
-export const ProvideCustomStyles = ComponentTemplate.bind({});
+export const ProvideCustomStyles: Story = {
+  render: ComponentTemplate,
+};
 ProvideCustomStyles.args = { apiKey, onSubmit, autocompleteClassName };
 addComponentStoryDescription(
   ProvideCustomStyles,
