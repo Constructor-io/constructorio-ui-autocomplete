@@ -41,6 +41,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   zeroStateSections?: UserDefinedSection[];
   autocompleteClassName?: string;
   advancedParameters?: AdvancedParameters;
+  defaultValue?: string;
 };
 
 export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
