@@ -13,6 +13,7 @@ export function HooksTemplate(args) {
     getInputProps,
     getMenuProps,
     getItemProps,
+    getSectionProps,
     setQuery,
     autocompleteClassName,
     advancedParameters,
@@ -139,7 +140,7 @@ export function HooksTemplate(args) {
 
             return (
               <div key={sectionName} className={`${sectionName} ${recommendationsSection}`}>
-                <div className='cio-section'>
+                <div {...getSectionProps(section)}>
                   <h5 className='cio-sectionName'>{sectionName}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
@@ -289,7 +290,7 @@ function YourComponent() {
 
             return (
               <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>
-                <div className='cio-section'>
+                <div {...getSectionProps(section)}>
                   <h5 className='cio-sectionName'>{sectionName}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}

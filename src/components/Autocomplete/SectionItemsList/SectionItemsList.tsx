@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase, toKebabCase } from '../../../utils';
+import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: Section;
@@ -15,6 +16,7 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
+  const { getSectionProps } = useContext(CioAutocompleteContext);
   const { type, displayName } = section;
   let sectionTitle = displayName;
 
@@ -37,13 +39,8 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
 
   if (!section?.data?.length) return null;
 
-  // Add the indexSection as a class to the section container to make sure it gets the styles
-  // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
-  // ... they should be styled accordingly
-  const indexSection = type !== 'custom' ? toKebabCase(section.indexSection) : '';
-
   return (
-    <li className={`${sectionTitle} cio-section ${indexSection}`} role='none'>
+    <li {...getSectionProps(section)}>
       <h5 className='cio-sectionName' aria-hidden>
         {camelToStartCase(sectionTitle)}
       </h5>
