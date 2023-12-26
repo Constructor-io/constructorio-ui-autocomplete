@@ -43,7 +43,38 @@ export type CioAutocompleteProps = CioClientConfig & {
   advancedParameters?: AdvancedParameters;
 };
 
-export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
+/**
+ * AutocompleteSubmitEvent type is AutocompleteSelectSubmit or AutocompleteSearchSubmit.
+ * Use isAutocompleteSearchSubmit or isAutocompleteSelectSubmit type predicates to safely access event properties.
+ */
+export type AutocompleteSubmitEvent = AutocompleteSelectSubmit | AutocompleteSearchSubmit;
+
+export type AutocompleteSelectSubmit = {
+  item: Item;
+  originalQuery: string;
+};
+
+export type AutocompleteSearchSubmit = {
+  query: string;
+};
+
+/**
+ * Checks if the provided event is an AutocompleteSelectSubmit event.
+ * @param event The event to check.
+ * @returns True if the event is an AutocompleteSelectSubmit event, false otherwise.
+ */
+export const isAutocompleteSelectSubmit = (
+  event: AutocompleteSubmitEvent
+): event is AutocompleteSelectSubmit => 'item' in event && 'originalQuery' in event;
+
+/**
+ * Checks if the given event is an AutocompleteSearchSubmit event.
+ * @param event The event to check.
+ * @returns True if the event is an AutocompleteSearchSubmit event, false otherwise.
+ */
+export const isAutocompleteSearchSubmit = (
+  event: AutocompleteSubmitEvent
+): event is AutocompleteSearchSubmit => 'query' in event;
 
 export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
 
