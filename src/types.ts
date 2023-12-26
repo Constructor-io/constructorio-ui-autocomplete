@@ -127,5 +127,5 @@ export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
 };
 
 export type Translations = {
-  in?: String;
+  in?: string;
 };

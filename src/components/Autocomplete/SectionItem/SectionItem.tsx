@@ -3,7 +3,7 @@ import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
 import { isProduct, isInGroupSuggestion, isSearchSuggestion } from '../../../typeGuards';
 import SectionItemText from './SectionItemText';
-import useTranslate from '../../../hooks/useTranslate';
+import { translate } from '../../../utils';
 
 export interface SectionItemProps {
   item: Item;
@@ -24,8 +24,6 @@ export default function SectionItem(props: SectionItemProps) {
     translations,
   } = advancedParameters || {};
   let defaultChildren: ReactNode;
-
-  const { translate } = useTranslate(translations);
 
   if (isProduct(item)) {
     defaultChildren = (
@@ -48,7 +46,7 @@ export default function SectionItem(props: SectionItemProps) {
   } else if (isInGroupSuggestion(item)) {
     defaultChildren = (
       <p className='cio-term-in-group'>
-        {translate('in')}{' '}
+        {translate('in', translations)}{' '}
         <SectionItemText
           item={item}
           query={query}

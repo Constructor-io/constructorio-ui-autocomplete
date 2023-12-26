@@ -230,4 +230,12 @@ export const termsWithImagesAndCountsDescription = `Pass boolean flags for \`dis
 
 export const debounceDescription = `Pass an integer to \`debounce\` to override the recommended, default delay employed for debouncing autocomplete network requests between keystrokes as your users type into the text input field. The default value is 250, which results in a debounce delay of 250 milliseconds.`;
 
-export const translationsDescription = `Pass a \`translations\` object to display translatable words in your preferred language.`;
+export const translationsDescription = `Pass a \`translations\` object to display translatable words in your preferred language.
+
+- Current translatable keys:
+\`\`\`
+  {
+    "in": "..."
+  }
+\`\`\`
+`;

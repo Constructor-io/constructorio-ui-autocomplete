@@ -107,7 +107,9 @@ Translations.args = {
     numTermsWithGroupSuggestions: 1,
     numGroupsSuggestedPerTerm: 2,
     translations: {
-      in: 'inside',
+      // French translation
+      // eslint-disable-next-line @cspell/spellchecker
+      in: 'dans',
     },
   },
 };
