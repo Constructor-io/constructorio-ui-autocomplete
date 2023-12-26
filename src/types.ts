@@ -84,12 +84,12 @@ export type SectionConfiguration = {
 
 export interface AutocompleteSection extends SectionConfiguration {
   type?: 'autocomplete';
-  data?: Item[];
+  data: Item[];
 }
 
 export interface RecommendationsSection extends SectionConfiguration {
   type: 'recommendations';
-  data?: Item[];
+  data: Item[];
   itemIds?: string[];
   section?: string;
   term?: string;
@@ -102,7 +102,7 @@ export interface CustomSection extends SectionConfiguration {
 
 export type Section = AutocompleteSection | RecommendationsSection | CustomSection;
 
-export type UserDefinedSection = Section;
+export type UserDefinedSection = CustomSection | SectionConfiguration;
 
 export type Product = ProductFromClient & {
   section: 'Products';

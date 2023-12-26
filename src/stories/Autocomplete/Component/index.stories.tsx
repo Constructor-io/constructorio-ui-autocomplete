@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
-import { argTypes } from '../argTypes';
 import { functionStrings, stringifyWithDefaults } from '../../../utils';
 import { ComponentTemplate, FullExampleTemplate, addComponentStoryDescription } from '.';
 import {
@@ -64,7 +63,8 @@ FullFeaturedAndStyledExample.args = {
       type: 'recommendations',
       section: 'Products',
       numResults: 6,
-    },
+    } as any,
+    // Todo: remove as any when this PR is merged https://github.com/Constructor-io/constructorio-ui-autocomplete/pull/112/files
   ],
 } as CioAutocompleteProps;
 addComponentStoryDescription(
