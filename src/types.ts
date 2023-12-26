@@ -46,6 +46,8 @@ export type CioAutocompleteProps = CioClientConfig & {
 /**
  * AutocompleteSubmitEvent type is AutocompleteSelectSubmit or AutocompleteSearchSubmit.
  * Use isAutocompleteSearchSubmit or isAutocompleteSelectSubmit type predicates to safely access event properties.
+ * @example if (isAutocompleteSelectSubmit(event)) { ... } //`item` and `originalQuery` are available
+ * @example if (isAutocompleteSearchSubmit(event)) { ... } //`query` is available
  */
 export type AutocompleteSubmitEvent = AutocompleteSelectSubmit | AutocompleteSearchSubmit;
 
@@ -62,6 +64,7 @@ export type AutocompleteSearchSubmit = {
  * Checks if the provided event is an AutocompleteSelectSubmit event.
  * @param event The event to check.
  * @returns True if the event is an AutocompleteSelectSubmit event, false otherwise.
+ * @example if (isAutocompleteSelectSubmit(event)) { ... } // `query` is available
  */
 export const isAutocompleteSelectSubmit = (
   event: AutocompleteSubmitEvent
@@ -71,6 +74,7 @@ export const isAutocompleteSelectSubmit = (
  * Checks if the given event is an AutocompleteSearchSubmit event.
  * @param event The event to check.
  * @returns True if the event is an AutocompleteSearchSubmit event, false otherwise.
+ * @example if (isAutocompleteSearchSubmit(event)) { ... } // `item` and `originalQuery` are available
  */
 export const isAutocompleteSearchSubmit = (
   event: AutocompleteSubmitEvent
