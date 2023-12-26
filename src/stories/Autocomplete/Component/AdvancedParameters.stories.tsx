@@ -108,7 +108,6 @@ Translations.args = {
     numGroupsSuggestedPerTerm: 2,
     translations: {
       // French translation
-      // eslint-disable-next-line @cspell/spellchecker
       in: 'dans',
     },
   },
