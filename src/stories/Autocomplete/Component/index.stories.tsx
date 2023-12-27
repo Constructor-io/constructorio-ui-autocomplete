@@ -63,8 +63,7 @@ FullFeaturedAndStyledExample.args = {
       type: 'recommendations',
       section: 'Products',
       numResults: 6,
-    } as any,
-    // Todo: remove as any when this PR is merged https://github.com/Constructor-io/constructorio-ui-autocomplete/pull/112/files
+    },
   ],
 } as CioAutocompleteProps;
 addComponentStoryDescription(
