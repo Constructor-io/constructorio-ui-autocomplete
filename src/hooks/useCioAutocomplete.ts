@@ -19,6 +19,7 @@ import {
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
+import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -35,9 +36,7 @@ export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
 const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =>
   sections.map((config) => {
-    const { type } = config;
-
-    if (type === 'recommendations') {
+    if (isRecommendationsSection(config)) {
       if (config.identifier && !config.podId) {
         return { ...config, podId: config.identifier };
       }
@@ -47,7 +46,7 @@ const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =
       }
     }
 
-    if (type === 'autocomplete' || !type) {
+    if (isAutocompleteSection(config)) {
       if (config.identifier && !config.indexSectionName) {
         return { ...config, indexSectionName: config.identifier };
       }
@@ -243,7 +242,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       };
 
       // Add data attributes for recommendations
-      if (section.type === 'recommendations') {
+      if (isRecommendationsSection(section)) {
         attributes['data-cnstrc-recommendations'] = true;
         attributes['data-cnstrc-recommendations-pod-id'] = section.podId;
       }

@@ -12,6 +12,7 @@ import {
 import { getActiveSectionsWithData } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
+import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
 
 export default function useSections(
   query: string,
@@ -28,15 +29,15 @@ export default function useSections(
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
   const autocompleteSections = useMemo(
     () =>
-      activeSections?.filter(
-        (config: UserDefinedSection) => config.type === 'autocomplete' || !config.type
+      activeSections?.filter((config: UserDefinedSection) =>
+        isAutocompleteSection(config)
       ) as AutocompleteSectionConfiguration[],
     [activeSections]
   );
   const recommendationsSections = useMemo(
     () =>
-      activeSections?.filter(
-        (config: UserDefinedSection) => config.type === 'recommendations'
+      activeSections?.filter((config: UserDefinedSection) =>
+        isRecommendationsSection(config)
       ) as RecommendationsSectionConfiguration[],
     [activeSections]
   );

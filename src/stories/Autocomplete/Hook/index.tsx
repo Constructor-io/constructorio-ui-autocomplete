@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
+import { isRecommendationsSection } from '../../../typeGuards';
 import { Item } from '../../../types';
 import { getStoryParams, toKebabCase } from '../../../utils';
 
@@ -136,7 +137,9 @@ export function HooksTemplate(args) {
                 break;
             }
 
-            const recommendationsSection = type === 'recommendations' ? section.indexSectionName : '';
+            const recommendationsSection = isRecommendationsSection(section)
+              ? section.indexSectionName
+              : '';
 
             return (
               <div key={sectionName} className={`${sectionName} ${recommendationsSection}`}>
@@ -286,7 +289,9 @@ function YourComponent() {
                 break;
             }
 
-            const recommendationsSection = type === 'recommendations' ? section.indexSectionName : '';
+            const recommendationsSection = isRecommendationsSection(section)
+              ? section.indexSectionName
+              : '';
 
             return (
               <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>

@@ -4,7 +4,7 @@ import {
   Nullable,
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { isCustomSection } from './typeGuards';
+import { isCustomSection, isRecommendationsSection } from './typeGuards';
 import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
 import version from './version';
 
@@ -207,7 +207,7 @@ export const trackRecommendationView = (
     // Pull recommendations from activeSectionsWithData by podId surfaced on target
     const recommendationSection = activeSectionsWithData.find(
       (section) =>
-        section.type === 'recommendations' &&
+        isRecommendationsSection(section) &&
         section.podId === target.dataset.cnstrcRecommendationsPodId
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
