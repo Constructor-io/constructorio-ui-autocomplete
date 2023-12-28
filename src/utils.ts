@@ -206,7 +206,9 @@ export const trackRecommendationView = (
   if (target.dataset.cnstrcRecommendationsPodId) {
     // Pull recommendations from activeSectionsWithData by podId surfaced on target
     const recommendationSection = activeSectionsWithData.find(
-      (section) => section.identifier === target.dataset.cnstrcRecommendationsPodId
+      (section) =>
+        section.type === 'recommendations' &&
+        section.podId === target.dataset.cnstrcRecommendationsPodId
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
       itemId: item.data?.id,

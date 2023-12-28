@@ -245,7 +245,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       // Add data attributes for recommendations
       if (section.type === 'recommendations') {
         attributes['data-cnstrc-recommendations'] = true;
-        attributes['data-cnstrc-recommendations-pod-id'] = section.identifier;
+        attributes['data-cnstrc-recommendations-pod-id'] = section.podId;
       }
       return attributes;
     },
