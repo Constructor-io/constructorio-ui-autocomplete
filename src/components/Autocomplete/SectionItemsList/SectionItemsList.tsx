@@ -26,13 +26,13 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
         sectionTitle = section.podId;
         break;
       case 'autocomplete':
-        sectionTitle = section.indexSection;
+        sectionTitle = section.indexSectionName;
         break;
       case 'custom':
         sectionTitle = section.displayName;
         break;
       default:
-        sectionTitle = section.indexSection;
+        sectionTitle = section.indexSectionName;
         break;
     }
   }

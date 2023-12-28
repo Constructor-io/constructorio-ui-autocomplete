@@ -174,7 +174,7 @@ export const getActiveSectionsWithData = (
         break;
       default:
         // Autocomplete
-        sectionData = sectionResults[sectionConfig.indexSection];
+        sectionData = sectionResults[sectionConfig.indexSectionName];
     }
 
     if (Array.isArray(sectionData)) {

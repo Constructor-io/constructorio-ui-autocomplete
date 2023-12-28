@@ -78,10 +78,10 @@ function YourComponent() {
         {isOpen && (
           <>
             {sections?.map((section) => (
-              <div key={section.indexSection} className={section.indexSection}>
+              <div key={section.indexSectionName} className={section.indexSectionName}>
                 <div className='cio-section'>
                   <div className='cio-sectionName'>
-                    {section?.displayName || section.indexSection}
+                    {section?.displayName || section.indexSectionName}
                   </div>
                   <div className='cio-items'>
                     {section?.data?.map((item) => (

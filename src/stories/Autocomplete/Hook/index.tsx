@@ -129,14 +129,14 @@ export function HooksTemplate(args) {
                 sectionName = toKebabCase(displayName);
                 break;
               case 'autocomplete':
-                sectionName = section.indexSection;
+                sectionName = section.indexSectionName;
                 break;
               default:
-                sectionName = section.indexSection;
+                sectionName = section.indexSectionName;
                 break;
             }
 
-            const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
+            const recommendationsSection = type === 'recommendations' ? section.indexSectionName : '';
 
             return (
               <div key={sectionName} className={`${sectionName} ${recommendationsSection}`}>
@@ -279,14 +279,14 @@ function YourComponent() {
                 sectionName = toKebabCase(displayName);
                 break;
               case 'autocomplete':
-                sectionName = section.indexSection;
+                sectionName = section.indexSectionName;
                 break;
               default:
-                sectionName = section.indexSection;
+                sectionName = section.indexSectionName;
                 break;
             }
 
-            const recommendationsSection = type === 'recommendations' ? section.indexSection : '';
+            const recommendationsSection = type === 'recommendations' ? section.indexSectionName : '';
 
             return (
               <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>

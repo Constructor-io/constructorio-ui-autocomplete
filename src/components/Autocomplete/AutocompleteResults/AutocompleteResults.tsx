@@ -26,10 +26,10 @@ const DefaultRenderResults: RenderResults = ({ sections }) =>
         key = toKebabCase(section.displayName);
         break;
       case 'autocomplete':
-        key = section.indexSection;
+        key = section.indexSectionName;
         break;
       default:
-        key = section.indexSection;
+        key = section.indexSectionName;
         break;
     }
 

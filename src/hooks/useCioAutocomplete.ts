@@ -22,11 +22,11 @@ import useRecommendationsObserver from './useRecommendationsObserver';
 
 export const defaultSections: UserDefinedSection[] = [
   {
-    indexSection: 'Search Suggestions',
+    indexSectionName: 'Search Suggestions',
     type: 'autocomplete',
   },
   {
-    indexSection: 'Products',
+    indexSectionName: 'Products',
     type: 'autocomplete',
   },
 ];
@@ -42,14 +42,14 @@ const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =
         return { ...config, podId: config.identifier };
       }
 
-      if (!config.indexSection) {
-        return { ...config, indexSection: 'Products' };
+      if (!config.indexSectionName) {
+        return { ...config, indexSectionName: 'Products' };
       }
     }
 
     if (type === 'autocomplete' || !type) {
-      if (config.identifier && !config.indexSection) {
-        return { ...config, indexSection: config.identifier };
+      if (config.identifier && !config.indexSectionName) {
+        return { ...config, indexSectionName: config.identifier };
       }
     }
 
@@ -213,10 +213,10 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       const { type, displayName } = section;
       let sectionTitle = displayName;
 
-      // Add the indexSection as a class to the section container to make sure it gets the styles
+      // Add the indexSectionName as a class to the section container to make sure it gets the styles
       // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
       // ... they should be styled accordingly
-      const indexSection = type !== 'custom' ? toKebabCase(section.indexSection) : '';
+      const indexSectionName = type !== 'custom' ? toKebabCase(section.indexSectionName) : '';
 
       if (!sectionTitle) {
         switch (type) {
@@ -224,19 +224,19 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             sectionTitle = section.podId;
             break;
           case 'autocomplete':
-            sectionTitle = section.indexSection;
+            sectionTitle = section.indexSectionName;
             break;
           case 'custom':
             sectionTitle = section.displayName;
             break;
           default:
-            sectionTitle = section.indexSection;
+            sectionTitle = section.indexSectionName;
             break;
         }
       }
 
       const attributes: HTMLPropsWithCioDataAttributes = {
-        className: `${sectionTitle} cio-section  ${indexSection}`,
+        className: `${sectionTitle} cio-section  ${indexSectionName}`,
         ref: section.ref,
         role: 'none',
         'data-cnstrc-section': section.data[0]?.section,

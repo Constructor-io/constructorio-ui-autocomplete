@@ -29,10 +29,10 @@ const defaultArgs: CioAutocompleteProps = {
   onSubmit,
   sections: [
     {
-      indexSection: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      indexSection: 'Products',
+      indexSectionName: 'Products',
     },
   ],
 };
@@ -121,7 +121,7 @@ TypeSearchTermRenderSearchSuggestions.args = {
   apiKey,
   sections: [
     {
-      indexSection: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -139,7 +139,7 @@ TypeSearchTermRenderProducts.args = {
   apiKey,
   sections: [
     {
-      indexSection: 'Products',
+      indexSectionName: 'Products',
     },
   ],
 };
@@ -178,10 +178,10 @@ TypeSearchTermRenderSectionsDefaultOrder.args = {
   apiKey,
   sections: [
     {
-      indexSection: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      indexSection: 'Products',
+      indexSectionName: 'Products',
     },
     {
       podId: 'bestsellers',
@@ -209,14 +209,14 @@ TypeSearchTermRenderSectionsCustomOrder.args = {
   apiKey,
   sections: [
     {
-      indexSection: 'Products',
+      indexSectionName: 'Products',
     },
     {
       podId: 'bestsellers',
       type: 'recommendations',
     },
     {
-      indexSection: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -371,7 +371,7 @@ ZeroStateRenderProductsSection.args = {
   apiKey,
   sections: [
     {
-      indexSection: 'Products',
+      indexSectionName: 'Products',
       numResults: 4,
     },
   ],

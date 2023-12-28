@@ -84,14 +84,14 @@ export type SectionConfiguration = {
 
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   type?: 'autocomplete';
-  indexSection: string;
-  /** @deprecated use indexSection field instead */
+  indexSectionName: string;
+  /** @deprecated use indexSectionName field instead */
   identifier?: string;
 }
 
 export interface RecommendationsSectionConfiguration extends SectionConfiguration {
   type: 'recommendations';
-  indexSection: string;
+  indexSectionName: string;
   podId: string;
   itemIds?: string[];
   term?: string;

@@ -76,7 +76,7 @@ const useDebouncedFetchSection = (
       decoratedParameters.resultsPerSection = autocompleteSections.reduce(
         (acc, sectionConfig) => ({
           ...acc,
-          [sectionConfig.indexSection]: sectionConfig?.numResults || 8,
+          [sectionConfig.indexSectionName]: sectionConfig?.numResults || 8,
         }),
         {}
       );

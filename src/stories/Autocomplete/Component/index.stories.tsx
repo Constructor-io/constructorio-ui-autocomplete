@@ -43,12 +43,12 @@ FullFeaturedAndStyledExample.args = {
   },
   sections: [
     {
-      indexSection: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
       numResults: 8,
       displaySearchTermHighlights: true,
     },
     {
-      indexSection: 'Products',
+      indexSectionName: 'Products',
       numResults: 6,
       displaySearchTermHighlights: true,
     },
