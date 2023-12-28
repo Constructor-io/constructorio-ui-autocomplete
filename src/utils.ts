@@ -4,7 +4,7 @@ import {
   Nullable,
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { isCustomSection, isRecommendationsSection } from './typeGuards';
+import { isRecommendationsSection } from './typeGuards';
 import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
 import version from './version';
 

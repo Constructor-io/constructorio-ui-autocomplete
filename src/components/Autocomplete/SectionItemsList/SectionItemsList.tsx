@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
-import { camelToStartCase, toKebabCase } from '../../../utils';
+import { camelToStartCase } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
