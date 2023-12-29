@@ -5,7 +5,7 @@ import {
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isCustomSection } from './typeGuards';
-import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
+import { OnSubmit, Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -220,4 +220,14 @@ export const getItemsForActiveSections = (activeSectionsWithData: Section[]) => 
   });
 
   return items;
+};
+
+export const translate = (word: string, translations?: Translations) => {
+  const localTranslations: Translations = {
+    in: 'in',
+  };
+
+  if (translations) return translations[word];
+
+  return localTranslations[word] || word;
 };

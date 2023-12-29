@@ -25,6 +25,7 @@ export interface AdvancedParametersBase {
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
   debounce?: number;
+  translations?: Translations;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
@@ -123,4 +124,8 @@ export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
   T
 > & {
   [key: `data-cnstrc-${string}`]: any;
+};
+
+export type Translations = {
+  in?: string;
 };
