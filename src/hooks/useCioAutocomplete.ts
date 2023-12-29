@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
-import { CioAutocompleteProps, CioClientConfig, UserDefinedSection } from '../types';
+import {
+  CioAutocompleteProps,
+  CioClientConfig,
+  Section,
+  UserDefinedSection,
+  HTMLPropsWithCioDataAttributes,
+} from '../types';
 import usePrevious from './usePrevious';
-import { getItemPosition, getSearchSuggestionFeatures } from '../utils';
+import {
+  getItemPosition,
+  getItemsForActiveSections,
+  getSearchSuggestionFeatures,
+  trackRecommendationView,
+} from '../utils';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
-import useItems from './useItems';
+import useRecommendationsObserver from './useRecommendationsObserver';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -50,13 +61,26 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   );
 
   // Get dropdown items array from active sections (autocomplete + recommendations + custom)
-  const items = useItems(activeSectionsWithData);
-
-  const downshift = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
-  const { isOpen, getMenuProps, getLabelProps, openMenu, closeMenu, highlightedIndex } = downshift;
+  const items = useMemo(
+    () => getItemsForActiveSections(activeSectionsWithData),
+    [activeSectionsWithData]
+  );
+  const {
+    isOpen,
+    getMenuProps,
+    getLabelProps,
+    openMenu,
+    closeMenu,
+    highlightedIndex,
+    getInputProps,
+    getItemProps,
+  } = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
 
   // Log console errors
   useConsoleErrors(sections, activeSections);
+
+  // Track recommendation view
+  useRecommendationsObserver(isOpen, activeSectionsWithData, cioClient, trackRecommendationView);
 
   return {
     query,
@@ -77,13 +101,13 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
       return {
-        ...downshift.getItemProps({ item, index }),
+        ...getItemProps({ item, index }),
         className: `cio-item ${sectionItemTestId}`,
         'data-testid': sectionItemTestId,
       };
     },
     getInputProps: () => ({
-      ...downshift.getInputProps({
+      ...getInputProps({
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           setQuery(e.target.value);
           if (onChange) {
@@ -97,10 +121,10 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           options.onFocus();
         }
         if (zeroStateActiveSections && openOnFocus !== false) {
-          downshift.openMenu();
+          openMenu();
         }
         if (query?.length) {
-          downshift.openMenu();
+          openMenu();
         }
         try {
           cioClient?.tracker?.trackInputFocus();
@@ -145,6 +169,22 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       className: 'cio-form',
       'data-testid': 'cio-form',
     }),
+    getSectionProps: (section: Section) => {
+      const sectionName = section?.displayName || section?.identifier;
+      const attributes: HTMLPropsWithCioDataAttributes = {
+        className: `${sectionName} cio-section`,
+        ref: section.ref,
+        role: 'none',
+        'data-cnstrc-section': section.data[0]?.section,
+      };
+
+      // Add data attributes for recommendations
+      if (section.type === 'recommendations') {
+        attributes['data-cnstrc-recommendations'] = true;
+        attributes['data-cnstrc-recommendations-pod-id'] = section.identifier;
+      }
+      return attributes;
+    },
     setQuery,
     cioClient,
     autocompleteClassName,

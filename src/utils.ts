@@ -1,10 +1,11 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import {
   AutocompleteRequestType,
+  Nullable,
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isCustomSection } from './typeGuards';
-import { Item, Section, UserDefinedSection, SectionsData } from './types';
+import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -145,25 +146,37 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
 
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
-  sectionResults: SectionsData
+  sectionResults: SectionsData,
+  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>
 ) => {
   const activeSectionsWithData: Section[] = [];
-  activeSections?.forEach((config) => {
-    const { identifier } = config;
-    let data;
+  activeSections?.forEach((sectionConfig, index) => {
+    const { identifier } = sectionConfig;
+    let sectionData;
 
-    if (isCustomSection(config)) {
+    if (isCustomSection(sectionConfig)) {
       // Copy id from data to the top level
-      data = config.data.map((item) => ({
+      sectionData = sectionConfig.data.map((item) => ({
         ...item,
         id: item?.id || item?.data?.id,
       }));
     } else {
-      data = sectionResults[identifier];
+      sectionData = sectionResults[identifier];
     }
 
-    if (Array.isArray(data)) {
-      activeSectionsWithData.push({ ...config, data });
+    if (Array.isArray(sectionData)) {
+      const section = {
+        ...sectionConfig,
+        data: sectionData,
+      };
+
+      // If ref passed as part of `SectionConfiguration`, use it.
+      // Otherwise, use the ref from our library generated refs array
+      const userDefinedSectionRef = sectionConfig.ref;
+      const libraryGeneratedSectionRef = sectionsRefs.current[index];
+      section.ref = userDefinedSectionRef || libraryGeneratedSectionRef;
+
+      activeSectionsWithData.push(section);
     }
   });
 
@@ -171,3 +184,50 @@ export const getActiveSectionsWithData = (
 };
 
 export const escapeRegExp = (string: string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+export const trackRecommendationView = (
+  target: HTMLElement,
+  activeSectionsWithData: Section[],
+  cioClient: Nullable<ConstructorIOClient>
+) => {
+  if (target.dataset.cnstrcRecommendationsPodId) {
+    // Pull recommendations from activeSectionsWithData by podId surfaced on target
+    const recommendationSection = activeSectionsWithData.find(
+      (section) => section.identifier === target.dataset.cnstrcRecommendationsPodId
+    );
+    const recommendationItems = recommendationSection?.data.map((item) => ({
+      itemId: item.data?.id,
+      itemName: item.value,
+      variationId: item.data?.variation_id,
+    }));
+
+    cioClient?.tracker.trackRecommendationView({
+      podId: target.dataset.cnstrcRecommendationsPodId,
+      numResultsViewed: recommendationItems?.length || 0,
+      url: window.location.href,
+      section: target.dataset.cnstrcSection,
+      items: recommendationItems,
+    });
+  }
+};
+
+export const getItemsForActiveSections = (activeSectionsWithData: Section[]) => {
+  const items: Item[] = [];
+  activeSectionsWithData?.forEach((config: Section) => {
+    if (config?.data) {
+      items.push(...config.data);
+    }
+  });
+
+  return items;
+};
+
+export const translate = (word: string, translations?: Translations) => {
+  const localTranslations: Translations = {
+    in: 'in',
+  };
+
+  if (translations) return translations[word];
+
+  return localTranslations[word] || word;
+};

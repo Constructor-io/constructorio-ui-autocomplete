@@ -37,6 +37,7 @@ const {
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element rendering the results container
   getItemProps: (item) => ({...})), // prop getter for jsx element rendering each result
+  getSectionProps: (section: Section) => ({...})), // prop getter for jsx element rendering each section.
 
   // available for use, but not required for all use cases
   selectedItem: item, // undefined or current selected item (via hover or arrow keys)
@@ -228,3 +229,13 @@ To see this in action:
 export const termsWithImagesAndCountsDescription = `Pass boolean flags for \`displaySearchSuggestionImages\` and \`displaySearchSuggestionResultCounts\` fields to display images and counts for search suggestions. These fields need to be made displayable before they can be used. Please contact your Constructor Integration Engineer for details.`;
 
 export const debounceDescription = `Pass an integer to \`debounce\` to override the recommended, default delay employed for debouncing autocomplete network requests between keystrokes as your users type into the text input field. The default value is 250, which results in a debounce delay of 250 milliseconds.`;
+
+export const translationsDescription = `Pass a \`translations\` object to display translatable words in your preferred language.
+
+- Current translatable keys:
+\`\`\`
+  {
+    "in": "..."
+  }
+\`\`\`
+`;

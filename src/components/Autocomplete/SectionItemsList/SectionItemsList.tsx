@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import { camelToStartCase } from '../../../utils';
+import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: Section;
@@ -15,12 +16,14 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
+  const { getSectionProps } = useContext(CioAutocompleteContext);
+
   const sectionName = section?.displayName || section?.identifier;
 
   if (!section?.data?.length) return null;
 
   return (
-    <li className={`${sectionName} cio-section`} role='none'>
+    <li {...getSectionProps(section)}>
       <h5 className='cio-sectionName' aria-hidden>
         {camelToStartCase(sectionName)}
       </h5>
