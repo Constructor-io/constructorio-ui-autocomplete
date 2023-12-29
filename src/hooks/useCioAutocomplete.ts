@@ -34,10 +34,10 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     zeroStateSections,
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
-    defaultValue,
+    defaultInput,
   } = options;
 
-  const [query, setQuery] = useState(defaultValue || '');
+  const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 
