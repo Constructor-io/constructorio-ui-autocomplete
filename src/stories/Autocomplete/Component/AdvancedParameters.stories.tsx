@@ -11,6 +11,7 @@ import {
   onSubmitDefault as onSubmit,
   termsWithImagesAndCountsDescription,
   debounceDescription,
+  translationsDescription,
 } from '../../../constants';
 
 export default {
@@ -96,4 +97,23 @@ addComponentStoryDescription(
   Debounce,
   `const args = ${stringifyWithDefaults(Debounce.args)}`,
   debounceDescription
+);
+
+export const Translations = ComponentTemplate.bind({});
+Translations.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: {
+    numTermsWithGroupSuggestions: 1,
+    numGroupsSuggestedPerTerm: 2,
+    translations: {
+      // French translation
+      in: 'dans',
+    },
+  },
+};
+addComponentStoryDescription(
+  Translations,
+  `const args = ${stringifyWithDefaults(Translations.args)}`,
+  translationsDescription
 );

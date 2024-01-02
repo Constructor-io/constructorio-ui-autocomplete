@@ -66,6 +66,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     placeholder = 'What can we help you find today?',
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
+    defaultInput,
   } = options;
 
   let { sections = defaultSections, zeroStateSections } = options;
@@ -86,7 +87,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     return zeroStateSections;
   }, [zeroStateSections]);
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 

@@ -5,7 +5,7 @@ import {
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isRecommendationsSection } from './typeGuards';
-import { OnSubmit, Item, Section, UserDefinedSection, SectionsData } from './types';
+import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -105,7 +105,7 @@ export const functionStrings = {
   onSubmit: `(submitEvent) => console.dir(submitEvent)`,
 };
 
-export const stringifyWithDefaults = (obj: { apiKey: string; onSubmit: OnSubmit }) => {
+export const stringifyWithDefaults = (obj) => {
   // Stringify non-function values normally. Add a template block for functions to be replaced later
   let res = JSON.stringify(
     obj,
@@ -235,4 +235,14 @@ export const getItemsForActiveSections = (activeSectionsWithData: Section[]) => 
   });
 
   return items;
+};
+
+export const translate = (word: string, translations?: Translations) => {
+  const localTranslations: Translations = {
+    in: 'in',
+  };
+
+  if (translations) return translations[word];
+
+  return localTranslations[word] || word;
 };

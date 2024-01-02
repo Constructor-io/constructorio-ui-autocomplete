@@ -25,6 +25,7 @@ export interface AdvancedParametersBase {
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
   debounce?: number;
+  translations?: Translations;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
@@ -41,6 +42,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   zeroStateSections?: UserDefinedSection[];
   autocompleteClassName?: string;
   advancedParameters?: AdvancedParameters;
+  defaultInput?: string;
 };
 
 export type AutocompleteSubmitEvent = { item: Item; originalQuery: string } | { query: string };
@@ -141,4 +143,8 @@ export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
   T
 > & {
   [key: `data-cnstrc-${string}`]: any;
+};
+
+export type Translations = {
+  in?: string;
 };
