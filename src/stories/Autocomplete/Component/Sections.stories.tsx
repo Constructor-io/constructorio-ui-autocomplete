@@ -39,7 +39,7 @@ RenderSearchSuggestions.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -55,7 +55,7 @@ RenderSuggestedProducts.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
   ],
 };
@@ -71,7 +71,7 @@ RenderSuggestedContent.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Content',
+      indexSectionName: 'Content',
     },
   ],
 };
@@ -87,7 +87,7 @@ ConfigureNumberOfResultsPerSection.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
       numResults: 2,
     },
   ],
@@ -104,10 +104,10 @@ ConfigureOrderOfRenderedSections.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -123,13 +123,13 @@ RenderRecommendations.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
       numResults: 4,
     },
@@ -147,15 +147,15 @@ DisplaySearchTermHighlights.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
       displaySearchTermHighlights: true,
     },
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
       displaySearchTermHighlights: true,
     },
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
       displaySearchTermHighlights: true,
     },
@@ -173,22 +173,19 @@ RenderCustomSection.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      identifier: 'recent_searches',
       displayName: 'Recent Searches',
       type: 'custom',
       data: [
         {
-          section: 'recent_searches',
           value: 'Red T-shirt',
           data: {
             id: '1',
           },
         },
         {
-          section: 'recent_searches',
           value: 'Dresses',
           data: {
             id: '2',

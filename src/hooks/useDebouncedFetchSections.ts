@@ -3,17 +3,18 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 import {
   Nullable,
   IAutocompleteParameters,
+  AutocompleteResponse,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import useDebounce from './useDebounce';
 import {
   AutocompleteResultSections,
-  UserDefinedSection,
   AdvancedParameters,
   AdvancedParametersBase,
   SectionsData,
+  AutocompleteSectionConfiguration,
 } from '../types';
 
-const transformResponse = (response, options) => {
+const transformResponse = (response: AutocompleteResponse, options) => {
   const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
   const newSectionsData: SectionsData = {};
   Object.keys(response?.sections || {}).forEach((section: string) => {
@@ -52,7 +53,7 @@ const transformResponse = (response, options) => {
 const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
-  autocompleteSections: UserDefinedSection[],
+  autocompleteSections: AutocompleteSectionConfiguration[],
   advancedParameters?: AdvancedParameters
 ) => {
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({
@@ -75,7 +76,7 @@ const useDebouncedFetchSection = (
       decoratedParameters.resultsPerSection = autocompleteSections.reduce(
         (acc, sectionConfig) => ({
           ...acc,
-          [sectionConfig.identifier]: sectionConfig?.numResults || 8,
+          [sectionConfig.indexSectionName]: sectionConfig?.numResults || 8,
         }),
         {}
       );
@@ -92,11 +93,13 @@ const useDebouncedFetchSection = (
             debouncedSearchTerm,
             autocompleteParameters
           );
-          const newSectionsData = transformResponse(response, {
-            numTermsWithGroupSuggestions,
-            numGroupsSuggestedPerTerm,
-          });
-          setSectionsData(newSectionsData);
+          if (response) {
+            const newSectionsData = transformResponse(response, {
+              numTermsWithGroupSuggestions,
+              numGroupsSuggestedPerTerm,
+            });
+            setSectionsData(newSectionsData);
+          }
         } catch (error: any) {
           // eslint-disable-next-line no-console
           console.log(error);

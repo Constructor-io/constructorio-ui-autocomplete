@@ -29,10 +29,10 @@ const defaultArgs: CioAutocompleteProps = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
   ],
 };
@@ -121,7 +121,7 @@ TypeSearchTermRenderSearchSuggestions.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -139,7 +139,7 @@ TypeSearchTermRenderProducts.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
   ],
 };
@@ -159,7 +159,7 @@ TypeSearchTermRenderRecommendations.args = {
   apiKey,
   sections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -178,13 +178,13 @@ TypeSearchTermRenderSectionsDefaultOrder.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -209,14 +209,14 @@ TypeSearchTermRenderSectionsCustomOrder.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -297,7 +297,7 @@ FocusRenderZeroStateSection.args = {
   apiKey,
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -316,7 +316,7 @@ NoOpenOnFocusDontRenderZeroStateSection.args = {
   ...defaultArgs,
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -335,7 +335,6 @@ ZeroStateRenderCustomSection.args = {
   apiKey,
   zeroStateSections: [
     {
-      identifier: 'recent_searches',
       displayName: 'Recent Searches',
       type: 'custom',
       data: [
@@ -372,13 +371,13 @@ ZeroStateRenderProductsSection.args = {
   apiKey,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
       numResults: 4,
     },
   ],
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],

@@ -4,7 +4,7 @@ import {
   Nullable,
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { isCustomSection } from './typeGuards';
+import { isRecommendationsSection } from './typeGuards';
 import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
 
@@ -53,7 +53,14 @@ export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
     // uppercase the first character
     .replace(/^./, (str) => str.toUpperCase());
 
-export function isTrackingRequestSent(trackingRequestUrl) {
+export const toKebabCase = (str: string): string =>
+  str
+    .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase();
+
+export function isTrackingRequestSent(trackingRequestUrl: string) {
   // eslint-disable-next-line
   const trackingRequestsQueue = window.localStorage?._constructorio_requests;
 
@@ -71,7 +78,7 @@ export function clearConstructorRequests() {
 }
 
 // Function to emulate pausing between interactions
-export function sleep(ms) {
+export function sleep(ms: number) {
   // eslint-disable-next-line
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -150,18 +157,25 @@ export const getActiveSectionsWithData = (
   sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>
 ) => {
   const activeSectionsWithData: Section[] = [];
-  activeSections?.forEach((sectionConfig, index) => {
-    const { identifier } = sectionConfig;
-    let sectionData;
 
-    if (isCustomSection(sectionConfig)) {
-      // Copy id from data to the top level
-      sectionData = sectionConfig.data.map((item) => ({
-        ...item,
-        id: item?.id || item?.data?.id,
-      }));
-    } else {
-      sectionData = sectionResults[identifier];
+  activeSections?.forEach((sectionConfig, index) => {
+    const { type } = sectionConfig;
+    let sectionData: Item[];
+
+    switch (type) {
+      case 'recommendations':
+        sectionData = sectionResults[sectionConfig.podId];
+        break;
+      case 'custom':
+        // Copy id from data to the top level
+        sectionData = sectionConfig.data.map((item: Item) => ({
+          ...item,
+          id: item?.id || item?.data?.id,
+        }));
+        break;
+      default:
+        // Autocomplete
+        sectionData = sectionResults[sectionConfig.indexSectionName];
     }
 
     if (Array.isArray(sectionData)) {
@@ -193,7 +207,9 @@ export const trackRecommendationView = (
   if (target.dataset.cnstrcRecommendationsPodId) {
     // Pull recommendations from activeSectionsWithData by podId surfaced on target
     const recommendationSection = activeSectionsWithData.find(
-      (section) => section.identifier === target.dataset.cnstrcRecommendationsPodId
+      (section) =>
+        isRecommendationsSection(section) &&
+        section.podId === target.dataset.cnstrcRecommendationsPodId
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
       itemId: item.data?.id,

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { RecommendationsSection, Item, SectionsData } from '../types';
+import { Item, SectionsData, RecommendationsSectionConfiguration } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
-  recommendationPods: RecommendationsSection[]
+  recommendationPods: RecommendationsSectionConfiguration[]
 ) => {
   const [recommendationResults, setRecommendationResults] = useState<SectionsData>({});
 
@@ -13,8 +13,11 @@ const useFetchRecommendationPod = (
     if (!cioClient || !Array.isArray(recommendationPods) || recommendationPods.length === 0) return;
     const fetchRecommendationResults = async () => {
       const responses = await Promise.all(
-        recommendationPods.map(({ identifier: podId, ...parameters }) =>
-          cioClient.recommendations.getRecommendations(podId, parameters)
+        recommendationPods.map(({ podId, indexSectionName, ...parameters }) =>
+          cioClient.recommendations.getRecommendations(podId, {
+            ...parameters,
+            section: indexSectionName,
+          })
         )
       );
       const recommendationPodResults = {};
@@ -25,7 +28,7 @@ const useFetchRecommendationPod = (
           recommendationPodResults[pod.id] = results?.map((item: Item) => ({
             ...item,
             id: item?.data?.id,
-            section: recommendationPods[index]?.section || 'Products',
+            section: recommendationPods[index]?.indexSectionName,
             podId: pod.id,
           }));
         }

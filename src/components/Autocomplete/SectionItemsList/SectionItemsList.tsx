@@ -17,15 +17,32 @@ type SectionItemsListProps = {
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
   const { getSectionProps } = useContext(CioAutocompleteContext);
+  const { type, displayName } = section;
+  let sectionTitle = displayName;
 
-  const sectionName = section?.displayName || section?.identifier;
+  if (!sectionTitle) {
+    switch (type) {
+      case 'recommendations':
+        sectionTitle = section.podId;
+        break;
+      case 'autocomplete':
+        sectionTitle = section.indexSectionName;
+        break;
+      case 'custom':
+        sectionTitle = section.displayName;
+        break;
+      default:
+        sectionTitle = section.indexSectionName;
+        break;
+    }
+  }
 
   if (!section?.data?.length) return null;
 
   return (
     <li {...getSectionProps(section)}>
       <h5 className='cio-sectionName' aria-hidden>
-        {camelToStartCase(sectionName)}
+        {camelToStartCase(sectionTitle)}
       </h5>
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => (

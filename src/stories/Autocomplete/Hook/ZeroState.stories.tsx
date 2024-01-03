@@ -35,7 +35,7 @@ RenderSections.args = {
   onSubmit,
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
       numResults: 5,
     },
@@ -54,7 +54,7 @@ NoOpenOnFocus.args = {
   openOnFocus: false,
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -71,7 +71,7 @@ RenderRecommendations.args = {
   onSubmit,
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -88,7 +88,6 @@ RenderCustomSection.args = {
   onSubmit,
   zeroStateSections: [
     {
-      identifier: 'recent_searches',
       displayName: 'Recent Searches',
       type: 'custom',
       data: [
@@ -122,11 +121,10 @@ RenderMultipleSections.args = {
   onSubmit,
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
     {
-      identifier: 'recent_searches',
       displayName: 'Recent Searches',
       type: 'custom',
       data: [

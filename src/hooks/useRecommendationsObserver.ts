@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import ConstructorIO from '@constructor-io/constructorio-client-javascript';
 import { Section } from '../types';
+import { isRecommendationsSection } from '../typeGuards';
 
 /**
  * Custom hook that observes the visibility of recommendation sections and calls trackRecommendationView event.
@@ -27,7 +28,7 @@ function useRecommendationsObserver(
 ) {
   // Get refs for each section
   const refs = sections
-    .filter((section) => section.type === 'recommendations')
+    .filter((section) => isRecommendationsSection(section))
     .map((section) => section.ref);
 
   useEffect(() => {

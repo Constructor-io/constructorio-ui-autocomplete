@@ -38,7 +38,7 @@ RenderSearchSuggestions.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -54,7 +54,7 @@ RenderSuggestedProducts.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
       numResults: 4,
     },
   ],
@@ -71,7 +71,7 @@ RenderSuggestedContent.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Content',
+      indexSectionName: 'Content',
     },
   ],
 };
@@ -87,7 +87,7 @@ ConfigureNumberOfResultsPerSection.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
       numResults: 2,
     },
   ],
@@ -104,10 +104,10 @@ ConfigureOrderOfRenderedSections.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
   ],
 };
@@ -123,13 +123,13 @@ RenderRecommendations.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
     },
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
     },
   ],
@@ -146,10 +146,9 @@ RenderCustomSection.args = {
   onSubmit,
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
     },
     {
-      identifier: 'recent_searches',
       displayName: 'Recent Searches',
       type: 'custom',
       data: [

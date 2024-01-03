@@ -14,23 +14,46 @@ import {
   getItemsForActiveSections,
   getSearchSuggestionFeatures,
   trackRecommendationView,
+  toKebabCase,
 } from '../utils';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
+import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
 
 export const defaultSections: UserDefinedSection[] = [
   {
-    identifier: 'Search Suggestions',
+    indexSectionName: 'Search Suggestions',
     type: 'autocomplete',
   },
   {
-    identifier: 'Products',
+    indexSectionName: 'Products',
     type: 'autocomplete',
   },
 ];
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+
+const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =>
+  sections.map((config) => {
+    if (isRecommendationsSection(config)) {
+      if (config.identifier && !config.podId) {
+        return { ...config, podId: config.identifier };
+      }
+
+      if (!config.indexSectionName) {
+        return { ...config, indexSectionName: 'Products' };
+      }
+    }
+
+    if (isAutocompleteSection(config)) {
+      if (config.identifier && !config.indexSectionName) {
+        return { ...config, indexSectionName: config.identifier };
+      }
+    }
+
+    return config;
+  });
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const {
@@ -41,12 +64,28 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     cioJsClient,
     cioJsClientOptions,
     placeholder = 'What can we help you find today?',
-    sections = defaultSections,
-    zeroStateSections,
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
     defaultInput,
   } = options;
+
+  let { sections = defaultSections, zeroStateSections } = options;
+
+  sections = useMemo(() => {
+    if (sections) {
+      return convertLegacyParametersAndAddDefaults(sections);
+    }
+
+    return sections;
+  }, [sections]);
+
+  zeroStateSections = useMemo(() => {
+    if (zeroStateSections) {
+      return convertLegacyParametersAndAddDefaults(zeroStateSections);
+    }
+
+    return zeroStateSections;
+  }, [zeroStateSections]);
 
   const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
@@ -171,18 +210,43 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       'data-testid': 'cio-form',
     }),
     getSectionProps: (section: Section) => {
-      const sectionName = section?.displayName || section?.identifier;
+      const { type, displayName } = section;
+      let sectionTitle = displayName;
+
+      // Add the indexSectionName as a class to the section container to make sure it gets the styles
+      // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
+      // ... they should be styled accordingly
+      const indexSectionName =
+        type !== 'custom' && section.indexSectionName ? toKebabCase(section.indexSectionName) : '';
+
+      if (!sectionTitle) {
+        switch (type) {
+          case 'recommendations':
+            sectionTitle = section.podId;
+            break;
+          case 'autocomplete':
+            sectionTitle = section.indexSectionName;
+            break;
+          case 'custom':
+            sectionTitle = section.displayName;
+            break;
+          default:
+            sectionTitle = section.indexSectionName;
+            break;
+        }
+      }
+
       const attributes: HTMLPropsWithCioDataAttributes = {
-        className: `${sectionName} cio-section`,
+        className: `${sectionTitle} cio-section  ${indexSectionName}`,
         ref: section.ref,
         role: 'none',
         'data-cnstrc-section': section.data[0]?.section,
       };
 
       // Add data attributes for recommendations
-      if (section.type === 'recommendations') {
+      if (isRecommendationsSection(section)) {
         attributes['data-cnstrc-recommendations'] = true;
-        attributes['data-cnstrc-recommendations-pod-id'] = section.identifier;
+        attributes['data-cnstrc-recommendations-pod-id'] = section.podId;
       }
       return attributes;
     },

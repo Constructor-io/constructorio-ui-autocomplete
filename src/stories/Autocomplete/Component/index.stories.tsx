@@ -47,21 +47,20 @@ FullFeaturedAndStyledExample.args = {
   },
   sections: [
     {
-      identifier: 'Search Suggestions',
+      indexSectionName: 'Search Suggestions',
       numResults: 8,
       displaySearchTermHighlights: true,
     },
     {
-      identifier: 'Products',
+      indexSectionName: 'Products',
       numResults: 6,
       displaySearchTermHighlights: true,
     },
   ],
   zeroStateSections: [
     {
-      identifier: 'bestsellers',
+      podId: 'bestsellers',
       type: 'recommendations',
-      section: 'Products',
       numResults: 6,
     },
   ],
