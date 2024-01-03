@@ -47,11 +47,10 @@ type CamelToStartCase = (camelCaseString: string) => string;
 
 export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
   camelCaseString
-    // insert a space before all caps
-    .replace(/([A-Z])/g, ' $1')
+    // insert a space before all caps except the first character
+    .replace(/(?!^)([A-Z])/g, ' $1')
     // uppercase the first character
-    .replace(/^./, (str) => str.toUpperCase())
-    .trim();
+    .replace(/^./, (str) => str.toUpperCase());
 
 export function isTrackingRequestSent(trackingRequestUrl) {
   // eslint-disable-next-line
