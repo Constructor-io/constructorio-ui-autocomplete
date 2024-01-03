@@ -93,7 +93,7 @@ export interface AutocompleteSectionConfiguration extends SectionConfiguration {
 
 export interface RecommendationsSectionConfiguration extends SectionConfiguration {
   type: 'recommendations';
-  indexSectionName: string;
+  indexSectionName?: string;
   podId: string;
   itemIds?: string[];
   term?: string;

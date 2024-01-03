@@ -216,7 +216,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       // Add the indexSectionName as a class to the section container to make sure it gets the styles
       // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
       // ... they should be styled accordingly
-      const indexSectionName = type !== 'custom' ? toKebabCase(section.indexSectionName) : '';
+      const indexSectionName =
+        type !== 'custom' && section.indexSectionName ? toKebabCase(section.indexSectionName) : '';
 
       if (!sectionTitle) {
         switch (type) {
