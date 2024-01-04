@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import CioAutocompleteProvider from '../CioAutocompleteProvider';
 import AutocompleteResults from '../AutocompleteResults/AutocompleteResults';

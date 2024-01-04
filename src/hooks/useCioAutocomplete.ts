@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
