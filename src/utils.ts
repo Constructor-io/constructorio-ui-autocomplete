@@ -48,10 +48,12 @@ type CamelToStartCase = (camelCaseString: string) => string;
 
 export const camelToStartCase: CamelToStartCase = (camelCaseString) =>
   camelCaseString
-    // insert a space before all caps
-    .replace(/([A-Z])/g, ' $1')
-    // uppercase the first character
-    .replace(/^./, (str) => str.toUpperCase());
+    // insert a space between lower & upper
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    // space before last upper in a sequence followed by lower
+    .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
+    // uppercase the first letter
+    .replace(/([a-zA-Z])/, (str) => str.toUpperCase());
 
 export const toKebabCase = (str: string): string =>
   str
