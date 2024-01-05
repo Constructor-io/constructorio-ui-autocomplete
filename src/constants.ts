@@ -200,7 +200,7 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
   color: rgb(51, 51, 51);
 }
 
-.cio-autocomplete.custom-autocomplete-styles .Products p {
+.cio-autocomplete.custom-autocomplete-styles .products p {
   padding: 5px 5px 0;
 }
 \`\`\`
