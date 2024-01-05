@@ -9,7 +9,7 @@ This UI Library provides React components that manage fetching and rendering log
 
 [Our storybook docs](https://constructor-io.github.io/constructorio-ui-autocomplete) are the best place to explore the behavior and configuration options for this UI Library.
 
-![Autosuggest](assets/autosuggest-ui.gif)
+![Autocomplete UI demonstration](assets/autocomplete-ui-demonstration.gif)
 
 ## Installation
 
