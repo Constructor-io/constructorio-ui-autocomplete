@@ -92,11 +92,11 @@
   border-radius: 4px;
 }
 
-.cio-autocomplete .Products {
+.cio-autocomplete .products {
   padding: 0 5px;
 }
 
-.cio-autocomplete .Products .cio-item {
+.cio-autocomplete .products .cio-item {
   display: inline-flex;
   align-items: center;
   width: 25%;
