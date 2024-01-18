@@ -173,8 +173,8 @@ TypeSearchTermRenderRecommendations.play = async ({ canvasElement }) => {
 };
 
 // - Overwrite recommendations display name set at the dashboard
-export const TypeSearchTermRenderOverridedRecommendationsDisplayName = ComponentTemplate.bind({});
-TypeSearchTermRenderOverridedRecommendationsDisplayName.args = {
+export const TypeSearchTermRenderOverriddenRecommendationsDisplayName = ComponentTemplate.bind({});
+TypeSearchTermRenderOverriddenRecommendationsDisplayName.args = {
   apiKey,
   sections: [
     {
@@ -190,7 +190,7 @@ TypeSearchTermRenderOverridedRecommendationsDisplayName.args = {
     },
   ],
 };
-TypeSearchTermRenderOverridedRecommendationsDisplayName.play = async ({ canvasElement }) => {
+TypeSearchTermRenderOverriddenRecommendationsDisplayName.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
   await sleep(1000);
