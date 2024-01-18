@@ -179,7 +179,7 @@ TypeSearchTermRenderOverriddenRecommendationsDisplayName.args = {
     {
       podId: 'bestsellers',
       type: 'recommendations',
-      displayName: 'Our Best Sellers'
+      displayName: 'Our Best Sellers',
     },
   ],
 };
