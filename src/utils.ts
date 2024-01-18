@@ -157,7 +157,7 @@ export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionResults: SectionsData,
   sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>,
-  podsData: Record<string, PodData>
+  podsData: Record<string, PodData> = {}
 ) => {
   const activeSectionsWithData: Section[] = [];
 
