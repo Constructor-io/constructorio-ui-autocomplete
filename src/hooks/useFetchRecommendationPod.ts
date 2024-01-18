@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { Item, SectionsData, RecommendationsSectionConfiguration } from '../types';
+import { Item, SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
   recommendationPods: RecommendationsSectionConfiguration[]
 ) => {
-  const [recommendationResults, setRecommendationResults] = useState<SectionsData>({});
+  const [recommendationsResults, setRecommendationsResults] = useState<SectionsData>({});
+  const [podsData, setPodsData] = useState<Record<string, PodData>>({});
 
   useEffect(() => {
     if (!cioClient || !Array.isArray(recommendationPods) || recommendationPods.length === 0) return;
@@ -20,22 +21,24 @@ const useFetchRecommendationPod = (
           })
         )
       );
-      const recommendationPodResults = {};
-
+      const recommendationsPodResults = {};
+      const recommendationsPodsData = {};
       responses.forEach(({ response }, index) => {
         const { pod, results } = response;
         if (pod?.id) {
-          recommendationPodResults[pod.id] = results?.map((item: Item) => ({
+          recommendationsPodResults[pod.id] = results?.map((item: Item) => ({
             ...item,
             id: item?.data?.id,
             section: recommendationPods[index]?.indexSectionName,
             podId: pod.id,
           }));
+          recommendationsPodsData[pod.id] = { displayName: pod.display_name, podId: pod.id };
         }
       });
 
       try {
-        setRecommendationResults(recommendationPodResults);
+        setRecommendationsResults(recommendationsPodResults);
+        setPodsData(recommendationsPodsData);
       } catch (error: any) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -45,7 +48,7 @@ const useFetchRecommendationPod = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cioClient]);
 
-  return recommendationResults;
+  return { recommendationsResults, podsData };
 };
 
 export default useFetchRecommendationPod;

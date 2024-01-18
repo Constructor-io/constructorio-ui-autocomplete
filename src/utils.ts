@@ -5,7 +5,7 @@ import {
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isRecommendationsSection } from './typeGuards';
-import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
+import { Item, Section, UserDefinedSection, SectionsData, Translations, PodData } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -156,17 +156,20 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionResults: SectionsData,
-  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>
+  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>,
+  podsData: Record<string, PodData>
 ) => {
   const activeSectionsWithData: Section[] = [];
 
   activeSections?.forEach((sectionConfig, index) => {
     const { type } = sectionConfig;
     let sectionData: Item[];
+    let displayName: string | undefined;
 
     switch (type) {
       case 'recommendations':
         sectionData = sectionResults[sectionConfig.podId];
+        displayName = podsData[sectionConfig.podId]?.displayName;
         break;
       case 'custom':
         // Copy id from data to the top level
@@ -182,8 +185,9 @@ export const getActiveSectionsWithData = (
 
     if (Array.isArray(sectionData)) {
       const section = {
-        ...sectionConfig,
         data: sectionData,
+        displayName,
+        ...sectionConfig,
       };
 
       // If ref passed as part of `SectionConfiguration`, use it.
