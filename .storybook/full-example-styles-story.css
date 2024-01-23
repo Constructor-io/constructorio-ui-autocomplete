@@ -72,25 +72,25 @@
   color: rgb(70, 70, 70);
 }
 
-.cio-autocomplete.full-example-autocomplete-styles .products.cio-section {
+.cio-autocomplete.full-example-autocomplete-styles .cio-section-products {
   padding: 0px;
 }
 
-.cio-autocomplete.full-example-autocomplete-styles .products .cio-item-Products {
+.cio-autocomplete.full-example-autocomplete-styles .cio-section-products .cio-item {
   width: 120px !important;
   height: fit-content;
   padding: 15px;
 }
 
-.cio-autocomplete.full-example-autocomplete-styles .products .cio-section-items {
+.cio-autocomplete.full-example-autocomplete-styles .cio-section-products .cio-section-items {
   text-align: center;
 }
 
-.cio-autocomplete.full-example-autocomplete-styles .products .cio-product-text {
+.cio-autocomplete.full-example-autocomplete-styles .cio-section-products .cio-product-text {
   padding: 15px 5px 0;
 }
 
-.cio-autocomplete.full-example-autocomplete-styles .products .cio-item .cio-product-image {
+.cio-autocomplete.full-example-autocomplete-styles .cio-section-products .cio-item .cio-product-image {
   width: 100%;
   height: 100%;
   min-height: 200px;
@@ -104,7 +104,7 @@
   border-radius: 0px;
 }
 
-.cio-autocomplete.full-example-autocomplete-styles .products p {
+.cio-autocomplete.full-example-autocomplete-styles .cio-section-products p {
   padding: 5px 5px 0;
 }
 
@@ -125,7 +125,7 @@
     width: unset;
   }
 
-  .cio-autocomplete.full-example-autocomplete-styles .Products.cio-section {
+  .cio-autocomplete.full-example-autocomplete-styles .cio-section-products {
     display: none;
   }
 }

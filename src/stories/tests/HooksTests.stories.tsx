@@ -219,6 +219,7 @@ TypeSearchTermRenderSectionsCustomOrder.args = {
     },
   ],
 };
+// TODO: duplicate tests? these don't seem to run on npm run test-storybook
 TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });

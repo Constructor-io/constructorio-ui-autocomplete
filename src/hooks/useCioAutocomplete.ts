@@ -144,7 +144,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
       return {
         ...getItemProps({ item, index }),
-        className: `cio-item ${sectionItemTestId}`,
+        className: `cio-item`,
         'data-testid': sectionItemTestId,
       };
     },
@@ -239,10 +239,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       }
 
       const attributes: HTMLPropsWithCioDataAttributes = {
-        className: `${sectionTitle} cio-section  ${indexSectionName}`,
+        className: `cio-section cio-section-${indexSectionName}`,
         ref: section.ref,
         role: 'none',
         'data-cnstrc-section': section.data[0]?.section,
+        'data-cnstrc-display-name': sectionTitle,
       };
 
       // Add data attributes for recommendations
