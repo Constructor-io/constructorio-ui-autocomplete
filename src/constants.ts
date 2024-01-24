@@ -188,7 +188,7 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
   right: 24px;
 }
 
-.cio-autocomplete.custom-autocomplete-styles .cio-sectionName {
+.cio-autocomplete.custom-autocomplete-styles .cio-section-name {
   margin: 5px 3px;
 }
 

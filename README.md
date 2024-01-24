@@ -80,7 +80,7 @@ function YourComponent() {
             {sections?.map((section) => (
               <div key={section.indexSectionName} className={section.indexSectionName}>
                 <div className='cio-section'>
-                  <div className='cio-sectionName'>
+                  <div className='cio-section-name'>
                     {section?.displayName || section.indexSectionName}
                   </div>
                   <div className='cio-items'>

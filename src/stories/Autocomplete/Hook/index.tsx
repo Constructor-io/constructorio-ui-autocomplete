@@ -144,7 +144,7 @@ export function HooksTemplate(args) {
             return (
               <div key={sectionName} className={`${sectionName} ${recommendationsSection}`}>
                 <div {...getSectionProps(section)}>
-                  <h5 className='cio-sectionName'>{sectionName}</h5>
+                  <h5 className='cio-section-name'>{sectionName}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>
@@ -296,7 +296,7 @@ function YourComponent() {
             return (
               <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>
                 <div {...getSectionProps(section)}>
-                  <h5 className='cio-sectionName'>{sectionName}</h5>
+                  <h5 className='cio-section-name'>{sectionName}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>

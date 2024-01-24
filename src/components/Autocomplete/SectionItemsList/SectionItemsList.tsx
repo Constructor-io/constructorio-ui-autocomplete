@@ -41,7 +41,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
 
   return (
     <li {...getSectionProps(section)}>
-      <h5 className='cio-sectionName' aria-hidden>
+      <h5 className='cio-section-name' aria-hidden>
         {camelToStartCase(sectionTitle)}
       </h5>
       <ul className='cio-section-items' role='none'>
