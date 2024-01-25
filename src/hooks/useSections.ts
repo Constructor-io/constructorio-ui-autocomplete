@@ -55,13 +55,33 @@ export default function useSections(
     cioClient,
     recommendationsSections
   );
+
+  // Merge Recommendation Pods Display Name from Dashboard
+  const activeSectionConfigs = useMemo(
+    () =>
+      activeSections.map((config: UserDefinedSection) => {
+        const mergedConfig = config;
+
+        if (isRecommendationsSection(config)) {
+          const podData = podsData[config.podId];
+          const libraryDisplayName = config.displayName;
+          const dashboardDisplayName = podData?.displayName;
+
+          mergedConfig.displayName = libraryDisplayName || dashboardDisplayName;
+        }
+
+        return mergedConfig;
+      }),
+    [activeSections, podsData]
+  );
+
   // Add to active sections the results data and refs when autocomplete results or recommendation results fetched
   useEffect(() => {
     const sectionsResults = { ...autocompleteResults, ...recommendationsResults };
     setActiveSectionsWithData(
-      getActiveSectionsWithData(activeSections, sectionsResults, sectionsRefs, podsData)
+      getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs)
     );
-  }, [autocompleteResults, recommendationsResults, activeSections, podsData]);
+  }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
 
   return {
     activeSections,

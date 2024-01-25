@@ -156,20 +156,17 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionResults: SectionsData,
-  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>,
-  podsData: Record<string, PodData> = {}
+  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>
 ) => {
   const activeSectionsWithData: Section[] = [];
 
   activeSections?.forEach((sectionConfig, index) => {
     const { type } = sectionConfig;
     let sectionData: Item[];
-    let displayName: string | undefined;
 
     switch (type) {
       case 'recommendations':
         sectionData = sectionResults[sectionConfig.podId];
-        displayName = podsData[sectionConfig.podId]?.displayName;
         break;
       case 'custom':
         // Copy id from data to the top level
@@ -186,7 +183,6 @@ export const getActiveSectionsWithData = (
     if (Array.isArray(sectionData)) {
       const section = {
         data: sectionData,
-        displayName,
         ...sectionConfig,
       };
 
