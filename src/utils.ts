@@ -5,7 +5,7 @@ import {
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { isRecommendationsSection } from './typeGuards';
-import { Item, Section, UserDefinedSection, SectionsData, Translations, PodData } from './types';
+import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
