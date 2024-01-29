@@ -182,8 +182,8 @@ export const getActiveSectionsWithData = (
 
     if (Array.isArray(sectionData)) {
       const section = {
-        data: sectionData,
         ...sectionConfig,
+        data: sectionData,
       };
 
       // If ref passed as part of `SectionConfiguration`, use it.
