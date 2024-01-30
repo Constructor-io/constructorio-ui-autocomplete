@@ -200,6 +200,7 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   expect(canvas.getByTestId('cio-results').children[0].className).toContain('search-suggestions');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('products');
 };
 
 // - type search term => render all sections in custom order
@@ -231,6 +232,7 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
 
   expect(canvas.getByTestId('cio-results').children[0].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('search-suggestions');
 };
 

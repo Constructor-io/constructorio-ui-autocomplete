@@ -198,11 +198,16 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[0].className).toContain(
     'cio-section-search-suggestions'
   );
+
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section-products');
+
   // bestsellers indexSectionName is products, and we render class based on that
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section-products');
 };
 
@@ -232,9 +237,14 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section-products');
+
   // bestsellers indexSectionName is products, and we render class based on that
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section-products');
+
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain(
     'cio-section-search-suggestions'
   );
