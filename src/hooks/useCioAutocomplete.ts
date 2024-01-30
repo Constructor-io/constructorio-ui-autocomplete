@@ -213,7 +213,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }),
     getSectionProps: (section: Section) => {
       const { type, displayName } = section;
-      let sectionTitle = displayName;
+      let sectionDisplayName = displayName;
 
       // Add the indexSectionName as a class to the section container to make sure it gets the styles
       // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
@@ -221,19 +221,19 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       const indexSectionName =
         type !== 'custom' && section.indexSectionName ? toKebabCase(section.indexSectionName) : '';
 
-      if (!sectionTitle) {
+      if (!sectionDisplayName) {
         switch (type) {
           case 'recommendations':
-            sectionTitle = section.podId;
+            sectionDisplayName = section.podId;
             break;
           case 'autocomplete':
-            sectionTitle = section.indexSectionName;
+            sectionDisplayName = section.indexSectionName;
             break;
           case 'custom':
-            sectionTitle = section.displayName;
+            sectionDisplayName = section.displayName;
             break;
           default:
-            sectionTitle = section.indexSectionName;
+            sectionDisplayName = section.indexSectionName;
             break;
         }
       }
@@ -243,7 +243,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         ref: section.ref,
         role: 'none',
         'data-cnstrc-section': section.data[0]?.section,
-        'data-cnstrc-display-name': sectionTitle,
+        'data-cnstrc-display-name': sectionDisplayName,
       };
 
       // Add data attributes for recommendations
