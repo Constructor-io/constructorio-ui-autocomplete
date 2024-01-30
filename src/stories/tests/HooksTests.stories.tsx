@@ -168,7 +168,7 @@ TypeSearchTermRenderRecommendations.play = async ({ canvasElement }) => {
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
   await sleep(1000);
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
-  expect(canvas.getAllByText('bestsellers').length).toBeGreaterThan(0);
+  expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 };
 
 // - type search term => render all sections in default order
@@ -195,10 +195,10 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
   expect(canvas.getAllByTestId('cio-item-SearchSuggestions').length).toBeGreaterThan(0);
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
-  expect(canvas.getAllByText('bestsellers').length).toBeGreaterThan(0);
+  expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Search Suggestions');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('search-suggestions');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
 };
 
@@ -227,11 +227,11 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('red');
   expect(canvas.getAllByTestId('cio-item-SearchSuggestions').length).toBeGreaterThan(0);
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
-  expect(canvas.getAllByText('bestsellers').length).toBeGreaterThan(0);
+  expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('bestsellers');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('search-suggestions');
 };
 
 // - select term suggestion => network tracking event
@@ -285,7 +285,7 @@ FocusRenderZeroStateSection.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByTestId('cio-input'));
   await sleep(1000);
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('');
-  expect(canvas.getAllByText('bestsellers').length).toBeGreaterThan(0);
+  expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 };
 
 // - focus in input field with zero state and no open on focus => render no zero state section
@@ -368,7 +368,7 @@ ZeroStateRenderProductsSection.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByTestId('cio-input'));
   await sleep(1000);
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('');
-  expect(canvas.getAllByText('bestsellers').length).toBeGreaterThan(0);
+  expect(canvas.getAllByText('Bestsellers').length).toBeGreaterThan(0);
 
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
   await sleep(1000);
