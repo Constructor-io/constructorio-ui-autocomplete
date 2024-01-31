@@ -277,32 +277,38 @@ function YourComponent() {
             if (!section?.data?.length) {
               return null;
             }
+
             const { type, displayName } = section;
-            let sectionName = section.displayName;
+            let sectionTitle: string;
 
             switch (type) {
               case 'recommendations':
-                sectionName = section.podId;
+                sectionTitle = section.podId;
                 break;
               case 'custom':
-                sectionName = toKebabCase(displayName);
+                sectionTitle = displayName;
                 break;
               case 'autocomplete':
-                sectionName = section.indexSectionName;
+                sectionTitle = section.indexSectionName;
                 break;
               default:
-                sectionName = section.indexSectionName;
+                sectionTitle = section.indexSectionName;
                 break;
             }
 
-            const recommendationsSection = isRecommendationsSection(section)
-              ? section.indexSectionName
-              : '';
+            if (displayName) {
+              sectionTitle = displayName;
+            }
+
+            let sectionClassNames = toKebabCase(sectionTitle);
+            if (isRecommendationsSection(section)) {
+              sectionClassNames += \` \${toKebabCase(section.indexSectionName)}\`;
+            }
 
             return (
-              <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>
+              <div key={sectionTitle} className={sectionClassNames}>
                 <div {...getSectionProps(section)}>
-                  <h5 className='cio-section-name'>{sectionName}</h5>
+                  <h5 className='cio-section-name'>{camelToStartCase(sectionTitle)}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>
