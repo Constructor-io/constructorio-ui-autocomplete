@@ -142,9 +142,9 @@ export function HooksTemplate(args) {
               sectionTitle = displayName;
             }
 
-            const sectionClassNames = toKebabCase(sectionTitle);
+            let sectionClassNames = toKebabCase(sectionTitle);
             if (isRecommendationsSection(section)) {
-              sectionClassNames.concat(` ${toKebabCase(section.indexSectionName)}`);
+              sectionClassNames += ` ${toKebabCase(section.indexSectionName)}`;
             }
 
             return (
