@@ -187,4 +187,5 @@ export type Translations = {
 export interface PodData {
   podId: string;
   displayName: string;
+  request: Partial<AutocompleteRequestType>;
 }

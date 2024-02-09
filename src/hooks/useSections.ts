@@ -9,7 +9,7 @@ import {
   UserDefinedSection,
   Section,
 } from '../types';
-import { getActiveSectionsWithData } from '../utils';
+import { getActiveSectionsWithData, getSearchSuggestionFeatures } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
@@ -21,7 +21,7 @@ export default function useSections(
   zeroStateSections: UserDefinedSection[] | undefined,
   advancedParameters?: AdvancedParameters
 ) {
-  const zeroStateActiveSections = !query.length && zeroStateSections;
+  const zeroStateActiveSections = !query.length && zeroStateSections?.length;
 
   // Define All Sections
   const activeSections = zeroStateActiveSections ? zeroStateSections : sections;
@@ -55,6 +55,14 @@ export default function useSections(
     cioClient,
     recommendationsSections
   );
+
+  // Delete active sections if feature toggle, zeroStateActiveSessions is present
+  if (zeroStateActiveSections && podsData && Object.keys(podsData).length) {
+    const features = getSearchSuggestionFeatures(Object.values(podsData)[0]);
+    if (features.featureDisplayZeroStateRecommendations) {
+      activeSections.length = 0;
+    }
+  }
 
   // Merge Recommendation Pods Display Name from Dashboard
   const activeSectionConfigs = useMemo(

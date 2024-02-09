@@ -16,7 +16,11 @@ export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
 export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequestType>) {
   let featureDisplaySearchSuggestionImages = false;
   let featureDisplaySearchSuggestionResultCounts = false;
+  let featureDisplayZeroStateRecommendations = true;
+
   if (request?.features?.custom_autosuggest_ui === true) {
+    featureDisplayZeroStateRecommendations = false;
+
     switch (request?.feature_variants?.custom_autosuggest_ui) {
       case 'custom_autosuggest_ui_result_count':
         featureDisplaySearchSuggestionResultCounts = true;
@@ -28,13 +32,18 @@ export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequest
         featureDisplaySearchSuggestionImages = true;
         featureDisplaySearchSuggestionResultCounts = true;
         break;
+      case 'custom_autosuggest_ui_recommendations_in_zero_state':
+        featureDisplayZeroStateRecommendations = true;
+        break;
       default:
         break;
     }
   }
+
   return {
     featureDisplaySearchSuggestionImages,
     featureDisplaySearchSuggestionResultCounts,
+    featureDisplayZeroStateRecommendations,
   };
 }
 

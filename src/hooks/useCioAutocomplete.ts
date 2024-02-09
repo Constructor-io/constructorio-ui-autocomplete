@@ -102,6 +102,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     advancedParameters
   );
 
+  const features = useMemo(() => getSearchSuggestionFeatures(request), [request]);
+
   // Get dropdown items array from active sections (autocomplete + recommendations + custom)
   const items = useMemo(
     () => getItemsForActiveSections(activeSectionsWithData),
@@ -128,7 +130,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     query,
     sections: activeSectionsWithData,
     request,
-    featureToggles: getSearchSuggestionFeatures(request),
+    featureToggles: features,
     isOpen: isOpen && items?.length > 0,
     getMenuProps: () => ({
       ...getMenuProps(),
@@ -162,7 +164,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (options.onFocus) {
           options.onFocus();
         }
-        if (zeroStateActiveSections && openOnFocus !== false) {
+        if (
+          zeroStateActiveSections &&
+          openOnFocus !== false &&
+          !features.featureDisplayZeroStateRecommendations
+        ) {
           openMenu();
         }
         if (query?.length) {
