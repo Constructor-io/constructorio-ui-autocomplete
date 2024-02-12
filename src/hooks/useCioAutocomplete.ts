@@ -21,7 +21,7 @@ import {
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
-import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
+import { isAutocompleteSection, isCustomSection, isRecommendationsSection } from '../typeGuards';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -212,39 +212,24 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       'data-testid': 'cio-form',
     }),
     getSectionProps: (section: Section) => {
-      const { type, displayName } = section;
-      let sectionDisplayName = displayName;
-
-      // Add the indexSectionName as a class to the section container to make sure it gets the styles
+      // Always add the indexSectionName (defaults to Products) as a class to the section container for the styles
       // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
       // ... they should be styled accordingly
-      const indexSectionName =
-        type !== 'custom' && section.indexSectionName ? toKebabCase(section.indexSectionName) : '';
-
-      if (!sectionDisplayName) {
-        switch (type) {
-          case 'recommendations':
-            sectionDisplayName = section.podId;
-            break;
-          case 'autocomplete':
-            sectionDisplayName = section.indexSectionName;
-            break;
-          case 'custom':
-            sectionDisplayName = section.displayName;
-            break;
-          default:
-            sectionDisplayName = section.indexSectionName;
-            break;
-        }
-      }
+      const sectionListingType = isCustomSection(section)
+        ? 'custom'
+        : toKebabCase(section.indexSectionName || section.data[0]?.section || 'Products');
 
       const attributes: HTMLPropsWithCioDataAttributes = {
-        className: `cio-section cio-section-${indexSectionName}`,
+        className: `cio-section cio-section-${sectionListingType}`,
         ref: section.ref,
         role: 'none',
         'data-cnstrc-section': section.data[0]?.section,
-        'data-cnstrc-display-name': sectionDisplayName,
       };
+
+      if (isCustomSection(section)) {
+        attributes['data-cnstrc-custom-section'] = true;
+        attributes['data-cnstrc-custom-section-name'] = section.displayName;
+      }
 
       // Add data attributes for recommendations
       if (isRecommendationsSection(section)) {
