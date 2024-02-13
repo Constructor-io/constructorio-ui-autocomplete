@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
-import { isRecommendationsSection } from '../../../typeGuards';
+import { isCustomSection, isRecommendationsSection } from '../../../typeGuards';
 import { Item } from '../../../types';
 import { camelToStartCase, getStoryParams, toKebabCase } from '../../../utils';
 
@@ -121,8 +121,11 @@ export function HooksTemplate(args) {
             }
 
             const { type, displayName } = section;
-            let sectionTitle: string;
+            const sectionListingType = isCustomSection(section)
+              ? 'custom'
+              : toKebabCase(section.indexSectionName || section.data[0]?.section || 'Products');
 
+            let sectionTitle: string;
             switch (type) {
               case 'recommendations':
                 sectionTitle = section.podId;
@@ -142,9 +145,9 @@ export function HooksTemplate(args) {
               sectionTitle = displayName;
             }
 
-            let sectionClassNames = toKebabCase(sectionTitle);
+            let sectionClassNames = toKebabCase(sectionListingType);
             if (isRecommendationsSection(section)) {
-              sectionClassNames += ` ${toKebabCase(section.indexSectionName)}`;
+              sectionClassNames += ` ${toKebabCase(section.podId)}`;
             }
 
             return (
