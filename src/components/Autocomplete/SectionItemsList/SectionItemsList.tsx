@@ -39,9 +39,10 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
 
   if (!section?.data?.length) return null;
 
+  // @deprecated `cio-sectionName` will be removed in the next major release
   return (
     <li {...getSectionProps(section)}>
-      <h5 className='cio-section-name' aria-hidden>
+      <h5 className='cio-section-name cio-sectionName' aria-hidden>
         {camelToStartCase(sectionTitle)}
       </h5>
       <ul className='cio-section-items' role='none'>
