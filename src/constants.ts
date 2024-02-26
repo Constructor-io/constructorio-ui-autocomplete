@@ -23,8 +23,11 @@ export const hookDescription = `- import \`useCioAutocomplete\` and call this cu
   - keyboard navigation
   - mouse interactions
   - focus and submit event handling
+  - accessibility
 - To use this hook, an \`apiKey\` or \`cioJsClient\` are required, and an \`onSubmit\` callback must be passed to the \`useCioAutocomplete\` hook to configure behavior. All other values are optional.
 - use the <a href="https://kentcdodds.com/blog/how-to-give-rendering-control-to-users-with-prop-getters" target="__blank">prop getters</a> and other variables returned by this hook (below) to leverage the functionality described above with jsx elements in your react component definitions
+
+> **Important: Please note that all of the select or submit events should go through the \`onSubmit\` callback. The \`getItemProps\` hook returns click and keyboard handlers which should be applied to the elements using the spread operator (see code examples below). Adding an \`onClick\` event manually to the elements would override the default behavior of the library preventing it from sending tracking events and would cause different behavior between click and keyboard events. Selecting an item or submitting the search would both cause \`onSubmit\` to be called. **
 
 Calling the \`useCioAutocomplete\` hook returns an object with the following keys:
 
