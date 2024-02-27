@@ -64,7 +64,7 @@ export default function useSections(
     const features = getSearchSuggestionFeatures(Object.values(podsData || {})?.[0]?.request);
 
     if (zeroStateActiveSections) {
-      if (!features.featureDisplayZeroStateRecommendations) {
+      if (features.featureDisplayZeroStateRecommendations) {
         setActiveSections([]);
       } else {
         setActiveSections(zeroStateSections);
