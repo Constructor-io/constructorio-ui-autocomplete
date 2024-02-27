@@ -24,9 +24,12 @@ export default function useSections(
   const zeroStateActiveSections = !query.length && zeroStateSections?.length;
 
   // Define All Sections
-  const activeSections = zeroStateActiveSections ? zeroStateSections : sections;
+  const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
+    zeroStateActiveSections ? zeroStateSections : sections
+  );
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
+
   const autocompleteSections = useMemo(
     () =>
       activeSections?.filter((config: UserDefinedSection) =>
@@ -56,13 +59,20 @@ export default function useSections(
     recommendationsSections
   );
 
-  // Delete active sections if feature toggle, zeroStateActiveSessions is present
-  if (zeroStateActiveSections && podsData && Object.keys(podsData).length) {
-    const features = getSearchSuggestionFeatures(Object.values(podsData)[0]);
-    if (features.featureDisplayZeroStateRecommendations) {
-      activeSections.length = 0;
+  // Remove sections if necessary
+  useEffect(() => {
+    const features = getSearchSuggestionFeatures(Object.values(podsData || {})?.[0]?.request);
+
+    if (zeroStateActiveSections) {
+      if (!features.featureDisplayZeroStateRecommendations) {
+        setActiveSections([]);
+      } else {
+        setActiveSections(zeroStateSections);
+      }
+    } else {
+      setActiveSections(sections);
     }
-  }
+  }, [zeroStateSections, zeroStateActiveSections, sections, podsData]);
 
   // Merge Recommendation Pods Display Name from Dashboard
   const activeSectionConfigs = useMemo(
