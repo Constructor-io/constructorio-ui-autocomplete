@@ -167,7 +167,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (
           zeroStateActiveSections &&
           openOnFocus !== false &&
-          !features.featureDisplayZeroStateRecommendations
+          features.featureDisplayZeroStateRecommendations
         ) {
           openMenu();
         }

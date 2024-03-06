@@ -19,8 +19,6 @@ export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequest
   let featureDisplayZeroStateRecommendations = true;
 
   if (request?.features?.custom_autosuggest_ui === true) {
-    featureDisplayZeroStateRecommendations = false;
-
     switch (request?.feature_variants?.custom_autosuggest_ui) {
       case 'custom_autosuggest_ui_result_count':
         featureDisplaySearchSuggestionResultCounts = true;
@@ -32,8 +30,8 @@ export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequest
         featureDisplaySearchSuggestionImages = true;
         featureDisplaySearchSuggestionResultCounts = true;
         break;
-      case 'custom_autosuggest_ui_recommendations_in_zero_state':
-        featureDisplayZeroStateRecommendations = true;
+      case 'custom_autosuggest_ui_disable_recommendations_in_zero_state':
+        featureDisplayZeroStateRecommendations = false;
         break;
       default:
         break;
