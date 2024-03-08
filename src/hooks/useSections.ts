@@ -9,7 +9,7 @@ import {
   UserDefinedSection,
   Section,
 } from '../types';
-import { getActiveSectionsWithData, getSearchSuggestionFeatures } from '../utils';
+import { getActiveSectionsWithData, getFeatures } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
@@ -61,7 +61,7 @@ export default function useSections(
 
   // Remove sections if necessary
   useEffect(() => {
-    const features = getSearchSuggestionFeatures(Object.values(podsData || {})?.[0]?.request);
+    const features = getFeatures(Object.values(podsData || {})?.[0]?.request);
 
     if (zeroStateActiveSections) {
       if (!features.featureDisplayZeroStateRecommendations) {

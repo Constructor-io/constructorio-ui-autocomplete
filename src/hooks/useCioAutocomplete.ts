@@ -14,7 +14,7 @@ import usePrevious from './usePrevious';
 import {
   getItemPosition,
   getItemsForActiveSections,
-  getSearchSuggestionFeatures,
+  getFeatures,
   trackRecommendationView,
   toKebabCase,
 } from '../utils';
@@ -102,7 +102,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     advancedParameters
   );
 
-  const features = useMemo(() => getSearchSuggestionFeatures(request), [request]);
+  const features = useMemo(() => getFeatures(request), [request]);
 
   // Get dropdown items array from active sections (autocomplete + recommendations + custom)
   const items = useMemo(

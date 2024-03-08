@@ -13,7 +13,7 @@ export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   sectionId: string;
 };
 
-export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequestType>) {
+export function getFeatures(request: Partial<AutocompleteRequestType>) {
   let featureDisplaySearchSuggestionImages = false;
   let featureDisplaySearchSuggestionResultCounts = false;
   let featureDisplayZeroStateRecommendations = true;
