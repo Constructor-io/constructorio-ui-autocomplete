@@ -13,9 +13,11 @@ export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
   sectionId: string;
 };
 
-export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequestType>) {
+export function getFeatures(request: Partial<AutocompleteRequestType>) {
   let featureDisplaySearchSuggestionImages = false;
   let featureDisplaySearchSuggestionResultCounts = false;
+  let featureDisplayZeroStateRecommendations = true;
+
   if (request?.features?.custom_autosuggest_ui === true) {
     switch (request?.feature_variants?.custom_autosuggest_ui) {
       case 'custom_autosuggest_ui_result_count':
@@ -28,13 +30,18 @@ export function getSearchSuggestionFeatures(request: Partial<AutocompleteRequest
         featureDisplaySearchSuggestionImages = true;
         featureDisplaySearchSuggestionResultCounts = true;
         break;
+      case 'custom_autosuggest_ui_disable_recommendations_in_zero_state':
+        featureDisplayZeroStateRecommendations = false;
+        break;
       default:
         break;
     }
   }
+
   return {
     featureDisplaySearchSuggestionImages,
     featureDisplaySearchSuggestionResultCounts,
+    featureDisplayZeroStateRecommendations,
   };
 }
 

@@ -9,7 +9,7 @@ import {
   UserDefinedSection,
   Section,
 } from '../types';
-import { getActiveSectionsWithData } from '../utils';
+import { getActiveSectionsWithData, getFeatures } from '../utils';
 import useDebouncedFetchSection from './useDebouncedFetchSections';
 import useFetchRecommendationPod from './useFetchRecommendationPod';
 import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
@@ -21,12 +21,15 @@ export default function useSections(
   zeroStateSections: UserDefinedSection[] | undefined,
   advancedParameters?: AdvancedParameters
 ) {
-  const zeroStateActiveSections = !query.length && zeroStateSections;
+  const zeroStateActiveSections = !query.length && zeroStateSections?.length;
 
   // Define All Sections
-  const activeSections = zeroStateActiveSections ? zeroStateSections : sections;
+  const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
+    zeroStateActiveSections ? zeroStateSections : sections
+  );
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
+
   const autocompleteSections = useMemo(
     () =>
       activeSections?.filter((config: UserDefinedSection) =>
@@ -55,6 +58,21 @@ export default function useSections(
     cioClient,
     recommendationsSections
   );
+
+  // Remove sections if necessary
+  useEffect(() => {
+    const features = getFeatures(Object.values(podsData || {})?.[0]?.request);
+
+    if (zeroStateActiveSections) {
+      if (!features.featureDisplayZeroStateRecommendations) {
+        setActiveSections([]);
+      } else {
+        setActiveSections(zeroStateSections);
+      }
+    } else {
+      setActiveSections(sections);
+    }
+  }, [zeroStateSections, zeroStateActiveSections, sections, podsData]);
 
   // Merge Recommendation Pods Display Name from Dashboard
   const activeSectionConfigs = useMemo(
