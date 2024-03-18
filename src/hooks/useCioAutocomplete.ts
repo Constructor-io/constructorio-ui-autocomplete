@@ -21,7 +21,7 @@ import {
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
-import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
+import { isAutocompleteSection, isCustomSection, isRecommendationsSection } from '../typeGuards';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -146,6 +146,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
       return {
         ...getItemProps({ item, index }),
+        // @deprecated `sectionItemTestId` will be removed as a className in the next major version
         className: `cio-item ${sectionItemTestId}`,
         'data-testid': sectionItemTestId,
       };
@@ -218,36 +219,52 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       'data-testid': 'cio-form',
     }),
     getSectionProps: (section: Section) => {
-      const { type } = section;
-      let sectionTitle: string;
+      // @deprecated ClassNames derived from this fn will be removed in the next major version
+      const getDeprecatedClassNames = () => {
+        const { type } = section;
+        let sectionTitle: string;
 
-      // Add the indexSectionName as a class to the section container to make sure it gets the styles
+        const indexSectionName =
+          type !== 'custom' && section.indexSectionName
+            ? toKebabCase(section.indexSectionName)
+            : '';
+
+        switch (type) {
+          case 'recommendations':
+            sectionTitle = section.podId;
+            break;
+          case 'autocomplete':
+            sectionTitle = section.displayName || section.indexSectionName;
+            break;
+          case 'custom':
+            sectionTitle = section.displayName;
+            break;
+          default:
+            sectionTitle = section.displayName || section.indexSectionName;
+            break;
+        }
+
+        return `${sectionTitle} ${indexSectionName}`;
+      };
+
+      // Always add the indexSectionName (defaults to Products) as a class to the section container for the styles
       // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
       // ... they should be styled accordingly
-      const indexSectionName =
-        type !== 'custom' && section.indexSectionName ? toKebabCase(section.indexSectionName) : '';
-
-      switch (type) {
-        case 'recommendations':
-          sectionTitle = section.podId;
-          break;
-        case 'autocomplete':
-          sectionTitle = section.displayName || section.indexSectionName;
-          break;
-        case 'custom':
-          sectionTitle = section.displayName;
-          break;
-        default:
-          sectionTitle = section.displayName || section.indexSectionName;
-          break;
-      }
+      const sectionListingType = isCustomSection(section)
+        ? 'custom'
+        : toKebabCase(section.indexSectionName || section.data[0]?.section || 'Products');
 
       const attributes: HTMLPropsWithCioDataAttributes = {
-        className: `${sectionTitle} cio-section  ${indexSectionName}`,
+        className: `cio-section cio-section-${sectionListingType} ${getDeprecatedClassNames()}`,
         ref: section.ref,
         role: 'none',
         'data-cnstrc-section': section.data[0]?.section,
       };
+
+      if (isCustomSection(section)) {
+        attributes['data-cnstrc-custom-section'] = true;
+        attributes['data-cnstrc-custom-section-name'] = section.displayName;
+      }
 
       // Add data attributes for recommendations
       if (isRecommendationsSection(section)) {

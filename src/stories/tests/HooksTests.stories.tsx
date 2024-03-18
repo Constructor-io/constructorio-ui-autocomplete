@@ -217,9 +217,10 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Search Suggestions');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('search-suggestions');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('products');
 };
 
 // - type search term => render all sections in custom order
@@ -239,6 +240,7 @@ TypeSearchTermRenderSectionsCustomOrder.args = {
     },
   ],
 };
+
 TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
@@ -248,9 +250,10 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[0].className).toContain('products');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('bestsellers');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('products');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('search-suggestions');
 };
 
 // - select term suggestion => network tracking event

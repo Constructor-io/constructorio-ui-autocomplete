@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
-import { isRecommendationsSection } from '../../../typeGuards';
+import { isCustomSection, isRecommendationsSection } from '../../../typeGuards';
 import { Item } from '../../../types';
-import { getStoryParams, toKebabCase } from '../../../utils';
+import { camelToStartCase, getStoryParams, toKebabCase } from '../../../utils';
 
 export function HooksTemplate(args) {
   const {
@@ -119,32 +119,41 @@ export function HooksTemplate(args) {
             if (!section?.data?.length) {
               return null;
             }
-            const { type, displayName } = section;
-            let sectionName = section.displayName;
 
+            const { type, displayName } = section;
+            const sectionListingType = isCustomSection(section)
+              ? 'custom'
+              : toKebabCase(section.indexSectionName || section.data[0]?.section || 'Products');
+
+            let sectionTitle: string;
             switch (type) {
               case 'recommendations':
-                sectionName = section.podId;
+                sectionTitle = section.podId;
                 break;
               case 'custom':
-                sectionName = toKebabCase(displayName);
+                sectionTitle = displayName;
                 break;
               case 'autocomplete':
-                sectionName = section.indexSectionName;
+                sectionTitle = section.indexSectionName;
                 break;
               default:
-                sectionName = section.indexSectionName;
+                sectionTitle = section.indexSectionName;
                 break;
             }
 
-            const recommendationsSection = isRecommendationsSection(section)
-              ? section.indexSectionName
-              : '';
+            if (displayName) {
+              sectionTitle = displayName;
+            }
+
+            let sectionClassNames = toKebabCase(sectionListingType);
+            if (isRecommendationsSection(section)) {
+              sectionClassNames += ` ${toKebabCase(section.podId)}`;
+            }
 
             return (
-              <div key={sectionName} className={`${sectionName} ${recommendationsSection}`}>
+              <div key={sectionTitle} className={sectionClassNames}>
                 <div {...getSectionProps(section)}>
-                  <h5 className='cio-sectionName'>{section.displayName || sectionName}</h5>
+                  <h5 className='cio-section-name'>{camelToStartCase(sectionTitle)}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>
@@ -271,32 +280,38 @@ function YourComponent() {
             if (!section?.data?.length) {
               return null;
             }
+
             const { type, displayName } = section;
-            let sectionName = section.displayName;
+            let sectionTitle: string;
 
             switch (type) {
               case 'recommendations':
-                sectionName = section.podId;
+                sectionTitle = section.podId;
                 break;
               case 'custom':
-                sectionName = toKebabCase(displayName);
+                sectionTitle = displayName;
                 break;
               case 'autocomplete':
-                sectionName = section.indexSectionName;
+                sectionTitle = section.indexSectionName;
                 break;
               default:
-                sectionName = section.indexSectionName;
+                sectionTitle = section.indexSectionName;
                 break;
             }
 
-            const recommendationsSection = isRecommendationsSection(section)
-              ? section.indexSectionName
-              : '';
+            if (displayName) {
+              sectionTitle = displayName;
+            }
+
+            let sectionClassNames = toKebabCase(sectionTitle);
+            if (isRecommendationsSection(section)) {
+              sectionClassNames += \` \${toKebabCase(section.indexSectionName)}\`;
+            }
 
             return (
-              <div key={sectionName} className={\`\${sectionName} \${recommendationsSection}\`}>
+              <div key={sectionTitle} className={sectionClassNames}>
                 <div {...getSectionProps(section)}>
-                  <h5 className='cio-sectionName'>{sectionName}</h5>
+                  <h5 className='cio-section-name'>{camelToStartCase(sectionTitle)}</h5>
                   <div className='cio-section-items'>
                     {section?.data?.map((item) => renderItem(item))}
                   </div>
