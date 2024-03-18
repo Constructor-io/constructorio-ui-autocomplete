@@ -61,6 +61,8 @@
   margin-top: 5px;
 }
 
+/* @deprecated in favor of .cio-section-name */
+.cio-autocomplete .cio-sectionName,
 .cio-autocomplete .cio-section-name {
   margin: 15px 0;
   font-size: 1rem;
@@ -70,6 +72,8 @@
   padding: 0;
 }
 
+/* @deprecated in favor of .cio-section-search-suggestions */
+.cio-autocomplete .cio-item.cio-item-SearchSuggestions,
 .cio-autocomplete .cio-section-search-suggestions .cio-item {
   flex-direction: row;
   min-width: 160px;
@@ -92,10 +96,14 @@
   border-radius: 4px;
 }
 
+/* @deprecated in favor of .cio-section-products */
+.cio-autocomplete .products,
 .cio-autocomplete .cio-section-products {
   padding: 0 5px;
 }
 
+/* @deprecated in favor of .cio-section-products .cio-item */
+.cio-autocomplete .products .cio-item,
 .cio-autocomplete .cio-section-products .cio-item {
   display: inline-flex;
   align-items: center;
