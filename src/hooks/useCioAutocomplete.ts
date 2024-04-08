@@ -185,8 +185,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       className: 'cio-input',
       'data-testid': 'cio-input',
       placeholder,
-      onKeyDownCapture: ({ code }) => {
-        const isEnter = code === 'Enter';
+      onKeyDownCapture: ({ code, key }) => {
+        const isEnter = code === 'Enter' || key === 'Enter';
         const isUserInput = highlightedIndex < 0;
         if (isOpen && isEnter && isUserInput && query?.length) {
           if (onSubmit) {
