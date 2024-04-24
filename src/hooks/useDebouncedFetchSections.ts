@@ -47,7 +47,11 @@ const transformResponse = (response: AutocompleteResponse, options) => {
     });
   });
 
-  return { sectionsData: newSectionsData, request: response?.request };
+  return {
+    sectionsData: newSectionsData,
+    request: response?.request,
+    totalNumResultsPerSection: response.total_num_results_per_section,
+  };
 };
 
 const useDebouncedFetchSection = (
@@ -56,9 +60,11 @@ const useDebouncedFetchSection = (
   autocompleteSections: AutocompleteSectionConfiguration[],
   advancedParameters?: AdvancedParameters
 ) => {
+  // This says sectionsData but it also contain request information
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({
     sectionsData: {},
     request: {},
+    totalNumResultsPerSection: {},
   });
   const debouncedSearchTerm = useDebounce(query, advancedParameters?.debounce);
 
@@ -105,7 +111,7 @@ const useDebouncedFetchSection = (
           console.log(error);
         }
       } else if (!debouncedSearchTerm) {
-        setSectionsData({ sectionsData: {}, request: {} });
+        setSectionsData({ sectionsData: {}, request: {}, totalNumResultsPerSection: {} });
       }
     })();
   }, [
