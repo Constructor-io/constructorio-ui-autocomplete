@@ -50,7 +50,7 @@ const transformResponse = (response: AutocompleteResponse, options) => {
   return {
     sectionsData: newSectionsData,
     request: response?.request,
-    totalNumResultsPerSection: response.total_num_results_per_section,
+    totalNumResultsPerSection: response?.total_num_results_per_section,
   };
 };
 
