@@ -4,6 +4,7 @@ import {
   Nullable,
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
+import { storageSetItem, storeRecentSearch, storeRecentAction, CONSTANTS } from './beaconUtils';
 import { isRecommendationsSection } from './typeGuards';
 import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
@@ -255,4 +256,10 @@ export const translate = (word: string, translations?: Translations) => {
   if (translations) return translations[word];
 
   return localTranslations[word] || word;
+};
+export const addTrackSearchSubmit = (cioClient, term, autocompleteData = {}) => {
+  cioClient?.tracker.trackSearchSubmit(term, autocompleteData);
+  storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, term);
+  storeRecentSearch(term, {});
+  storeRecentAction(CONSTANTS.SEARCH_SUBMIT);
 };
