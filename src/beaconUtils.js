@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-cycle
+import { logger } from './utils';
+
 export const CONSTANTS = {
   SEARCH_SUBMIT: 'SEARCH_SUBMIT',
   RECENT_ACTIONS_STORAGE_KEY: {
@@ -31,15 +34,14 @@ export const storageSetItem = (key, value) => {
     const storageEngine = getStorageEngine(key.scope);
     return storageEngine.setItem(key.key, value);
   } catch (e) {
-    console.console.console.log('storageSetItem error:', e);
+    logger('storageSetItem error:', e);
 
     return null;
   }
 };
 
 /*
- * First use jQuery to strip any potential script tags from the term, and
- * then use the text content of the resulting HTML node(s) created from the
+ * Use the text content of the resulting HTML node(s) created from the
  * term
  */
 export const cleanTerm = (term) => {
@@ -62,7 +64,7 @@ export const storageGetItem = (key) => {
 
     return storageEngine.getItem(key.key);
   } catch (e) {
-    console.console.log('storageGetItem error:', e);
+    logger('storageGetItem error:', e);
 
     return null;
   }
@@ -78,7 +80,7 @@ export const storageGetArray = (key) => {
 
       return array;
     } catch (e) {
-      console.log('StorageGetArray error:', e);
+      logger('StorageGetArray error:', e);
     }
   }
 

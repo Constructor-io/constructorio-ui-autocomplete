@@ -263,3 +263,14 @@ export const addTrackSearchSubmit = (cioClient, term, autocompleteData = {}) => 
   storeRecentSearch(term, {});
   storeRecentAction(CONSTANTS.SEARCH_SUBMIT);
 };
+
+export const logger = (error: any) => {
+  try {
+    if (typeof process !== 'undefined' && process?.env?.LOGGER) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+  } catch (e) {
+    // process variable is not available and logger should not be active
+  }
+};
