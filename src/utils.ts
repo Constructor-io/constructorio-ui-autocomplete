@@ -4,6 +4,7 @@ import {
   Nullable,
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
+// eslint-disable-next-line import/no-cycle
 import { storageSetItem, storeRecentSearch, storeRecentAction, CONSTANTS } from './beaconUtils';
 import { isRecommendationsSection } from './typeGuards';
 import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
@@ -257,7 +258,7 @@ export const translate = (word: string, translations?: Translations) => {
 
   return localTranslations[word] || word;
 };
-export const addTrackSearchSubmit = (cioClient, term, autocompleteData = {}) => {
+export const trackSearchSubmit = (cioClient, term, autocompleteData = {}) => {
   cioClient?.tracker.trackSearchSubmit(term, autocompleteData);
   storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, term);
   storeRecentSearch(term, {});

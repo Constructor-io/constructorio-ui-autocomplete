@@ -2,7 +2,7 @@ import { useCombobox, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
-import { addTrackSearchSubmit } from '../utils';
+import { trackSearchSubmit } from '../utils';
 
 let idCounter = 0;
 
@@ -30,7 +30,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
           try {
             if (selectedItem?.section === 'Search Suggestions') {
               setQuery(selectedItem.value || '');
-              addTrackSearchSubmit(cioClient, selectedItem.value, {
+              trackSearchSubmit(cioClient, selectedItem.value, {
                 originalQuery: previousQuery,
               });
             }

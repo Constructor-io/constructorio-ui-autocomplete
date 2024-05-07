@@ -17,7 +17,7 @@ import {
   getFeatures,
   trackRecommendationView,
   toKebabCase,
-  addTrackSearchSubmit,
+  trackSearchSubmit,
 } from '../utils';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
@@ -194,7 +194,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             onSubmit({ query });
           }
           try {
-            addTrackSearchSubmit(cioClient, query, { originalQuery: query });
+            trackSearchSubmit(cioClient, query, { originalQuery: query });
           } catch (error) {
             // eslint-disable-next-line no-console
             console.log(error);
@@ -209,7 +209,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           onSubmit({ query });
         }
         try {
-          addTrackSearchSubmit(cioClient, query, { originalQuery: query });
+          trackSearchSubmit(cioClient, query, { originalQuery: query });
         } catch (error) {
           // eslint-disable-next-line no-console
           console.log(error);
