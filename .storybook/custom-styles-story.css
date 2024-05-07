@@ -32,3 +32,21 @@
 .cio-autocomplete.custom-autocomplete-styles .products p {
   padding: 5px 5px 0;
 }
+
+.cio-autocomplete .cio-item .cio-product-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cio-autocomplete .cio-item img.cio-product-image {
+  max-height: 200px;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+
+.cio-autocomplete .cio-section-products .cio-item.cio-item-Products {
+  height: unset;
+}
