@@ -54,9 +54,10 @@ export default function useSections(
   );
 
   // Fetch Recommendations Results
-  const { recommendationsResults, podsData } = useFetchRecommendationPod(
+  const { fetchRecommendationResults, recommendationsResults, podsData } = useFetchRecommendationPod(
     cioClient,
-    recommendationsSections
+    recommendationsSections,
+    advancedParameters?.fetchZeroStateOnFocus
   );
 
   // Remove sections if necessary
@@ -102,6 +103,7 @@ export default function useSections(
   }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
 
   return {
+    fetchRecommendationResults,
     activeSections,
     activeSectionsWithData,
     zeroStateActiveSections,

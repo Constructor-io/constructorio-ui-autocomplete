@@ -94,7 +94,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
-  const { activeSections, activeSectionsWithData, zeroStateActiveSections, request } = useSections(
+  const { fetchRecommendationResults, activeSections, activeSectionsWithData, zeroStateActiveSections, request } = useSections(
     query,
     cioClient,
     sections,
@@ -176,6 +176,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           openMenu();
         }
         try {
+          if (advancedParameters?.fetchZeroStateOnFocus) {
+            fetchRecommendationResults();
+          }
           cioClient?.tracker?.trackInputFocus();
         } catch (error) {
           // eslint-disable-next-line no-console

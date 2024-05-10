@@ -26,6 +26,7 @@ export interface AdvancedParametersBase {
   displaySearchSuggestionResultCounts?: boolean;
   debounce?: number;
   translations?: Translations;
+  fetchZeroStateOnFocus?: boolean;
 }
 
 export type AdvancedParameters = AdvancedParametersBase &
