@@ -94,13 +94,13 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
-  const { fetchRecommendationResults, activeSections, activeSectionsWithData, zeroStateActiveSections, request } = useSections(
-    query,
-    cioClient,
-    sections,
-    zeroStateSections,
-    advancedParameters
-  );
+  const {
+    fetchRecommendationResults,
+    activeSections,
+    activeSectionsWithData,
+    zeroStateActiveSections,
+    request,
+  } = useSections(query, cioClient, sections, zeroStateSections, advancedParameters);
 
   const features = useMemo(() => getFeatures(request), [request]);
 

@@ -54,11 +54,12 @@ export default function useSections(
   );
 
   // Fetch Recommendations Results
-  const { fetchRecommendationResults, recommendationsResults, podsData } = useFetchRecommendationPod(
-    cioClient,
-    recommendationsSections,
-    advancedParameters?.fetchZeroStateOnFocus
-  );
+  const { fetchRecommendationResults, recommendationsResults, podsData } =
+    useFetchRecommendationPod(
+      cioClient,
+      recommendationsSections,
+      advancedParameters?.fetchZeroStateOnFocus
+    );
 
   // Remove sections if necessary
   useEffect(() => {

@@ -48,7 +48,7 @@ const useFetchRecommendationPod = (
       // eslint-disable-next-line no-console
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (fetchZeroStateOnFocus) return;
