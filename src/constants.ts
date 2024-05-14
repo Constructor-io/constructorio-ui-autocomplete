@@ -40,7 +40,7 @@ const {
     "Products": number,
     "Search Suggestions": number,
     ...
-  }, // total number of product results and search results (and other sections)
+  }, // total number of product and search suggestion results (and other sections)
   getFormProps: () => ({...})), // prop getter for jsx form element
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element rendering the results container
