@@ -36,6 +36,11 @@ const {
   // must be used for a hooks integrations
   query: string, // current input field value
   sections: [{...}], // array of sections data to render in menu list
+  totalNumResultsPerSection: {
+    "Products": number,
+    "Search Suggestions": number,
+    ...
+  }, // total number of product and search suggestion results (and other sections)
   getFormProps: () => ({...})), // prop getter for jsx form element
   getInputProps: () => ({...})), // prop getter for jsx input element
   getMenuProps: () => ({...})), // prop getter for jsx element rendering the results container

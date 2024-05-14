@@ -46,12 +46,11 @@ export default function useSections(
   );
 
   // Fetch Autocomplete Results
-  const { sectionsData: autocompleteResults, request } = useDebouncedFetchSection(
-    query,
-    cioClient,
-    autocompleteSections,
-    advancedParameters
-  );
+  const {
+    sectionsData: autocompleteResults,
+    request,
+    totalNumResultsPerSection,
+  } = useDebouncedFetchSection(query, cioClient, autocompleteSections, advancedParameters);
 
   // Fetch Recommendations Results
   const { recommendationsResults, podsData } = useFetchRecommendationPod(
@@ -106,5 +105,6 @@ export default function useSections(
     activeSectionsWithData,
     zeroStateActiveSections,
     request,
+    totalNumResultsPerSection,
   };
 }

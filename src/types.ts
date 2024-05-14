@@ -107,6 +107,7 @@ export type SectionsData = {
 export type AutocompleteResultSections = {
   sectionsData: SectionsData;
   request: Partial<AutocompleteRequestType>;
+  totalNumResultsPerSection: Record<string, number>;
 };
 type SectionType = 'autocomplete' | 'recommendations' | 'custom';
 
