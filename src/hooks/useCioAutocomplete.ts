@@ -101,6 +101,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     activeSectionsWithData,
     zeroStateActiveSections,
     request,
+    totalNumResultsPerSection,
   } = useSections(query, cioClient, sections, zeroStateSections, advancedParameters);
 
   const features = useMemo(() => getFeatures(request), [request]);
@@ -130,6 +131,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   return {
     query,
     sections: activeSectionsWithData,
+    totalNumResultsPerSection,
     request,
     featureToggles: features,
     isOpen: isOpen && items?.length > 0,
