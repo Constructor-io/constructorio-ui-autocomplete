@@ -53,12 +53,11 @@ export default function useSections(
   } = useDebouncedFetchSection(query, cioClient, autocompleteSections, advancedParameters);
 
   // Fetch Recommendations Results
-  const { fetchRecommendationResults, recommendationsResults, podsData } =
-    useFetchRecommendationPod(
-      cioClient,
-      recommendationsSections,
-      advancedParameters?.fetchZeroStateOnFocus
-    );
+  const { recommendationsResults, podsData } = useFetchRecommendationPod(
+    cioClient,
+    recommendationsSections,
+    advancedParameters?.fetchZeroStateOnFocus
+  );
 
   // Remove sections if necessary
   useEffect(() => {
@@ -103,7 +102,6 @@ export default function useSections(
   }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
 
   return {
-    fetchRecommendationResults,
     activeSections,
     activeSectionsWithData,
     zeroStateActiveSections,

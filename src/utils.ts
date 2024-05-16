@@ -7,7 +7,15 @@ import {
 // eslint-disable-next-line import/no-cycle
 import { storageSetItem, storeRecentSearch, storeRecentAction, CONSTANTS } from './beaconUtils';
 import { isRecommendationsSection } from './typeGuards';
-import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
+import {
+  Item,
+  Section,
+  UserDefinedSection,
+  SectionsData,
+  Translations,
+  RecommendationsSectionConfiguration,
+  PodData,
+} from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -235,6 +243,50 @@ export const trackRecommendationView = (
       section: target.dataset.cnstrcSection,
       items: recommendationItems,
     });
+  }
+};
+
+export const fetchRecommendationResults = async (
+  cioClient: Nullable<ConstructorIOClient>,
+  recommendationPods: RecommendationsSectionConfiguration[],
+  setRecommendationsResults?: React.Dispatch<React.SetStateAction<SectionsData>>,
+  setPodsData?: React.Dispatch<React.SetStateAction<Record<string, PodData>>>
+) => {
+  if (!cioClient || !Array.isArray(recommendationPods) || recommendationPods.length === 0) return;
+
+  const responses = await Promise.all(
+    recommendationPods.map(({ podId, indexSectionName, ...parameters }) =>
+      cioClient.recommendations.getRecommendations(podId, {
+        ...parameters,
+        section: indexSectionName,
+      })
+    )
+  );
+  const recommendationsPodResults = {};
+  const recommendationsPodsData = {};
+  responses.forEach(({ response, request }, index) => {
+    const { pod, results } = response;
+    if (pod?.id) {
+      recommendationsPodResults[pod.id] = results?.map((item: Item) => ({
+        ...item,
+        id: item?.data?.id,
+        section: recommendationPods[index]?.indexSectionName,
+        podId: pod.id,
+      }));
+      recommendationsPodsData[pod.id] = {
+        displayName: pod.display_name,
+        podId: pod.id,
+        request,
+      };
+    }
+  });
+
+  try {
+    setRecommendationsResults?.(recommendationsPodResults);
+    setPodsData?.(recommendationsPodsData);
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 };
 

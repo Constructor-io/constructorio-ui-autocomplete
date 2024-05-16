@@ -18,6 +18,7 @@ import {
   trackRecommendationView,
   toKebabCase,
   trackSearchSubmit,
+  fetchRecommendationResults,
 } from '../utils';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
@@ -96,7 +97,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
   const {
-    fetchRecommendationResults,
     activeSections,
     activeSectionsWithData,
     zeroStateActiveSections,
@@ -180,7 +180,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         }
         try {
           if (advancedParameters?.fetchZeroStateOnFocus) {
-            fetchRecommendationResults();
+            fetchRecommendationResults(cioClient, []);
           }
           cioClient?.tracker?.trackInputFocus();
         } catch (error) {
