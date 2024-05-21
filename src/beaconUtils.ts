@@ -34,7 +34,7 @@ export const storageSetItem = (key, value) => {
     const storageEngine = getStorageEngine(key.scope);
     return storageEngine.setItem(key.key, value);
   } catch (e) {
-    logger('storageSetItem error:', e);
+    logger(`storageSetItem error: ${e}`);
 
     return null;
   }
@@ -53,7 +53,7 @@ export const cleanTerm = (term) => {
     tmp.body.removeChild(el);
   });
   const nodes = tmp.body.childNodes;
-  const texts = [...nodes].map((node) => node.innerText || node.textContent);
+  const texts = [...nodes].map((node) => (node as HTMLElement).innerText || node.textContent);
   return texts.join('');
 };
 
@@ -64,7 +64,7 @@ export const storageGetItem = (key) => {
 
     return storageEngine.getItem(key.key);
   } catch (e) {
-    logger('storageGetItem error:', e);
+    logger(`storageGetItem error: ${e}`);
 
     return null;
   }
@@ -80,7 +80,7 @@ export const storageGetArray = (key) => {
 
       return array;
     } catch (e) {
-      logger('StorageGetArray error:', e);
+      logger(`storageGetArray error: ${e}`);
     }
   }
 
