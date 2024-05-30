@@ -4,6 +4,8 @@ import ConstructorIO from '@constructor-io/constructorio-client-javascript';
 import { Section } from '../types';
 import { isRecommendationsSection } from '../typeGuards';
 
+const viewedRecommendations = new Set();
+
 /**
  * Custom hook that observes the visibility of recommendation sections and calls trackRecommendationView event.
  * This is done by using the IntersectionObserver API to observe the visibility of each recommendation section.
@@ -41,8 +43,9 @@ function useRecommendationsObserver(
     const observer = new IntersectionObserver((entries) => {
       // For each section, check if it's intersecting
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !viewedRecommendations.has(entry.target)) {
           trackRecommendationView(entry.target as HTMLElement, sections, constructorIO);
+          viewedRecommendations.add(entry.target);
         }
       });
     }, intersectionObserverOptions);
@@ -63,6 +66,13 @@ function useRecommendationsObserver(
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [menuIsOpen, sections]);
+
+  // clear viewed recommendations when menu is closed
+  useEffect(() => {
+    if (!menuIsOpen) {
+      viewedRecommendations.clear();
+    }
   }, [menuIsOpen]);
 }
 
