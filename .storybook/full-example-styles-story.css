@@ -124,10 +124,6 @@
     right: 0;
     width: unset;
   }
-
-  .cio-autocomplete.full-example-autocomplete-styles .cio-section-products {
-    display: none;
-  }
 }
 
 @media screen and (max-width: 600px) {
