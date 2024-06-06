@@ -123,6 +123,7 @@
     left: 0;
     right: 0;
     width: unset;
+    flex-direction: column;
   }
 }
 
