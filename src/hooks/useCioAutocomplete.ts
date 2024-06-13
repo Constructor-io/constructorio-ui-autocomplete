@@ -179,7 +179,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           openMenu();
         }
         try {
-          if (advancedParameters?.fetchZeroStateOnFocus) {
+          if (advancedParameters?.fetchZeroStateOnFocus && items?.length === 0) {
             fetchRecommendationResults();
           }
           cioClient?.tracker?.trackInputFocus();
