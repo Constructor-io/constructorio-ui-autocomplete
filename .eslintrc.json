@@ -31,7 +31,10 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "prettier/prettier": [
-      "error"
+      "error",
+      {
+        "trailingComma": "es5"
+      }
     ],
     "global-require": "off",
     "max-len": [
@@ -73,7 +76,8 @@
       {
         "devDependencies": [
           "**/*.stories.*",
-          "**/.storybook/**/*.*"
+          "**/.storybook/**/*.*",
+          "spec/**/*.*"
         ],
         "peerDependencies": true
       }
@@ -98,6 +102,7 @@
     "*.config.js",
     "lib/**/*.js",
     "lib/**/*.d.ts",
-    "docs/**/*.js"
+    "docs/**/*.js",
+    "jest.setup.js"
   ]
 }
