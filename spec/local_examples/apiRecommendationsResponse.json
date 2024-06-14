@@ -1,0 +1,25 @@
+{
+  "request": {
+    "section": "Products",
+    "num_results": 1,
+    "pod_id": "bestsellers"
+  },
+  "response": {
+    "results": [
+      {
+        "data": {
+          "id": "123",
+          "url": "no-url",
+          "description": "description",
+          "price": 99,
+          "image_url": "example.jpg"
+        },
+        "value": "product",
+        "strategy": { "id": "bestsellers" }
+      }
+    ],
+    "total_num_results": 1,
+    "pod": { "id": "bestsellers", "display_name": "Best Sellers" }
+  },
+  "result_id": "123"
+}
