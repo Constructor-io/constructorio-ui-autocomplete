@@ -43,7 +43,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     expect(console.error).not.toHaveBeenCalled();
   });
 
-  it("Doesn't throw error if we provide a CIOClientOptions Client", () => {
+  it("Doesn't throw error if we provide a CIOClientOptions", () => {
     const cioJsClientOptions = { apiKey: DEMO_API_KEY, serviceUrl: 'https://ac.cnstrc.com' };
 
     expect(() => {
@@ -58,7 +58,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     expect(console.error).not.toHaveBeenCalled();
   });
 
-  it('Render custom place holder when passed as a prop', () => {
+  it('Render custom placeholder when passed as a prop', () => {
     const { getByPlaceholderText } = render(
       <CioAutocomplete apiKey={DEMO_API_KEY} placeholder='Custom placeholder text' />
     );
