@@ -17,7 +17,7 @@ describe('CioAutocomplete Server-Side Rendering', () => {
     jest.resetAllMocks();
   });
 
-  it.only("Throws an error even if we provide a ConstructorIO Client since it's not SSR supported", () => {
+  it("Throws an error even if we provide a ConstructorIO Client since it's not SSR supported", () => {
     expect(() => {
       ReactDOMServer.renderToString(<CioAutocomplete cioJsClient={mockConstructorIOClient} />);
     }).not.toThrow();
