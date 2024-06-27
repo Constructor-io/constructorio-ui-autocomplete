@@ -11,6 +11,7 @@ import {
   onSubmitDefault as onSubmit,
   termsWithImagesAndCountsDescription,
   debounceDescription,
+  fetchZeroStateOnFocusDescription,
 } from '../../../constants';
 
 export default {
@@ -96,4 +97,23 @@ addHookStoryCode(
   Debounce,
   `const args = ${stringifyWithDefaults(Debounce.args)}`,
   debounceDescription
+);
+
+export const FetchZeroStateOnFocus = HooksTemplate.bind({});
+FetchZeroStateOnFocus.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: { fetchZeroStateOnFocus: true },
+  zeroStateSections: [
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 3,
+    },
+  ],
+};
+addHookStoryCode(
+  FetchZeroStateOnFocus,
+  `const args = ${stringifyWithDefaults(FetchZeroStateOnFocus.args)}`,
+  fetchZeroStateOnFocusDescription
 );

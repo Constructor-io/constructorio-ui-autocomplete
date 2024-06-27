@@ -12,6 +12,7 @@ import {
   termsWithImagesAndCountsDescription,
   debounceDescription,
   translationsDescription,
+  fetchZeroStateOnFocusDescription,
 } from '../../../constants';
 
 export default {
@@ -116,4 +117,23 @@ addComponentStoryDescription(
   Translations,
   `const args = ${stringifyWithDefaults(Translations.args)}`,
   translationsDescription
+);
+
+export const FetchZeroStateOnFocus = ComponentTemplate.bind({});
+FetchZeroStateOnFocus.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: { fetchZeroStateOnFocus: true },
+  zeroStateSections: [
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 3,
+    },
+  ],
+};
+addComponentStoryDescription(
+  FetchZeroStateOnFocus,
+  `const args = ${stringifyWithDefaults(FetchZeroStateOnFocus.args)}`,
+  fetchZeroStateOnFocusDescription
 );

@@ -96,6 +96,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
   const {
+    fetchRecommendationResults,
     activeSections,
     activeSectionsWithData,
     zeroStateActiveSections,
@@ -178,6 +179,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           openMenu();
         }
         try {
+          if (advancedParameters?.fetchZeroStateOnFocus && items?.length === 0) {
+            fetchRecommendationResults();
+          }
           cioClient?.tracker?.trackInputFocus();
         } catch (error) {
           // eslint-disable-next-line no-console
