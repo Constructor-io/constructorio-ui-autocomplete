@@ -191,7 +191,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       className: 'cio-input',
       'data-testid': 'cio-input',
       placeholder,
-      onKeyDownCapture: ({ code, key }) => {
+      onKeyDownCapture: ({ code, key, nativeEvent }) => {
         const isEnter = code === 'Enter' || key === 'Enter';
         const isUserInput = highlightedIndex < 0;
         if (isOpen && isEnter && isUserInput && query?.length) {
@@ -204,6 +204,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             // eslint-disable-next-line no-console
             console.log(error);
           }
+        }
+
+        if (code === 'Home' || code === 'End') {
+          // eslint-disable-next-line no-param-reassign
+          nativeEvent.preventDownshiftDefault = true;
         }
       },
     }),
