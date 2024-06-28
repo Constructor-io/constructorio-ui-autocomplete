@@ -5,7 +5,7 @@
 
 ## Introduction
 
-This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autosuggest services](https://constructor.io/products/autosuggest/).
+This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autosuggest services](https://constructor.com/solutions/search).
 
 [Our storybook docs](https://constructor-io.github.io/constructorio-ui-autocomplete) are the best place to explore the behavior and configuration options for this UI Library.
 
@@ -223,7 +223,7 @@ Dispatch the [Deploy Storybook](https://github.com/Constructor-io/constructorio-
 
 ## Supporting Docs
 
-- [Storybook 7 Introduction](https://storybook.js.org/docs/7.0/react/get-started/introduction)
+- [Storybook 7 Introduction](https://storybook.js.org/docs/get-started/frameworks/react-vite?renderer=react)
 - [Typescript Docs](https://www.typescriptlang.org/docs/)
 
 ## Usage examples
