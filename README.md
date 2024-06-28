@@ -223,7 +223,7 @@ Dispatch the [Deploy Storybook](https://github.com/Constructor-io/constructorio-
 
 ## Supporting Docs
 
-- [Storybook 7 Introduction](https://storybook.js.org/docs/get-started/frameworks/react-vite?renderer=react)
+- [Storybook 7 Introduction](https://storybook.js.org/docs/7/get-started/setup)
 - [Typescript Docs](https://www.typescriptlang.org/docs/)
 
 ## Usage examples
