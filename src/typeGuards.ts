@@ -30,7 +30,7 @@ export function isAutocompleteSection(config: UserDefinedSection): config is Aut
 }
 
 export function isRecommendationsSection(
-  config: UserDefinedSection
+  config: UserDefinedSection,
 ): config is RecommendationsSection {
   return (config as RecommendationsSection).type === 'recommendations';
 }

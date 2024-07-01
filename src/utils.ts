@@ -122,7 +122,7 @@ export const stringifyWithDefaults = (obj) => {
   let res = JSON.stringify(
     obj,
     (key, value) => (value instanceof Function ? `${key}_CODE` : value),
-    '  '
+    '  ',
   );
 
   // Replace template blocks with function strings
@@ -165,7 +165,7 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionResults: SectionsData,
-  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>
+  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>,
 ) => {
   const activeSectionsWithData: Section[] = [];
 
@@ -213,14 +213,14 @@ export const escapeRegExp = (string: string) => string.replace(/[.*+?^${}()|[\]\
 export const trackRecommendationView = (
   target: HTMLElement,
   activeSectionsWithData: Section[],
-  cioClient: Nullable<ConstructorIOClient>
+  cioClient: Nullable<ConstructorIOClient>,
 ) => {
   if (target.dataset.cnstrcRecommendationsPodId) {
     // Pull recommendations from activeSectionsWithData by podId surfaced on target
     const recommendationSection = activeSectionsWithData.find(
       (section) =>
         isRecommendationsSection(section) &&
-        section.podId === target.dataset.cnstrcRecommendationsPodId
+        section.podId === target.dataset.cnstrcRecommendationsPodId,
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
       itemId: item.data?.id,

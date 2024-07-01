@@ -45,7 +45,7 @@ RenderSearchSuggestions.args = {
 addHookStoryCode(
   RenderSearchSuggestions,
   `const args = ${stringifyWithDefaults(RenderSearchSuggestions.args)}`,
-  searchSuggestionsDescription
+  searchSuggestionsDescription,
 );
 
 export const RenderSuggestedProducts = HooksTemplate.bind({});
@@ -62,7 +62,7 @@ RenderSuggestedProducts.args = {
 addHookStoryCode(
   RenderSuggestedProducts,
   `const args = ${stringifyWithDefaults(RenderSuggestedProducts.args)}`,
-  productsDescription
+  productsDescription,
 );
 
 export const RenderSuggestedContent = HooksTemplate.bind({});
@@ -78,7 +78,7 @@ RenderSuggestedContent.args = {
 addHookStoryCode(
   RenderSuggestedContent,
   `const args = ${stringifyWithDefaults(RenderSuggestedContent.args)}`,
-  contentDescription
+  contentDescription,
 );
 
 export const ConfigureNumberOfResultsPerSection = HooksTemplate.bind({});
@@ -95,7 +95,7 @@ ConfigureNumberOfResultsPerSection.args = {
 addHookStoryCode(
   ConfigureNumberOfResultsPerSection,
   `const args = ${stringifyWithDefaults(ConfigureNumberOfResultsPerSection.args)}`,
-  numResultsDescription
+  numResultsDescription,
 );
 
 export const ConfigureOrderOfRenderedSections = HooksTemplate.bind({});
@@ -114,7 +114,7 @@ ConfigureOrderOfRenderedSections.args = {
 addHookStoryCode(
   ConfigureOrderOfRenderedSections,
   `const args = ${stringifyWithDefaults(ConfigureOrderOfRenderedSections.args)}`,
-  sectionOrderDescription
+  sectionOrderDescription,
 );
 
 export const RenderRecommendations = HooksTemplate.bind({});
@@ -137,7 +137,7 @@ RenderRecommendations.args = {
 addHookStoryCode(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
-  recommendationsDescription
+  recommendationsDescription,
 );
 
 export const RenderCustomSection = HooksTemplate.bind({});
@@ -173,5 +173,5 @@ RenderCustomSection.args = {
 addHookStoryCode(
   RenderCustomSection,
   `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
-  customSectionDescription
+  customSectionDescription,
 );

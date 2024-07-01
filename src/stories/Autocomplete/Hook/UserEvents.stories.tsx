@@ -41,7 +41,7 @@ addHookStoryCode(
   "onSubmit": ${functionStrings.onSubmit}
   "onFocus": () => { console.log("Focus!") }
 }`,
-  onFocusDescription
+  onFocusDescription,
 );
 disableStoryActions(OnFocus);
 
@@ -59,7 +59,7 @@ addHookStoryCode(
     console.log("New Query: " + inputFieldValue);
   }
 }`,
-  onChangeDescription
+  onChangeDescription,
 );
 disableStoryActions(OnChange);
 
@@ -88,6 +88,6 @@ addHookStoryCode(
     }
   }
 }`,
-  onSubmitDescription
+  onSubmitDescription,
 );
 disableStoryActions(OnSubmit);

@@ -36,7 +36,7 @@ Default.args = {
 addHookStoryCode(
   Default,
   `const args = ${stringifyWithDefaults(Default.args)}`,
-  advancedParametersDefaultDescription
+  advancedParametersDefaultDescription,
 );
 
 export const TermsWithGroupSuggestions = HooksTemplate.bind({});
@@ -51,7 +51,7 @@ TermsWithGroupSuggestions.args = {
 addHookStoryCode(
   TermsWithGroupSuggestions,
   `const args = ${stringifyWithDefaults(TermsWithGroupSuggestions.args)}`,
-  termsWithGroupSuggestionsDescription
+  termsWithGroupSuggestionsDescription,
 );
 
 export const FilteredSuggestions = HooksTemplate.bind({});
@@ -67,7 +67,7 @@ FilteredSuggestions.args = {
 addHookStoryCode(
   FilteredSuggestions,
   `const args = ${stringifyWithDefaults(FilteredSuggestions.args)}`,
-  filteredSuggestionsDescription
+  filteredSuggestionsDescription,
 );
 
 export const TermsWithImagesAndCounts = HooksTemplate.bind({});
@@ -82,7 +82,7 @@ TermsWithImagesAndCounts.args = {
 addHookStoryCode(
   TermsWithImagesAndCounts,
   `const args = ${stringifyWithDefaults(TermsWithImagesAndCounts.args)}`,
-  termsWithImagesAndCountsDescription
+  termsWithImagesAndCountsDescription,
 );
 
 export const Debounce = HooksTemplate.bind({});
@@ -96,7 +96,7 @@ Debounce.args = {
 addHookStoryCode(
   Debounce,
   `const args = ${stringifyWithDefaults(Debounce.args)}`,
-  debounceDescription
+  debounceDescription,
 );
 
 export const FetchZeroStateOnFocus = HooksTemplate.bind({});
@@ -115,5 +115,5 @@ FetchZeroStateOnFocus.args = {
 addHookStoryCode(
   FetchZeroStateOnFocus,
   `const args = ${stringifyWithDefaults(FetchZeroStateOnFocus.args)}`,
-  fetchZeroStateOnFocusDescription
+  fetchZeroStateOnFocusDescription,
 );

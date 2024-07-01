@@ -58,7 +58,7 @@ const useDebouncedFetchSection = (
   query: string,
   cioClient: Nullable<ConstructorIOClient>,
   autocompleteSections: AutocompleteSectionConfiguration[],
-  advancedParameters?: AdvancedParameters
+  advancedParameters?: AdvancedParameters,
 ) => {
   // This says sectionsData but it also contain request information
   const [sectionsData, setSectionsData] = useState<AutocompleteResultSections>({
@@ -84,7 +84,7 @@ const useDebouncedFetchSection = (
           ...acc,
           [sectionConfig.indexSectionName]: sectionConfig?.numResults || 8,
         }),
-        {}
+        {},
       );
     }
 
@@ -97,7 +97,7 @@ const useDebouncedFetchSection = (
         try {
           const response = await cioClient?.autocomplete.getAutocompleteResults(
             debouncedSearchTerm,
-            autocompleteParameters
+            autocompleteParameters,
           );
           if (response) {
             const newSectionsData = transformResponse(response, {

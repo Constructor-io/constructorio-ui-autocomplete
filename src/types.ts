@@ -70,7 +70,7 @@ export type AutocompleteSearchSubmit = {
  * @example if (isAutocompleteSelectSubmit(event)) { ... } // `query` is available
  */
 export const isAutocompleteSelectSubmit = (
-  event: AutocompleteSubmitEvent
+  event: AutocompleteSubmitEvent,
 ): event is AutocompleteSelectSubmit => 'item' in event && 'originalQuery' in event;
 
 /**
@@ -80,7 +80,7 @@ export const isAutocompleteSelectSubmit = (
  * @example if (isAutocompleteSearchSubmit(event)) { ... } // `item` and `originalQuery` are available
  */
 export const isAutocompleteSearchSubmit = (
-  event: AutocompleteSubmitEvent
+  event: AutocompleteSubmitEvent,
 ): event is AutocompleteSearchSubmit => 'query' in event;
 
 export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;

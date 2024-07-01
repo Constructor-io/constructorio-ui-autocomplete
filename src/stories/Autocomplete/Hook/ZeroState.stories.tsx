@@ -44,7 +44,7 @@ RenderSections.args = {
 addHookStoryCode(
   RenderSections,
   `const args = ${stringifyWithDefaults(RenderSections.args)}`,
-  zeroStateDescription
+  zeroStateDescription,
 );
 
 export const NoOpenOnFocus = HooksTemplate.bind({});
@@ -62,7 +62,7 @@ NoOpenOnFocus.args = {
 addHookStoryCode(
   NoOpenOnFocus,
   `const args = ${stringifyWithDefaults(NoOpenOnFocus.args)}`,
-  openOnFocusDescription
+  openOnFocusDescription,
 );
 
 export const RenderRecommendations = HooksTemplate.bind({});
@@ -79,7 +79,7 @@ RenderRecommendations.args = {
 addHookStoryCode(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
-  recommendationsDescription
+  recommendationsDescription,
 );
 
 export const RenderCustomSection = HooksTemplate.bind({});
@@ -112,7 +112,7 @@ RenderCustomSection.args = {
 addHookStoryCode(
   RenderCustomSection,
   `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
-  customSectionDescription
+  customSectionDescription,
 );
 
 export const RenderMultipleSections = HooksTemplate.bind({});
@@ -149,5 +149,5 @@ RenderMultipleSections.args = {
 addHookStoryCode(
   RenderMultipleSections,
   `const args = ${stringifyWithDefaults(RenderMultipleSections.args)}`,
-  multipleSectionsDescription
+  multipleSectionsDescription,
 );

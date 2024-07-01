@@ -27,7 +27,7 @@ const CioAutocomplete = ({ selector, includeCSS = true, ...rest }) => {
     ReactDOM.createRoot(containerElement).render(
       <React.StrictMode>
         <CioAutocompleteComponent {...rest} />
-      </React.StrictMode>
+      </React.StrictMode>,
     );
   }
 };

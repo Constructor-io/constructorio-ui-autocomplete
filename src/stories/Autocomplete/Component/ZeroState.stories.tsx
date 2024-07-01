@@ -45,7 +45,7 @@ RenderSections.args = {
 addComponentStoryDescription(
   RenderSections,
   `const args = ${stringifyWithDefaults(RenderSections.args)}`,
-  zeroStateSectionsDescription
+  zeroStateSectionsDescription,
 );
 
 export const NoOpenOnFocus = ComponentTemplate.bind({});
@@ -63,7 +63,7 @@ NoOpenOnFocus.args = {
 addComponentStoryDescription(
   NoOpenOnFocus,
   `const args = ${stringifyWithDefaults(NoOpenOnFocus.args)}`,
-  openOnFocusDescription
+  openOnFocusDescription,
 );
 
 export const RenderRecommendations = ComponentTemplate.bind({});
@@ -80,7 +80,7 @@ RenderRecommendations.args = {
 addComponentStoryDescription(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
-  recommendationsDescription
+  recommendationsDescription,
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
@@ -113,7 +113,7 @@ RenderCustomSection.args = {
 addComponentStoryDescription(
   RenderCustomSection,
   `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
-  customSectionDescription
+  customSectionDescription,
 );
 
 export const RenderMultipleSections = ComponentTemplate.bind({});
@@ -150,5 +150,5 @@ RenderMultipleSections.args = {
 addComponentStoryDescription(
   RenderMultipleSections,
   `const args = ${stringifyWithDefaults(RenderMultipleSections.args)}`,
-  multipleSectionsDescription
+  multipleSectionsDescription,
 );

@@ -6,7 +6,7 @@ import { Item, SectionsData, RecommendationsSectionConfiguration, PodData } from
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
   recommendationPods: RecommendationsSectionConfiguration[],
-  fetchZeroStateOnFocus: boolean = false
+  fetchZeroStateOnFocus: boolean = false,
 ) => {
   const [recommendationsResults, setRecommendationsResults] = useState<SectionsData>({});
   const [podsData, setPodsData] = useState<Record<string, PodData>>({});
@@ -19,8 +19,8 @@ const useFetchRecommendationPod = (
         cioClient.recommendations.getRecommendations(podId, {
           ...parameters,
           section: indexSectionName,
-        })
-      )
+        }),
+      ),
     );
     const recommendationsPodResults = {};
     const recommendationsPodsData = {};

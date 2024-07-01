@@ -25,8 +25,8 @@ function useRecommendationsObserver(
   trackRecommendationView: (
     target: HTMLElement,
     sections: Section[],
-    constructorIO: Nullable<ConstructorIO>
-  ) => void
+    constructorIO: Nullable<ConstructorIO>,
+  ) => void,
 ) {
   // Get refs for each section
   const refs = sections

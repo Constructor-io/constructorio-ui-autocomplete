@@ -37,7 +37,7 @@ Default.args = {
 addComponentStoryDescription(
   Default,
   `const args = ${stringifyWithDefaults(Default.args)}`,
-  advancedParametersDefaultDescription
+  advancedParametersDefaultDescription,
 );
 
 export const TermsWithGroupSuggestions = ComponentTemplate.bind({});
@@ -52,7 +52,7 @@ TermsWithGroupSuggestions.args = {
 addComponentStoryDescription(
   TermsWithGroupSuggestions,
   `const args = ${stringifyWithDefaults(TermsWithGroupSuggestions.args)}`,
-  termsWithGroupSuggestionsDescription
+  termsWithGroupSuggestionsDescription,
 );
 
 export const FilteredSuggestions = ComponentTemplate.bind({});
@@ -68,7 +68,7 @@ FilteredSuggestions.args = {
 addComponentStoryDescription(
   FilteredSuggestions,
   `const args = ${stringifyWithDefaults(FilteredSuggestions.args)}`,
-  filteredSuggestionsDescription
+  filteredSuggestionsDescription,
 );
 
 export const TermsWithImagesAndCounts = ComponentTemplate.bind({});
@@ -83,7 +83,7 @@ TermsWithImagesAndCounts.args = {
 addComponentStoryDescription(
   TermsWithImagesAndCounts,
   `const args = ${stringifyWithDefaults(TermsWithImagesAndCounts.args)}`,
-  termsWithImagesAndCountsDescription
+  termsWithImagesAndCountsDescription,
 );
 
 export const Debounce = ComponentTemplate.bind({});
@@ -97,7 +97,7 @@ Debounce.args = {
 addComponentStoryDescription(
   Debounce,
   `const args = ${stringifyWithDefaults(Debounce.args)}`,
-  debounceDescription
+  debounceDescription,
 );
 
 export const Translations = ComponentTemplate.bind({});
@@ -116,7 +116,7 @@ Translations.args = {
 addComponentStoryDescription(
   Translations,
   `const args = ${stringifyWithDefaults(Translations.args)}`,
-  translationsDescription
+  translationsDescription,
 );
 
 export const FetchZeroStateOnFocus = ComponentTemplate.bind({});
@@ -135,5 +135,5 @@ FetchZeroStateOnFocus.args = {
 addComponentStoryDescription(
   FetchZeroStateOnFocus,
   `const args = ${stringifyWithDefaults(FetchZeroStateOnFocus.args)}`,
-  fetchZeroStateOnFocusDescription
+  fetchZeroStateOnFocusDescription,
 );

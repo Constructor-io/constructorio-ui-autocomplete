@@ -41,7 +41,7 @@ addComponentStoryDescription(
   "onSubmit": ${functionStrings.onSubmit}
   "onFocus": () => { console.log("Focus!") }
 }`,
-  onFocusDescription
+  onFocusDescription,
 );
 disableStoryActions(OnFocus);
 
@@ -59,7 +59,7 @@ addComponentStoryDescription(
     console.log("New Query: " + inputFieldValue);
   }
 }`,
-  onChangeDescription
+  onChangeDescription,
 );
 disableStoryActions(OnChange);
 
@@ -88,6 +88,6 @@ addComponentStoryDescription(
     }
   }
 }`,
-  onSubmitDescription
+  onSubmitDescription,
 );
 disableStoryActions(OnSubmit);

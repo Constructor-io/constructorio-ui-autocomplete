@@ -3,7 +3,7 @@ import useCioAutocomplete from '../../hooks/useCioAutocomplete';
 import { CioAutocompleteProps } from '../../types';
 
 export const CioAutocompleteContext = createContext<ReturnType<typeof useCioAutocomplete>>(
-  {} as ReturnType<typeof useCioAutocomplete>
+  {} as ReturnType<typeof useCioAutocomplete>,
 );
 
 export default function CioAutocompleteProvider(props: CioAutocompleteProps) {

@@ -19,13 +19,13 @@ export default function useSections(
   cioClient: Nullable<ConstructorIO>,
   sections: UserDefinedSection[],
   zeroStateSections: UserDefinedSection[] | undefined,
-  advancedParameters?: AdvancedParameters
+  advancedParameters?: AdvancedParameters,
 ) {
   const zeroStateActiveSections = !query.length && zeroStateSections?.length;
 
   // Define All Sections
   const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
-    zeroStateActiveSections ? zeroStateSections : sections
+    zeroStateActiveSections ? zeroStateSections : sections,
   );
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
@@ -33,16 +33,16 @@ export default function useSections(
   const autocompleteSections = useMemo(
     () =>
       activeSections?.filter((config: UserDefinedSection) =>
-        isAutocompleteSection(config)
+        isAutocompleteSection(config),
       ) as AutocompleteSectionConfiguration[],
-    [activeSections]
+    [activeSections],
   );
   const recommendationsSections = useMemo(
     () =>
       activeSections?.filter((config: UserDefinedSection) =>
-        isRecommendationsSection(config)
+        isRecommendationsSection(config),
       ) as RecommendationsSectionConfiguration[],
-    [activeSections]
+    [activeSections],
   );
 
   // Fetch Autocomplete Results
@@ -57,7 +57,7 @@ export default function useSections(
     useFetchRecommendationPod(
       cioClient,
       recommendationsSections,
-      advancedParameters?.fetchZeroStateOnFocus
+      advancedParameters?.fetchZeroStateOnFocus,
     );
 
   // Remove sections if necessary
@@ -91,14 +91,14 @@ export default function useSections(
 
         return mergedConfig;
       }),
-    [activeSections, podsData]
+    [activeSections, podsData],
   );
 
   // Add to active sections the results data and refs when autocomplete results or recommendation results fetched
   useEffect(() => {
     const sectionsResults = { ...autocompleteResults, ...recommendationsResults };
     setActiveSectionsWithData(
-      getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs)
+      getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs),
     );
   }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
 

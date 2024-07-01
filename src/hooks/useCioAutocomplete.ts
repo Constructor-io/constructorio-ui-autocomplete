@@ -109,7 +109,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   // Get dropdown items array from active sections (autocomplete + recommendations + custom)
   const items = useMemo(
     () => getItemsForActiveSections(activeSectionsWithData),
-    [activeSectionsWithData]
+    [activeSectionsWithData],
   );
   const {
     isOpen,

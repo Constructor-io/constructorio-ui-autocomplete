@@ -14,7 +14,7 @@ const useCioClient: UseCioClient = ({ apiKey, cioJsClient, cioJsClientOptions })
 
   return useMemo(
     () => cioJsClient || getCioClient(apiKey, cioJsClientOptions),
-    [apiKey, cioJsClient, cioJsClientOptions]
+    [apiKey, cioJsClient, cioJsClientOptions],
   );
 };
 

@@ -70,7 +70,7 @@ addComponentStoryDescription(
   `import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
 const args = ${stringifyWithDefaults(FullFeaturedAndStyledExample.args)}`,
-  fullFeaturedAndStyledExampleDescription
+  fullFeaturedAndStyledExampleDescription,
 );
 
 export const ProvideAPIKey: Story = {
@@ -80,7 +80,7 @@ ProvideAPIKey.args = { apiKey, onSubmit };
 addComponentStoryDescription(
   ProvideAPIKey,
   `const args = ${stringifyWithDefaults(ProvideAPIKey.args)}`,
-  apiKeyDescription
+  apiKeyDescription,
 );
 
 const cioJsClient = new ConstructorIOClient({ apiKey });
@@ -96,7 +96,7 @@ import ConstructorIOClient from "@constructor-io/constructorio-client-javascript
 
 const cioJsClient = new ConstructorIOClient({ "apiKey": "${apiKey}" });
 const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
-  cioJsClientDescription
+  cioJsClientDescription,
 );
 
 const cioJsClientOptions = { apiKey, serviceUrl: 'https://ac.cnstrc.com' };
@@ -108,7 +108,7 @@ ProvideCIOClientOptions.args = { apiKey, cioJsClientOptions, onSubmit };
 addComponentStoryDescription(
   ProvideCIOClientOptions,
   `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,
-  cioJsClientOptionsDescription
+  cioJsClientOptionsDescription,
 );
 
 const placeholder = 'Custom placeholder';
@@ -120,7 +120,7 @@ ProvideCustomPlaceHolder.args = { apiKey, onSubmit, placeholder };
 addComponentStoryDescription(
   ProvideCustomPlaceHolder,
   `const args = ${stringifyWithDefaults(ProvideCustomPlaceHolder.args)}`,
-  placeholderDescription
+  placeholderDescription,
 );
 
 autocompleteClassName = 'cio-autocomplete custom-autocomplete-styles';
@@ -134,5 +134,5 @@ addComponentStoryDescription(
   `import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
 const args = ${stringifyWithDefaults(ProvideCustomStyles.args)}`,
-  customStylesDescription
+  customStylesDescription,
 );

@@ -46,7 +46,7 @@ RenderSearchSuggestions.args = {
 addComponentStoryDescription(
   RenderSearchSuggestions,
   `const args = ${stringifyWithDefaults(RenderSearchSuggestions.args)}`,
-  searchSuggestionsDescription
+  searchSuggestionsDescription,
 );
 
 export const RenderSuggestedProducts = ComponentTemplate.bind({});
@@ -62,7 +62,7 @@ RenderSuggestedProducts.args = {
 addComponentStoryDescription(
   RenderSuggestedProducts,
   `const args = ${stringifyWithDefaults(RenderSuggestedProducts.args)}`,
-  productsDescription
+  productsDescription,
 );
 
 export const RenderSuggestedContent = ComponentTemplate.bind({});
@@ -78,7 +78,7 @@ RenderSuggestedContent.args = {
 addComponentStoryDescription(
   RenderSuggestedContent,
   `const args = ${stringifyWithDefaults(RenderSuggestedContent.args)}`,
-  contentDescription
+  contentDescription,
 );
 
 export const ConfigureNumberOfResultsPerSection = ComponentTemplate.bind({});
@@ -95,7 +95,7 @@ ConfigureNumberOfResultsPerSection.args = {
 addComponentStoryDescription(
   ConfigureNumberOfResultsPerSection,
   `const args = ${stringifyWithDefaults(ConfigureNumberOfResultsPerSection.args)}`,
-  numResultsDescription
+  numResultsDescription,
 );
 
 export const ConfigureOrderOfRenderedSections = ComponentTemplate.bind({});
@@ -114,7 +114,7 @@ ConfigureOrderOfRenderedSections.args = {
 addComponentStoryDescription(
   ConfigureOrderOfRenderedSections,
   `const args = ${stringifyWithDefaults(ConfigureOrderOfRenderedSections.args)}`,
-  sectionOrderDescription
+  sectionOrderDescription,
 );
 
 export const RenderRecommendations = ComponentTemplate.bind({});
@@ -138,7 +138,7 @@ RenderRecommendations.args = {
 addComponentStoryDescription(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
-  recommendationsDescription
+  recommendationsDescription,
 );
 
 export const DisplaySearchTermHighlights = ComponentTemplate.bind({});
@@ -164,7 +164,7 @@ DisplaySearchTermHighlights.args = {
 addComponentStoryDescription(
   DisplaySearchTermHighlights,
   `const args = ${stringifyWithDefaults(DisplaySearchTermHighlights.args)}`,
-  displaySearchTermHighlightsDescription
+  displaySearchTermHighlightsDescription,
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
@@ -198,5 +198,5 @@ RenderCustomSection.args = {
 addComponentStoryDescription(
   RenderCustomSection,
   `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
-  customSectionDescription
+  customSectionDescription,
 );

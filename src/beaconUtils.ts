@@ -116,7 +116,7 @@ export const storeRecentSearch = (term, suggestionData) => {
   if (cleanedTerm.length > 0) {
     // this ensures it goes onto the end of the array, and only there
     recentSearches = recentSearches.filter(
-      (item) => item.term?.toUpperCase() !== cleanedTerm.toUpperCase()
+      (item) => item.term?.toUpperCase() !== cleanedTerm.toUpperCase(),
     );
 
     // reset the section to the original section if it's present because that's

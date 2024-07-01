@@ -87,7 +87,7 @@ const cioJsClientStub = getCioClient(apiKey);
 
 if (cioJsClientStub != null) {
   const getAutocompleteResultsDefault = cioJsClientStub.autocomplete.getAutocompleteResults.bind(
-    cioJsClientStub.autocomplete
+    cioJsClientStub.autocomplete,
   );
   const getAutocompleteResultsStub = (...args) =>
     getAutocompleteResultsDefault(...args)
