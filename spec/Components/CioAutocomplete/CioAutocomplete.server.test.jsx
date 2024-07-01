@@ -49,22 +49,22 @@ describe('CioAutocomplete Server-Side Rendering', () => {
 
     expect(console.error).not.toHaveBeenCalled();
   });
-});
 
-it('Render custom placeholder when passed as a prop', () => {
-  const html = ReactDOMServer.renderToString(
-    <CioAutocomplete apiKey={DEMO_API_KEY} placeholder='Custom placeholder text' />
-  );
+  it('Render custom placeholder when passed as a prop', () => {
+    const html = ReactDOMServer.renderToString(
+      <CioAutocomplete apiKey={DEMO_API_KEY} placeholder='Custom placeholder text' />
+    );
 
-  expect(html).toContain('Custom placeholder text');
-});
+    expect(html).toContain('Custom placeholder text');
+  });
 
-it('Accepts custom styles when passed as a prop', () => {
-  const html = ReactDOMServer.renderToString(
-    <CioAutocomplete
-      apiKey={DEMO_API_KEY}
-      autocompleteClassName='cio-autocomplete custom-autocomplete-styles'
-    />
-  );
-  expect(html).toContain('custom-autocomplete-styles');
+  it('Accepts custom styles when passed as a prop', () => {
+    const html = ReactDOMServer.renderToString(
+      <CioAutocomplete
+        apiKey={DEMO_API_KEY}
+        autocompleteClassName='cio-autocomplete custom-autocomplete-styles'
+      />
+    );
+    expect(html).toContain('custom-autocomplete-styles');
+  });
 });
