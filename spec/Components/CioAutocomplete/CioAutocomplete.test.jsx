@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { CioAutocomplete } from '../../../src';
-import { mockConstructorIOClient } from '../../test-utils';
+import { mockCioClientJS } from '../../test-utils';
 import { apiKey as DEMO_API_KEY, onSubmitDefault as onSubmit } from '../../../src/constants';
 
 describe('CioAutocomplete Client-Side Rendering', () => {
@@ -37,7 +37,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
   it("Doesn't throw error if we provide a ConstructorIO Client", () => {
     expect(() => {
-      render(<CioAutocomplete cioJsClient={mockConstructorIOClient} />);
+      render(<CioAutocomplete cioJsClient={mockCioClientJS()} />);
     }).not.toThrow();
 
     expect(console.error).not.toHaveBeenCalled();
@@ -47,12 +47,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     const cioJsClientOptions = { apiKey: DEMO_API_KEY, serviceUrl: 'https://ac.cnstrc.com' };
 
     expect(() => {
-      render(
-        <CioAutocomplete
-          cioJsClientOptions={cioJsClientOptions}
-          cioJsClient={mockConstructorIOClient}
-        />
-      );
+      render(<CioAutocomplete apiKey={DEMO_API_KEY} cioJsClientOptions={cioJsClientOptions} />);
     }).not.toThrow();
 
     expect(console.error).not.toHaveBeenCalled();
@@ -79,7 +74,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
   it("Fully featured example doesn't throw an error", () => {
     const props = {
-      cioJsClient: mockConstructorIOClient,
+      cioJsClient: mockCioClientJS(),
       onSubmit,
       autocompleteClassName: '',
       placeholder: 'What can we help you find?',

@@ -17,12 +17,13 @@ class MockConstructorIO extends ConstructorIO {
   // Override other methods as needed
 }
 
-const mockConstructorIOClient =
-  typeof window !== 'undefined' ? new MockConstructorIO({ apiKey: DEMO_API_KEY }) : null;
+const mockCioClientJS = (params?) => new MockConstructorIO({ apiKey: DEMO_API_KEY, ...params });
+
+const mockUseCioClient = typeof window !== 'undefined' ? mockCioClientJS() : null;
 
 jest.mock('../src/hooks/useCioClient', () => ({
   __esModule: true,
-  default: () => (() => mockConstructorIOClient)(),
+  default: () => (() => mockUseCioClient)(),
 }));
 
-export { mockConstructorIOClient };
+export { mockCioClientJS };
