@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 import React from 'react';
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { CioAutocomplete } from '../../../src';
 
 describe('CioAutocomplete React Client-Side Rendering', () => {
@@ -8,13 +8,16 @@ describe('CioAutocomplete React Client-Side Rendering', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
   });
 
-  afterAll(() => {
-    jest.resetAllMocks();
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it("Logs an error if apiKey or cioJsClient isn't provided", () => {
+    // @ts-ignore
     render(<CioAutocomplete />);
 
-    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('Either apiKey or cioJsClient is required'));
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringContaining('Either apiKey or cioJsClient is required')
+    );
   });
 });
