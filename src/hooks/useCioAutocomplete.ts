@@ -193,6 +193,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       placeholder,
       onKeyDownCapture: ({ code, key, nativeEvent }) => {
         const isEnter = code === 'Enter' || key === 'Enter';
+        const isHome = code === 'Home' || key === 'Home';
+        const isEnd = code === 'End' || key === 'End';
+
         const isUserInput = highlightedIndex < 0;
         if (isOpen && isEnter && isUserInput && query?.length) {
           if (onSubmit) {
@@ -206,7 +209,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           }
         }
 
-        if (code === 'Home' || code === 'End') {
+        if (isHome || isEnd) {
           // eslint-disable-next-line no-param-reassign
           nativeEvent.preventDownshiftDefault = true;
         }
