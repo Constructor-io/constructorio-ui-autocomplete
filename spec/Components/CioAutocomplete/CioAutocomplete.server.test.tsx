@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import '@testing-library/jest-dom';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { CioAutocomplete } from '../../../src';
@@ -20,6 +21,7 @@ describe('CioAutocomplete Server-Side Rendering', () => {
 
   it('Does not throw an error when provided API key (JS CioClient is null)', () => {
     expect(() => {
+      // @ts-ignore
       ReactDOMServer.renderToString(<CioAutocomplete apiKey={DEMO_API_KEY} />);
     }).not.toThrow();
 
@@ -28,14 +30,16 @@ describe('CioAutocomplete Server-Side Rendering', () => {
 
   it('Throws an error when passed a JS CioClient without clientId and sessionId', () => {
     expect(() => {
-      ReactDOMServer.renderToString(<CioAutocomplete cioJsClient={mockCioClientJS()} />);
+      ReactDOMServer.renderToString(
+        <CioAutocomplete cioJsClient={mockCioClientJS()} onSubmit={() => {}} />
+      );
     }).toThrow('sessionId is a required user parameter of type number');
   });
 
   it('Throws an error when passed a JS CioClient without clientId', () => {
     expect(() => {
       ReactDOMServer.renderToString(
-        <CioAutocomplete cioJsClient={mockCioClientJS({ sessionId: 1 })} />
+        <CioAutocomplete cioJsClient={mockCioClientJS({ sessionId: 1 })} onSubmit={() => {}} />
       );
     }).toThrow('clientId is a required user parameter of type string');
   });
@@ -43,7 +47,10 @@ describe('CioAutocomplete Server-Side Rendering', () => {
   it('Does not throw an error when passed a JS CioClient with clientId and sessionId', () => {
     expect(() => {
       ReactDOMServer.renderToString(
-        <CioAutocomplete cioJsClient={mockCioClientJS({ sessionId: 1, clientId: '1' })} />
+        <CioAutocomplete
+          cioJsClient={mockCioClientJS({ sessionId: 1, clientId: '1' })}
+          onSubmit={() => {}}
+        />
       );
     }).not.toThrow();
 
@@ -52,7 +59,11 @@ describe('CioAutocomplete Server-Side Rendering', () => {
 
   it('Render custom placeholder when passed as a prop', () => {
     const html = ReactDOMServer.renderToString(
-      <CioAutocomplete apiKey={DEMO_API_KEY} placeholder='Custom placeholder text' />
+      <CioAutocomplete
+        apiKey={DEMO_API_KEY}
+        placeholder='Custom placeholder text'
+        onSubmit={() => {}}
+      />
     );
 
     expect(html).toContain('Custom placeholder text');
@@ -63,6 +74,7 @@ describe('CioAutocomplete Server-Side Rendering', () => {
       <CioAutocomplete
         apiKey={DEMO_API_KEY}
         autocompleteClassName='cio-autocomplete custom-autocomplete-styles'
+        onSubmit={() => {}}
       />
     );
     expect(html).toContain('custom-autocomplete-styles');
