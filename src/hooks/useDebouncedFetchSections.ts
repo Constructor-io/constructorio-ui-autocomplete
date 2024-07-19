@@ -93,7 +93,10 @@ const useDebouncedFetchSection = (
 
   useEffect(() => {
     (async () => {
-      if (debouncedSearchTerm.trim()) {
+      const trimmedTerm = debouncedSearchTerm.trim();
+
+      // Do not send a request if the encoded term is longer than 199 characters
+      if (trimmedTerm && encodeURIComponent(trimmedTerm).length < 200) {
         try {
           const response = await cioClient?.autocomplete.getAutocompleteResults(
             debouncedSearchTerm,

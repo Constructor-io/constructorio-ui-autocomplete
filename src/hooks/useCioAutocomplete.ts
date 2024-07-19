@@ -96,6 +96,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
   const {
+    fetchRecommendationResults,
     activeSections,
     activeSectionsWithData,
     zeroStateActiveSections,
@@ -178,6 +179,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           openMenu();
         }
         try {
+          if (advancedParameters?.fetchZeroStateOnFocus && items?.length === 0) {
+            fetchRecommendationResults();
+          }
           cioClient?.tracker?.trackInputFocus();
         } catch (error) {
           // eslint-disable-next-line no-console
@@ -187,8 +191,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       className: 'cio-input',
       'data-testid': 'cio-input',
       placeholder,
-      onKeyDownCapture: ({ code, key }) => {
+      onKeyDownCapture: ({ code, key, nativeEvent }) => {
         const isEnter = code === 'Enter' || key === 'Enter';
+        const isHome = code === 'Home' || key === 'Home';
+        const isEnd = code === 'End' || key === 'End';
+
         const isUserInput = highlightedIndex < 0;
         if (isOpen && isEnter && isUserInput && query?.length) {
           if (onSubmit) {
@@ -200,6 +207,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             // eslint-disable-next-line no-console
             console.log(error);
           }
+        }
+
+        if (isHome || isEnd) {
+          // eslint-disable-next-line no-param-reassign
+          nativeEvent.preventDownshiftDefault = true;
         }
       },
     }),
