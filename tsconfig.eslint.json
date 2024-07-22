@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["jest"]
   },
-  "include": ["src", "tests", "spec"]
+  "include": ["src", "tests", "spec", "jest.setup.d.ts"]
 }

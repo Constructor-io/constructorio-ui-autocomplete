@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "Products": [
+      {
+        "matched_terms": [],
+        "labels": {
+
+        },
+        "data": {
+          "id": "123",
+          "url": "example.com",
+          "image_url": "example.png",
+          "description": ""
+        },
+        "value": "item"
+      }
+    ],
+    "Search Suggestions": [
+      {
+        "matched_terms": [],
+        "labels": {
+
+        },
+        "value": "suggestion"
+      }
+    ]
+  },
+  "total_num_results_per_section": {
+    "Products": 1,
+    "Search Suggestions": 1
+  },
+  "result_id": "123",
+  "request": {
+    "term": "red"
+  }
+}
