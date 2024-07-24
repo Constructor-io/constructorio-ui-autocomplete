@@ -106,7 +106,7 @@ return (
 
 ### totalNumResultsPerSection \*
 
-> `object` - Object indicating total number of results returned in each section 
+> `object` - Object indicating total number of results returned in each [section](#section)
 
   ```jsx
   const { totalNumResultsPerSection } = useCioAutocomplete(args);
@@ -122,9 +122,11 @@ return (
 <Markdown>{PropGetters}</Markdown>
 <hr />
 
-### cioJsClient - `object`
+### cioJsClient 
 
 > Constructor io client instance 
+
+Note: when we say cioJsClient, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
 
   ```jsx
   const { cioJsClient } = useCioAutocomplete(args);
