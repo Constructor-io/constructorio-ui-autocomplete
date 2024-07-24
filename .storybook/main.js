@@ -1,17 +1,21 @@
 module.exports = {
-  stories: ['../src/**/Autocomplete/**/*.stories.mdx', '../src/**/Autocomplete/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/Autocomplete/**/*.mdx','../src/**/Autocomplete/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
-    '@storybook/addon-docs',
+    { name: '@storybook/addon-docs',
+      options: { configureJSX: true }
+    }
   ],
   framework: {
     name: '@storybook/react-webpack5',
     options: {}
   },
   docs: {
-    autodocs: true
-  }
-};
+    //👇 See the table below for the list of supported options
+    autodocs: 'tag',
+    defaultName: 'Docs',
+  },
+}; 
