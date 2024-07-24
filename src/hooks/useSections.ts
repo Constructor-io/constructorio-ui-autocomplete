@@ -62,18 +62,16 @@ export default function useSections(
 
   // Remove sections if necessary
   useEffect(() => {
+    if (!zeroStateActiveSections) return;
+
     const features = getFeatures(Object.values(podsData || {})?.[0]?.request);
 
-    if (zeroStateActiveSections) {
-      if (!features.featureDisplayZeroStateRecommendations) {
-        setActiveSections([]);
-      } else {
-        setActiveSections(zeroStateSections);
-      }
+    if (features.featureDisplayZeroStateRecommendations) {
+      setActiveSections(zeroStateSections);
     } else {
-      setActiveSections(sections);
+      setActiveSections([]);
     }
-  }, [zeroStateSections, zeroStateActiveSections, sections, podsData]);
+  }, [zeroStateSections, zeroStateActiveSections, podsData]);
 
   // Merge Recommendation Pods Display Name from Dashboard
   const activeSectionConfigs = useMemo(
@@ -100,7 +98,7 @@ export default function useSections(
     setActiveSectionsWithData(
       getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs)
     );
-  }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
+  }, [autocompleteResults, recommendationsResults, activeSectionConfigs]);
 
   return {
     fetchRecommendationResults,
