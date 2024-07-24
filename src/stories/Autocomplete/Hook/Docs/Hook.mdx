@@ -1,6 +1,9 @@
 import { Story, Canvas, Meta, Markdown } from '@storybook/blocks';
 import * as HooksStories from '../index.stories';
 import {HooksTemplate} from '../index.tsx';
+import SectionsType from '../Docs/Markdown/Sections.md';
+import TotalNumResultsPerSectionType from '../Docs/Markdown/TotalNumResultsPerSection.md';
+import PropGetters from '../Docs/Markdown/PropGetters.md';
 
 import {
   apiKeyDescription,
@@ -41,44 +44,88 @@ return (
 
 ## Returns
 
-### query - `string`
+### query \* 
 
-> Current input field value
+> `string` - Current input field value
 
   ```jsx
   const { query } = useCioAutocomplete(args);
   ```
 
-### setQuery - `(string) => void`
+### setQuery 
 
-> Function to update the current input field value 
+> `(string) => void` - Function to update the current input field value 
 
   ```jsx
   const { setQuery } = useCioAutocomplete(args);
   ```
 
-### isOpen - `boolean`
+### isOpen 
 
-> Current state of the autocomplete menu 
+> `boolean` - Current state of the autocomplete menu 
 
   ```jsx
   const { isOpen } = useCioAutocomplete(args);
   ```
 
-### openMenu - `() => void`
+### openMenu 
 
-> Function to open the autocomplete menu 
+> `() => void` - Function to open the autocomplete menu 
 
   ```jsx
   const { openMenu } = useCioAutocomplete(args);
   ```
 
-### closeMenu - `() => void`
+### closeMenu
 
-> Function to close the autocomplete menu 
+> `() => void` - Function to close the autocomplete menu 
 
   ```jsx
   const { closeMenu } = useCioAutocomplete(args);
   ```
 
+### selectedItem
 
+> `object` - Currently selected Item (via hover or keyboard navigation) 
+
+  ```jsx
+  const { selectedItem } = useCioAutocomplete(args);
+  ```
+
+### sections \* 
+
+> `section[]` - Array of section data to render in menu list 
+
+  ```jsx
+  const { sections } = useCioAutocomplete(args);
+  ```
+
+{/* -------- STATE -------- */}
+<Markdown>{SectionsType}</Markdown>
+<hr />
+
+### totalNumResultsPerSection \*
+
+> `object` - Object indicating total number of results returned in each section 
+
+  ```jsx
+  const { totalNumResultsPerSection } = useCioAutocomplete(args);
+  ```
+
+{/* -------- STATE -------- */}
+<Markdown>{TotalNumResultsPerSectionType}</Markdown>
+<hr />
+
+## Prop Getters
+
+{/* -------- STATE -------- */}
+<Markdown>{PropGetters}</Markdown>
+<hr />
+
+### cioJsClient - `object`
+
+> Constructor io client instance 
+
+  ```jsx
+  const { cioJsClient } = useCioAutocomplete(args);
+  ```
