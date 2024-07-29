@@ -80,7 +80,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }
 
     return sections;
-  }, [sections]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   zeroStateSections = useMemo(() => {
     if (zeroStateSections) {
