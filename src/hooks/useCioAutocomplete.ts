@@ -59,6 +59,9 @@ const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =
   });
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const memoizedOptions = useMemo(() => options, [JSON.stringify(options)]);
+
   const {
     onSubmit,
     onChange,
@@ -70,9 +73,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
     defaultInput,
-  } = options;
+  } = memoizedOptions;
 
-  let { sections = defaultSections, zeroStateSections } = options;
+  let { sections = defaultSections, zeroStateSections } = memoizedOptions;
 
   sections = useMemo(() => {
     if (sections) {
@@ -80,8 +83,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }
 
     return sections;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [sections]);
 
   zeroStateSections = useMemo(() => {
     if (zeroStateSections) {
