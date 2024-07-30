@@ -9,6 +9,7 @@ import {
   Item as ItemBase,
   AutocompleteRequestType,
   ConstructorClientOptions,
+  RecommendationsParameters,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
@@ -128,15 +129,13 @@ export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   identifier?: string;
 }
 
-export interface RecommendationsSectionConfiguration extends SectionConfiguration {
+export type RecommendationsSectionConfiguration = SectionConfiguration & {
   type: 'recommendations';
   indexSectionName?: string;
   podId: string;
-  itemIds?: string[];
-  term?: string;
   /** @deprecated use podId field instead */
   identifier?: string;
-}
+} & Omit<RecommendationsParameters, 'section' | 'numResults'>;
 
 export interface CustomSectionConfiguration extends SectionConfiguration {
   type: 'custom';
