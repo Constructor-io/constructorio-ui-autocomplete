@@ -100,7 +100,7 @@ export default function useSections(
     setActiveSectionsWithData(
       getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs)
     );
-  }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
+  }, [autocompleteResults, recommendationsResults, activeSectionConfigs]);
 
   return {
     fetchRecommendationResults,
