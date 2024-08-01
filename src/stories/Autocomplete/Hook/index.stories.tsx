@@ -6,7 +6,6 @@ import { HooksTemplate, addHookStoryCode } from '.';
 import {
   apiKeyDescription,
   cioJsClientDescription,
-  hookDescription,
   placeholderDescription,
   customStylesDescription,
   apiKey,
@@ -20,8 +19,8 @@ export default {
   argTypes,
   parameters: {
     docs: {
-      description: {
-        component: hookDescription,
+      source: {
+        type: 'code',
       },
     },
   },
