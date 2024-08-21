@@ -43,7 +43,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
                 itemId: selectedItem.data.id,
                 variationId: selectedItem.data.variation_id,
                 podId: selectedItem.podId,
-                strategyId: selectedItem.strategy?.id,
+                strategyId: selectedItem.strategy.id,
                 section: selectedItem.section,
                 resultId: selectedItem.result_id,
               });
