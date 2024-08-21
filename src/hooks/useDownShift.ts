@@ -37,7 +37,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
 
             // Autocomplete Select tracking
             // Recommendation Select tracking
-            if (selectedItem.podId && selectedItem.data?.id) {
+            if (selectedItem.podId && selectedItem.data?.id && selectedItem.strategy) {
               cioClient?.tracker.trackRecommendationClick({
                 itemName: selectedItem.value,
                 itemId: selectedItem.data.id,
