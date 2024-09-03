@@ -42,7 +42,7 @@
     "serve-built-storybook": "npx http-server docs",
     "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build"
   },
-  "author": "constructor.io",
+  "author": "Constructor.io Corporation",
   "license": "MIT",
   "volta": {
     "node": "16.17.0",
