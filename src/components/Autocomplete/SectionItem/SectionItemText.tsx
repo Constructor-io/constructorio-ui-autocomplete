@@ -2,18 +2,16 @@ import React from 'react';
 import { Item } from '../../../types';
 import { isInGroupSuggestion } from '../../../typeGuards';
 import { escapeRegExp } from '../../../utils';
+import useCioAutocompleteContext from '../../../hooks/useCioAutocompleteContext';
 
 export interface SectionItemTextProps {
   item: Item;
-  query: string;
   highlightSearchTerm?: boolean;
 }
 
-export default function SectionItemText({
-  item,
-  query,
-  highlightSearchTerm,
-}: SectionItemTextProps) {
+export default function SectionItemText({ item, highlightSearchTerm }: SectionItemTextProps) {
+  const { query } = useCioAutocompleteContext();
+
   const itemText = isInGroupSuggestion(item) ? item.groupName : item.value;
 
   if (highlightSearchTerm) {
