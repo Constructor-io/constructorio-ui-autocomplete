@@ -91,6 +91,13 @@
   border-bottom: 3px solid transparent;
 }
 
+.cio-autocomplete .cio-item a {
+  color: inherit;
+  display: inline-flex;
+  text-decoration: inherit;
+  flex-direction: column;
+}
+
 .cio-autocomplete .cio-item[aria-selected='true'] {
   background-color: hsl(0, 0%, 90%);
   border-radius: 4px;
@@ -122,6 +129,7 @@
   width: 100%;
   max-width: 100px;
   max-height: 100px;
+  align-self: center;
 }
 
 .cio-autocomplete .cio-term-in-group {
