@@ -1,4 +1,4 @@
-  - ### `getFormProps` \*
+  - #### `getFormProps` \*
 
     This method should be applied to an element of type `<form>` on the autocomplete input form.
 
@@ -11,7 +11,7 @@
       ```
 
 
-  - ### `getInputProps` \*
+  - #### `getInputProps` \*
 
     This method should be applied to an element of type `<input>` on the autocomplete input element.
 
@@ -24,7 +24,7 @@
       ```
 
 
-  - ### `getLabelProps`
+  - #### `getLabelProps`
 
     This method should be applied to an element of type `<label>` on the autocomplete input label element.
 
@@ -38,7 +38,7 @@
       );
       ```
 
-  - ### `getMenuProps` \*
+  - #### `getMenuProps` \*
 
     This method should be applied to the container element rendering the autocomplete results containers.
 
@@ -54,7 +54,7 @@
       ```
 
 
-  - ### `getSectionProps` \*
+  - #### `getSectionProps` \*
 
     This method should be applied to the element rendering each autocomplete section.
 
@@ -83,7 +83,7 @@
       ```
 
 
-  - ### `getItemProps` \*
+  - #### `getItemProps` \*
 
     This method should be applied to the element rendering each autocomplete section item.
 

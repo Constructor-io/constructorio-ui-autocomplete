@@ -13,7 +13,7 @@ export const argTypes = {
   },
   apiKey: {
     type: { name: 'string' },
-    description: 'Your constructor API key',
+    description: 'Your constructor API key. Either `apiKey` or `cioJsClient` are required',
     table: {
       type: {
         summary: 'string',
@@ -22,6 +22,10 @@ export const argTypes = {
     control: {
       type: 'text',
     },
+  },
+  cioJsClient: {
+    description:
+      'Optional custom constructor instance. Either `apiKey` or `cioJsClient` are required',
   },
   onSubmit: {
     type: {
