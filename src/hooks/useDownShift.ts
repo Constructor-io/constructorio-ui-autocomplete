@@ -7,7 +7,6 @@ import { trackSearchSubmit } from '../utils';
 let idCounter = 0;
 
 type UseDownShiftOptions = {
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
   items: Item[];
   onSubmit: OnSubmit;
   previousQuery?: string;
@@ -18,7 +17,7 @@ export type DownShift = UseComboboxReturnValue<Item>;
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
 
-const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, previousQuery = '' }) =>
+const useDownShift: UseDownShift = ({ items, onSubmit, cioClient, previousQuery = '' }) =>
   useCombobox({
     id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
     items,
@@ -29,7 +28,6 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
           try {
             if (selectedItem?.section === 'Search Suggestions') {
-              setQuery(selectedItem.value || '');
               trackSearchSubmit(cioClient, selectedItem.value, {
                 originalQuery: previousQuery,
               });
