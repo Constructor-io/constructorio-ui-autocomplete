@@ -1,3 +1,4 @@
+import React from 'react';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { stringifyWithDefaults } from '../../../utils';
@@ -199,4 +200,33 @@ addComponentStoryDescription(
   RenderCustomSection,
   `const args = ${stringifyWithDefaults(RenderCustomSection.args)}`,
   customSectionDescription
+);
+
+export const CustomRenderItem = ComponentTemplate.bind({});
+CustomRenderItem.args = {
+  apiKey,
+  onSubmit,
+  sections: [
+    {
+      indexSectionName: 'Products',
+      renderItem: ({ item, query }) => (
+        <div>
+          <a href={item.data?.url}>
+            <h3>{item.value}</h3>
+            <img src={item.data?.image_url} alt={item.value} />
+          </a>
+          <p>{`$ ${item.data?.price}`}</p>
+          <p>Query: {query}</p>
+        </div>
+      ),
+    },
+    {
+      indexSectionName: 'Search Suggestions',
+    },
+  ],
+};
+addComponentStoryDescription(
+  CustomRenderItem,
+  `const args = ${stringifyWithDefaults(CustomRenderItem.args)}`,
+  sectionOrderDescription
 );
