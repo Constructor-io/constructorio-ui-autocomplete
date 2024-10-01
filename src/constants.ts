@@ -249,8 +249,10 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 
 - Current translatable keys:
 \`\`\`
-  {
-    "in": "..."
+{
+"in": "..."
   }
 \`\`\`
 `;
+
+export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button to display a button at the bottom of the Products section to show all results. This button will submit the form and show results for the current search term.`;

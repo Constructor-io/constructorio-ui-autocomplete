@@ -143,3 +143,27 @@
   font-size: 0.8rem;
   margin-left: 8px;
 }
+
+.cio-autocomplete .cio-section-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cio-section-footer .cio-show-all-results-button {
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  border: 1px black solid;
+  border-radius: 5px;
+  padding: 5px;
+  flex-basis: calc(100%/3);
+  margin: 15px;
+  background-color: white;
+}
+
+.cio-section-footer .cio-show-all-results-button:hover {
+  background-color: hsl(0, 0%, 90%);
+}

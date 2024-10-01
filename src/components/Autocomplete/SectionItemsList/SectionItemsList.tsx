@@ -16,7 +16,8 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
-  const { getSectionProps } = useContext(CioAutocompleteContext);
+  const { getSectionProps, getFormProps, advancedParameters } = useContext(CioAutocompleteContext);
+  const { onSubmit } = getFormProps();
   const { type, displayName } = section;
   let sectionTitle = displayName;
 
@@ -54,6 +55,19 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
           />
         ))}
       </ul>
+      {advancedParameters?.displayShowAllResultsButton &&
+        type === 'autocomplete' &&
+        section.indexSectionName === 'Products' && (
+          <div className='cio-section-footer'>
+            <button
+              data-cnstrc-search-submit-btn
+              className='cio-show-all-results-button'
+              type='button'
+              onClick={onSubmit}>
+              Show all results
+            </button>
+          </div>
+        )}
     </li>
   );
 };
