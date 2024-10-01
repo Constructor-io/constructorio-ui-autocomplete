@@ -27,7 +27,7 @@ export default function SectionItem(props: SectionItemProps) {
 
   if (isProduct(item)) {
     defaultChildren = (
-      <>
+      <a href={item.data?.url}>
         <img
           data-testid='cio-img'
           src={item.data?.image_url}
@@ -41,7 +41,7 @@ export default function SectionItem(props: SectionItemProps) {
             highlightSearchTerm={displaySearchTermHighlights}
           />
         </p>
-      </>
+      </a>
     );
   } else if (isInGroupSuggestion(item)) {
     defaultChildren = (
