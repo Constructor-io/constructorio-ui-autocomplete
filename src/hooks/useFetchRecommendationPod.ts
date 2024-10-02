@@ -54,7 +54,7 @@ const useFetchRecommendationPod = (
     if (fetchZeroStateOnFocus) return;
     fetchRecommendationResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cioClient]);
+  }, [cioClient, recommendationPods]);
 
   return { fetchRecommendationResults, recommendationsResults, podsData };
 };

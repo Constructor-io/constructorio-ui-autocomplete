@@ -18,14 +18,16 @@ export default function useSections(
   query: string,
   cioClient: Nullable<ConstructorIO>,
   sections: UserDefinedSection[],
-  zeroStateSections: UserDefinedSection[] | undefined,
+  zeroStateSections?: UserDefinedSection[],
   advancedParameters?: AdvancedParameters
 ) {
-  const zeroStateActiveSections = !query.length && zeroStateSections?.length;
+  const [zeroStateActiveSections, setZeroStateActiveSections] = useState<boolean>(
+    !query.length && !!zeroStateSections?.length
+  );
 
   // Define All Sections
   const [activeSections, setActiveSections] = useState<UserDefinedSection[]>(
-    zeroStateActiveSections ? zeroStateSections : sections
+    zeroStateActiveSections ? zeroStateSections! : sections
   );
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
@@ -68,7 +70,7 @@ export default function useSections(
       if (!features.featureDisplayZeroStateRecommendations) {
         setActiveSections([]);
       } else {
-        setActiveSections(zeroStateSections);
+        setActiveSections(zeroStateSections!);
       }
     } else {
       setActiveSections(sections);
@@ -101,6 +103,16 @@ export default function useSections(
       getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs)
     );
   }, [autocompleteResults, recommendationsResults, activeSectionConfigs]);
+
+  useEffect(() => {
+    // If no input and zeroStateSections are configured
+    if (!query.length && zeroStateSections?.length) {
+      setZeroStateActiveSections(true);
+    } else {
+      setZeroStateActiveSections(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
 
   return {
     fetchRecommendationResults,
