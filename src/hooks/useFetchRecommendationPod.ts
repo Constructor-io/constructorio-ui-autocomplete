@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { Item, SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
+import { SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
