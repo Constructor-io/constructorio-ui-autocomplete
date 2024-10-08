@@ -68,7 +68,7 @@ export default function useSections(
       if (!features.featureDisplayZeroStateRecommendations) {
         setActiveSections([]);
       } else {
-        setActiveSections(zeroStateSections!);
+        setActiveSections(zeroStateSections);
       }
     } else {
       setActiveSections(sections);
