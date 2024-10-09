@@ -255,4 +255,5 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 \`\`\`
 `;
 
-export const customRenderItemDescription = `Render a custom item by passing a \`renderItem\` function to the Section configuration.`;
+export const customRenderItemDescription = `Customize the rendering of individual items within a Section by providing a \`renderItem\` function. This function allows you to define how each item should be rendered.
+`;
