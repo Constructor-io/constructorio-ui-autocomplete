@@ -121,6 +121,7 @@ export type SectionConfiguration = {
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
   ref?: React.RefObject<HTMLElement>;
+  renderItem?: (props: { item: Item; query: string }) => ReactNode;
 };
 
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {

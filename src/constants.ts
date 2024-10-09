@@ -256,4 +256,6 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 \`\`\`
 `;
 
+export const customRenderItemDescription = `Customize the rendering of individual items within a Section by providing a \`renderItem\` function. This function allows you to define how each item should be rendered.
+`;
 export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button at the bottom of the Products section to show all results. This button will submit the form and trigger the \`onSubmit\` callback.`;
