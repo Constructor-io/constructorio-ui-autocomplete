@@ -255,4 +255,4 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 \`\`\`
 `;
 
-export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button to display a button at the bottom of the Products section to show all results. This button will submit the form and show results for the current search term.`;
+export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button at the bottom of the Products section to show all results. This button will submit the form and trigger the \`onSubmit\` callback.`;

@@ -155,13 +155,13 @@
   font: inherit;
   color: inherit;
   cursor: pointer;
-
   border: 1px black solid;
   border-radius: 5px;
   padding: 5px;
   flex-basis: calc(100%/3);
   margin: 15px;
   background-color: white;
+  text-transform: capitalize;
 }
 
 .cio-section-footer .cio-show-all-results-button:hover {

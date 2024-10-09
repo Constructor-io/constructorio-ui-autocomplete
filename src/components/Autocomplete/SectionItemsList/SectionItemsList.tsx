@@ -1,7 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
-import { camelToStartCase } from '../../../utils';
+import { camelToStartCase, translate } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
@@ -17,6 +17,7 @@ type SectionItemsListProps = {
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
   const { getSectionProps, getFormProps, advancedParameters } = useContext(CioAutocompleteContext);
+  const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
   const { type, displayName } = section;
   let sectionTitle = displayName;
@@ -55,7 +56,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
           />
         ))}
       </ul>
-      {advancedParameters?.displayShowAllResultsButton &&
+      {displayShowAllResultsButton &&
         type === 'autocomplete' &&
         section.indexSectionName === 'Products' && (
           <div className='cio-section-footer'>
@@ -64,7 +65,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
               className='cio-show-all-results-button'
               type='button'
               onClick={onSubmit}>
-              Show all results
+              {translate('show all results', translations)}{' '}
             </button>
           </div>
         )}
