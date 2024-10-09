@@ -1,4 +1,3 @@
-import React from 'react';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { stringifyWithDefaults } from '../../../utils';
