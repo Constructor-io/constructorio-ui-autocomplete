@@ -38,7 +38,6 @@ export const FullFeaturedAndStyledExample: Story = {
 FullFeaturedAndStyledExample.args = {
   apiKey,
   onSubmit,
-  defaultInput: 'red',
   autocompleteClassName,
   placeholder: 'What can we help you find?',
   advancedParameters: {
