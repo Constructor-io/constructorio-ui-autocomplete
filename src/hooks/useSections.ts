@@ -18,7 +18,7 @@ export default function useSections(
   query: string,
   cioClient: Nullable<ConstructorIO>,
   sections: UserDefinedSection[],
-  zeroStateSections: UserDefinedSection[] | undefined,
+  zeroStateSections?: UserDefinedSection[],
   advancedParameters?: AdvancedParameters
 ) {
   const zeroStateActiveSections = !query.length && zeroStateSections?.length;
