@@ -1,3 +1,4 @@
+import React from 'react';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
 import { stringifyWithDefaults } from '../../../utils';
@@ -13,6 +14,7 @@ import {
   apiKey,
   onSubmitDefault as onSubmit,
   displaySearchTermHighlightsDescription,
+  customRenderItemDescription,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
@@ -227,5 +229,5 @@ CustomRenderItem.args = {
 addComponentStoryDescription(
   CustomRenderItem,
   `const args = ${stringifyWithDefaults(CustomRenderItem.args)}`,
-  sectionOrderDescription
+  customRenderItemDescription
 );
