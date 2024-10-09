@@ -184,6 +184,7 @@ export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
 
 export type Translations = {
   in?: string;
+  'show all results'?: string;
 };
 
 export interface PodData {

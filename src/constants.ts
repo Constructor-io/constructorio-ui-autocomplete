@@ -249,8 +249,9 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 
 - Current translatable keys:
 \`\`\`
-{
-"in": "..."
+  {
+    "in": "...",
+    "show all results": "..."
   }
 \`\`\`
 `;
