@@ -252,6 +252,7 @@ export const getItemsForActiveSections = (activeSectionsWithData: Section[]) => 
 export const translate = (word: string, translations?: Translations) => {
   const localTranslations: Translations = {
     in: 'in',
+    'show all results': 'show all results',
   };
 
   if (translations) return translations[word];

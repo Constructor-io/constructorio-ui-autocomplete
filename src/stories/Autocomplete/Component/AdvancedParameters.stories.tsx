@@ -13,6 +13,7 @@ import {
   debounceDescription,
   translationsDescription,
   fetchZeroStateOnFocusDescription,
+  displayShowAllResultsButtonDescription,
 } from '../../../constants';
 
 export default {
@@ -136,4 +137,17 @@ addComponentStoryDescription(
   FetchZeroStateOnFocus,
   `const args = ${stringifyWithDefaults(FetchZeroStateOnFocus.args)}`,
   fetchZeroStateOnFocusDescription
+);
+
+export const ShowAllResultsButton = ComponentTemplate.bind({});
+ShowAllResultsButton.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: { displayShowAllResultsButton: true },
+};
+
+addComponentStoryDescription(
+  ShowAllResultsButton,
+  `const args = ${stringifyWithDefaults(ShowAllResultsButton.args)}`,
+  displayShowAllResultsButtonDescription
 );

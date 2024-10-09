@@ -25,6 +25,7 @@ export interface AdvancedParametersBase {
   numGroupsSuggestedPerTerm?: number;
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
+  displayShowAllResultsButton?: boolean;
   debounce?: number;
   translations?: Translations;
   fetchZeroStateOnFocus?: boolean;
@@ -183,6 +184,7 @@ export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
 
 export type Translations = {
   in?: string;
+  'show all results'?: string;
 };
 
 export interface PodData {
