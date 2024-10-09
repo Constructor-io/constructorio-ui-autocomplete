@@ -122,7 +122,7 @@ export const functionStrings = {
                             <img src={item.data?.image_url} alt={item.value} />
                           </a>
                           <p>{item.data?.price}</p>
-                        </div>
+                      </div>
                     )`,
 };
 
