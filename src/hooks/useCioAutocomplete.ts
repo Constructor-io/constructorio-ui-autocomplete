@@ -124,7 +124,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     highlightedIndex,
     getInputProps,
     getItemProps: getItemPropsDownShift,
-  } = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
+  } = useDownShift({ items, onSubmit, cioClient, previousQuery });
 
   // Log console errors
   useConsoleErrors(sections, activeSections);
