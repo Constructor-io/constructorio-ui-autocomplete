@@ -150,7 +150,7 @@
   justify-content: center;
 }
 
-.cio-section-footer .cio-show-all-results-button {
+.cio-autocomplete .cio-section-footer .cio-show-all-results-button {
   background: none;
   font: inherit;
   color: inherit;
@@ -164,6 +164,6 @@
   text-transform: capitalize;
 }
 
-.cio-section-footer .cio-show-all-results-button:hover {
+.cio-autocomplete .cio-section-footer .cio-show-all-results-button:hover {
   background-color: hsl(0, 0%, 90%);
 }
