@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { Item, SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
+import { SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
@@ -54,7 +54,7 @@ const useFetchRecommendationPod = (
     if (fetchZeroStateOnFocus) return;
     fetchRecommendationResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cioClient]);
+  }, [cioClient, recommendationPods]);
 
   return { fetchRecommendationResults, recommendationsResults, podsData };
 };
