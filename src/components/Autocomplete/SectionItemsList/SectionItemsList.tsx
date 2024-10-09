@@ -65,7 +65,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
               className='cio-show-all-results-button'
               type='button'
               onClick={onSubmit}>
-              {translate('show all results', translations)}{' '}
+              {translate('show all results', translations)}
             </button>
           </div>
         )}
