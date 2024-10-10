@@ -36,6 +36,7 @@ export type AdvancedParameters = AdvancedParametersBase &
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
+  getSearchResultsUrl?: (item: SearchSuggestion) => string;
   onSubmit: OnSubmit;
   onFocus?: () => void;
   onChange?: (input: string) => void;
