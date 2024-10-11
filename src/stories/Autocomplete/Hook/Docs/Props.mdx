@@ -1,6 +1,7 @@
-import { Meta, ArgTypes } from '@storybook/blocks';
-import { RenderAutocompleteDefaultState } from '../../../tests/HooksTests.stories';
+import { Meta, ArgTypes, Markdown } from '@storybook/blocks';
+import { RenderAutocompleteDefaultState } from '../../../tests/ComponentTests.stories';
 import * as HooksStories from '../index.stories';
+import CioAutocompleteProps from './Markdown/CioAutocompleteProps.md';
 
 <Meta of={HooksStories}  />
 
@@ -8,3 +9,5 @@ import * as HooksStories from '../index.stories';
 <p>The props below are available to customize the autocomplete component. The `apiKey` or `cioJsClient`, and `onSubmit` callback are required props.</p>
 
 <ArgTypes of={RenderAutocompleteDefaultState} />
+
+<Markdown>{CioAutocompleteProps}</Markdown>
