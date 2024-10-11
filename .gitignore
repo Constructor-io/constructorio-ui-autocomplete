@@ -131,6 +131,6 @@ dist
 .pnp.*
 
 # Storybook
-docs
+/docs
 
 .DS_Store
