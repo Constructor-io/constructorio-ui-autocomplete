@@ -16,7 +16,8 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
-  const { getSectionProps, getFormProps, advancedParameters } = useContext(CioAutocompleteContext);
+  const { getSectionProps, query, getFormProps, advancedParameters } =
+    useContext(CioAutocompleteContext);
   const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
   const { type, displayName } = section;
@@ -48,13 +49,18 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
         {camelToStartCase(sectionTitle)}
       </h5>
       <ul className='cio-section-items' role='none'>
-        {section?.data?.map((item) => (
-          <SectionItem
-            item={item}
-            key={item?.id}
-            displaySearchTermHighlights={section.displaySearchTermHighlights}
-          />
-        ))}
+        {section?.data?.map((item) => {
+          if (typeof section?.renderItem === 'function') {
+            return section.renderItem({ item, query });
+          }
+          return (
+            <SectionItem
+              item={item}
+              key={item?.id}
+              displaySearchTermHighlights={section.displaySearchTermHighlights}
+            />
+          );
+        })}
       </ul>
       {displayShowAllResultsButton &&
         type === 'autocomplete' &&
