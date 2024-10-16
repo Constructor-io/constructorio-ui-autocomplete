@@ -1,4 +1,8 @@
-.docs-story > div:first-child {
+.docs-story>div:first-child {
   min-height: 500px;
   background-color: #212425;
+}
+
+[data-item-id="autocomplete-hook--basic-usage"] {
+  display: none;
 }

@@ -88,7 +88,7 @@ const cioJsClientStub = getCioClient(apiKey);
 
 if (cioJsClientStub != null) {
   const getAutocompleteResultsDefault = cioJsClientStub.autocomplete.getAutocompleteResults.bind(
-    cioJsClientStub.autocomplete
+    cioJsClientStub.autocomplete,
   );
   const getAutocompleteResultsStub = (...args) =>
     getAutocompleteResultsDefault(...args)
@@ -225,7 +225,7 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
 
   expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[0].className).toContain(
-    'cio-section-search-suggestions'
+    'cio-section-search-suggestions',
   );
 
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
@@ -276,7 +276,7 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
 
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain(
-    'cio-section-search-suggestions'
+    'cio-section-search-suggestions',
   );
 
   // @deprecated The following classNames will be removed in the next major version
