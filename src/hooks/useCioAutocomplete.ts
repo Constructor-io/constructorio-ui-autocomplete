@@ -74,6 +74,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
     defaultInput,
+    getSearchResultsUrl,
   } = memoizedOptions;
 
   let { sections = defaultSections, zeroStateSections } = memoizedOptions;
@@ -303,6 +304,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     autocompleteClassName,
     selectedItem: items[highlightedIndex],
     advancedParameters,
+    getSearchResultsUrl,
   };
 };
 

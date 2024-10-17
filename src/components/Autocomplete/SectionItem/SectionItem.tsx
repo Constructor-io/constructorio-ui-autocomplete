@@ -4,6 +4,7 @@ import { Item } from '../../../types';
 import { isProduct, isInGroupSuggestion, isSearchSuggestion } from '../../../typeGuards';
 import SectionItemText from './SectionItemText';
 import { translate } from '../../../utils';
+import SearchSuggestionItem from './SearchSuggestionItem';
 
 export interface SectionItemProps {
   item: Item;
@@ -14,15 +15,9 @@ export interface SectionItemProps {
 
 export default function SectionItem(props: SectionItemProps) {
   const { item, children, displaySearchTermHighlights } = props;
-  const { getItemProps, advancedParameters, query, featureToggles } =
+  const { getItemProps, advancedParameters, query, getSearchResultsUrl } =
     useContext(CioAutocompleteContext);
-  const { featureDisplaySearchSuggestionImages, featureDisplaySearchSuggestionResultCounts } =
-    featureToggles;
-  const {
-    displaySearchSuggestionImages = featureDisplaySearchSuggestionImages,
-    displaySearchSuggestionResultCounts = featureDisplaySearchSuggestionResultCounts,
-    translations,
-  } = advancedParameters || {};
+  const { translations } = advancedParameters || {};
   let defaultChildren: ReactNode;
 
   if (isProduct(item)) {
@@ -55,23 +50,23 @@ export default function SectionItem(props: SectionItemProps) {
       </p>
     );
   } else if (isSearchSuggestion(item)) {
-    defaultChildren = (
-      <>
-        {displaySearchSuggestionImages && item.data?.image_url && (
-          <img src={item.data?.image_url} alt={item.value} className='cio-suggestion-image' />
-        )}
-        <p className='cio-suggestion-text'>
-          <SectionItemText
+    if (getSearchResultsUrl) {
+      defaultChildren = (
+        <a className='suggestion-link' href={getSearchResultsUrl(item)}>
+          <SearchSuggestionItem
             item={item}
-            query={query}
-            highlightSearchTerm={displaySearchTermHighlights}
+            displaySearchTermHighlights={displaySearchTermHighlights}
           />
-        </p>
-        {displaySearchSuggestionResultCounts && item.data?.total_num_results && (
-          <p className='cio-suggestion-count'>({item.data?.total_num_results})</p>
-        )}
-      </>
-    );
+        </a>
+      );
+    } else {
+      defaultChildren = (
+        <SearchSuggestionItem
+          item={item}
+          displaySearchTermHighlights={displaySearchTermHighlights}
+        />
+      );
+    }
   } else {
     defaultChildren = (
       <p className='cio-custom-text'>
