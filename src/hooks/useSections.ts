@@ -18,7 +18,7 @@ export default function useSections(
   query: string,
   cioClient: Nullable<ConstructorIO>,
   sections: UserDefinedSection[],
-  zeroStateSections: UserDefinedSection[] | undefined,
+  zeroStateSections?: UserDefinedSection[],
   advancedParameters?: AdvancedParameters
 ) {
   const zeroStateActiveSections = !query.length && zeroStateSections?.length;
@@ -100,7 +100,7 @@ export default function useSections(
     setActiveSectionsWithData(
       getActiveSectionsWithData(activeSectionConfigs, sectionsResults, sectionsRefs)
     );
-  }, [autocompleteResults, recommendationsResults, activeSectionConfigs, podsData]);
+  }, [autocompleteResults, recommendationsResults, activeSectionConfigs]);
 
   return {
     fetchRecommendationResults,

@@ -9,6 +9,7 @@ import {
   Section,
   UserDefinedSection,
   HTMLPropsWithCioDataAttributes,
+  Item,
 } from '../types';
 import usePrevious from './usePrevious';
 import {
@@ -59,6 +60,9 @@ const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =
   });
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const memoizedOptions = useMemo(() => options, [JSON.stringify(options)]);
+
   const {
     onSubmit,
     onChange,
@@ -70,9 +74,10 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     autocompleteClassName = 'cio-autocomplete',
     advancedParameters,
     defaultInput,
-  } = options;
+    getSearchResultsUrl,
+  } = memoizedOptions;
 
-  let { sections = defaultSections, zeroStateSections } = options;
+  let { sections = defaultSections, zeroStateSections } = memoizedOptions;
 
   sections = useMemo(() => {
     if (sections) {
@@ -119,7 +124,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     closeMenu,
     highlightedIndex,
     getInputProps,
-    getItemProps,
+    getItemProps: getItemPropsDownShift,
   } = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery });
 
   // Log console errors
@@ -139,19 +144,24 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       ...getMenuProps(),
       className: 'cio-results',
       'data-testid': 'cio-results',
+      'data-cnstrc-autosuggest': '',
     }),
     getLabelProps,
     openMenu,
     closeMenu,
-    getItemProps: (item) => {
+    getItemProps: (item: Item) => {
       const { index, sectionId } = getItemPosition({ item, items });
       const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
       return {
-        ...getItemProps({ item, index }),
+        ...getItemPropsDownShift({ item, index }),
         // @deprecated `sectionItemTestId` will be removed as a className in the next major version
         className: `cio-item ${sectionItemTestId}`,
         'data-testid': sectionItemTestId,
+        'data-cnstrc-item-section': item.section,
+        'data-cnstrc-item-group': item.groupId,
+        'data-cnstrc-item-name': item.value,
+        'data-cnstrc-item-id': item.data?.id,
       };
     },
     getInputProps: () => ({
@@ -190,9 +200,13 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-input',
       'data-testid': 'cio-input',
+      'data-cnstrc-search-input': '',
       placeholder,
       onKeyDownCapture: ({ code, key, nativeEvent }) => {
         const isEnter = code === 'Enter' || key === 'Enter';
+        const isHome = code === 'Home' || key === 'Home';
+        const isEnd = code === 'End' || key === 'End';
+
         const isUserInput = highlightedIndex < 0;
         if (isOpen && isEnter && isUserInput && query?.length) {
           if (onSubmit) {
@@ -206,7 +220,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           }
         }
 
-        if (code === 'Home' || code === 'End') {
+        if (isHome || isEnd) {
           // eslint-disable-next-line no-param-reassign
           nativeEvent.preventDownshiftDefault = true;
         }
@@ -228,6 +242,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-form',
       'data-testid': 'cio-form',
+      'data-cnstrc-search-form': '',
     }),
     getSectionProps: (section: Section) => {
       // @deprecated ClassNames derived from this fn will be removed in the next major version
@@ -289,6 +304,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     autocompleteClassName,
     selectedItem: items[highlightedIndex],
     advancedParameters,
+    getSearchResultsUrl,
   };
 };
 

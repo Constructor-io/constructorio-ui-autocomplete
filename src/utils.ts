@@ -115,6 +115,15 @@ ${templateCode}
 
 export const functionStrings = {
   onSubmit: `(submitEvent) => console.dir(submitEvent)`,
+  renderItem: `({ item, query }) => (
+                      <div>
+                          <a href={item.data?.url}>
+                            <h3>{item.value}</h3>
+                            <img src={item.data?.image_url} alt={item.value} />
+                          </a>
+                          <p>{item.data?.price}</p>
+                      </div>
+                    )`,
 };
 
 export const stringifyWithDefaults = (obj) => {
@@ -252,6 +261,7 @@ export const getItemsForActiveSections = (activeSectionsWithData: Section[]) => 
 export const translate = (word: string, translations?: Translations) => {
   const localTranslations: Translations = {
     in: 'in',
+    'show all results': 'show all results',
   };
 
   if (translations) return translations[word];

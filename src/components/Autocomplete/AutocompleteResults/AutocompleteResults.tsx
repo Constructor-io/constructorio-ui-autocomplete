@@ -1,12 +1,12 @@
 import React, { ReactNode, useContext } from 'react';
-import { GetItemProps, Section } from '../../../types';
+import { Item, Section } from '../../../types';
 import { toKebabCase } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
 
 export type RenderResults = (renderResultsArguments: {
   sections: Section[];
-  getItemProps: GetItemProps;
+  getItemProps: (item: Item) => any;
 }) => ReactNode;
 
 type AutocompleteResultsProps = {

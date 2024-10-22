@@ -9,6 +9,7 @@ import {
   Item as ItemBase,
   AutocompleteRequestType,
   ConstructorClientOptions,
+  RecommendationsParameters,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
@@ -24,6 +25,7 @@ export interface AdvancedParametersBase {
   numGroupsSuggestedPerTerm?: number;
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
+  displayShowAllResultsButton?: boolean;
   debounce?: number;
   translations?: Translations;
   fetchZeroStateOnFocus?: boolean;
@@ -34,6 +36,7 @@ export type AdvancedParameters = AdvancedParametersBase &
 
 export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
+  getSearchResultsUrl?: (item: SearchSuggestion) => string;
   onSubmit: OnSubmit;
   onFocus?: () => void;
   onChange?: (input: string) => void;
@@ -119,6 +122,7 @@ export type SectionConfiguration = {
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
   ref?: React.RefObject<HTMLElement>;
+  renderItem?: (props: { item: Item; query: string }) => ReactNode;
 };
 
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {
@@ -128,15 +132,13 @@ export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   identifier?: string;
 }
 
-export interface RecommendationsSectionConfiguration extends SectionConfiguration {
+export type RecommendationsSectionConfiguration = SectionConfiguration & {
   type: 'recommendations';
   indexSectionName?: string;
   podId: string;
-  itemIds?: string[];
-  term?: string;
   /** @deprecated use podId field instead */
   identifier?: string;
-}
+} & Omit<RecommendationsParameters, 'section' | 'numResults'>;
 
 export interface CustomSectionConfiguration extends SectionConfiguration {
   type: 'custom';
@@ -184,6 +186,7 @@ export type HTMLPropsWithCioDataAttributes<T = any> = React.DetailedHTMLProps<
 
 export type Translations = {
   in?: string;
+  'show all results'?: string;
 };
 
 export interface PodData {
