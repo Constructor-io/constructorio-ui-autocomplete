@@ -1,0 +1,10 @@
+import { Meta, Controls, Canvas } from '@storybook/blocks';
+import * as HooksStories from '../index.stories';
+
+<Meta of={HooksStories} name="Live Example"/>
+
+### Interactive Live Example
+<Canvas className='live-example' sourceState='none' of={HooksStories.BasicUsage} />
+
+### Controls
+<Controls />

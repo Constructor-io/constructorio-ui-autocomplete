@@ -25,6 +25,7 @@ const meta: Meta<typeof CioAutocomplete> = {
       },
     },
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
