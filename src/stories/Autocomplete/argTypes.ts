@@ -71,3 +71,7 @@ export const argTypes = {
     },
   },
 };
+
+export const storiesControls = {
+  include: ['apiKey', 'defaultInput', 'placeholder', 'autocompleteClassName'],
+};

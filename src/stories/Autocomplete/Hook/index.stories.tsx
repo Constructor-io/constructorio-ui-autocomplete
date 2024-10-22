@@ -1,7 +1,8 @@
 import type { Meta } from '@storybook/react';
 import { CioAutocomplete } from '../../../index';
-import { argTypes } from '../argTypes';
+import { argTypes, storiesControls } from '../argTypes';
 import { HooksTemplate } from '.';
+import { apiKey } from '../../../constants';
 
 const meta: Meta<typeof HooksTemplate> = {
   title: 'Autocomplete/Hook',
@@ -13,6 +14,11 @@ const meta: Meta<typeof HooksTemplate> = {
         type: 'code',
       },
     },
+    controls: storiesControls,
+  },
+  args: {
+    apiKey,
+    onsubmit,
   },
 };
 

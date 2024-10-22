@@ -1,4 +1,102 @@
-### Code Example
+### Provide API Key
+Pass an `apiKey` to request results from constructor's servers
+
+```jsx
+const args = {
+  "apiKey": "key_M57QS8SMPdLdLx4x",
+  "onSubmit": (submitEvent) => console.dir(submitEvent)
+}
+```
+---
+
+### Provide CIO Client Instance
+If you are already using an instance of the `ConstructorIOClient`, you can pass a `cioJsClient` instead of an `apiKey` to request results from constructor's servers
+
+> Note: when we say `cioJsClient`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)
+
+
+```jsx
+import ConstructorIOClient from "@constructor-io/constructorio-client-javascript";
+
+const cioJsClient = new ConstructorIOClient({ apiKey: "key_M57QS8SMPdLdLx4x" });
+const args = { cioJsClient, onSubmit: (submitEvent) => console.dir(submitEvent) };
+```
+---
+
+
+### Provide CIO Client Options
+If you don't want to create an instance of the `ConstructorIOClient` but still want to customize some of the options, you can pass a `cioJsClientOptions` object. You can learn more about the possible values [here under the parameters section](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html).
+
+```jsx
+const args = {
+  "apiKey": "key_M57QS8SMPdLdLx4x",
+  "cioJsClientOptions": {
+    "serviceUrl": "https://ac.cnstrc.com"
+  },
+  "onSubmit": (submitEvent) => console.dir(submitEvent)
+}
+```
+---
+
+
+### Provide Custom Styles
+By default, importing react components or hooks from this library does not pull any css into your project.
+
+If you wish to use some starter styles from this library, add an import statement similar to the example import statement below:
+
+`import '@constructor-io/constructorio-ui-autocomplete/styles.css';`
+
+- To opt out of all default styling, do not import the `styles.css` stylesheet.
+- The path and syntax in the example above may change depending on your module bundling strategy
+- These starter styles can be used as a foundation to build on top of, or just as a reference for you to replace completely.
+- All starter styles in this library are scoped within the `.cio-autocomplete` css selector.
+- These starter styles are intended to be extended by layering in your own css rules
+- If you like, you can override the container's className like so:
+`autocompleteClassName='custom-autocomplete-container'`
+- If you like, you can pass additional className(s) of your choosing like so:
+`autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
+
+```css
+/* Custom Style Sheet */
+.cio-autocomplete.custom-autocomplete-styles form {
+  height: 44px;
+  width: 600px;
+  border-radius: 8px;
+  background-color: rgb(247, 247, 247);
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-input {
+  font-weight: bold;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-form button {
+  width: 44px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-clear-btn {
+  right: 24px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-section-name {
+  margin: 5px 3px;
+}
+
+.cio-autocomplete.custom-autocomplete-styles .cio-results {
+  width: 620px;
+  max-height: 334px;
+  overflow: hidden;
+  border-radius: 0px 0px 8px 8px;
+  color: rgb(51, 51, 51);
+}
+
+.cio-autocomplete.custom-autocomplete-styles .products p {
+  padding: 5px 5px 0;
+}
+```
+---
+
+
+### Full Code Example
 Full hook usage example
 
 ```jsx
