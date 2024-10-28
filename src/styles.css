@@ -183,3 +183,12 @@
 .cio-autocomplete .cio-section-footer .cio-show-all-results-button:hover {
   background-color: hsl(0, 0%, 90%);
 }
+
+.cio-autocomplete .cio-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}

@@ -3,6 +3,7 @@ import { Item, Section } from '../../../types';
 import { toKebabCase } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
+import CloseIcon from './CloseIcon';
 
 export type RenderResults = (renderResultsArguments: {
   sections: Section[];
@@ -38,7 +39,8 @@ const DefaultRenderResults: RenderResults = ({ sections }) =>
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
-  const { sections, isOpen, getMenuProps, getItemProps } = useContext(CioAutocompleteContext);
+  const { sections, isOpen, getMenuProps, getItemProps, closeMenu } =
+    useContext(CioAutocompleteContext);
 
   const hasResults = sections && sections.some((section) => section?.data?.length);
 
@@ -48,7 +50,12 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
 
   let content;
   if (isOpen && hasResults) {
-    content = typeof children === 'function' ? children({ sections, getItemProps }) : children;
+    content = (
+      <>
+        <CloseIcon onClick={() => closeMenu()} />
+        {typeof children === 'function' ? children({ sections, getItemProps }) : children}
+      </>
+    );
   } else {
     content = null;
     menuProps.style = {
