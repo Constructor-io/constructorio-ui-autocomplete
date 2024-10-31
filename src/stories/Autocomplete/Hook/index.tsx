@@ -166,7 +166,7 @@ export function HooksTemplate(args) {
   );
 }
 
-const hooksTemplateCode = `
+export const hooksTemplateCode = `
 function YourComponent() {
   const {
     isOpen,

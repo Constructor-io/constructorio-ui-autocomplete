@@ -25,6 +25,7 @@
     "subcomponents",
     "testid",
     "cnstrc",
-    "dans"
+    "dans",
+    "autodocs"
   ]
 }
