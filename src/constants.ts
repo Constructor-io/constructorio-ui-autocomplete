@@ -245,6 +245,7 @@ export const termsWithImagesAndCountsDescription = `Pass boolean flags for \`dis
 
 export const debounceDescription = `Pass an integer to \`debounce\` to override the recommended, default delay employed for debouncing autocomplete network requests between keystrokes as your users type into the text input field. The default value is 250, which results in a debounce delay of 250 milliseconds.`;
 export const fetchZeroStateOnFocusDescription = `Pass a boolean to \`fetchZeroStateOnFocus\` to override the zero state fetching behavior from initial render to input focus.`;
+export const dynamicallyChangeZeroStateFilters = `It is possible to modify the content of the zero state sections by updated the passed in object.`;
 
 export const translationsDescription = `Pass a \`translations\` object to display translatable words in your preferred language.
 

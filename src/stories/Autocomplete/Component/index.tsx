@@ -3,6 +3,46 @@ import { CioAutocomplete } from '../../../index';
 import { CioAutocompleteProps } from '../../../types';
 import { getStoryParams } from '../../../utils';
 
+const groupIds = ['1129', '1130', '1131', '1132', '1135', '1136'];
+export function ComponentTemplateWithDynamicZeroStateSections(args: CioAutocompleteProps) {
+  const [groupIdIndex, setGroupIdIndex] = React.useState<number>(0);
+
+  const zeroStateSection = {
+    podId: 'bestsellers',
+    type: 'recommendations',
+    numResults: 3,
+    filters: {
+      group_id: groupIds[groupIdIndex],
+    },
+  } as const;
+
+  return (
+    <>
+      <CioAutocomplete
+        {...{
+          ...args,
+          zeroStateSections: [zeroStateSection],
+          placeholder: `Current zero state on group id ${groupIds[groupIdIndex]}`,
+        }}
+      />
+      <button
+        type='button'
+        style={{
+          margin: '0 20px',
+        }}
+        onClick={() => {
+          if (groupIdIndex === groupIds.length - 1) {
+            setGroupIdIndex(0);
+          } else {
+            setGroupIdIndex(groupIdIndex + 1);
+          }
+        }}>
+        Change Zero State Filters
+      </button>
+    </>
+  );
+}
+
 export function ComponentTemplate(args: CioAutocompleteProps) {
   return <CioAutocomplete {...args} />;
 }
