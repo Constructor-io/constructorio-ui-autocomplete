@@ -228,7 +228,7 @@ To see this in action:
 4. Next, type "pan" in the example autocomplete input field.
   - Notice how the user is presented with three different search terms that have a maximum of one "in {group}" suggestion each`;
 
-export const filteredSuggestionsDescription = `Pass a \`filters\` object under \`advancedParameters\` to apply filters to the suggestions. Any parameter supported by <a href="https://docs.constructor.io/rest_api/autocomplete_queries/" target="__blank">our autocomplete endpoint</a> can be passed under \`advancedParameters\`.
+export const filteredSuggestionsDescription = `Pass a \`filters\` object under \`advancedParameters\` to apply filters to the suggestions. Any parameter supported by <a href="https://docs.constructor.com/reference/autocomplete-autocomplete-results" target="__blank">our autocomplete endpoint</a> can be passed under \`advancedParameters\`.
 
 To see this in action:
 1. Type "short" in the example below.
