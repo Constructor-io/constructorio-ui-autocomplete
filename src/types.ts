@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GetItemPropsOptions, UseComboboxGetItemPropsOptions } from 'downshift';
+import { GetItemPropsOptions } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import {
