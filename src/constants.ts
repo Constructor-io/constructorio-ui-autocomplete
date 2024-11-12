@@ -138,6 +138,7 @@ export const displaySearchTermHighlightsDescription = `Use constructor's auto hi
 export const customSectionDescription = `Use a custom section, by managing and passing your own data, with \`"type": "custom"\` and \`"data":[{...}]\``;
 export const onFocusDescription = `Pass an \`onFocus\` callback function to execute some code each time the user applies focus to the text input field`;
 export const onChangeDescription = `Pass an \`onChange\` callback function to execute some code each time the user changes the value of the text input field`;
+export const onIsOpenChangeDescription = `Pass an \`onIsOpenChange\` callback function to execute some code each time the dropdown state changes ie: close/open`;
 export const onSubmitDescription = `Pass an \`onSubmit\` callback function to execute some code after a user submits the search form.
 
   Your callback function will be invoked with a submit event containing useful metadata about the submit event:

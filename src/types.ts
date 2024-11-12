@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GetItemPropsOptions } from 'downshift';
+import { GetItemPropsOptions, UseComboboxStateChange } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import {
@@ -40,6 +40,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   onSubmit: OnSubmit;
   onFocus?: () => void;
   onChange?: (input: string) => void;
+  onIsOpenChange: (changes: UseComboboxStateChange<Item>) => void;
   placeholder?: string;
   children?: ReactNode;
   sections?: UserDefinedSection[];

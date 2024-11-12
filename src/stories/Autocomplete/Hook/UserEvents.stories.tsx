@@ -9,6 +9,7 @@ import {
   userEventsDescription,
   apiKey,
   onSubmitDefault,
+  onIsOpenChangeDescription,
 } from '../../../constants';
 import { HooksTemplate, getHookStoryParams, addHookStoryCode } from '.';
 
@@ -91,3 +92,21 @@ addHookStoryCode(
   onSubmitDescription
 );
 disableStoryActions(OnSubmit);
+
+const onIsOpenChange = (changes) => {
+  console.log(`Dropdown menu changes: ${JSON.stringify(changes)}`);
+};
+export const OnIsOpenChange = HooksTemplate.bind({});
+OnIsOpenChange.args = { apiKey, onSubmit: onSubmitDefault, onIsOpenChange };
+addHookStoryCode(
+  OnIsOpenChange,
+  `const args = {
+  "apiKey": ${apiKey},
+  "onSubmit": ${functionStrings.onSubmit}
+  "onIsOpenChange": (changes) => {
+    console.log("Dropdown menu changes: " + changes);
+  }
+}`,
+  onIsOpenChangeDescription
+);
+disableStoryActions(OnIsOpenChange);
