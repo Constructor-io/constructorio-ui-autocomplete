@@ -16,7 +16,7 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
-  const { getSectionProps, query, getFormProps, advancedParameters } =
+  const { getSectionProps, query, getFormProps, advancedParameters, getItemProps } =
     useContext(CioAutocompleteContext);
   const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
@@ -51,7 +51,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => {
           if (typeof section?.renderItem === 'function') {
-            return section.renderItem({ item, query });
+            return section.renderItem({ item, query, getItemProps });
           }
           return (
             <SectionItem

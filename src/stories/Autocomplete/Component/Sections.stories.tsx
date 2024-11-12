@@ -210,8 +210,8 @@ CustomRenderItem.args = {
   sections: [
     {
       indexSectionName: 'Products',
-      renderItem: ({ item, query }) => (
-        <div>
+      renderItem: ({ item, query, getItemProps }) => (
+        <div {...getItemProps(item)} style={{ display: 'block' }}>
           <a href={item.data?.url}>
             <h3>{item.value}</h3>
             <img src={item.data?.image_url} alt={item.value} />
@@ -220,9 +220,6 @@ CustomRenderItem.args = {
           <p>Query: {query}</p>
         </div>
       ),
-    },
-    {
-      indexSectionName: 'Search Suggestions',
     },
   ],
 };

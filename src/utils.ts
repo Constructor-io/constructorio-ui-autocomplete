@@ -115,8 +115,8 @@ ${templateCode}
 
 export const functionStrings = {
   onSubmit: `(submitEvent) => console.dir(submitEvent)`,
-  renderItem: `({ item, query }) => (
-                      <div>
+  renderItem: `({ item, query, getItemProps }) => (
+                      <div {...getItemProps(item)}>
                           <a href={item.data?.url}>
                             <h3>{item.value}</h3>
                             <img src={item.data?.image_url} alt={item.value} />
