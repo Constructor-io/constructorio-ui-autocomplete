@@ -40,7 +40,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   onSubmit: OnSubmit;
   onFocus?: () => void;
   onChange?: (input: string) => void;
-  onIsOpenChange: (changes: UseComboboxStateChange<Item>) => void;
+  onIsOpenChange?: (changes: UseComboboxStateChange<Item>) => void;
   placeholder?: string;
   children?: ReactNode;
   sections?: UserDefinedSection[];
