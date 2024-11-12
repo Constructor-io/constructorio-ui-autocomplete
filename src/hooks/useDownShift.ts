@@ -12,7 +12,7 @@ type UseDownShiftOptions = {
   onSubmit: OnSubmit;
   previousQuery?: string;
   cioClient: Nullable<ConstructorIOClient>;
-  onIsOpenChange: (changes: UseComboboxStateChange<Item>) => void;
+  onIsOpenChange?: (changes: UseComboboxStateChange<Item>) => void;
 };
 
 export type DownShift = UseComboboxReturnValue<Item>;
