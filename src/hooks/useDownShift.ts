@@ -1,4 +1,4 @@
-import { useCombobox, UseComboboxReturnValue } from 'downshift';
+import { useCombobox, UseComboboxReturnValue, UseComboboxStateChange } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
@@ -12,13 +12,21 @@ type UseDownShiftOptions = {
   onSubmit: OnSubmit;
   previousQuery?: string;
   cioClient: Nullable<ConstructorIOClient>;
+  onIsOpenChange?: (changes: UseComboboxStateChange<Item>) => void;
 };
 
 export type DownShift = UseComboboxReturnValue<Item>;
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
 
-const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, previousQuery = '' }) =>
+const useDownShift: UseDownShift = ({
+  setQuery,
+  items,
+  onSubmit,
+  cioClient,
+  previousQuery = '',
+  onIsOpenChange,
+}) =>
   useCombobox({
     id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
     items,
@@ -63,6 +71,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
         }
       }
     },
+    onIsOpenChange,
   });
 
 export default useDownShift;
