@@ -10,14 +10,8 @@ import {
   zeroStateSectionsDescription,
   apiKey,
   onSubmitDefault as onSubmit,
-  dynamicallyChangeZeroStateFilters,
 } from '../../../constants';
-import {
-  ComponentTemplate,
-  getComponentStoryParams,
-  addComponentStoryDescription,
-  ComponentTemplateWithDynamicZeroStateSections,
-} from '.';
+import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
 
 export default {
   title: 'Autocomplete/Component/Zero State',
@@ -87,29 +81,6 @@ addComponentStoryDescription(
   RenderRecommendations,
   `const args = ${stringifyWithDefaults(RenderRecommendations.args)}`,
   recommendationsDescription
-);
-
-export const DynamicallyChangeFilters = ComponentTemplateWithDynamicZeroStateSections.bind({});
-DynamicallyChangeFilters.args = {
-  apiKey,
-  onSubmit,
-};
-addComponentStoryDescription(
-  DynamicallyChangeFilters,
-  `const args = ${stringifyWithDefaults({
-    ...DynamicallyChangeFilters.args,
-    zeroStateSections: [
-      {
-        podId: 'bestsellers',
-        type: 'recommendations',
-        numResults: 3,
-        filters: {
-          group_id: '...',
-        },
-      },
-    ],
-  })}`,
-  dynamicallyChangeZeroStateFilters
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
