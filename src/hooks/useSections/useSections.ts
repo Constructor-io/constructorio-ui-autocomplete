@@ -25,10 +25,10 @@ export default function useSections(
     zeroStateSections
   );
 
-  // create refs for sections
+  // create refs for active sections
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
 
-  // Get API results for each section
+  // Get API results for each active section
   const { recommendations, autocomplete } = useSectionsResults(
     query,
     cioClient,
@@ -57,7 +57,7 @@ export default function useSections(
     [autocomplete.results, recommendations.results]
   );
 
-  // Return current active sections populated with data from the API response
+  // Return current active sections populated with data from the API response sectionsResults
   const activeSectionsWithData = useActiveSectionsWithData(
     sectionsResults,
     activeSections,
