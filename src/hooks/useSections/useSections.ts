@@ -17,7 +17,7 @@ export default function useSections(
 ) {
   const [podsData, setPodsData] = useState<Record<string, PodData>>({});
 
-  // Get Active Sections defined by configs
+  // Get Active Sections defined by configuration object
   const { activeSections, showZeroStateSections, setActiveSections } = useActiveSections(
     query,
     sections,
@@ -25,10 +25,10 @@ export default function useSections(
     zeroStateSections
   );
 
-  // Sections Refs
+  // create refs for sections
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
 
-  // Sections API results
+  // Get API results for each section
   const { recommendations, autocomplete } = useSectionsResults(
     query,
     cioClient,
@@ -36,6 +36,7 @@ export default function useSections(
     advancedParameters
   );
 
+  // Access the Pods Data from the Recommendations response to update Active Sections configuration
   useEffect(() => {
     if (!recommendations.podsData) {
       setPodsData(recommendations.podsData);
@@ -50,15 +51,18 @@ export default function useSections(
     zeroStateSections
   );
 
+  // Combine recommendations and autocomplete results in sectionsResults
   const sectionsResults = useMemo(
     () => ({ ...autocomplete.results, ...recommendations.results }),
     [autocomplete.results, recommendations.results]
   );
 
+  // Return current active sections populated with data from the API response
   const activeSectionsWithData = useActiveSectionsWithData(
     sectionsResults,
     activeSections,
-    sectionsRefs
+    sectionsRefs,
+    query
   );
 
   return {
@@ -67,6 +71,6 @@ export default function useSections(
     activeSectionsWithData,
     zeroStateActiveSections: showZeroStateSections,
     request: autocomplete.request,
-    totalNumResultsPerSection: autocomplete.request,
+    totalNumResultsPerSection: autocomplete.totalNumResultsPerSection,
   };
 }

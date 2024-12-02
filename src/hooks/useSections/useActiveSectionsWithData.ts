@@ -5,7 +5,8 @@ import { getActiveSectionsWithData } from '../../utils';
 export default function useActiveSectionsWithData(
   sectionsResults: SectionsData,
   activeSections: UserDefinedSection[],
-  sectionsRefs: React.MutableRefObject<RefObject<HTMLLIElement>[]>
+  sectionsRefs: React.MutableRefObject<RefObject<HTMLLIElement>[]>,
+  query: string
 ) {
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
 
@@ -17,10 +18,10 @@ export default function useActiveSectionsWithData(
       sectionsRefs
     );
 
-    if (activeSectionsWithDataValue.length) {
+    if (activeSectionsWithDataValue.length || !query) {
       setActiveSectionsWithData(activeSectionsWithDataValue);
     }
-  }, [activeSections, sectionsResults, sectionsRefs]);
+  }, [activeSections, sectionsResults, sectionsRefs, query]);
 
   return activeSectionsWithData;
 }
