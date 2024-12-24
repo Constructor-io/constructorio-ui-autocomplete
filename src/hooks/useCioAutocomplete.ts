@@ -21,7 +21,7 @@ import {
   trackSearchSubmit,
 } from '../utils';
 import useConsoleErrors from './useConsoleErrors';
-import useSections from './useSections/useSections';
+import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
 import { isAutocompleteSection, isCustomSection, isRecommendationsSection } from '../typeGuards';
 

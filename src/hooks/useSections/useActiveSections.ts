@@ -1,4 +1,3 @@
-/* eslint-disable max-params */
 import { useMemo, useState } from 'react';
 import { PodData, UserDefinedSection } from '../../types';
 import { isRecommendationsSection } from '../../typeGuards';
