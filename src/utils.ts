@@ -5,7 +5,13 @@ import {
   ConstructorClientOptions,
 } from '@constructor-io/constructorio-client-javascript/lib/types';
 // eslint-disable-next-line import/no-cycle
-import { storageSetItem, storeRecentSearch, storeRecentAction, CONSTANTS } from './beaconUtils';
+import {
+  storageSetItem,
+  storageRemoveItem,
+  storeRecentSearch,
+  storeRecentAction,
+  CONSTANTS,
+} from './beaconUtils';
 import { isRecommendationsSection } from './typeGuards';
 import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
 import version from './version';
@@ -274,11 +280,20 @@ export const translate = (word: string, translations?: Translations) => {
 
   return localTranslations[word] || word;
 };
+
 export const trackSearchSubmit = (cioClient, term, autocompleteData = {}) => {
   cioClient?.tracker.trackSearchSubmit(term, autocompleteData);
   storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, term);
   storeRecentSearch(term, {});
   storeRecentAction(CONSTANTS.SEARCH_SUBMIT);
+};
+
+export const trackAutocompleteSelect = (cioClient, itemName, autocompleteData = {}) => {
+  console.log("Tracking autocomplete select");
+  cioClient?.tracker.trackAutocompleteSelect(itemName, autocompleteData);
+  if (autocompleteData?.section === 'Products') {
+    storageRemoveItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY);
+  }
 };
 
 export const logger = (error: any) => {

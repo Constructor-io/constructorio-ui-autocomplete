@@ -40,6 +40,18 @@ export const storageSetItem = (key, value) => {
   }
 };
 
+// Remove item in storage
+export const storageRemoveItem = (key) => {
+  try {
+    const storageEngine = getStorageEngine(key.scope);
+    return storageEngine.removeItem(key);
+  } catch (e) {
+    logger('storageRemoveItem error:', e);
+
+    return null;
+  }
+};
+
 /*
  * Use the text content of the resulting HTML node(s) created from the
  * term
