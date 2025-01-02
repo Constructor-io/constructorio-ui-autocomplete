@@ -46,7 +46,7 @@ export const storageRemoveItem = (key) => {
     const storageEngine = getStorageEngine(key.scope);
     return storageEngine.removeItem(key);
   } catch (e) {
-    logger('storageRemoveItem error:', e);
+    logger(`storageRemoveItem error: ${e}`);
 
     return null;
   }

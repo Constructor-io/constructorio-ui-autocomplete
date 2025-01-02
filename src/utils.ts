@@ -288,10 +288,9 @@ export const trackSearchSubmit = (cioClient, term, autocompleteData = {}) => {
   storeRecentAction(CONSTANTS.SEARCH_SUBMIT);
 };
 
-export const trackAutocompleteSelect = (cioClient, itemName, autocompleteData = {}) => {
-  console.log("Tracking autocomplete select");
+export const trackAutocompleteSelect = (cioClient, itemName, autocompleteData: any = {}) => {
   cioClient?.tracker.trackAutocompleteSelect(itemName, autocompleteData);
-  if (autocompleteData?.section === 'Products') {
+  if (autocompleteData?.section! === 'Products') {
     storageRemoveItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY);
   }
 };
