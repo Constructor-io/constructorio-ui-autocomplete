@@ -168,7 +168,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       };
     },
     getInputProps: () => ({
-      
       ...getInputProps({
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           setQuery(e.target.value);
@@ -178,7 +177,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         },
         onBlur: () => {
           setInputFocusState(false);
-        }
+        },
       }),
       value: query,
       onFocus: () => {
