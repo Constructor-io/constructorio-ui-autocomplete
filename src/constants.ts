@@ -261,4 +261,4 @@ export const customRenderItemDescription = `Customize the rendering of individua
 - Make sure to call \`getItemProps(item)\` and spread like this \`<div {...getItemProps(item)}/>\` on the container of each custom rendered item or else tracking will not work.
 `;
 export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button at the bottom of the Products section to show all results. This button will submit the form and trigger the \`onSubmit\` callback.`;
-export const displayNoResultsMessageDescription = `Pass a boolean to \`displayNoResultsMessage\` to display a No Results message when there are no sections with results`; 
+export const displayNoResultsMessageDescription = `Pass a boolean to \`displayNoResultsMessage\` to display a No Results message when there are no sections with results`;
