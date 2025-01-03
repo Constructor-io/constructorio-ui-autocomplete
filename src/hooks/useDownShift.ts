@@ -1,4 +1,4 @@
-import { useCombobox, UseComboboxReturnValue, UseComboboxStateChange } from 'downshift';
+import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
@@ -6,14 +6,12 @@ import { trackSearchSubmit } from '../utils';
 
 let idCounter = 0;
 
-type UseDownShiftOptions = {
+interface UseDownShiftOptions extends UseComboboxProps<Item> {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  items: Item[];
   onSubmit: OnSubmit;
   previousQuery?: string;
   cioClient: Nullable<ConstructorIOClient>;
-  onIsOpenChange?: (changes: UseComboboxStateChange<Item>) => void;
-};
+}
 
 export type DownShift = UseComboboxReturnValue<Item>;
 
@@ -25,7 +23,7 @@ const useDownShift: UseDownShift = ({
   onSubmit,
   cioClient,
   previousQuery = '',
-  onIsOpenChange,
+  ...rest
 }) =>
   useCombobox({
     id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
@@ -71,7 +69,7 @@ const useDownShift: UseDownShift = ({
         }
       }
     },
-    onIsOpenChange,
+    ...rest,
   });
 
 export default useDownShift;
