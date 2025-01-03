@@ -1,9 +1,4 @@
-import {
-  useCombobox,
-  UseComboboxProps,
-  UseComboboxReturnValue,
-  UseComboboxStateChange,
-} from 'downshift';
+import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
