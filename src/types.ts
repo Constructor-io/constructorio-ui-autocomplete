@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GetItemPropsOptions, UseComboboxStateChange } from 'downshift';
+import { GetItemPropsOptions, UseComboboxProps, UseComboboxStateChange } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import {
@@ -34,21 +34,26 @@ export interface AdvancedParametersBase {
 export type AdvancedParameters = AdvancedParametersBase &
   Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
-export type CioAutocompleteProps = CioClientConfig & {
-  openOnFocus?: boolean;
-  getSearchResultsUrl?: (item: SearchSuggestion) => string;
-  onSubmit: OnSubmit;
-  onFocus?: () => void;
-  onChange?: (input: string) => void;
-  onIsOpenChange?: (changes: UseComboboxStateChange<Item>) => void;
-  placeholder?: string;
-  children?: ReactNode;
-  sections?: UserDefinedSection[];
-  zeroStateSections?: UserDefinedSection[];
-  autocompleteClassName?: string;
-  advancedParameters?: AdvancedParameters;
-  defaultInput?: string;
+// Type UseComboboxProps with items as optional
+type OptionalItemsComboboxProps<Item> = Partial<UseComboboxProps<Item>> & {
+  items?: Item[];
 };
+
+export type CioAutocompleteProps = CioClientConfig &
+  OptionalItemsComboboxProps<Item> & {
+    openOnFocus?: boolean;
+    getSearchResultsUrl?: (item: SearchSuggestion) => string;
+    onSubmit: OnSubmit;
+    onFocus?: () => void;
+    onChange?: (input: string) => void;
+    placeholder?: string;
+    children?: ReactNode;
+    sections?: UserDefinedSection[];
+    zeroStateSections?: UserDefinedSection[];
+    autocompleteClassName?: string;
+    advancedParameters?: AdvancedParameters;
+    defaultInput?: string;
+  };
 
 /**
  * AutocompleteSubmitEvent type is AutocompleteSelectSubmit or AutocompleteSearchSubmit.
