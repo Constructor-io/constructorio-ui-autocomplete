@@ -14,6 +14,7 @@ import {
   translationsDescription,
   fetchZeroStateOnFocusDescription,
   displayShowAllResultsButtonDescription,
+  displayNoResultsMessageDescription,
 } from '../../../constants';
 
 export default {
@@ -150,4 +151,17 @@ addComponentStoryDescription(
   ShowAllResultsButton,
   `const args = ${stringifyWithDefaults(ShowAllResultsButton.args)}`,
   displayShowAllResultsButtonDescription
+);
+
+export const NoResultsMessage = ComponentTemplate.bind({});
+NoResultsMessage.args = {
+  apiKey,
+  onSubmit,
+  advancedParameters: { displayNoResultsMessage: true },
+};
+
+addComponentStoryDescription(
+  NoResultsMessage,
+  `const args = ${stringifyWithDefaults(NoResultsMessage.args)}`,
+  displayNoResultsMessageDescription
 );

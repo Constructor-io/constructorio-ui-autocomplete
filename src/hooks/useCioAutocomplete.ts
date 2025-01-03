@@ -97,6 +97,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }, [zeroStateSections]);
 
   const [query, setQuery] = useState(defaultInput || '');
+  const [inputFocusState, setInputFocusState] = useState(false);
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 
@@ -141,6 +142,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     request,
     featureToggles: features,
     isOpen: isOpen && items?.length > 0,
+    isFocused: isOpen || inputFocusState,
     getMenuProps: () => ({
       ...getMenuProps(),
       className: 'cio-results',
@@ -166,6 +168,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       };
     },
     getInputProps: () => ({
+      
       ...getInputProps({
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           setQuery(e.target.value);
@@ -173,9 +176,13 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             onChange(e.target.value);
           }
         },
+        onBlur: () => {
+          setInputFocusState(false);
+        }
       }),
       value: query,
       onFocus: () => {
+        setInputFocusState(true);
         if (options.onFocus) {
           options.onFocus();
         }

@@ -26,6 +26,7 @@ export interface AdvancedParametersBase {
   displaySearchSuggestionImages?: boolean;
   displaySearchSuggestionResultCounts?: boolean;
   displayShowAllResultsButton?: boolean;
+  displayNoResultsMessage?: boolean;
   debounce?: number;
   translations?: Translations;
   fetchZeroStateOnFocus?: boolean;
