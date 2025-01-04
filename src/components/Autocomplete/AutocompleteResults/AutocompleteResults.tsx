@@ -4,7 +4,6 @@ import { toKebabCase } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
 import CloseIcon from './CloseIcon';
-import NoResults from './NoResults';
 
 export type RenderResults = (renderResultsArguments: {
   sections: Section[];
@@ -40,17 +39,8 @@ const DefaultRenderResults: RenderResults = ({ sections }) =>
 
 export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
-  const {
-    query,
-    sections,
-    isOpen,
-    isFocused,
-    getMenuProps,
-    getItemProps,
-    closeMenu,
-    advancedParameters,
-  } = useContext(CioAutocompleteContext);
-  const { displayNoResultsMessage } = advancedParameters || {};
+  const { sections, isOpen, getMenuProps, getItemProps, closeMenu } =
+    useContext(CioAutocompleteContext);
   const hasResults = sections && sections.some((section) => section?.data?.length);
 
   const menuProps = {
@@ -66,9 +56,6 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
         {typeof children === 'function' ? children({ sections, getItemProps }) : children}
       </>
     );
-  } else if (query?.length && isFocused && displayNoResultsMessage) {
-    // Display No results message if input focused, query is not empty
-    content = <NoResults />;
   } else {
     content = null;
     menuProps.style = {

@@ -141,8 +141,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     totalNumResultsPerSection,
     request,
     featureToggles: features,
-    isOpen: isOpen && items?.length > 0,
-    isFocused: isOpen || inputFocusState,
+    isOpen,
     getMenuProps: () => ({
       ...getMenuProps(),
       className: 'cio-results',
