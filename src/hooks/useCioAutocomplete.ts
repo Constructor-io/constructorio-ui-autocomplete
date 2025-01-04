@@ -173,7 +173,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             onChange(e.target.value);
           }
         },
-        onBlur: () => {},
       }),
       value: query,
       onFocus: () => {
