@@ -151,4 +151,3 @@ addComponentStoryDescription(
   `const args = ${stringifyWithDefaults(ShowAllResultsButton.args)}`,
   displayShowAllResultsButtonDescription
 );
-

@@ -97,7 +97,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }, [zeroStateSections]);
 
   const [query, setQuery] = useState(defaultInput || '');
-  const [inputFocusState, setInputFocusState] = useState(false);
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
 
@@ -174,13 +173,10 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             onChange(e.target.value);
           }
         },
-        onBlur: () => {
-          setInputFocusState(false);
-        },
+        onBlur: () => {},
       }),
       value: query,
       onFocus: () => {
-        setInputFocusState(true);
         if (options.onFocus) {
           options.onFocus();
         }

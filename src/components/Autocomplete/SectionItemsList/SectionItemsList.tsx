@@ -21,7 +21,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
     useContext(CioAutocompleteContext);
   const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
-  const { type, displayName, displayNoResultsMessage} = section;
+  const { type, displayName, displayNoResultsMessage } = section;
   let sectionTitle = displayName;
 
   if (!sectionTitle) {
