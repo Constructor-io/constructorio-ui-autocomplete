@@ -60,9 +60,6 @@ const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =
   });
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memoizedOptions = useMemo(() => options, [JSON.stringify(options)]);
-
   const {
     onSubmit,
     onChange,
@@ -76,9 +73,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     defaultInput,
     getSearchResultsUrl,
     onIsOpenChange,
-  } = memoizedOptions;
+  } = options;
 
-  let { sections = defaultSections, zeroStateSections } = memoizedOptions;
+  let { sections = defaultSections, zeroStateSections } = options;
 
   sections = useMemo(() => {
     if (sections) {
@@ -86,7 +83,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }
 
     return sections;
-  }, [sections]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(sections)]);
 
   zeroStateSections = useMemo(() => {
     if (zeroStateSections) {
@@ -94,7 +92,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     }
 
     return zeroStateSections;
-  }, [zeroStateSections]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(zeroStateSections)]);
 
   const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
