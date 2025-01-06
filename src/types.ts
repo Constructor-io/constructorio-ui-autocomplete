@@ -50,6 +50,8 @@ export type CioAutocompleteProps = CioClientConfig & {
   defaultInput?: string;
 };
 
+export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+
 /**
  * AutocompleteSubmitEvent type is AutocompleteSelectSubmit or AutocompleteSearchSubmit.
  * Use isAutocompleteSearchSubmit or isAutocompleteSelectSubmit type predicates to safely access event properties.
