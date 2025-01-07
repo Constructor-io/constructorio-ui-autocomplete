@@ -75,7 +75,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     advancedParameters,
     defaultInput,
     getSearchResultsUrl,
-    onIsOpenChange,
+    ...rest
   } = memoizedOptions;
 
   let { sections = defaultSections, zeroStateSections } = memoizedOptions;
@@ -126,7 +126,14 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     highlightedIndex,
     getInputProps,
     getItemProps: getItemPropsDownShift,
-  } = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery, onIsOpenChange });
+  } = useDownShift({
+    setQuery,
+    items,
+    onSubmit,
+    cioClient,
+    previousQuery,
+    ...rest,
+  });
 
   // Log console errors
   useConsoleErrors(sections, activeSections);
