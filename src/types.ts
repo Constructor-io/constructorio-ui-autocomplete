@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GetItemPropsOptions, UseComboboxProps, UseComboboxStateChange } from 'downshift';
+import { GetItemPropsOptions, UseComboboxProps } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import {
