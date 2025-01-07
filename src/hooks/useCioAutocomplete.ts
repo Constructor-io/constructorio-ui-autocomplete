@@ -50,7 +50,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     autocompleteClassName = 'cio-autocomplete',
     defaultInput,
     getSearchResultsUrl,
-    onIsOpenChange,
+    ...rest
   } = options;
 
   const [query, setQuery] = useState(defaultInput || '');
@@ -83,7 +83,14 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     highlightedIndex,
     getInputProps,
     getItemProps: getItemPropsDownShift,
-  } = useDownShift({ setQuery, items, onSubmit, cioClient, previousQuery, onIsOpenChange });
+  } = useDownShift({
+    setQuery,
+    items,
+    onSubmit,
+    cioClient,
+    previousQuery,
+    ...rest,
+  });
 
   // Log console errors
   useConsoleErrors(sections, activeSections);
