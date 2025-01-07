@@ -2,7 +2,7 @@ import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
-import { trackSearchSubmit } from '../utils';
+import { trackSearchSubmit, trackAutocompleteSelect } from '../utils';
 
 let idCounter = 0;
 
@@ -57,7 +57,7 @@ const useDownShift: UseDownShift = ({
               // (ie: Search Suggestions, Products, Custom Cio sections, etc)
               // This does not apply to custom user defined sections that aren't part of Constructor index
             } else if (selectedItem.result_id) {
-              cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
+              trackAutocompleteSelect(cioClient, selectedItem.value, {
                 originalQuery: previousQuery,
                 section: selectedItem.section,
               });
