@@ -334,8 +334,7 @@ SelectProductSuggestionClearsSearchTermStorage.play = async ({ canvasElement }) 
   await userEvent.click(productSuggestionItem);
   const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
   expect(isSelectTrackingRequestSent).toBeTruthy();
-  console.log(storageGetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY));
-  expect(storageGetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY)).toBeTruthy();
+  expect(storageGetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY)).toBeNull();
   await sleep(1000);
 };
 
