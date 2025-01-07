@@ -44,7 +44,7 @@ export const storageSetItem = (key, value) => {
 export const storageRemoveItem = (key) => {
   try {
     const storageEngine = getStorageEngine(key.scope);
-    return storageEngine.removeItem(key);
+    return storageEngine.removeItem(key.key);
   } catch (e) {
     logger(`storageRemoveItem error: ${e}`);
 
