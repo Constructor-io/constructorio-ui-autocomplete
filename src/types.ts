@@ -39,6 +39,8 @@ type OptionalItemsComboboxProps<Item> = Partial<UseComboboxProps<Item>> & {
   items?: Item[];
 };
 
+export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+
 export type CioAutocompleteProps = CioClientConfig &
   OptionalItemsComboboxProps<Item> & {
     openOnFocus?: boolean;

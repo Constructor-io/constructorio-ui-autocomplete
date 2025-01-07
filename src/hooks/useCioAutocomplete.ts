@@ -4,12 +4,12 @@ import { useMemo, useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import {
-  CioAutocompleteProps,
   CioClientConfig,
   Section,
   UserDefinedSection,
   HTMLPropsWithCioDataAttributes,
   Item,
+  UseCioAutocompleteOptions,
 } from '../types';
 import usePrevious from './usePrevious';
 import {
@@ -23,7 +23,8 @@ import {
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
-import { isAutocompleteSection, isCustomSection, isRecommendationsSection } from '../typeGuards';
+import { isCustomSection, isRecommendationsSection } from '../typeGuards';
+import useNormalizedProps from './useNormalizedProps';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -36,65 +37,21 @@ export const defaultSections: UserDefinedSection[] = [
   },
 ];
 
-export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
-
-const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =>
-  sections.map((config) => {
-    if (isRecommendationsSection(config)) {
-      if (config.identifier && !config.podId) {
-        return { ...config, podId: config.identifier };
-      }
-
-      if (!config.indexSectionName) {
-        return { ...config, indexSectionName: 'Products' };
-      }
-    }
-
-    if (isAutocompleteSection(config)) {
-      if (config.identifier && !config.indexSectionName) {
-        return { ...config, indexSectionName: config.identifier };
-      }
-    }
-
-    return config;
-  });
-
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const memoizedOptions = useMemo(() => options, [JSON.stringify(options)]);
-
+  const { sections, zeroStateSections, cioJsClientOptions, advancedParameters } =
+    useNormalizedProps(options);
   const {
     onSubmit,
     onChange,
     openOnFocus,
     apiKey,
     cioJsClient,
-    cioJsClientOptions,
     placeholder = 'What can we help you find today?',
     autocompleteClassName = 'cio-autocomplete',
-    advancedParameters,
     defaultInput,
     getSearchResultsUrl,
     ...rest
-  } = memoizedOptions;
-
-  let { sections = defaultSections, zeroStateSections } = memoizedOptions;
-
-  sections = useMemo(() => {
-    if (sections) {
-      return convertLegacyParametersAndAddDefaults(sections);
-    }
-
-    return sections;
-  }, [sections]);
-
-  zeroStateSections = useMemo(() => {
-    if (zeroStateSections) {
-      return convertLegacyParametersAndAddDefaults(zeroStateSections);
-    }
-
-    return zeroStateSections;
-  }, [zeroStateSections]);
+  } = options;
 
   const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
