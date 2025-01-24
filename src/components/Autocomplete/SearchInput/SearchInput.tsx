@@ -12,7 +12,7 @@ function DefaultRenderInput({ getFormProps, getInputProps, getLabelProps, setQue
   return (
     <form {...getFormProps()}>
       <label {...getLabelProps()} htmlFor='cio-input'>
-        <input id='cio-input' {...inputProps} />
+        <input id='cio-input' {...inputProps} enterKeyHint='search' />
       </label>
       <button
         className='cio-clear-btn'
