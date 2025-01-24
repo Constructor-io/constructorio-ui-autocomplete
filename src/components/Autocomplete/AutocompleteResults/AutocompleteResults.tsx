@@ -41,7 +41,6 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   const { children = DefaultRenderResults } = props;
   const { sections, isOpen, getMenuProps, getItemProps, closeMenu } =
     useContext(CioAutocompleteContext);
-
   const hasResults = sections && sections.some((section) => section?.data?.length);
 
   const menuProps = {
@@ -49,6 +48,7 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
   };
 
   let content;
+
   if (isOpen && hasResults) {
     content = (
       <>
