@@ -224,22 +224,22 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain(
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain(
     'cio-section-search-suggestions'
   );
 
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section-products');
-
-  // bestsellers indexSectionName is products, and we render class based on that
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section-products');
 
+  // bestsellers indexSectionName is products, and we render class based on that
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('cio-section');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('cio-section-products');
+
   // @deprecated The following classNames will be removed in the next major version
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Search Suggestions');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('bestsellers');
 };
 
 // - type search term => render all sections in custom order
@@ -268,22 +268,22 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section-products');
-
-  // bestsellers indexSectionName is products, and we render class based on that
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section-products');
 
+  // bestsellers indexSectionName is products, and we render class based on that
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain(
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section-products');
+
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('cio-section');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain(
     'cio-section-search-suggestions'
   );
 
   // @deprecated The following classNames will be removed in the next major version
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Products');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('bestsellers');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('Search Suggestions');
 };
 
 // - select term suggestion => network tracking event

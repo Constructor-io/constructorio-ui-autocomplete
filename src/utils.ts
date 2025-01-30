@@ -13,7 +13,7 @@ import {
   CONSTANTS,
 } from './beaconUtils';
 import { isRecommendationsSection } from './typeGuards';
-import { Item, Section, UserDefinedSection, SectionsData, Translations } from './types';
+import { Item, Section, UserDefinedSection, SectionsData, Translations, PodData } from './types';
 import version from './version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -180,7 +180,8 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionsResults: SectionsData,
-  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>
+  sectionsRefs: React.MutableRefObject<React.RefObject<HTMLLIElement>[]>,
+  podsData: Record<string, PodData>
 ) => {
   const activeSectionsWithData: Section[] = [];
 
@@ -215,6 +216,11 @@ export const getActiveSectionsWithData = (
         ...sectionConfig,
         data: sectionData,
       };
+
+      if (sectionConfig.type === 'recommendations') {
+        section.displayName =
+          sectionConfig.displayName || podsData[sectionConfig.podId].displayName;
+      }
 
       // If ref passed as part of `SectionConfiguration`, use it.
       // Otherwise, use the ref from our library generated refs array
