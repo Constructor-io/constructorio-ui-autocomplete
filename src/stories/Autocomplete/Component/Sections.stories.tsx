@@ -181,6 +181,7 @@ DisplayNoResultsMessage.args = {
     },
     {
       indexSectionName: 'Products',
+      displayNoResultsMessage: true,
     },
     {
       podId: 'bestsellers',
