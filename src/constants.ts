@@ -72,8 +72,8 @@ export const sectionsDescription = `- by default, typing a query will fetch data
 - the order of the objects in the \`sections\` array determines the order of the results
 - each autocomplete section object must have a \`indexSectionName\`
 - each recommendation section object must have a \`podId\`
-- recommendation section displayName if passed will override the displayName set by Merchandisers
-- each custom section object must have a \`displayName\`. 
+- passing displayName in the sectionConfiguration will override the displayName set by Merchandisers on the Customer Dashboard for the recommendation section
+- each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8
 
@@ -113,7 +113,7 @@ export const zeroStateDescription = `- when the text input field has no text, we
 - the order of the objects in the \`zeroStateSections\` array determines the order of the results
 - each autocomplete section object must have a \`indexSectionName\`
 - each recommendation section object must have a \`podId\`
-- recommendation section displayName if passed will override the displayName set by Merchandisers
+- passing displayName in the sectionConfiguration will override the displayName set by Merchandisers on the Customer Dashboard for the recommendation section
 - each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8`;
