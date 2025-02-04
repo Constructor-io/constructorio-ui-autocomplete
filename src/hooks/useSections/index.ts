@@ -62,7 +62,8 @@ export default function useSections(
     sectionsResults,
     activeSections,
     sectionsRefs,
-    query
+    query,
+    recommendations.podsData
   );
 
   return {

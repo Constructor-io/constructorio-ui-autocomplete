@@ -1,12 +1,14 @@
+/* eslint-disable max-params */
 import { RefObject, useEffect, useState } from 'react';
-import { UserDefinedSection, Section, SectionsData } from '../../types';
+import { UserDefinedSection, Section, SectionsData, PodData } from '../../types';
 import { getActiveSectionsWithData } from '../../utils';
 
 export default function useActiveSectionsWithData(
   sectionsResults: SectionsData,
   activeSections: UserDefinedSection[],
   sectionsRefs: React.MutableRefObject<RefObject<HTMLLIElement>[]>,
-  query: string
+  query: string,
+  podsData: Record<string, PodData>
 ) {
   const [activeSectionsWithData, setActiveSectionsWithData] = useState<Section[]>([]);
 
@@ -15,13 +17,14 @@ export default function useActiveSectionsWithData(
     const activeSectionsWithDataValue = getActiveSectionsWithData(
       activeSections,
       sectionsResults,
-      sectionsRefs
+      sectionsRefs,
+      podsData
     );
 
     if (activeSectionsWithDataValue.length || !query) {
       setActiveSectionsWithData(activeSectionsWithDataValue);
     }
-  }, [activeSections, sectionsResults, sectionsRefs, query]);
+  }, [activeSections, sectionsResults, sectionsRefs, query, podsData]);
 
   return activeSectionsWithData;
 }
