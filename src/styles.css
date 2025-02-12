@@ -192,3 +192,8 @@
   width: 15px;
   height: 15px;
 }
+
+.cio-autocomplete .cio-section-search-suggestions .cio-no-results-message {
+  min-width: 160px;
+  margin: 15px 3px;
+}

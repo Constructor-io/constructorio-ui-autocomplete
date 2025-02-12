@@ -129,6 +129,8 @@ export type SectionConfiguration = {
   numResults?: number;
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
+  // This property will only take effect when using the component and not the hook
+  displayNoResultsMessage?: boolean;
   ref?: React.RefObject<HTMLElement>;
   renderItem?: (props: {
     item: Item;

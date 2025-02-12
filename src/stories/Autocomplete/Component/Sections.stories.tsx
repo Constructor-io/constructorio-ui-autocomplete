@@ -14,6 +14,7 @@ import {
   apiKey,
   onSubmitDefault as onSubmit,
   displaySearchTermHighlightsDescription,
+  displayNoResultsMessageDescription,
   customRenderItemDescription,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
@@ -167,6 +168,31 @@ addComponentStoryDescription(
   DisplaySearchTermHighlights,
   `const args = ${stringifyWithDefaults(DisplaySearchTermHighlights.args)}`,
   displaySearchTermHighlightsDescription
+);
+
+export const DisplayNoResultsMessage = ComponentTemplate.bind({});
+DisplayNoResultsMessage.args = {
+  apiKey,
+  onSubmit,
+  sections: [
+    {
+      indexSectionName: 'Search Suggestions',
+      displayNoResultsMessage: true,
+    },
+    {
+      indexSectionName: 'Products',
+      displayNoResultsMessage: true,
+    },
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+    },
+  ],
+};
+addComponentStoryDescription(
+  DisplayNoResultsMessage,
+  `const args = ${stringifyWithDefaults(DisplayNoResultsMessage.args)}`,
+  displayNoResultsMessageDescription
 );
 
 export const RenderCustomSection = ComponentTemplate.bind({});
