@@ -1,6 +1,6 @@
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringifyWithDefaults } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils/format';
 import { HooksTemplate, addHookStoryCode } from '.';
 import {
   advancedParametersDescription,
