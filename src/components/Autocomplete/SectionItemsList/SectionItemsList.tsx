@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
+import CustomSectionItem from '../SectionItem/CustomSectionItem';
 import { camelToStartCase, translate } from '../../../utils';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import NoResults from '../AutocompleteResults/NoResults';
@@ -63,7 +64,14 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => {
           if (typeof section?.renderItem === 'function') {
-            return section.renderItem({ item, query, getItemProps });
+            return (
+              <CustomSectionItem
+                renderItem={section.renderItem}
+                item={item}
+                query={query}
+                key={item.id}
+              />
+            );
           }
           return (
             <SectionItem
