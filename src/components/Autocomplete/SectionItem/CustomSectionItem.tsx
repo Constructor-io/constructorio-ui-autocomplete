@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useMemo } from 'react';
+import React, { ReactNode, useContext, useMemo, useEffect, useRef, isValidElement } from 'react';
 import { Item } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 
@@ -15,20 +15,18 @@ interface CustomItemProps {
 export default function CustomSectionItem(props: CustomItemProps) {
   const { renderItem, item, query } = props;
   const { getItemProps } = useContext(CioAutocompleteContext);
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const customElement = useMemo(() => renderItem({ item, query, getItemProps }), [item]);
 
   const isDomElement = customElement instanceof HTMLElement;
-  const isReactNode = React.isValidElement(customElement);
+  const isReactNode = isValidElement(customElement);
 
-  React.useEffect(() => {
-    if (isDomElement) {
-      if (ref.current) {
-        ref.current.innerHTML = ''; // Clear previous content
-        ref.current.appendChild(customElement);
-      }
+  useEffect(() => {
+    if (isDomElement && ref.current) {
+      ref.current.innerHTML = ''; // Clear previous content
+      ref.current.appendChild(customElement);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);

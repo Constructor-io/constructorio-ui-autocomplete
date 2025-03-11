@@ -18,7 +18,7 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
-  const { getSectionProps, query, getFormProps, advancedParameters, getItemProps } =
+  const { getSectionProps, query, getFormProps, advancedParameters } =
     useContext(CioAutocompleteContext);
   const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
