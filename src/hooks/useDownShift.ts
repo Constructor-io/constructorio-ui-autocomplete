@@ -69,6 +69,15 @@ const useDownShift: UseDownShift = ({
         }
       }
     },
+    stateReducer: (state, actionAndChanges) => {
+      const { type, changes } = actionAndChanges;
+
+      // Override dropdown close on blur
+      if (type === useCombobox.stateChangeTypes.InputBlur) {
+        return { ...changes, isOpen: state.isOpen };
+      }
+      return changes;
+    },
     ...rest,
   });
 
