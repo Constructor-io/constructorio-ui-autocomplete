@@ -1,7 +1,7 @@
 /* eslint-disable max-params */
 import { RefObject, useEffect, useState } from 'react';
 import { UserDefinedSection, Section, SectionsData, PodData } from '../../types';
-import { getActiveSectionsWithData } from '../../utils';
+import { getActiveSectionsWithData } from '../../utils/helpers';
 
 export default function useActiveSectionsWithData(
   sectionsResults: SectionsData,

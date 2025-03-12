@@ -2,11 +2,13 @@ import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
-import { getCioClient, isTrackingRequestSent, sleep } from '../../utils';
-import { storageSetItem, storageGetItem, CONSTANTS } from '../../beaconUtils';
+import { getCioClient, sleep } from '../../utils/helpers';
+import { storageGetItem, storageSetItem } from '../../utils/storage';
 import { ComponentTemplate } from '../Autocomplete/Component';
 import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 import { CioAutocompleteProps } from '../../types';
+import { isTrackingRequestSent } from '../../utils/tracking';
+import { CONSTANTS } from '../../utils/beaconUtils';
 
 export default {
   title: 'Autocomplete/Interaction Tests/Component',

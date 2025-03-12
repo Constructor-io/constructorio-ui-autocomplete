@@ -1,7 +1,7 @@
 import React from 'react';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringifyWithDefaults } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils/format';
 import {
   contentDescription,
   customSectionDescription,

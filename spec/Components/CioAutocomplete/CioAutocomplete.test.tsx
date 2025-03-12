@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { CioAutocomplete } from '../../../src';
 import { mockCioClientJS } from '../../test-utils';
 import { apiKey as DEMO_API_KEY, onSubmitDefault as onSubmit } from '../../../src/constants';
@@ -125,5 +125,64 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     }).not.toThrow();
 
     expect(console.error).not.toHaveBeenCalled();
+  });
+  describe('Custom UI variant', () => {
+    afterEach(() => {
+      window.sessionStorage.removeItem('_constructorio_custom_autosuggest_ui_');
+    });
+
+    it('Renders the default CioAutocomplete when no custom UI variant is set', async () => {
+      render(<CioAutocomplete apiKey={DEMO_API_KEY} onSubmit={() => {}} />);
+
+      const searchInput = screen.getByRole('combobox');
+
+      fireEvent.change(searchInput, { target: { value: 'pants' } });
+
+      const options = (await screen.findAllByRole('option', undefined, { timeout: 5000 })).filter(
+        (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
+      );
+
+      options.forEach((option) => {
+        const suggestionCount = option.querySelector('.cio-suggestion-count');
+        expect(suggestionCount).not.toBeInTheDocument();
+      });
+    });
+
+    it('Takes custom UI variant from session storage and applies features based on the variant', async () => {
+      window.sessionStorage.setItem(
+        '_constructorio_custom_autosuggest_ui_',
+        'custom_autosuggest_ui_result_count'
+      );
+
+      const props = {
+        apiKey: DEMO_API_KEY,
+        onSubmit: () => {},
+        sections: [
+          {
+            indexSectionName: 'Search Suggestions',
+            numResults: 8,
+          },
+          {
+            indexSectionName: 'Products',
+            numResults: 6,
+          },
+        ],
+      };
+
+      render(<CioAutocomplete {...props} />);
+
+      const searchInput = screen.getByRole('combobox');
+
+      fireEvent.change(searchInput, { target: { value: 'pants' } });
+
+      const options = (await screen.findAllByRole('option')).filter(
+        (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
+      );
+
+      options.forEach((option) => {
+        const suggestionCount = option.querySelector('.cio-suggestion-count');
+        expect(suggestionCount).toBeInTheDocument();
+      });
+    });
   });
 });
