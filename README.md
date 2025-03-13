@@ -15,7 +15,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete?style=flat-square)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
 
-![Autocomplete UI demonstration](assets/autocomplete-ui-demonstration.gif)
+<img src="assets/autocomplete-ui-demonstration.gif" alt="Autocomplete UI demonstration" height="500">
 
 </div>
 
