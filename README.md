@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="120px" height="120px">
   
-  <h1>Constructorio UI Autocomplete</h1>
+  <h1>Autocomplete UI</h1>
 
   <p align="center" style="font-size: 1.2rem;">Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences for <a href='https://constructor.com/solutions/search'>Constructor.io's autosuggest services</a>. 🚀</p>
 
