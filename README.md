@@ -31,9 +31,6 @@
 ## Installation & Basic Usage
 Install the library
 ```sh
-# with Yarn
-$ yarn add @constructor-io/constructorio-ui-autocomplete
-
 # with npm
 $ npm i @constructor-io/constructorio-ui-autocomplete
 ```
