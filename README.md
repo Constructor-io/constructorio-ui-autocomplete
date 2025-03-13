@@ -31,8 +31,7 @@
 ## Installation & Basic Usage
 Install the library
 ```sh
-# with npm
-$ npm i @constructor-io/constructorio-ui-autocomplete
+npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
 Import and use the `CioAutocomplete` component
