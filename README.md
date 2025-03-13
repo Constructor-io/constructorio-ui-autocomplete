@@ -28,7 +28,7 @@
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
 - 🛡 Written in TypeScript with type safety.
 
-## Installation & Basic Usage
+## Installation & Quick Start
 Install the library
 ```sh
 npm i @constructor-io/constructorio-ui-autocomplete
