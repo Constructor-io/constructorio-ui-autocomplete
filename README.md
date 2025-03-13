@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="120px" height="120px">
+  <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="220px" height="220px">
   
   <h1>Autocomplete UI</h1>
 
@@ -11,9 +11,9 @@
 <hr />
 <div align="center">
 
-![minzipped size](https://img.shields.io/bundlephobia/minzip/@constructor-io/constructorio-ui-autocomplete?color=green&style=flat-square)
-[![NPM Version](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete?style=flat-square)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
+![minzipped size](https://img.shields.io/bundlephobia/minzip/@constructor-io/constructorio-ui-autocomplete?color=green&style=plastic)
+[![NPM Version](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete?style=plastic)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=plastic)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
 
 ![Autocomplete UI demonstration](assets/autocomplete-ui-demonstration.gif)
 
@@ -38,7 +38,7 @@ $ yarn add @constructor-io/constructorio-ui-autocomplete
 $ npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
-Import and use the CioAutocomplete component
+Import and use the `CioAutocomplete` component
 ```sh
 import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 function YourComponent() {
