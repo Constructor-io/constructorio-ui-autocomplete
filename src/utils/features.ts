@@ -12,7 +12,7 @@ export type CustomAutosuggestUiVariant = (typeof AUTOSUGGEST_CUSTOM_UI_VARIANTS)
 
 const AUTOSUGGEST_CUSTOM_UI_STORAGE_KEY = {
   scope: 'session',
-  key: '_constructorio_custom_autosuggest_ui_',
+  key: '_constructorio_custom_autosuggest_ui',
 };
 
 const isCustomAutosuggestUiVariant = (variant: string): variant is CustomAutosuggestUiVariant =>

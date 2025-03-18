@@ -150,7 +150,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
     it('Takes custom UI variant from session storage and applies features based on the variant', async () => {
       window.sessionStorage.setItem(
-        '_constructorio_custom_autosuggest_ui_',
+        '_constructorio_custom_autosuggest_ui',
         'custom_autosuggest_ui_result_count'
       );
 
@@ -167,6 +167,46 @@ describe('CioAutocomplete Client-Side Rendering', () => {
             numResults: 6,
           },
         ],
+      };
+
+      render(<CioAutocomplete {...props} />);
+
+      const searchInput = screen.getByRole('combobox');
+
+      fireEvent.change(searchInput, { target: { value: 'pants' } });
+
+      const options = (await screen.findAllByRole('option')).filter(
+        (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
+      );
+
+      options.forEach((option) => {
+        const suggestionCount = option.querySelector('.cio-suggestion-count');
+        expect(suggestionCount).toBeInTheDocument();
+      });
+    });
+
+    it('Applies features sent in advancedParameters even if a custom UI variant is set that affects that feature', async () => {
+      window.sessionStorage.setItem(
+        '_constructorio_custom_autosuggest_ui',
+        'custom_autosuggest_ui_result_count'
+      );
+
+      const props = {
+        apiKey: DEMO_API_KEY,
+        onSubmit: () => {},
+        sections: [
+          {
+            indexSectionName: 'Search Suggestions',
+            numResults: 8,
+          },
+          {
+            indexSectionName: 'Products',
+            numResults: 6,
+          },
+        ],
+        advancedParameters: {
+          displaySearchSuggestionResultCounts: false,
+        },
       };
 
       render(<CioAutocomplete {...props} />);
