@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
+import CustomSectionItem from '../SectionItem/CustomSectionItem';
 import { translate } from '../../../utils/helpers';
 import { camelToStartCase } from '../../../utils/format';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
@@ -18,7 +19,7 @@ type SectionItemsListProps = {
 
 // eslint-disable-next-line func-names
 const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ section }) {
-  const { getSectionProps, query, getFormProps, advancedParameters, getItemProps } =
+  const { getSectionProps, query, getFormProps, advancedParameters } =
     useContext(CioAutocompleteContext);
   const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
@@ -64,7 +65,14 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => {
           if (typeof section?.renderItem === 'function') {
-            return section.renderItem({ item, query, getItemProps });
+            return (
+              <CustomSectionItem
+                renderItem={section.renderItem}
+                item={item}
+                query={query}
+                key={item.id}
+              />
+            );
           }
           return (
             <SectionItem

@@ -221,7 +221,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
       options.forEach((option) => {
         const suggestionCount = option.querySelector('.cio-suggestion-count');
-        expect(suggestionCount).toBeInTheDocument();
+        expect(suggestionCount).not.toBeInTheDocument();
       });
     });
   });

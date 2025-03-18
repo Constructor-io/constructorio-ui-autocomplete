@@ -262,5 +262,6 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 
 export const customRenderItemDescription = `Customize the rendering of individual items within a Section by providing a \`renderItem\` function. This function allows you to define how each item should be rendered.
 - Make sure to call \`getItemProps(item)\` and spread like this \`<div {...getItemProps(item)}/>\` on the container of each custom rendered item or else tracking will not work.
+- Supports both ReactNode and HTMLElement as a return type
 `;
 export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button at the bottom of the Products section to show all results. This button will submit the form and trigger the \`onSubmit\` callback.`;

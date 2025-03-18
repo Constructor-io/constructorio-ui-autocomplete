@@ -21,6 +21,7 @@ import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
 import { isCustomSection, isRecommendationsSection } from '../typeGuards';
 import useNormalizedProps from './useNormalizedProps';
+import useCustomBlur from './useCustomBlur';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -87,6 +88,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     previousQuery,
     ...rest,
   });
+
+  useCustomBlur(isOpen, closeMenu, autocompleteClassName);
 
   // Log console errors
   useConsoleErrors(sections, activeSections);
