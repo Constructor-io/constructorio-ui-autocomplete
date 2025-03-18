@@ -93,7 +93,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     ...rest,
   });
 
-  useCustomBlur(isOpen, closeMenu);
+  useCustomBlur(isOpen, closeMenu, autocompleteClassName);
 
   // Log console errors
   useConsoleErrors(sections, activeSections);

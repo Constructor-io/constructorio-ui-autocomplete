@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 
-const useCustomBlur = (isOpen: boolean, closeMenu: () => void) => {
+const useCustomBlur = (isOpen: boolean, closeMenu: () => void, autocompleteClassName: string) => {
   const handleDocumentClick = useCallback(
     (event: MouseEvent) => {
-      if (isOpen && !(event.target as HTMLElement)?.closest('.cio-autocomplete')) {
+      if (isOpen && !(event.target as HTMLElement)?.closest(`.${autocompleteClassName}`)) {
         closeMenu();
       }
     },
-    [closeMenu, isOpen]
+    [closeMenu, isOpen, autocompleteClassName]
   );
 
   useEffect(() => {
