@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringifyWithDefaults, disableStoryActions, functionStrings } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils/format';
+import { disableStoryActions, functionStrings } from '../../../utils/helpers';
 import {
   onChangeDescription,
   onFocusDescription,

@@ -12,14 +12,10 @@ import {
   UseCioAutocompleteOptions,
 } from '../types';
 import usePrevious from './usePrevious';
-import {
-  getItemPosition,
-  getItemsForActiveSections,
-  getFeatures,
-  trackRecommendationView,
-  toKebabCase,
-  trackSearchSubmit,
-} from '../utils';
+import { getItemPosition, getItemsForActiveSections } from '../utils/helpers';
+import { toKebabCase } from '../utils/format';
+import { trackRecommendationView, trackSearchSubmit } from '../utils/tracking';
+import { getFeatures } from '../utils/features';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';

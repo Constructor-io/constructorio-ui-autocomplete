@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext } from 'react';
 import { Item, Section } from '../../../types';
-import { toKebabCase } from '../../../utils';
+import { toKebabCase } from '../../../utils/format';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
 import CloseIcon from './CloseIcon';

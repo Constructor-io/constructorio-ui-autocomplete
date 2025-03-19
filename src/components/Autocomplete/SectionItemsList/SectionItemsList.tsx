@@ -2,7 +2,8 @@ import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import CustomSectionItem from '../SectionItem/CustomSectionItem';
-import { camelToStartCase, translate } from '../../../utils';
+import { translate } from '../../../utils/helpers';
+import { camelToStartCase } from '../../../utils/format';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import NoResults from '../AutocompleteResults/NoResults';
 

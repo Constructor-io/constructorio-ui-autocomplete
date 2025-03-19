@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
-import { functionStrings, stringifyWithDefaults } from '../../../utils';
 import { ComponentTemplate, FullExampleTemplate, addComponentStoryDescription } from '.';
 import {
   fullFeaturedAndStyledExampleDescription,
@@ -14,6 +13,8 @@ import {
   onSubmitDefault as onSubmit,
   cioJsClientOptionsDescription,
 } from '../../../constants';
+import { stringifyWithDefaults } from '../../../utils/format';
+import { functionStrings } from '../../../utils/helpers';
 
 const meta: Meta<typeof CioAutocomplete> = {
   title: 'Autocomplete/Component',
