@@ -128,7 +128,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
   });
   describe('Custom UI variant', () => {
     afterEach(() => {
-      window.sessionStorage.removeItem('_constructorio_custom_autosuggest_ui_');
+      window.sessionStorage.removeItem('_constructorio_custom_autosuggest_ui');
     });
 
     it('Renders the default CioAutocomplete when no custom UI variant is set', async () => {
