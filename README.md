@@ -3,7 +3,7 @@
   
   <h1>Autocomplete UI</h1>
 
-  <p align="center" style="font-size: 1.2rem;">Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences for <a href='https://constructor.com/solutions/search'>Constructor.io's autosuggest services</a>. 🚀</p>
+  <p align="center" style="font-size: 1.2rem;">Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences with <a href='https://constructor.com/solutions/search'>Constructor.io's autosuggest services</a>. 🚀</p>
 
   [**Read The Docs**](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 </div>
@@ -23,7 +23,7 @@
 
 - 📦 A Plug and play React component
 - ⚡ Lightweight & Fast – Tiny bundle size, optimized for speed.
-- 🎨 Customizable UI – With minmal styles, and supports for custom markup.
+- 🎨 Customizable UI – With minimal styles and support for custom markup.
 - ⌨️ Keyboard Navigation – Fully supports accessible keyboard naviagation.
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
 - 🛡 Written in TypeScript with type safety.
@@ -35,7 +35,7 @@ npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
 Import and use the `CioAutocomplete` component
-```sh
+```ts
 import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 function YourComponent() {
   return (
