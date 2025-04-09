@@ -21,12 +21,12 @@
 
 ## Features
 
-- 📦 A Plug and play React component
-- ⚡ Lightweight & Fast – Tiny bundle size, optimized for speed.
-- 🎨 Customizable UI – With minimal styles and support for custom markup.
-- ⌨️ Keyboard Navigation – Fully supports accessible keyboard naviagation.
+- 🔌 Easy Integration – Quickly integrate with your app as a plug-and-play React component
+- ⚡ Lightweight & Fast – Tiny bundle size, optimized for speed
+- 🎨 Customizable UI – With minmal styles, and supports for custom markup
+- ⌨️ Keyboard Navigation – Fully supports accessible keyboard naviagation
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
-- 🛡 Written in TypeScript with type safety.
+- 🛡 Written in TypeScript with type safety
 
 ## Installation & Quick Start
 Install the library
@@ -37,6 +37,8 @@ npm i @constructor-io/constructorio-ui-autocomplete
 Import and use the `CioAutocomplete` component
 ```ts
 import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
 function YourComponent() {
   return (
     <div>
