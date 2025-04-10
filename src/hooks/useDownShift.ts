@@ -2,7 +2,7 @@ import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
-import { trackSearchSubmit, trackAutocompleteSelect } from '../utils';
+import { trackSearchSubmit, trackAutocompleteSelect } from '../utils/tracking';
 
 let idCounter = 0;
 

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { getCioClient } from '../utils';
+import { getCioClient } from '../utils/helpers';
 import { CioClientConfig } from '../types';
 
 type UseCioClient = (cioClientConfig: CioClientConfig) => Nullable<ConstructorIOClient>;
