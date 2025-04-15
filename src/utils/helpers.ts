@@ -71,6 +71,8 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
       sendTrackingEvents: true,
       version: `cio-ui-autocomplete-${version}`,
       ...cioJsClientOptions,
+      // Remove `as any` once the EventDispatcher option type is updated in client javascript SDK (https://github.com/Constructor-io/constructorio-client-javascript/pull/373)
+      eventDispatcher: { waitForBeacon: false } as any,
     });
 
     // eslint-disable-next-line no-console
