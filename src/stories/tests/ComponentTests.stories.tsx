@@ -1,5 +1,4 @@
-import { within, userEvent } from '@storybook/test';
-import { expect } from '@storybook/test';
+import { within, userEvent, expect } from '@storybook/test';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
 import { getCioClient, sleep } from '../../utils/helpers';
