@@ -11,13 +11,11 @@
     },
     ".": {
       "import": "./lib/mjs/index.js",
-      "require": "./lib/cjs/index.js",
-      "types": "./lib/types/index.d.ts"
+      "require": "./lib/cjs/index.js"
     },
     "./cjs": {
       "import": "./lib/cjs/index.js",
-      "require": "./lib/cjs/index.js",
-      "types": "./lib/types/index.d.ts"
+      "require": "./lib/cjs/index.js"
     },
     "./constructorio-ui-autocomplete-bundled": {
       "import": "./dist/constructorio-ui-autocomplete-bundled.js",
@@ -45,8 +43,8 @@
   "author": "Constructor.io Corporation",
   "license": "MIT",
   "volta": {
-    "node": "16.17.0",
-    "npm": "8.19.2"
+    "node": "22.14.0",
+    "npm": "10.9.2"
   },
   "repository": {
     "type": "git",
@@ -63,16 +61,22 @@
     "node": ">=14"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.27.0",
+    "@chromatic-com/storybook": "^3.2.6",
     "@cspell/eslint-plugin": "^6.18.1",
-    "@storybook/addon-a11y": "^7.6.20",
-    "@storybook/addon-actions": "^7.6.20",
-    "@storybook/addon-essentials": "^7.6.20",
-    "@storybook/addon-interactions": "^7.6.20",
-    "@storybook/addon-links": "^7.6.20",
-    "@storybook/jest": "^0.2.3",
-    "@storybook/react-webpack5": "^7.6.20",
-    "@storybook/test-runner": "^0.16.0",
-    "@storybook/testing-library": "^0.1.0",
+    "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-actions": "^8.6.12",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-interactions": "^8.6.12",
+    "@storybook/addon-links": "^8.6.12",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/manager-api": "^8.6.12",
+    "@storybook/react-webpack5": "^8.6.12",
+    "@storybook/test": "^8.6.12",
+    "@storybook/test-runner": "^0.22.0",
+    "@storybook/theming": "^8.6.12",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.5.12",
@@ -89,7 +93,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-storybook": "^0.6.12",
+    "eslint-plugin-storybook": "^0.12.0",
     "husky": "^8.0.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -98,10 +102,10 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "start-server-and-test": "^2.0.3",
-    "storybook": "^7.6.20",
+    "storybook": "^8.6.12",
     "ts-jest": "^29.1.5",
     "typescript": "^4.8.3",
-    "vite": "^4.3.7",
+    "vite": "^6.3.2",
     "vite-plugin-css-injected-by-js": "^3.1.1",
     "webpack": "^5.75.0"
   },
