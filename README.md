@@ -28,13 +28,15 @@
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
 - 🛡 Written in TypeScript with type safety
 
-## Installation & Quick Start
+## ⚡ Installation & Quick Start
 Install the library
+
 ```sh
 npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
 Import and use the `CioAutocomplete` component
+
 ```ts
 import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 import '@constructor-io/constructorio-ui-autocomplete/styles.css';
@@ -49,3 +51,11 @@ function YourComponent() {
     </div>
   );
 ```
+
+## 🚀 Advanced Features
+
+- [Terms With Group Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-group-suggestions)
+- [Filtered Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#filtered-suggestions)
+- [Terms With Images And Counts](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-images-and-counts)
+
+For more advanced use cases please check the [full documnetation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
