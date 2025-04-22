@@ -107,7 +107,8 @@
     "typescript": "^4.8.3",
     "vite": "^6.3.2",
     "vite-plugin-css-injected-by-js": "^3.1.1",
-    "webpack": "^5.75.0"
+    "webpack": "^5.75.0",
+    "whatwg-fetch": "^3.6.20"
   },
   "peerDependencies": {
     "@constructor-io/constructorio-client-javascript": "^2.51.0",
