@@ -2,7 +2,7 @@ import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
-import { trackSearchSubmit, trackAutocompleteSelect } from '../utils';
+import { trackSearchSubmit, trackAutocompleteSelect } from '../utils/tracking';
 
 let idCounter = 0;
 
@@ -68,6 +68,15 @@ const useDownShift: UseDownShift = ({
           }
         }
       }
+    },
+    stateReducer: (state, actionAndChanges) => {
+      const { type, changes } = actionAndChanges;
+
+      // Override dropdown close on blur
+      if (type === useCombobox.stateChangeTypes.InputBlur) {
+        return { ...changes, isOpen: state.isOpen };
+      }
+      return changes;
     },
     ...rest,
   });

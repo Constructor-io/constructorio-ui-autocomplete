@@ -1,7 +1,7 @@
 /* eslint-disable max-params */
 import { useEffect } from 'react';
 import { PodData, UserDefinedSection } from '../../types';
-import { getFeatures } from '../../utils';
+import { getFeatures } from '../../utils/features';
 
 export default function useRemoveSections(
   sections: UserDefinedSection[],
