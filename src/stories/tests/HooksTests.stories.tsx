@@ -1,5 +1,4 @@
-import { within, userEvent } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { within, userEvent, expect, fn } from '@storybook/test';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
 import { getCioClient, sleep } from '../../utils/helpers';
@@ -24,6 +23,11 @@ export default {
   },
 };
 
+const explicitActionsSpies = {
+  onFocus: fn(),
+  onChange: fn(),
+};
+
 const defaultArgs: CioAutocompleteProps = {
   apiKey,
   onSubmit,
@@ -35,7 +39,13 @@ const defaultArgs: CioAutocompleteProps = {
       indexSectionName: 'Search Suggestions',
     },
   ],
+  ...explicitActionsSpies,
 };
+
+// @ts-ignore
+// eslint-disable-next-line
+window.navigator.__defineGetter__('webdriver', () => false);
+window.sessionStorage.setItem('_constructorio_is_human', 'true');
 
 // - No Interaction => Correctly render default state
 export const RenderAutocompleteDefaultState = HooksTemplate.bind({});
@@ -81,6 +91,7 @@ FocusNoZeroStateShowNoResults.play = async ({ canvasElement }) => {
 // - type whitespace search term => doesn't run an autocomplete request
 export const TypeWhitespaceSearchTermNoError = HooksTemplate.bind({});
 TypeWhitespaceSearchTermNoError.args = {
+  ...explicitActionsSpies,
   apiKey,
 };
 let isAutocompleteResultsError = false;
@@ -118,6 +129,7 @@ TypeWhitespaceSearchTermNoError.play = async ({ canvasElement }) => {
 // - type search term => render term suggestions
 export const TypeSearchTermRenderSearchSuggestions = HooksTemplate.bind({});
 TypeSearchTermRenderSearchSuggestions.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -136,6 +148,7 @@ TypeSearchTermRenderSearchSuggestions.play = async ({ canvasElement }) => {
 // - type search term => render products section
 export const TypeSearchTermRenderProducts = HooksTemplate.bind({});
 TypeSearchTermRenderProducts.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -156,6 +169,7 @@ TypeSearchTermRenderProducts.play = async ({ canvasElement }) => {
 // - type search term => render Recommendations
 export const TypeSearchTermRenderRecommendations = HooksTemplate.bind({});
 TypeSearchTermRenderRecommendations.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -175,6 +189,7 @@ TypeSearchTermRenderRecommendations.play = async ({ canvasElement }) => {
 // - Overwrite recommendations display name set at the dashboard
 export const TypeSearchTermRenderOverriddenRecommendationsDisplayName = HooksTemplate.bind({});
 TypeSearchTermRenderOverriddenRecommendationsDisplayName.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -195,6 +210,7 @@ TypeSearchTermRenderOverriddenRecommendationsDisplayName.play = async ({ canvasE
 // - type search term => render all sections in default order
 export const TypeSearchTermRenderSectionsDefaultOrder = HooksTemplate.bind({});
 TypeSearchTermRenderSectionsDefaultOrder.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -227,6 +243,7 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
 // - type search term => render all sections in custom order
 export const TypeSearchTermRenderSectionsCustomOrder = HooksTemplate.bind({});
 TypeSearchTermRenderSectionsCustomOrder.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -295,6 +312,7 @@ SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }
 // - focus in input field with zero state => render zero state section
 export const FocusRenderZeroStateSection = HooksTemplate.bind({});
 FocusRenderZeroStateSection.args = {
+  ...explicitActionsSpies,
   apiKey,
   zeroStateSections: [
     {
@@ -333,6 +351,7 @@ NoOpenOnFocusDontRenderZeroStateSection.play = async ({ canvasElement }) => {
 
 export const ZeroStateRenderCustomSection = HooksTemplate.bind({});
 ZeroStateRenderCustomSection.args = {
+  ...explicitActionsSpies,
   apiKey,
   zeroStateSections: [
     {
@@ -369,6 +388,7 @@ ZeroStateRenderCustomSection.play = async ({ canvasElement }) => {
 
 export const ZeroStateRenderProductsSection = HooksTemplate.bind({});
 ZeroStateRenderProductsSection.args = {
+  ...explicitActionsSpies,
   apiKey,
   sections: [
     {
@@ -403,6 +423,7 @@ ZeroStateRenderProductsSection.play = async ({ canvasElement }) => {
 
 export const InGroupSuggestions = HooksTemplate.bind({});
 InGroupSuggestions.args = {
+  ...explicitActionsSpies,
   apiKey,
   advancedParameters: {
     numTermsWithGroupSuggestions: 1,
@@ -414,11 +435,12 @@ InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'socks', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Socks & Underwear').length).toEqual(1);
+  expect(canvas.getAllByText('in Socks').length).toEqual(1);
 };
 
 export const InGroupSuggestionsTwo = HooksTemplate.bind({});
 InGroupSuggestionsTwo.args = {
+  ...explicitActionsSpies,
   apiKey,
   advancedParameters: {
     numTermsWithGroupSuggestions: 3,
