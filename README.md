@@ -69,3 +69,10 @@ Ready-to-use, copy-paste examples with explanations.
 - [Terms With Images And Counts](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-images-and-counts)
 
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
+
+## 🔗 Complementary Resources
+
+- 📖 Full Documentation: [Storybook](https://constructor-io.github.io/constructorio-ui-autocomplete/)
+- 📦 JS Client: [SDK Documentation](https://constructor-io.github.io/constructorio-client-javascript/module-autocomplete.html#~getAutocompleteResults)
+- 🛒 Shopify App: [App Store Link](https://apps.shopify.com/constructor-connect)
+- 🌐 Constructor's REST API: [Autocomplete](https://docs.constructor.com/reference/v1-autocomplete-get-autocomplete-results)
