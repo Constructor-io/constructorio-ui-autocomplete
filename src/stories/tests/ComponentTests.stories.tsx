@@ -1,4 +1,4 @@
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
@@ -463,8 +463,9 @@ InGroupSuggestions.args = {
 InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'socks', { delay: 100 });
-  await sleep(1000);
-  expect(canvas.getAllByText('in Socks').length).toEqual(1);
+  await waitFor(() => {
+    expect(canvas.getAllByText('in Socks & Underwear').length).toEqual(1);
+  });
 };
 
 export const InGroupSuggestionsTwo = ComponentTemplate.bind({});
