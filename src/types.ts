@@ -15,8 +15,17 @@ import {
 export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type CioClientConfig = {
+  /**
+   * Your Constructor API key. Either `apiKey` or `cioJsClient` are required
+   */
   apiKey?: string;
+  /**
+   * Optional custom constructor instance. Either `apiKey` or `cioJsClient` are required
+   */
   cioJsClient?: ConstructorIOClient;
+  /**
+   * If you don't want to create an instance of the `ConstructorIOClient` but still want to customize some of the options, you can pass a `cioJsClientOptions` object. You can learn more about the possible values [Here](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html)
+   */
   cioJsClientOptions?: ConstructorClientOptions;
 };
 
@@ -35,17 +44,55 @@ export type AdvancedParameters = AdvancedParametersBase &
   Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
 export type CioAutocompleteProps = CioClientConfig & {
+  /**
+   * Set to `false` to show suggestions only after a user clears their query,
+   * but not when they initially select the input
+   */
   openOnFocus?: boolean;
+  /**
+   * Function that takes in a Search Suggestion, and returns a url to redirect to
+   */
   getSearchResultsUrl?: (item: SearchSuggestion) => string;
+  /**
+   * Callback function that runs when the user submits a search.
+   * Usually used to trigger a redirect
+   */
   onSubmit: OnSubmit;
+  /**
+   * Callback function that runs when the user focuses on the input
+   */
   onFocus?: () => void;
+  /**
+   * Callback function that runs when the user modifies input
+   */
   onChange?: (input: string) => void;
+  /**
+   * Search input placeholder
+   */
   placeholder?: string;
+  /**
+   * Children to be rendered according to the RenderProps pattern
+   */
   children?: ReactNode;
+  /**
+   * Override the sections that will be rendered. Defaults to Products and Search Suggestion sections
+   */
   sections?: UserDefinedSection[];
+  /**
+   * Custom sections that should be rendered during the autocomplete zero state
+   */
   zeroStateSections?: UserDefinedSection[];
+  /**
+   * Override the parent container's class. Defaults to `cio-autocomplete`
+   */
   autocompleteClassName?: string;
+  /**
+   * See Advanced Parameters
+   */
   advancedParameters?: AdvancedParameters;
+  /**
+   * Search input default value
+   */
   defaultInput?: string;
 };
 
