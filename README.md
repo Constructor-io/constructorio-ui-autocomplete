@@ -69,3 +69,10 @@ Ready-to-use, copy-paste examples with explanations.
 - [Terms With Images And Counts](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-images-and-counts)
 
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
+
+## 🤝 Contributing
+
+1. Fork the repo & create a new branch.
+2. Run `npm install` to install dependencies.
+3. After making the desired changes, run `npm run tests && npm run lint` locally.
+4. Submit a PR for review.
