@@ -233,4 +233,5 @@ Dispatch the [Deploy Storybook](https://github.com/Constructor-io/constructorio-
 
 ## License
 [MIT License](./LICENSE)
-Copyright (c) 2022-present Constructor.io Corporation
+
+Copyright (c) 2022-present Constructor
