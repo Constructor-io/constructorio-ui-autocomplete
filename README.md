@@ -70,7 +70,6 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
 
-
 ## 📜 License
 
 [MIT License](./LICENSE)
