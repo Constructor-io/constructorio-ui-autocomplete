@@ -1,3 +1,7 @@
+<!-- START doctoc -->
+<!-- THIS SECTION IS GENERATED AUTOMATICALLY ON PUSH -->
+<!-- END doctoc -->
+
 <div align="center">
   <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="220px" height="220px">
   
