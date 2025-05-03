@@ -1,7 +1,16 @@
-<!-- START doctoc -->
-<!-- THIS SECTION IS GENERATED AUTOMATICALLY ON PUSH -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc -->
 
+- [Autocomplete UI](#autocomplete-ui)
+  - [Features](#features)
+  - [⚡ Installation & Quick Start](#-installation--quick-start)
+  - [💡 Code Examples](#-code-examples)
+  - [🚀 Advanced Features](#-advanced-features)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<!-- test -->
 <div align="center">
   <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="220px" height="220px">
   
