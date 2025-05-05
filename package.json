@@ -40,7 +40,8 @@
     "test-storybook:ci": "start-server-and-test storybook:ci http://localhost:6006 test-storybook",
     "build-storybook": "storybook build -o 'docs'",
     "serve-built-storybook": "npx http-server docs",
-    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build"
+    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build",
+    "doctoc-readme": "doctoc README.md --title '## 📌 Table of Contents'"
   },
   "author": "Constructor.io Corporation",
   "license": "MIT",

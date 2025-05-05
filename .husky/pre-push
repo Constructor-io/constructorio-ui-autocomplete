@@ -12,7 +12,7 @@ if git diff --name-only HEAD @{push} | grep -q "README.md"; then
 
   if [ -n "$DIFF_CONTENT_EXCLUDING_TOC" ]; then
     echo "Changes detected outside TOC section. Running doctoc..."
-    npx doctoc README.md
+    npm run doctoc-readme
     git add README.md
     git commit --amend --no-edit
   fi
