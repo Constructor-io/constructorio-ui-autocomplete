@@ -75,7 +75,8 @@ export type CioAutocompleteProps = CioClientConfig & {
    */
   children?: ReactNode;
   /**
-   * Configure the sections rendered, based on the user's input. Defaults to Products and Search Suggestion sections
+   * Configure the sections rendered, based on the user's input. This can be either Constructor-powered sections,
+   * or your own custom sections. Defaults to Products and Search Suggestion sections powered by Constructor
    */
   sections?: UserDefinedSection[];
   /**
