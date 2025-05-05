@@ -76,3 +76,10 @@ Ready-to-use, copy-paste examples with explanations.
 - 📦 JS Client: [SDK Documentation](https://constructor-io.github.io/constructorio-client-javascript/module-autocomplete.html#~getAutocompleteResults)
 - 🛒 Shopify App: [App Store Link](https://apps.shopify.com/constructor-connect)
 - 🌐 Constructor's REST API: [Autocomplete](https://docs.constructor.com/reference/v1-autocomplete-get-autocomplete-results)
+
+## 🤝 Contributing
+
+1. Fork the repo & create a new branch.
+2. Run `npm install` to install dependencies.
+3. After making the desired changes, run `npm run tests && npm run lint` locally.
+4. Submit a PR for review.
