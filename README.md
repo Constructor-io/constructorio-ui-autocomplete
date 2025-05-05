@@ -73,6 +73,8 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more examples check the [full examples](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 
+## Test hook
+
 ## 🚀 Advanced Features
 
 - [Terms With Group Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-group-suggestions)
