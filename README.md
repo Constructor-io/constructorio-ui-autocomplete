@@ -1,15 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [Autocomplete UI](#autocomplete-ui)
-  - [Features](#features)
-  - [⚡ Installation & Quick Start](#-installation--quick-start)
-  - [💡 Code Examples](#-code-examples)
-  - [🚀 Advanced Features](#-advanced-features)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-<!-- test -->
 <div align="center">
   <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="220px" height="220px">
   
@@ -30,6 +18,18 @@
 <img src="assets/autocomplete-ui-demonstration.gif" alt="Autocomplete UI demonstration" height="500">
 
 </div>
+
+## 📌 Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+- [Autocomplete UI](#autocomplete-ui)
+
+- [Features](#features)
+- [⚡ Installation & Quick Start](#-installation--quick-start)
+- [💡 Code Examples](#-code-examples)
+- [🚀 Advanced Features](#-advanced-features)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Features
 
