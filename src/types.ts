@@ -24,7 +24,7 @@ export type CioClientConfig = {
    */
   cioJsClient?: ConstructorIOClient;
   /**
-   * If you don't want to create an instance of the `ConstructorIOClient` but still want to customize some of the options, you can pass a `cioJsClientOptions` object. You can learn more about the possible values [Here](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html)
+   * Pass a `cioJsClientOptions` object to customize the client's configurations w/o creating a new instance of `ConstructorIOClient`. You can learn more about the possible values [Here](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html)
    */
   cioJsClientOptions?: ConstructorClientOptions;
 };
@@ -50,7 +50,7 @@ export type CioAutocompleteProps = CioClientConfig & {
    */
   openOnFocus?: boolean;
   /**
-   * Function that takes in a Search Suggestion, and returns a url to redirect to
+   * Transforms a `SearchSuggestion` into the desired URL string to be used when rendering anchor tags
    */
   getSearchResultsUrl?: (item: SearchSuggestion) => string;
   /**
@@ -75,15 +75,16 @@ export type CioAutocompleteProps = CioClientConfig & {
    */
   children?: ReactNode;
   /**
-   * Override the sections that will be rendered. Defaults to Products and Search Suggestion sections
+   * Configure the sections rendered, based on the user's input. Defaults to Products and Search Suggestion sections
    */
   sections?: UserDefinedSection[];
   /**
-   * Custom sections that should be rendered during the autocomplete zero state
+   * Configure either Constructor-powered sections or power your own custom sections,
+   * to be rendered for [Autocomplete Zero-State](link-tbd)
    */
   zeroStateSections?: UserDefinedSection[];
   /**
-   * Override the parent container's class. Defaults to `cio-autocomplete`
+   * Configure the parent container's class. Defaults to `cio-autocomplete`
    */
   autocompleteClassName?: string;
   /**
@@ -120,7 +121,7 @@ export type AutocompleteSearchSubmit = {
  * @example if (isAutocompleteSelectSubmit(event)) { ... } // `query` is available
  */
 export const isAutocompleteSelectSubmit = (
-  event: AutocompleteSubmitEvent
+  event: AutocompleteSubmitEvent,
 ): event is AutocompleteSelectSubmit => 'item' in event && 'originalQuery' in event;
 
 /**
@@ -130,7 +131,7 @@ export const isAutocompleteSelectSubmit = (
  * @example if (isAutocompleteSearchSubmit(event)) { ... } // `item` and `originalQuery` are available
  */
 export const isAutocompleteSearchSubmit = (
-  event: AutocompleteSubmitEvent
+  event: AutocompleteSubmitEvent,
 ): event is AutocompleteSearchSubmit => 'query' in event;
 
 export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
