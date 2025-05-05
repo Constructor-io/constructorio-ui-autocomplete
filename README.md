@@ -76,3 +76,9 @@ Ready-to-use, copy-paste examples with explanations.
 2. Run `npm install` to install dependencies.
 3. After making the desired changes, run `npm run tests && npm run lint` locally.
 4. Submit a PR for review.
+
+## 📜 License
+
+[MIT License](./LICENSE)
+
+Copyright (c) 2022-present Constructor.io Corporation
