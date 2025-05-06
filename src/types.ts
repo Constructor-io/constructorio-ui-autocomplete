@@ -51,6 +51,7 @@ export type CioAutocompleteProps = CioClientConfig & {
   openOnFocus?: boolean;
   /**
    * Transforms a `SearchSuggestion` into the desired URL string to be used when rendering anchor tags
+   * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
    */
   getSearchResultsUrl?: (item: SearchSuggestion) => string;
   /**
