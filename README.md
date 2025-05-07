@@ -70,6 +70,16 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
 
+## 🛠 Troubleshooting
+
+Common issues and solutions.
+
+Problem | Description | Solution 
+--- | --- | --- 
+Older Javascript environments | The library provides two different builds. CommonJS (cjs) and ECMAScript Modules (mjs)<br><br>For ECMAScript Modules (mjs) build. The Javascript version is ESNext which might not be supported by your environment. If that's the case and your environment is using an older Javascript version like ES6 (ES2015), you might get this error.<br><br>Module parse failed: Unexpected token (15:32) You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file | To solve this you can import the CommonJS (cjs) build which supports ES6 (ES2015) syntax:<br><br>```import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/cjs'```
+
+💬 Need help? Join our [GitHub Discussions](https://github.com/Constructor-io/constructorio-ui-autocomplete/issues)
+
 ## 📖 API Reference
 
 <!-- TODO: reference the API docs from storybook -->
