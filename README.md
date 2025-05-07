@@ -125,7 +125,7 @@ Common issues and solutions.
   </tbody>
 </table>
 
-💬 Need help? Join our [GitHub Discussions](https://github.com/Constructor-io/constructorio-ui-autocomplete/issues)
+💬 Need help? Join our [GitHub Discussions](https://github.com/Constructor-io/constructorio-ui-autocomplete/discussions)
 
 ## 📖 API Reference
 
