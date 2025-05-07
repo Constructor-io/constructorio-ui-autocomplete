@@ -3,7 +3,8 @@ import React from 'react';
 import useCioAutocomplete from '../../../hooks/useCioAutocomplete';
 import { isCustomSection, isRecommendationsSection } from '../../../typeGuards';
 import { Item } from '../../../types';
-import { camelToStartCase, getStoryParams, toKebabCase } from '../../../utils';
+import { camelToStartCase, toKebabCase } from '../../../utils/format';
+import { getStoryParams } from '../../../utils/helpers';
 
 export function HooksTemplate(args) {
   const {

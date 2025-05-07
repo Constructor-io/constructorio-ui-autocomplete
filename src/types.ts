@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { GetItemPropsOptions } from 'downshift';
+import { GetItemPropsOptions, UseComboboxProps } from 'downshift';
 import { ReactNode } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import {
@@ -43,7 +43,15 @@ export interface AdvancedParametersBase {
 export type AdvancedParameters = AdvancedParametersBase &
   Omit<IAutocompleteParameters, 'resultsPerSection'>;
 
-export type CioAutocompleteProps = CioClientConfig & {
+// Type UseComboboxProps with items as optional
+type OptionalItemsComboboxProps<Item> = Partial<UseComboboxProps<Item>> & {
+  items?: Item[];
+};
+
+export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+
+export type CioAutocompleteProps = CioClientConfig &
+  OptionalItemsComboboxProps<Item> & {
   /**
    * Set to `false` to show suggestions only after a user clears their query,
    * but not when they initially select the input
@@ -171,8 +179,14 @@ export type SectionConfiguration = {
   numResults?: number;
   // This property will only take effect when using the component and not the hook
   displaySearchTermHighlights?: boolean;
+  // This property will only take effect when using the component and not the hook
+  displayNoResultsMessage?: boolean;
   ref?: React.RefObject<HTMLElement>;
-  renderItem?: (props: { item: Item; query: string }) => ReactNode;
+  renderItem?: (props: {
+    item: Item;
+    query: string;
+    getItemProps: (item: Item) => any;
+  }) => ReactNode;
 };
 
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {

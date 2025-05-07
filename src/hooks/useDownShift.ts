@@ -1,24 +1,30 @@
-import { useCombobox, UseComboboxReturnValue } from 'downshift';
+import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
-import { trackSearchSubmit } from '../utils';
+import { trackSearchSubmit, trackAutocompleteSelect } from '../utils/tracking';
 
 let idCounter = 0;
 
-type UseDownShiftOptions = {
+interface UseDownShiftOptions extends UseComboboxProps<Item> {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  items: Item[];
   onSubmit: OnSubmit;
   previousQuery?: string;
   cioClient: Nullable<ConstructorIOClient>;
-};
+}
 
 export type DownShift = UseComboboxReturnValue<Item>;
 
 type UseDownShift = (options: UseDownShiftOptions) => DownShift;
 
-const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, previousQuery = '' }) =>
+const useDownShift: UseDownShift = ({
+  setQuery,
+  items,
+  onSubmit,
+  cioClient,
+  previousQuery = '',
+  ...rest
+}) =>
   useCombobox({
     id: `cio-autocomplete-${idCounter++}`, // eslint-disable-line
     items,
@@ -51,7 +57,7 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
               // (ie: Search Suggestions, Products, Custom Cio sections, etc)
               // This does not apply to custom user defined sections that aren't part of Constructor index
             } else if (selectedItem.result_id) {
-              cioClient?.tracker.trackAutocompleteSelect(selectedItem.value, {
+              trackAutocompleteSelect(cioClient, selectedItem.value, {
                 originalQuery: previousQuery,
                 section: selectedItem.section,
               });
@@ -63,6 +69,16 @@ const useDownShift: UseDownShift = ({ setQuery, items, onSubmit, cioClient, prev
         }
       }
     },
+    stateReducer: (state, actionAndChanges) => {
+      const { type, changes } = actionAndChanges;
+
+      // Override dropdown close on blur
+      if (type === useCombobox.stateChangeTypes.InputBlur) {
+        return { ...changes, isOpen: state.isOpen };
+      }
+      return changes;
+    },
+    ...rest,
   });
 
 export default useDownShift;

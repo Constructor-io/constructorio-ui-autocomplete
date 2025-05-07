@@ -1,7 +1,7 @@
 import React from 'react';
 import { CioAutocomplete } from '../../../index';
 import { argTypes } from '../argTypes';
-import { stringifyWithDefaults } from '../../../utils';
+import { stringifyWithDefaults } from '../../../utils/format';
 import {
   contentDescription,
   customSectionDescription,
@@ -14,6 +14,7 @@ import {
   apiKey,
   onSubmitDefault as onSubmit,
   displaySearchTermHighlightsDescription,
+  displayNoResultsMessageDescription,
   customRenderItemDescription,
 } from '../../../constants';
 import { ComponentTemplate, getComponentStoryParams, addComponentStoryDescription } from '.';
@@ -169,6 +170,31 @@ addComponentStoryDescription(
   displaySearchTermHighlightsDescription
 );
 
+export const DisplayNoResultsMessage = ComponentTemplate.bind({});
+DisplayNoResultsMessage.args = {
+  apiKey,
+  onSubmit,
+  sections: [
+    {
+      indexSectionName: 'Search Suggestions',
+      displayNoResultsMessage: true,
+    },
+    {
+      indexSectionName: 'Products',
+      displayNoResultsMessage: true,
+    },
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+    },
+  ],
+};
+addComponentStoryDescription(
+  DisplayNoResultsMessage,
+  `const args = ${stringifyWithDefaults(DisplayNoResultsMessage.args)}`,
+  displayNoResultsMessageDescription
+);
+
 export const RenderCustomSection = ComponentTemplate.bind({});
 RenderCustomSection.args = {
   apiKey,
@@ -210,8 +236,8 @@ CustomRenderItem.args = {
   sections: [
     {
       indexSectionName: 'Products',
-      renderItem: ({ item, query }) => (
-        <div>
+      renderItem: ({ item, query, getItemProps }) => (
+        <div {...getItemProps(item)} style={{ display: 'block' }}>
           <a href={item.data?.url}>
             <h3>{item.value}</h3>
             <img src={item.data?.image_url} alt={item.value} />
@@ -220,9 +246,6 @@ CustomRenderItem.args = {
           <p>Query: {query}</p>
         </div>
       ),
-    },
-    {
-      indexSectionName: 'Search Suggestions',
     },
   ],
 };

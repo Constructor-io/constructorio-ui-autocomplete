@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { logger } from './utils';
+import { storageGetArray, storageSetItem } from './storage';
 
 export const CONSTANTS = {
   SEARCH_SUBMIT: 'SEARCH_SUBMIT',
@@ -19,27 +19,6 @@ export const CONSTANTS = {
   RECENT_ACTION_STORAGE_COUNT: 5,
 };
 
-// Return storage engine based on scope
-export const getStorageEngine = (scope) => {
-  if (scope === 'local') {
-    return localStorage;
-  }
-
-  return sessionStorage;
-};
-
-// Set item in storage
-export const storageSetItem = (key, value) => {
-  try {
-    const storageEngine = getStorageEngine(key.scope);
-    return storageEngine.setItem(key.key, value);
-  } catch (e) {
-    logger(`storageSetItem error: ${e}`);
-
-    return null;
-  }
-};
-
 /*
  * Use the text content of the resulting HTML node(s) created from the
  * term
@@ -55,36 +34,6 @@ export const cleanTerm = (term) => {
   const nodes = tmp.body.childNodes;
   const texts = [...nodes].map((node) => (node as HTMLElement).innerText || node.textContent);
   return texts.join('');
-};
-
-// Retrieves item from storage for key
-export const storageGetItem = (key) => {
-  try {
-    const storageEngine = getStorageEngine(key.scope);
-
-    return storageEngine.getItem(key.key);
-  } catch (e) {
-    logger(`storageGetItem error: ${e}`);
-
-    return null;
-  }
-};
-
-// Retrieve array from storage
-export const storageGetArray = (key) => {
-  const item = storageGetItem(key);
-
-  if (item) {
-    try {
-      const array = JSON.parse(item);
-
-      return array;
-    } catch (e) {
-      logger(`storageGetArray error: ${e}`);
-    }
-  }
-
-  return null;
 };
 
 /*

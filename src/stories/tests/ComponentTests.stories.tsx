@@ -2,10 +2,13 @@ import { within, userEvent, waitFor } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
-import { getCioClient, isTrackingRequestSent, sleep } from '../../utils';
+import { getCioClient, sleep } from '../../utils/helpers';
+import { storageGetItem, storageSetItem } from '../../utils/storage';
 import { ComponentTemplate } from '../Autocomplete/Component';
 import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 import { CioAutocompleteProps } from '../../types';
+import { isTrackingRequestSent } from '../../utils/tracking';
+import { CONSTANTS } from '../../utils/beaconUtils';
 
 export default {
   title: 'Autocomplete/Interaction Tests/Component',
@@ -223,22 +226,22 @@ TypeSearchTermRenderSectionsDefaultOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain(
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain(
     'cio-section-search-suggestions'
   );
 
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section-products');
-
-  // bestsellers indexSectionName is products, and we render class based on that
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section-products');
 
+  // bestsellers indexSectionName is products, and we render class based on that
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('cio-section');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('cio-section-products');
+
   // @deprecated The following classNames will be removed in the next major version
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Search Suggestions');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('bestsellers');
 };
 
 // - type search term => render all sections in custom order
@@ -267,22 +270,22 @@ TypeSearchTermRenderSectionsCustomOrder.play = async ({ canvasElement }) => {
   expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
   expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
 
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('cio-section-products');
-
-  // bestsellers indexSectionName is products, and we render class based on that
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section');
   expect(canvas.getByTestId('cio-results').children[1].className).toContain('cio-section-products');
 
+  // bestsellers indexSectionName is products, and we render class based on that
   expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain(
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('cio-section-products');
+
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('cio-section');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain(
     'cio-section-search-suggestions'
   );
 
   // @deprecated The following classNames will be removed in the next major version
-  expect(canvas.getByTestId('cio-results').children[0].className).toContain('Products');
-  expect(canvas.getByTestId('cio-results').children[1].className).toContain('bestsellers');
-  expect(canvas.getByTestId('cio-results').children[2].className).toContain('Search Suggestions');
+  expect(canvas.getByTestId('cio-results').children[1].className).toContain('Products');
+  expect(canvas.getByTestId('cio-results').children[2].className).toContain('bestsellers');
+  expect(canvas.getByTestId('cio-results').children[3].className).toContain('Search Suggestions');
 };
 
 // - select term suggestion => network tracking event
@@ -317,6 +320,23 @@ SelectProductSuggestionFiresTrackingAndFillInput.play = async ({ canvasElement }
   await userEvent.click(productSuggestionItem);
   const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
   expect(isSelectTrackingRequestSent).toBeTruthy();
+  await sleep(1000);
+};
+
+// - select product suggestion => Search Term Storage is Cleared
+export const SelectProductSuggestionClearsSearchTermStorage = ComponentTemplate.bind({});
+SelectProductSuggestionClearsSearchTermStorage.args = defaultArgs;
+SelectProductSuggestionClearsSearchTermStorage.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, 'test term');
+  await userEvent.type(canvas.getByTestId('cio-input'), 'red', { delay: 100 });
+  await sleep(1000);
+  expect(canvas.getAllByTestId('cio-item-Products').length).toBeGreaterThan(0);
+  const productSuggestionItem = canvas.getAllByTestId('cio-item-Products')[0];
+  await userEvent.click(productSuggestionItem);
+  const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
+  expect(isSelectTrackingRequestSent).toBeTruthy();
+  expect(storageGetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY)).toBeNull();
   await sleep(1000);
 };
 
