@@ -41,7 +41,8 @@
     "build-storybook": "storybook build --docs -o 'docs'",
     "storybook-docs-dev": "storybook dev --docs -p 6007",
     "serve-built-storybook": "npx http-server docs",
-    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build"
+    "compile": "rm -rf lib && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run copy-styles && vite build",
+    "doctoc-readme": "doctoc README.md --title '## 📌 Table of Contents'"
   },
   "author": "Constructor.io Corporation",
   "license": "MIT",
@@ -81,6 +82,7 @@
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
+    "doctoc": "^2.2.1",
     "eslint": "^8.23.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",

@@ -5,7 +5,8 @@
 
   <p align="center" style="font-size: 1.2rem;">Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences with <a href='https://constructor.com/solutions/search'>Constructor.io's autosuggest services</a>. 🚀</p>
 
-  [**Read The Docs**](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+[**Read The Docs**](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+
 </div>
 
 <hr />
@@ -19,6 +20,17 @@
 
 </div>
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## 📌 Table of Contents
+
+- [Features](#features)
+- [⚡ Installation & Quick Start](#-installation--quick-start)
+- [💡 Code Examples](#-code-examples)
+- [🚀 Advanced Features](#-advanced-features)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Features
 
 - 🔌 Easy Integration – Quickly integrate with your app as a plug-and-play React component
@@ -29,6 +41,7 @@
 - 🛡 Written in TypeScript with type safety
 
 ## ⚡ Installation & Quick Start
+
 Install the library
 
 ```sh
@@ -44,7 +57,7 @@ import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 function YourComponent() {
   return (
     <div>
-      <CioAutocomplete 
+      <CioAutocomplete
         apiKey="key_M57QS8SMPdLdLx4x"
         onSubmit={(e) => {console.log(e)}}
       />
