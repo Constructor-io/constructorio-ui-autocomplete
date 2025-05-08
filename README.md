@@ -22,12 +22,12 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 ## 📌 Table of Contents
 
 - [Features](#features)
 - [⚡ Installation & Quick Start](#-installation--quick-start)
 - [💡 Code Examples](#-code-examples)
+- [Testing doctoc an extra one more time](#testing-doctoc-an-extra-one-more-time)
 - [🚀 Advanced Features](#-advanced-features)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -76,7 +76,7 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more examples check the [full examples](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 
-## Testing doctoc one more time
+## Testing doctoc an extra one more time
 
 Doctoc test
 
