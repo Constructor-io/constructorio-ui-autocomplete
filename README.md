@@ -76,7 +76,7 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more examples check the [full examples](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 
-## Testing doctoc
+## Testing doctoc one more time
 
 Doctoc test
 
