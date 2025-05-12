@@ -129,8 +129,8 @@ Common issues and solutions.
           <br />
           <br />
           <ol>
-            <li>[constructorio-client-javascript](https://github.com/Constructor-io/constructorio-client-javascript)</li>
-            <li>[downshift](https://github.com/downshift-js/downshift)</li>
+            <li><a href="https://github.com/Constructor-io/constructorio-client-javascript">constructorio-client-javascript</a></li>
+            <li><a href="https://github.com/downshift-js/downshift">downshift</a></li>
           </ol>
         </td>
         <td>
