@@ -125,13 +125,13 @@ Common issues and solutions.
       <tr>
         <td>Peer Dependencies</td>
         <td>
-          The library requires two peer dependencies to be installed, so ensure they're installed if not already
+          The library requires a couple of peer dependencies to be installed, so ensure they're installed if not already.
           <br />
           <br />
-          <ul>
+          <ol>
             <li>[constructorio-client-javascript](https://github.com/Constructor-io/constructorio-client-javascript)</li>
             <li>[downshift](https://github.com/downshift-js/downshift)</li>
-          </ul>
+          </ol>
         </td>
         <td>
           Run `npm i downshift @constructor-io/constructorio-client-javascript`
