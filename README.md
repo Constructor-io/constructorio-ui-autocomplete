@@ -134,7 +134,7 @@ Common issues and solutions.
           </ol>
         </td>
         <td>
-          Run `npm i downshift @constructor-io/constructorio-client-javascript`
+          Run <code>npm i downshift @constructor-io/constructorio-client-javascript</code>
         </td>
       </tr>
   </tbody>
