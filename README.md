@@ -122,6 +122,21 @@ Common issues and solutions.
           If you are receiving the following error, you can safely disable ESLint using <code>// eslint-disable-line</code> for that line.
         </td>
       </tr>
+      <tr>
+        <td>Peer Dependencies</td>
+        <td>
+          The library requires two peer dependencies to be installed, so ensure they're installed if not already
+          <br />
+          <br />
+          <ul>
+            <li>[constructorio-client-javascript](https://github.com/Constructor-io/constructorio-client-javascript)</li>
+            <li>[downshift](https://github.com/downshift-js/downshift)</li>
+          </ul>
+        </td>
+        <td>
+          Run `npm i downshift @constructor-io/constructorio-client-javascript`
+        </td>
+      </tr>
   </tbody>
 </table>
 
