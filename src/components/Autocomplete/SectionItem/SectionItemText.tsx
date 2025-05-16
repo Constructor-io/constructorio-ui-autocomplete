@@ -1,7 +1,7 @@
 import React from 'react';
 import { Item } from '../../../types';
 import { isInGroupSuggestion } from '../../../typeGuards';
-import { escapeRegExp } from '../../../utils';
+import { escapeRegExp } from '../../../utils/helpers';
 
 export interface SectionItemTextProps {
   item: Item;

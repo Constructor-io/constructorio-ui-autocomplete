@@ -1,8 +1,9 @@
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
-  stories: [
-    '../src/**/*.mdx',
-    '../src/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
+  stories: isProduction
+    ? ['../src/**/Autocomplete/**/*.stories.mdx', '../src/**/Autocomplete/**/*.stories.@(js|jsx|ts|tsx)']
+    : ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',

@@ -3,7 +3,7 @@ import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
 import { isProduct, isInGroupSuggestion, isSearchSuggestion } from '../../../typeGuards';
 import SectionItemText from './SectionItemText';
-import { translate } from '../../../utils';
+import { translate } from '../../../utils/helpers';
 import SearchSuggestionItem from './SearchSuggestionItem';
 
 export interface SectionItemProps {

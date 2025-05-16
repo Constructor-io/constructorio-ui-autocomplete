@@ -72,6 +72,7 @@ export const sectionsDescription = `- by default, typing a query will fetch data
 - the order of the objects in the \`sections\` array determines the order of the results
 - each autocomplete section object must have a \`indexSectionName\`
 - each recommendation section object must have a \`podId\`
+- passing displayName in the sectionConfiguration will override the displayName set by Merchandisers on the Customer Dashboard for the recommendation section
 - each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8
@@ -112,6 +113,7 @@ export const zeroStateDescription = `- when the text input field has no text, we
 - the order of the objects in the \`zeroStateSections\` array determines the order of the results
 - each autocomplete section object must have a \`indexSectionName\`
 - each recommendation section object must have a \`podId\`
+- passing displayName in the sectionConfiguration will override the displayName set by Merchandisers on the Customer Dashboard for the recommendation section
 - each custom section object must have a \`displayName\`
 - each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8`;
@@ -135,9 +137,11 @@ export const numResultsDescription = `Override default \`numResults\` to only su
 export const sectionOrderDescription = `Override default \`numResults\` to suggest products, then terms`;
 export const recommendationsDescription = `Use constructor's recommendations service, with \`"type": "recommendations"\``;
 export const displaySearchTermHighlightsDescription = `Use constructor's auto highlighting of words that match the search keyword, with \`"displaySearchTermHighlights": true\``;
+export const displayNoResultsMessageDescription = `Display a no results message for this section, with \`"displayNoResultsMessage": true\``;
 export const customSectionDescription = `Use a custom section, by managing and passing your own data, with \`"type": "custom"\` and \`"data":[{...}]\``;
 export const onFocusDescription = `Pass an \`onFocus\` callback function to execute some code each time the user applies focus to the text input field`;
 export const onChangeDescription = `Pass an \`onChange\` callback function to execute some code each time the user changes the value of the text input field`;
+export const onIsOpenChangeDescription = `Pass an \`onIsOpenChange\` callback function to execute some code each time the dropdown state changes ie: close/open`;
 export const onSubmitDescription = `Pass an \`onSubmit\` callback function to execute some code after a user submits the search form.
 
   Your callback function will be invoked with a submit event containing useful metadata about the submit event:
@@ -228,7 +232,7 @@ To see this in action:
 4. Next, type "pan" in the example autocomplete input field.
   - Notice how the user is presented with three different search terms that have a maximum of one "in {group}" suggestion each`;
 
-export const filteredSuggestionsDescription = `Pass a \`filters\` object under \`advancedParameters\` to apply filters to the suggestions. Any parameter supported by <a href="https://docs.constructor.io/rest_api/autocomplete_queries/" target="__blank">our autocomplete endpoint</a> can be passed under \`advancedParameters\`.
+export const filteredSuggestionsDescription = `Pass a \`filters\` object under \`advancedParameters\` to apply filters to the suggestions. Any parameter supported by <a href="https://docs.constructor.com/reference/autocomplete-autocomplete-results" target="__blank">our autocomplete endpoint</a> can be passed under \`advancedParameters\`.
 
 To see this in action:
 1. Type "short" in the example below.
@@ -257,5 +261,7 @@ export const translationsDescription = `Pass a \`translations\` object to displa
 `;
 
 export const customRenderItemDescription = `Customize the rendering of individual items within a Section by providing a \`renderItem\` function. This function allows you to define how each item should be rendered.
+- Make sure to call \`getItemProps(item)\` and spread like this \`<div {...getItemProps(item)}/>\` on the container of each custom rendered item or else tracking will not work.
+- Supports both ReactNode and HTMLElement as a return type
 `;
 export const displayShowAllResultsButtonDescription = `Pass a boolean to \`displayShowAllResultsButton\` to display a button at the bottom of the Products section to show all results. This button will submit the form and trigger the \`onSubmit\` callback.`;

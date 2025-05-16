@@ -1,8 +1,11 @@
 import React, { ReactElement, useContext } from 'react';
 import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
-import { camelToStartCase, translate } from '../../../utils';
+import CustomSectionItem from '../SectionItem/CustomSectionItem';
+import { translate } from '../../../utils/helpers';
+import { camelToStartCase } from '../../../utils/format';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
+import NoResults from '../AutocompleteResults/NoResults';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: Section;
@@ -20,7 +23,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
     useContext(CioAutocompleteContext);
   const { displayShowAllResultsButton, translations } = advancedParameters || {};
   const { onSubmit } = getFormProps();
-  const { type, displayName } = section;
+  const { type, displayName, displayNoResultsMessage } = section;
   let sectionTitle = displayName;
 
   if (!sectionTitle) {
@@ -40,6 +43,17 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
     }
   }
 
+  // Display no results message
+  if (!section?.data?.length && displayNoResultsMessage)
+    return (
+      <li {...getSectionProps(section)}>
+        <h5 className='cio-section-name cio-sectionName' aria-hidden>
+          {camelToStartCase(sectionTitle)}
+        </h5>
+        <NoResults />
+      </li>
+    );
+
   if (!section?.data?.length) return null;
 
   // @deprecated `cio-sectionName` will be removed in the next major release
@@ -51,7 +65,14 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
       <ul className='cio-section-items' role='none'>
         {section?.data?.map((item) => {
           if (typeof section?.renderItem === 'function') {
-            return section.renderItem({ item, query });
+            return (
+              <CustomSectionItem
+                renderItem={section.renderItem}
+                item={item}
+                query={query}
+                key={item.id}
+              />
+            );
           }
           return (
             <SectionItem
