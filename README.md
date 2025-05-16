@@ -28,7 +28,10 @@
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
 - 🛡 Written in TypeScript with type safety
 
-## ⚡ Installation & Quick Start
+
+## React
+
+### ⚡ Installation & Quick Start
 Install the library
 
 ```sh
@@ -47,9 +50,45 @@ function YourComponent() {
       <CioAutocomplete 
         apiKey="key_M57QS8SMPdLdLx4x"
         onSubmit={(e) => {console.log(e)}}
-      />
     </div>
   );
+```
+
+## Shopify
+
+### ⚡ Installation & Quick Start
+
+The Constructor autocomplete component is available as part of the [Constructor.io Shopify App](https://apps.shopify.com/constructor-connect)
+
+After installing the app, you can use the Constructor autocomplete component by clicking 'Add Section' in your theme editor and adding the Constructor autocomplete liquid component
+
+![installation gif](./assets/autocomplete-ui-liquid-shopify-demo.gif)
+
+For more in depth instructions, check out the [Shopify documentation](https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors-frontend-connectors-shopify-ui).
+
+## Bundle (Vanilla JS)
+This is a framework agnostic method that can be used in any JavaScript project. The CioAutocomplete function provides a simple interface to inject an entire Autocomplete UI into the provided selector. In addition to Autocomplete component props, this function also accepts a selector and includeCSS.
+
+### ⚡ Installation & Quick Start
+
+Install the library
+
+```sh
+npm i @constructor-io/constructorio-ui-autocomplete
+```
+
+Import and use the `CioAutocomplete` component
+```javascript
+import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/constructorio-ui-autocomplete-bundled';
+
+CioAutocomplete({
+  selector: '#autocomplete-container',
+  includeCSS: true, // Include the default CSS styles. Defaults to true.
+  apiKey: 'key_M57QS8SMPdLdLx4x',
+  onSubmit: (submitEvent) => console.dir(submitEvent),
+  // ... additional arguments
+});
+</script>
 ```
 
 ## 💡 Code Examples
