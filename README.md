@@ -62,7 +62,7 @@ The Constructor autocomplete component is available as part of the [Constructor.
 
 After installing the app, you can use the Constructor autocomplete component by clicking 'Add Section' in your theme editor and adding the Constructor autocomplete liquid component
 
-![installation gif](https://files.readme.io/80b6698f86ab7c4695450dad50b2d30a205116d61ef1468d2af6ea4281a16cf0-autocomplete.gif)
+![installation gif](./assets/autocomplete-ui-liquid-shopify-demo.gif)
 
 For more in depth instructions, check out the [Shopify documentation](https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors-frontend-connectors-shopify-ui).
 
