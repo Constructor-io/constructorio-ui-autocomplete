@@ -28,6 +28,9 @@
 - [⚡ Installation & Quick Start](#-installation--quick-start)
 - [💡 Code Examples](#-code-examples)
 - [🚀 Advanced Features](#-advanced-features)
+- [🚀 Advanced Features2](#-advanced-features2)
+- [🚀 Advanced Features3](#-advanced-features3)
+- [🚀 Advanced Features5](#-advanced-features5)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -85,4 +88,4 @@ Ready-to-use, copy-paste examples with explanations.
 
 ## 🚀 Advanced Features2
 ## 🚀 Advanced Features3
-## 🚀 Advanced Features4
+## 🚀 Advanced Features5
