@@ -22,6 +22,7 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 ## 📌 Table of Contents
 
 - [Features](#features)
@@ -87,5 +88,9 @@ Ready-to-use, copy-paste examples with explanations.
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
 
 ## 🚀 Advanced Features2
+
 ## 🚀 Advanced Features3
+
 ## 🚀 Advanced Features5
+
+## 🚀 Advanced Features6
