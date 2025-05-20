@@ -87,14 +87,4 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
 
-## 🚀 Advanced Features2
-
-## 🚀 Advanced Features3
-
-## 🚀 Advanced Features5
-
-## 🚀 Advanced Features6
-
-## Another topic
-
-Lorem ipsum
+## Test
