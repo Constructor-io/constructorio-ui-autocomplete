@@ -94,3 +94,7 @@ Ready-to-use, copy-paste examples with explanations.
 ## 🚀 Advanced Features5
 
 ## 🚀 Advanced Features6
+
+## Another topic
+
+Lorem ipsum
