@@ -102,26 +102,21 @@ Ready-to-use, copy-paste examples with explanations.
 
 🔹 For more examples check the [full examples](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 
-## Customization
+## 🎨 Customization
 
-By default, importing react components or hooks from this library does not pull any css into your project. To use some starter styles from this library, add an import statement similar to the example import statement below:
+CSS styles are not imported by default. Add this to your code to import basic styles
 
 ```tsx
 import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 ```
 
-All the included styles in this library are scoped within the `.cio-autocomplete` css selector, so you can extend existing styles by adding styles to it.
+All styles are scoped under .cio-autocomplete. You can extend them by targeting that selector.
 
 ```css
 /* Custom Style Sheet */
 .cio-autocomplete .cio-submit-btn {
   border-radius: 10px;
   border: 1px solid red;
-}
-
-.cio-autocomplete .cio-submit-btn:hover {
-  border-radius: 10px;
-  border: 1px solid blue;
 }
 ```
 
