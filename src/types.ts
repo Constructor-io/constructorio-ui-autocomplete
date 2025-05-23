@@ -124,7 +124,7 @@ export type AutocompleteResultSections = {
 type SectionType = 'autocomplete' | 'recommendations' | 'custom';
 
 export type SectionConfiguration = {
-  type?: SectionType;
+  type: SectionType;
   displayName?: string;
   numResults?: number;
   // This property will only take effect when using the component and not the hook
@@ -140,7 +140,7 @@ export type SectionConfiguration = {
 };
 
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {
-  type?: 'autocomplete';
+  type: 'autocomplete';
   indexSectionName: string;
   /** @deprecated use indexSectionName field instead */
   identifier?: string;

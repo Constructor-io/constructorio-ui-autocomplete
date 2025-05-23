@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from 'react';
-import { Item, Section } from '../../../types';
+import { AutocompleteSectionConfiguration, Item, Section } from '../../../types';
 import { toKebabCase } from '../../../utils/format';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import SectionItemsList from '../SectionItemsList/SectionItemsList';
@@ -30,7 +30,7 @@ const DefaultRenderResults: RenderResults = ({ sections }) =>
         key = section.indexSectionName;
         break;
       default:
-        key = section.indexSectionName;
+        key = (section as AutocompleteSectionConfiguration).indexSectionName;
         break;
     }
 
