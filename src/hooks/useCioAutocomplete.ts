@@ -10,6 +10,7 @@ import {
   HTMLPropsWithCioDataAttributes,
   Item,
   UseCioAutocompleteOptions,
+  AutocompleteSectionConfiguration,
 } from '../types';
 import usePrevious from './usePrevious';
 import { getItemPosition, getItemsForActiveSections } from '../utils/helpers';
@@ -230,7 +231,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             sectionTitle = section.displayName;
             break;
           default:
-            sectionTitle = section.displayName || section.indexSectionName;
+            sectionTitle = (section as AutocompleteSectionConfiguration).displayName || (section as AutocompleteSectionConfiguration).indexSectionName;
             break;
         }
 
