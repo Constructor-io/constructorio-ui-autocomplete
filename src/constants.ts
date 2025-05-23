@@ -70,11 +70,11 @@ The following stories show how different options affect the hook's behavior!
 export const sectionsDescription = `- by default, typing a query will fetch data for Search Suggestions and Products
 - to override this, pass an array of sections objects
 - the order of the objects in the \`sections\` array determines the order of the results
+- each section object must have a \`type\` (\`autocomplete\` | \`recommendations\` | \`custom\`)
 - each autocomplete section object must have a \`indexSectionName\`
 - each recommendation section object must have a \`podId\`
 - passing displayName in the sectionConfiguration will override the displayName set by Merchandisers on the Customer Dashboard for the recommendation section
 - each custom section object must have a \`displayName\`
-- each section object can specify a \`type\`
 - each section object can override the default \`numResults\` of 8
 
 \`indexSectionName\` refers to a section under an index. The default sections are "Products" and "Search Suggestions". You can find all the sections that exist in your index under the "Indexes" tab of Constructor dashboard.
