@@ -3,7 +3,7 @@
 
 # --- Configuration ---
 README_FILE="README.md"
-AUTO_COMMIT_MESSAGE="docs: auto-update README TOC (post-commit)"
+AUTO_COMMIT_MESSAGE=""
 
 # --- Script Logic ---
 echo "Husky (post-commit): Checking for ${README_FILE} changes in the last commit."
@@ -15,17 +15,17 @@ if git diff-tree --no-commit-id --name-only -r HEAD | grep -q "^${README_FILE}$"
   # Get the diff content of README_FILE from the last commit (HEAD vs HEAD^)
   # Ensure we handle the case of the very first commit (no HEAD^)
   if git rev-parse -q --verify HEAD^ >/dev/null 2>&1; then
-    LAST_COMMIT_DIFF_CONTENT=$(git diff HEAD^ HEAD -- "${README_FILE}" | sed '/^diff --git a\|index [0-9a-fA-F]\+..[0-9a-fA-F]\+/d; /^--- a\|^\+\+\+ b/d' || true)
+    # Get the diff content, removing the meta-headers
+    DIFF_CONTENT=$(git diff HEAD HEAD^ README.md | sed 1,4d)
   else
     # First commit, consider all content as added outside TOC if not within TOC markers
-    LAST_COMMIT_DIFF_CONTENT=$(git show HEAD:"${README_FILE}" | sed '/^diff --git a\|index [0-9a-fA-F]\+..[0-9a-fA-F]\+/d; /^--- a\|^\+\+\+ b/d' | sed 's/^/+/' || true)
+    DIFF_CONTENT=$(git show HEAD:"${README_FILE}" | sed 1,4d)
   fi
 
-  # Look for added/modified lines (+) outside the TOC section in that commit's diff
-  # We are interested in lines that were *changed* in the last commit, so we look for lines starting with '+' or '-' in the diff, excluding diff headers.
-  CHANGES_OUTSIDE_TOC=$(echo "$LAST_COMMIT_DIFF_CONTENT" | sed '/<!-- START doctoc/,/<!-- END doctoc/d' | grep -E '^\+[^+]|^-{1}[^-]' || true)
+  # Look for added lines (+) outside the TOC section
+  DIFF_CONTENT_EXCLUDING_TOC=$(echo "$DIFF_CONTENT" | sed '/<!-- START doctoc/,/<!-- END doctoc/d' | grep '^\+' || true)
 
-  if [ -n "$CHANGES_OUTSIDE_TOC" ]; then
+  if [ -n "$DIFF_CONTENT_EXCLUDING_TOC" ]; then
     echo "Husky (post-commit): Changes detected in ${README_FILE} outside of the TOC section in the last commit."
     echo "Husky (post-commit): Running 'npm run doctoc-readme' to update the TOC..."
 
@@ -33,24 +33,22 @@ if git diff-tree --no-commit-id --name-only -r HEAD | grep -q "^${README_FILE}$"
     npm run doctoc-readme
 
     # Check if doctoc actually modified the README_FILE in the working directory
-    # (i.e., if the working directory version is now different from what's in HEAD).
     if ! git diff --quiet "${README_FILE}"; then # True if working dir has changes for README_FILE
       echo "Husky (post-commit): 'npm run doctoc-readme' has modified ${README_FILE}."
       echo "Husky (post-commit): Staging these changes and creating a new commit for the TOC update."
       git add "${README_FILE}"
+
       # Create a new commit for the TOC changes. Use --no-verify to prevent hooks from running again.
-      git commit --no-verify -m "${AUTO_COMMIT_MESSAGE}"
-      if [ $? -eq 0 ]; then
-        echo "Husky (post-commit): TOC update committed successfully with message: '${AUTO_COMMIT_MESSAGE}'."
-      else
-        echo "Husky (post-commit): ERROR - Failed to commit TOC update. Please check for errors."
-        # Post-commit hooks should not cause the original commit to fail, so we don't exit 1 here.
+      git commit --no-verify -m "docs: auto-update README TOC (post-commit)"
+      if [ $? -ne 0 ]; then
+        echo "Husky (post-commit): ERROR - Failed to commit TOC update."
       fi
+
     else
       echo "Husky (post-commit): 'npm run doctoc-readme' ran. No further changes were needed for ${README_FILE} or it was already up-to-date."
     fi
   else
-    echo "Husky (post-commit): No changes detected in ${README_FILE} outside of the TOC section in the last commit. TOC is consistent."
+    echo "Husky (post-commit): No changes detected in ${README_FILE} outside of the TOC section in the last commit."
   fi
 else
   echo "Husky (post-commit): ${README_FILE} was not modified in the last commit. Skipping TOC check."
