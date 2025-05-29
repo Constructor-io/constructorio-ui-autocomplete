@@ -22,16 +22,13 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
 ## 📌 Table of Contents
 
 - [Features](#features)
 - [⚡ Installation & Quick Start](#-installation--quick-start)
 - [💡 Code Examples](#-code-examples)
 - [🚀 Advanced Features](#-advanced-features)
-- [🚀 Advanced Features2](#-advanced-features2)
-- [🚀 Advanced Features3](#-advanced-features3)
-- [🚀 Advanced Features5](#-advanced-features5)
+- [Test](#test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
