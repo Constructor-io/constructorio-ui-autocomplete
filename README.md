@@ -27,6 +27,8 @@
 - [Features](#features)
 - [⚡ Installation & Quick Start](#-installation--quick-start)
 - [💡 Code Examples](#-code-examples)
+- [🚀 Advanced Features](#-advanced-features)
+- [Test](#test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
