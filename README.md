@@ -28,7 +28,6 @@
 - [⚡ Installation & Quick Start](#-installation--quick-start)
 - [💡 Code Examples](#-code-examples)
 - [🚀 Advanced Features](#-advanced-features)
-- [Test](#test)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -83,5 +82,3 @@ Ready-to-use, copy-paste examples with explanations.
 - [Terms With Images And Counts](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-images-and-counts)
 
 🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
-
-## Test
