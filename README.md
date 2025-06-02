@@ -5,7 +5,8 @@
 
   <p align="center" style="font-size: 1.2rem;">Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences with <a href='https://constructor.com/solutions/search'>Constructor.io's autosuggest services</a>. 🚀</p>
 
-  [**Read The Docs**](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+[**Read The Docs**](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+
 </div>
 
 <hr />
@@ -40,14 +41,14 @@ npm i @constructor-io/constructorio-ui-autocomplete
 
 Import and use the `CioAutocomplete` component
 
-```ts
+```tsx
 import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
 import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
 function YourComponent() {
   return (
     <div>
-      <CioAutocomplete 
+      <CioAutocomplete
         apiKey="key_M57QS8SMPdLdLx4x"
         onSubmit={(e) => {console.log(e)}}
     </div>
@@ -100,6 +101,51 @@ Ready-to-use, copy-paste examples with explanations.
 - [Render Product Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-sections--docs#render-suggested-products)
 
 🔹 For more examples check the [full examples](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+
+## 🎨 Customization
+
+CSS styles are not imported by default. Add this to your code to import basic styles
+
+```tsx
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+```
+
+All styles are scoped under .cio-autocomplete. You can extend them by targeting that selector.
+
+```css
+/* Custom Style Sheet */
+.cio-autocomplete .cio-submit-btn {
+  border-radius: 10px;
+  border: 1px solid red;
+}
+```
+
+If you'd like to override or extend the base `className`, you can do so with the `autocompleteClassName` argument
+
+```tsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function YourComponent() {
+  return (
+    <div>
+      <CioAutocomplete
+        apiKey="key_M57QS8SMPdLdLx4x"
+        onSubmit={(e) => { console.log(e)}}
+        autocompleteClassName="cio-autocomplete custom-autocomplete-container"
+      />
+    </div>
+  );
+```
+
+Then you can modify styles like so
+
+```css
+/* Custom Style Sheet */
+.cio-autocomplete.custom-autocomplete-styles .cio-input {
+  font-weight: bold;
+}
+```
 
 ## 🚀 Advanced Features
 
