@@ -25,9 +25,20 @@
 ## 📌 Table of Contents
 
 - [Features](#features)
-- [⚡ Installation & Quick Start](#-installation--quick-start)
+- [React](#react)
+  - [⚡ Installation & Quick Start](#-installation--quick-start)
+- [Shopify](#shopify)
+  - [⚡ Installation & Quick Start](#-installation--quick-start-1)
+- [Bundle (Vanilla JS)](#bundle-vanilla-js)
+  - [⚡ Installation & Quick Start](#-installation--quick-start-2)
 - [💡 Code Examples](#-code-examples)
+- [🎨 Customization](#-customization)
 - [🚀 Advanced Features](#-advanced-features)
+- [🛠 Troubleshooting](#-troubleshooting)
+- [📖 API Reference](#-api-reference)
+- [🔗 Complementary Resources](#-complementary-resources)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
