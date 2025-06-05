@@ -140,7 +140,7 @@ export type SectionConfiguration = {
 };
 
 export interface AutocompleteSectionConfiguration extends SectionConfiguration {
-  type: 'autocomplete';
+  type?: 'autocomplete';
   indexSectionName: string;
   /** @deprecated use indexSectionName field instead */
   identifier?: string;
