@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext } from 'react';
-import { AutocompleteSectionConfiguration, Section } from '../../../types';
+import { Section } from '../../../types';
 import SectionItem from '../SectionItem/SectionItem';
 import CustomSectionItem from '../SectionItem/CustomSectionItem';
 import { translate } from '../../../utils/helpers';
@@ -38,7 +38,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
         sectionTitle = section.displayName;
         break;
       default:
-        sectionTitle = (section as AutocompleteSectionConfiguration).indexSectionName;
+        sectionTitle = section.indexSectionName;
         break;
     }
   }
