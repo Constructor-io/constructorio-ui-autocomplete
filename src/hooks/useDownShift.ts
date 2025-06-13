@@ -57,7 +57,7 @@ const useDownShift: UseDownShift = ({
               // (ie: Search Suggestions, Products, Custom Cio sections, etc)
               // This does not apply to custom user defined sections that aren't part of Constructor index
             } else if (selectedItem.result_id) {
-              const selectData: any = {
+              const selectData = {
                 originalQuery: previousQuery,
                 section: selectedItem.section,
                 itemId: selectedItem.data?.id,
