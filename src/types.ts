@@ -58,8 +58,8 @@ export type CioAutocompleteProps = CioClientConfig &
      */
     openOnFocus?: boolean;
     /**
-     * Function that takes in a Search Suggestion, and returns a url to redirect to
      * Transforms a `SearchSuggestion` into the desired URL string to be used when rendering anchor tags
+     * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
      */
     getSearchResultsUrl?: (item: SearchSuggestion) => string;
     /**
@@ -84,15 +84,17 @@ export type CioAutocompleteProps = CioClientConfig &
      */
     children?: ReactNode;
     /**
-     * Override the sections that will be rendered. Defaults to Products and Search Suggestion sections
+     * Configure the sections rendered, based on the user's input. This can be either Constructor-powered sections,
+     * or your own custom sections. Defaults to Products and Search Suggestion sections powered by Constructor
      */
     sections?: UserDefinedSection[];
     /**
-     * Custom sections that should be rendered during the autocomplete zero state
+     * Configure either Constructor-powered sections or power your own custom sections,
+     * to be rendered for [Autocomplete Zero-State](link-tbd)
      */
     zeroStateSections?: UserDefinedSection[];
     /**
-     * Override the parent container's class. Defaults to `cio-autocomplete`
+     * Configure the parent container's class. Defaults to `cio-autocomplete`
      */
     autocompleteClassName?: string;
     /**
