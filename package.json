@@ -43,8 +43,8 @@
   "author": "Constructor.io Corporation",
   "license": "MIT",
   "volta": {
-    "node": "22.14.0",
-    "npm": "10.9.2"
+    "node": "22.18.0",
+    "npm": "10.9.3"
   },
   "repository": {
     "type": "git",
