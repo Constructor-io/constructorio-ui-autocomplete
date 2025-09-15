@@ -55,3 +55,8 @@ export const trackAutocompleteSelect = (cioClient, itemName, autocompleteData: a
     storageRemoveItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY);
   }
 };
+
+export const trackRecommendationSelect = (cioClient, recommendationData: any = {}) => {
+  storageRemoveItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY);
+  cioClient?.tracker.trackRecommendationClick(recommendationData);
+};
