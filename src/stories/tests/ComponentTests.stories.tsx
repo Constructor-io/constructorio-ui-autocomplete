@@ -6,7 +6,7 @@ import { storageGetItem, storageSetItem } from '../../utils/storage';
 import { ComponentTemplate } from '../Autocomplete/Component';
 import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 import { CioAutocompleteProps } from '../../types';
-import { isTrackingRequestSent } from '../../utils/tracking';
+import { isTrackingRequestSent, captureTrackingRequest } from '../../utils/tracking';
 import { CONSTANTS } from '../../utils/beaconUtils';
 
 export default {
@@ -76,8 +76,13 @@ FocusFiresTrackingEvent.args = defaultArgs;
 FocusFiresTrackingEvent.play = async ({ canvasElement }) => {
   await sleep(100);
   const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByTestId('cio-input'));
-  const isFocusTrackingRequestSent = isTrackingRequestSent('action=focus');
+  const input = canvas.getByTestId('cio-input');
+
+  // Use the reusable tracking capture utility
+  const isFocusTrackingRequestSent = await captureTrackingRequest('action=focus', async () => {
+    await userEvent.click(input);
+  });
+
   expect(isFocusTrackingRequestSent).toBeTruthy();
 };
 
@@ -357,6 +362,50 @@ SelectProductSuggestionClearsSearchTermStorage.play = async ({ canvasElement }) 
   await sleep(1000);
 };
 
+// - select recommendation from zero state => Search Term Storage is Cleared
+export const SelectZeroStateRecommendationClearsSearchTermStorage = ComponentTemplate.bind({});
+SelectZeroStateRecommendationClearsSearchTermStorage.args = {
+  ...defaultArgs,
+  autocompleteClassName: 'cio-autocomplete full-example-autocomplete-styles',
+  advancedParameters: {
+    displaySearchSuggestionImages: true,
+    displaySearchSuggestionResultCounts: true,
+    numTermsWithGroupSuggestions: 6,
+  },
+  sections: [
+    {
+      indexSectionName: 'Search Suggestions',
+      numResults: 8,
+      displaySearchTermHighlights: true,
+    },
+  ],
+  zeroStateSections: [
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 6,
+    },
+  ],
+};
+SelectZeroStateRecommendationClearsSearchTermStorage.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, 'test search term');
+
+  await userEvent.click(canvas.getByTestId('cio-input'));
+  await sleep(1000);
+  expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
+
+  const bestSellersSection = canvas.getByTestId('cio-results').querySelector('.cio-section');
+  const recommendationItems = bestSellersSection?.querySelectorAll('[data-cnstrc-item-id]');
+
+  const firstRecommendation = recommendationItems?.[0];
+  if (firstRecommendation) {
+    await userEvent.click(firstRecommendation);
+  }
+
+  expect(storageGetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY)).toBeNull();
+};
+
 // - click search icon => network search submit event
 export const SearchIconSubmitSearch = ComponentTemplate.bind({});
 SearchIconSubmitSearch.args = defaultArgs;
@@ -505,7 +554,7 @@ InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'socks', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Socks').length).toEqual(1);
+  expect(canvas.getAllByText(/in Socks/)).toHaveLength(1);
 };
 
 export const InGroupSuggestionsTwo = ComponentTemplate.bind({});

@@ -60,3 +60,31 @@ export const trackRecommendationSelect = (cioClient, recommendationData: any = {
   storageRemoveItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY);
   cioClient?.tracker.trackRecommendationClick(recommendationData);
 };
+
+export const captureTrackingRequest = async (
+  urlPattern: string,
+  action: () => Promise<void>
+): Promise<boolean> => {
+  let trackingCaptured = false;
+  const originalSetItem = Storage.prototype.setItem;
+
+  Storage.prototype.setItem = function setItemInterceptor(key, value) {
+    if (key === '_constructorio_requests') {
+      try {
+        const requests = JSON.parse(value);
+        if (requests.some((req: any) => req?.url?.includes(urlPattern))) {
+          trackingCaptured = true;
+        }
+      } catch (e) {
+        // Ignore parsing errors
+      }
+    }
+    return originalSetItem.call(this, key, value);
+  };
+
+  await action();
+
+  Storage.prototype.setItem = originalSetItem;
+
+  return trackingCaptured || isTrackingRequestSent(urlPattern);
+};
