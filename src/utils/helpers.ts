@@ -71,6 +71,7 @@ export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorCl
       sendTrackingEvents: true,
       version: `cio-ui-autocomplete-${version}`,
       ...cioJsClientOptions,
+      eventDispatcher: { waitForBeacon: false },
     });
 
     // eslint-disable-next-line no-console
