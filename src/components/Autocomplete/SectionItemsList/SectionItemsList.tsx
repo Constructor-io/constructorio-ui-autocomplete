@@ -84,7 +84,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
         })}
       </ul>
       {displayShowAllResultsButton &&
-        type === 'autocomplete' &&
+        (typeof type === 'undefined' || type === 'autocomplete') &&
         section.indexSectionName === 'Products' && (
           <div className='cio-section-footer'>
             <button
