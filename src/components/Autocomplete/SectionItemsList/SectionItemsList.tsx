@@ -77,7 +77,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
           return (
             <SectionItem
               item={item}
-              key={item?.id}
+              key={item?.data?.variation_id || item?.id}
               displaySearchTermHighlights={section.displaySearchTermHighlights}
             />
           );
