@@ -14,7 +14,6 @@ export type RenderSectionItemsList = (renderResultsArguments: {
 type SectionItemsListProps = {
   section: Section;
   children?: RenderSectionItemsList;
-  key?: string;
 };
 
 // eslint-disable-next-line func-names
@@ -70,14 +69,14 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
                 renderItem={section.renderItem}
                 item={item}
                 query={query}
-                key={item.id}
+                key={item?.data?.variation_id || item?.id}
               />
             );
           }
           return (
             <SectionItem
               item={item}
-              key={item?.id}
+              key={item?.data?.variation_id || item?.id}
               displaySearchTermHighlights={section.displaySearchTermHighlights}
             />
           );
