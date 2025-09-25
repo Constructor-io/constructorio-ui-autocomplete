@@ -2,8 +2,8 @@ import { within, userEvent, expect, fn } from '@storybook/test';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
 import { getCioClient, sleep } from '../../utils/helpers';
-import { isTrackingRequestSent } from '../../utils/tracking';
-import { HooksTemplate } from '../Autocomplete/Hook/index';
+import { isTrackingRequestSent, captureTrackingRequest } from '../../utils/tracking';
+import { HooksTemplate } from '../Autocomplete/Hook';
 import { apiKey, onSubmitDefault as onSubmit } from '../../constants';
 import { CioAutocompleteProps } from '../../types';
 
@@ -73,8 +73,13 @@ FocusFiresTrackingEvent.args = defaultArgs;
 FocusFiresTrackingEvent.play = async ({ canvasElement }) => {
   await sleep(100);
   const canvas = within(canvasElement);
-  await userEvent.click(canvas.getByTestId('cio-input'));
-  const isFocusTrackingRequestSent = isTrackingRequestSent('action=focus');
+  const input = canvas.getByTestId('cio-input');
+
+  // Use the reusable tracking capture utility
+  const isFocusTrackingRequestSent = await captureTrackingRequest('action=focus', async () => {
+    await userEvent.click(input);
+  });
+
   expect(isFocusTrackingRequestSent).toBeTruthy();
 };
 
@@ -435,7 +440,7 @@ InGroupSuggestions.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.type(canvas.getByTestId('cio-input'), 'socks', { delay: 100 });
   await sleep(1000);
-  expect(canvas.getAllByText('in Socks').length).toEqual(1);
+  expect(canvas.getAllByText(/in Socks/)).toHaveLength(1);
 };
 
 export const InGroupSuggestionsTwo = HooksTemplate.bind({});
