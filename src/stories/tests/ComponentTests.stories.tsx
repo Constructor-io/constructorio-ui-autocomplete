@@ -399,10 +399,16 @@ SelectZeroStateRecommendationClearsSearchTermStorage.play = async ({ canvasEleme
   const recommendationItems = bestSellersSection?.querySelectorAll('[data-cnstrc-item-id]');
 
   const firstRecommendation = recommendationItems?.[0];
-  if (firstRecommendation) {
-    await userEvent.click(firstRecommendation);
-  }
+  const isSelectTrackingRequestSent = await captureTrackingRequest(
+    '/recommendation_result_click',
+    async () => {
+      if (firstRecommendation) {
+        await userEvent.click(firstRecommendation);
+      }
+    }
+  );
 
+  expect(isSelectTrackingRequestSent).toBeTruthy();
   expect(storageGetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY)).toBeNull();
 };
 
