@@ -42,8 +42,15 @@ function DefaultRenderInput({ getFormProps, getInputProps, getLabelProps, setQue
       <button
         className='cio-submit-btn'
         data-testid='cio-submit-btn'
-        disabled={!inputProps.value}
         data-cnstrc-search-submit-btn
+        onClick={(e) => {
+          if (!inputProps.value) {
+            e.preventDefault();
+            if (inputProps.id) {
+              document.getElementById(inputProps.id)?.focus();
+            }
+          }
+        }}
         type='submit'
         aria-label='Submit Search'>
         <div className='cio-icon'>
