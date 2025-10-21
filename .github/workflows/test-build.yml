@@ -21,6 +21,8 @@ jobs:
           node-version: '18.13.0'
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps # Downloads browser binaries + OS dependencies
       - name: Run Tests
         run: npm run test-storybook:ci
   test-build-scripts:

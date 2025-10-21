@@ -1,3 +1,4 @@
+import React from 'react';
 import { Title, Description, Stories } from '@storybook/addon-docs';
 import './custom-styles-story.css';
 import './full-example-styles-story.css';
@@ -5,7 +6,6 @@ import './storybook-styles.css';
 import '../src/styles.css';
 
 export const parameters = {
-  actions: { argTypesRegex: '^on.*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,
@@ -31,3 +31,5 @@ export const parameters = {
     )
   }
 };
+
+export const tags = ['autodocs'];

@@ -2,7 +2,11 @@ import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
-import { trackSearchSubmit, trackAutocompleteSelect } from '../utils/tracking';
+import {
+  trackSearchSubmit,
+  trackAutocompleteSelect,
+  trackRecommendationSelect,
+} from '../utils/tracking';
 
 let idCounter = 0;
 
@@ -44,7 +48,7 @@ const useDownShift: UseDownShift = ({
             // Autocomplete Select tracking
             // Recommendation Select tracking
             if (selectedItem.podId && selectedItem.data?.id && selectedItem.strategy) {
-              cioClient?.tracker.trackRecommendationClick({
+              const recommendationData = {
                 itemName: selectedItem.value,
                 itemId: selectedItem.data.id,
                 variationId: selectedItem.data.variation_id,
@@ -52,15 +56,20 @@ const useDownShift: UseDownShift = ({
                 strategyId: selectedItem.strategy.id,
                 section: selectedItem.section,
                 resultId: selectedItem.result_id,
-              });
+              };
+              trackRecommendationSelect(cioClient, recommendationData);
+
               // Select tracking for all other Constructor sections:
               // (ie: Search Suggestions, Products, Custom Cio sections, etc)
               // This does not apply to custom user defined sections that aren't part of Constructor index
             } else if (selectedItem.result_id) {
-              trackAutocompleteSelect(cioClient, selectedItem.value, {
+              const selectData = {
                 originalQuery: previousQuery,
                 section: selectedItem.section,
-              });
+                itemId: selectedItem.data?.id,
+              };
+
+              trackAutocompleteSelect(cioClient, selectedItem.value, selectData);
             }
           } catch (error) {
             // eslint-disable-next-line no-console

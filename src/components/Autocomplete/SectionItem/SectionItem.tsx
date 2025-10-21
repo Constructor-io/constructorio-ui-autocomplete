@@ -9,7 +9,6 @@ import SearchSuggestionItem from './SearchSuggestionItem';
 export interface SectionItemProps {
   item: Item;
   children?: ReactNode;
-  key?: string;
   displaySearchTermHighlights?: boolean;
 }
 
