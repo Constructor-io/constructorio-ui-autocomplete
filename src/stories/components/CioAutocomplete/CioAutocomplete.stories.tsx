@@ -4,7 +4,7 @@ import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
 import { componentDescription, apiKey } from '../../../constants';
 
 const meta: Meta<typeof CioAutocomplete> = {
-  title: 'Components/CioAutocomplete',
+  title: 'Beta-Docs/CioAutocomplete',
   component: CioAutocomplete,
   parameters: {
     docs: {
