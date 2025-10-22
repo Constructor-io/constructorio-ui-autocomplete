@@ -15,8 +15,17 @@ import {
 export type { IAutocompleteParameters } from '@constructor-io/constructorio-client-javascript/lib/types';
 
 export type CioClientConfig = {
+  /**
+   * Your Constructor API key. Either `apiKey` or `cioJsClient` are required
+   */
   apiKey?: string;
+  /**
+   * Optional custom constructor instance. Either `apiKey` or `cioJsClient` are required
+   */
   cioJsClient?: ConstructorIOClient;
+  /**
+   * Pass a `cioJsClientOptions` object to customize the client's configurations w/o creating a new instance of `ConstructorIOClient`. You can learn more about the possible values [Here](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html)
+   */
   cioJsClientOptions?: ConstructorClientOptions;
 };
 
@@ -43,17 +52,58 @@ export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
 export type CioAutocompleteProps = CioClientConfig &
   OptionalItemsComboboxProps<Item> & {
+    /**
+     * Set to `false` to show suggestions only after a user clears their query,
+     * but not when they initially select the input
+     */
     openOnFocus?: boolean;
+    /**
+     * Transforms a `SearchSuggestion` into the desired URL string to be used when rendering anchor tags
+     * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
+     */
     getSearchResultsUrl?: (item: SearchSuggestion) => string;
+    /**
+     * Callback function that runs when the user submits a search.
+     * Usually used to trigger a redirect
+     */
     onSubmit: OnSubmit;
+    /**
+     * Callback function that runs when the user focuses on the input
+     */
     onFocus?: () => void;
+    /**
+     * Callback function that runs when the user modifies input
+     */
     onChange?: (input: string) => void;
+    /**
+     * Search input placeholder
+     */
     placeholder?: string;
+    /**
+     * Children to be rendered according to the RenderProps pattern
+     */
     children?: ReactNode;
+    /**
+     * Configure the sections rendered, based on the user's input. This can be either Constructor-powered sections,
+     * or your own custom sections. Defaults to Products and Search Suggestion sections powered by Constructor
+     */
     sections?: UserDefinedSection[];
+    /**
+     * Configure either Constructor-powered sections or power your own custom sections,
+     * to be rendered for [Autocomplete Zero-State](link-tbd)
+     */
     zeroStateSections?: UserDefinedSection[];
+    /**
+     * Configure the parent container's class. Defaults to `cio-autocomplete`
+     */
     autocompleteClassName?: string;
+    /**
+     * See Advanced Parameters
+     */
     advancedParameters?: AdvancedParameters;
+    /**
+     * Search input default value
+     */
     defaultInput?: string;
   };
 

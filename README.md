@@ -1,231 +1,275 @@
-# Constructor.io Autocomplete UI Library
+<div align="center">
+  <img src="https://constructor.com/hubfs/constructor-favicon-2024-1.svg" alt="constructor logo" title="constructor logo" width="220px" height="220px">
+  
+  <h1>Autocomplete UI</h1>
 
-[![npm](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
+  <p align="center" style="font-size: 1.2rem;">Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences with <a href='https://constructor.com/solutions/search'>Constructor.io's autosuggest services</a>. 🚀</p>
 
-## Introduction
+[**Read The Docs**](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 
-This UI Library provides React components that manage fetching and rendering logic for [Constructor.io's autosuggest services](https://constructor.com/solutions/search).
+</div>
 
-[Our storybook docs](https://constructor-io.github.io/constructorio-ui-autocomplete) are the best place to explore the behavior and configuration options for this UI Library.
+<hr />
+<div align="center">
 
-![Autocomplete UI demonstration](assets/autocomplete-ui-demonstration.gif)
+![minzipped size](https://img.shields.io/bundlephobia/minzip/@constructor-io/constructorio-ui-autocomplete?color=green&style=flat-square)
+[![NPM Version](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete?style=flat-square)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
 
-## Installation
+<img src="assets/autocomplete-ui-demonstration.gif" alt="Autocomplete UI demonstration" height="500">
 
-```bash
+</div>
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## 📌 Table of Contents
+
+- [Features](#features)
+- [React](#react)
+  - [⚡ Installation & Quick Start](#-installation--quick-start)
+- [Shopify](#shopify)
+  - [⚡ Installation & Quick Start](#-installation--quick-start-1)
+- [Bundle (Vanilla JS)](#bundle-vanilla-js)
+  - [⚡ Installation & Quick Start](#-installation--quick-start-2)
+- [💡 Code Examples](#-code-examples)
+- [🎨 Customization](#-customization)
+- [🚀 Advanced Features](#-advanced-features)
+- [🛠 Troubleshooting](#-troubleshooting)
+- [📖 API Reference](#-api-reference)
+- [🔗 Complementary Resources](#-complementary-resources)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Features
+
+- 🔌 Easy Integration – Quickly integrate with your app as a plug-and-play React component
+- ⚡ Lightweight & Fast – Tiny bundle size, optimized for speed
+- 🎨 Customizable UI – With minmal styles, and supports for custom markup
+- ⌨️ Keyboard Navigation – Fully supports accessible keyboard naviagation
+- ♿ Accessible (a11y) – Built-in ARIA support for screen readers
+- 🛡 Written in TypeScript with type safety
+
+
+## React
+
+### ⚡ Installation & Quick Start
+Install the library
+
+```sh
 npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
-## Usage
+Import and use the `CioAutocomplete` component
 
-### Using the React Component
-
-The `CioAutocomplete` component handles state management, data fetching, and rendering logic.
-
-```jsx
+```tsx
 import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
 function YourComponent() {
   return (
     <div>
-      <CioAutocomplete apiKey="key_M57QS8SMPdLdLx4x" onSubmit={(e) => {console.log(e)}} />
+      <CioAutocomplete
+        apiKey="key_M57QS8SMPdLdLx4x"
+        onSubmit={(e) => {console.log(e)}}
     </div>
   );
 ```
 
-### Using React Hooks
+## Shopify
 
-The `useCioAutocomplete` hook leaves rendering logic up to you, while handling:
+### ⚡ Installation & Quick Start
 
-- state management
-- data fetching
-- keyboard navigation
-- mouse interactions
-- focus and submit event handling
+The Constructor autocomplete component is available as part of the [Constructor.io Shopify App](https://apps.shopify.com/constructor-connect)
 
-An `apiKey` or `cioJsClient` must be passed to the `useCioAutocomplete` hook along with an `onSubmit` callback function. All other values are optional.
+After installing the app, you can use the Constructor autocomplete component by clicking 'Add Section' in your theme editor and adding the Constructor autocomplete liquid component
 
-```jsx
-import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+![installation gif](./assets/autocomplete-ui-liquid-shopify-demo.gif)
 
-const args = {
-  "apiKey": "key_M57QS8SMPdLdLx4x",
-  "onSubmit": (submitEvent) => console.dir(submitEvent)
-};
+For more in depth instructions, check out the [Shopify documentation](https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors-frontend-connectors-shopify-ui).
 
-function YourComponent() {
-  const {
-    isOpen,
-    sections,
-    getFormProps,
-    getLabelProps,
-    getInputProps,
-    getMenuProps,
-    getItemProps,
-    autocompleteClassName,
-  } = useCioAutocomplete(args);
+## Bundle (Vanilla JS)
+This is a framework agnostic method that can be used in any JavaScript project. The CioAutocomplete function provides a simple interface to inject an entire Autocomplete UI into the provided selector. In addition to Autocomplete component props, this function also accepts a selector and includeCSS.
 
-  return (
-    <div className={autocompleteClassName}>
-      <form {...getFormProps()}>
-        <label {...getLabelProps()} hidden>
-          Search
-        </label>
-        <input {...getInputProps()} />
-      </form>
-      <div {...getMenuProps()}>
-        {isOpen && (
-          <>
-            {sections?.map((section) => (
-              <div key={section.indexSectionName} className={section.indexSectionName}>
-                <div className='cio-section'>
-                  <div className='cio-section-name'>
-                    {section?.displayName || section.indexSectionName}
-                  </div>
-                  <div className='cio-items'>
-                    {section?.data?.map((item) => (
-                      <div {...getItemProps(item)} key={item?.id}>
-                        <div>
-                          {item.data?.image_url && (
-                            <img
-                              width='100%'
-                              src={item.data?.image_url}
-                              alt=''
-                              data-testid='cio-img'
-                            />
-                          )}
-                          {item.groupName ? (
-                            <p className='cio-term-in-group'>in {item.groupName}</p>
-                          ) : (
-                            <p>{item.value}</p>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
+### ⚡ Installation & Quick Start
+
+Install the library
+
+```sh
+npm i @constructor-io/constructorio-ui-autocomplete
 ```
 
-### Using the Javascript Bundle
-
-This is a framework agnostic method that can be used in any JavaScript project. The `CioAutocomplete` function provides a simple interface to inject an entire Autocomplete UI into the provided `selector`.
-In addition to [Autocomplete component props](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs), this function also accepts `selector` and `includeCSS`.
-
-```js
+Import and use the `CioAutocomplete` component
+```javascript
 import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/constructorio-ui-autocomplete-bundled';
 
 CioAutocomplete({
   selector: '#autocomplete-container',
   includeCSS: true, // Include the default CSS styles. Defaults to true.
-  apiKey: 'key_Gep3oQOu5IMcNh9A',
+  apiKey: 'key_M57QS8SMPdLdLx4x',
   onSubmit: (submitEvent) => console.dir(submitEvent),
   // ... additional arguments
 });
+</script>
 ```
 
-## Custom Styling
+## 💡 Code Examples
 
-### Library defaults
+Ready-to-use, copy-paste examples with explanations.
 
-By default, importing react components or hooks from this library does not pull any css into your project.
+- [Full Featured example](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs#full-featured-and-styled-example)
+- [Render Search Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-sections--docs#render-search-suggestions)
+- [Render Product Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-sections--docs#render-suggested-products)
 
-If you wish to use some starter styles from this library, add an import statement similar to the example import statement below:
+🔹 For more examples check the [full examples](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
 
-```js
+## 🎨 Customization
+
+CSS styles are not imported by default. Add this to your code to import basic styles
+
+```tsx
 import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 ```
 
-> Note: the path and syntax in this example may change slightly depending on your module bundling strategy
+All styles are scoped under .cio-autocomplete. You can extend them by targeting that selector.
 
-- These starter styles can be used as a foundation to build on top of, or just as a reference for you to replace completely.
-- To opt out of all default styling, do not import the `styles.css` stylesheet.
-- All starter styles in this library are scoped within the `.cio-autocomplete` css selector.
-- These starter styles are intended to be extended by layering in your own css rules
-- If you like, you can override the container's className like so:
-  `autocompleteClassName='custom-autocomplete-container'`
-- If you like, you can pass additional className(s) of your choosing like so:
-  `autocompleteClassName='cio-autocomplete custom-autocomplete-container'`
-
-## Troubleshooting
-
-### Known Issues
-
-**Older Javascript environments**
-
-The library provides two different builds. CommonJS (cjs) and ECMAScript Modules (mjs) 
-
-For ECMAScript Modules (mjs) build. The Javascript version is ESNext which might not be supported by your environment.
-If that's the case and your environment is using an older Javascript version like ES6 (ES2015), you might get this error.
-
-`Module parse failed: Unexpected token (15:32)
-You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file`
-
-To solve this you can import the CommonJS (cjs) build which supports ES6 (ES2015) syntax:
-
-`import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/cjs'`
-
-**ESLint**
-
-There is a known issue with ESLint where it fails to resolve the paths exposed in the `exports` statement of NPM packages. If you are receiving the following error, you can safely disable ESLint using `// eslint-disable-line` for that line.
-
-`Unable to resolve path to module '@constructor-io/constructorio-ui-autocomplete/styles.css'`
-
-Relevant open issues:
-
-[Issue 1868](https://github.com/import-js/eslint-plugin-import/issues/1868)
-
-[Issue 1810](https://github.com/import-js/eslint-plugin-import/issues/1810)
-
-## Local Development
-
-### Development scripts
-
-```bash
-npm ci                  # install dependencies for local dev
-npm run dev             # start a local dev server for Storybook
-npm run lint            # run linter
+```css
+/* Custom Style Sheet */
+.cio-autocomplete .cio-submit-btn {
+  border-radius: 10px;
+  border: 1px solid red;
+}
 ```
 
-## Publishing new versions
+If you'd like to override or extend the base `className`, you can do so with the `autocompleteClassName` argument
 
-Dispatch the [Publish](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/publish.yml) workflow in GitHub Actions. You're required to provide two arguments:
-- **Version Strategy**: `major`, `minor`, or `patch`.
-- **Title**: A title for the release.
+```tsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
 
-This workflow will automatically:
-1. Bump the library version using the provided strategy.
-2. Create a new git tag.
-3. Create a new GitHub release.
-4. Compile the library.
-5. Publish the new version to NPM.
-6. Publish the new version to our public CDN.
-7. Deploy the Storybook docs to GitHub Pages.
-8. Report the progress on the [relevant Slack channel](https://constructor.slack.com/archives/C061D3CFVR9).
+function YourComponent() {
+  return (
+    <div>
+      <CioAutocomplete
+        apiKey="key_M57QS8SMPdLdLx4x"
+        onSubmit={(e) => { console.log(e)}}
+        autocompleteClassName="cio-autocomplete custom-autocomplete-container"
+      />
+    </div>
+  );
+```
 
-#### ℹ️ Note: Please don't manually increase the package.json version or create new git tags.
-The library version is tracked by releases and git tags. We intentionally keep the package.json version at `0.0.0` to avoid pushing changes to the `main` branch. This solves many security concerns by avoiding the need for branch-protection rule exceptions. 
+Then you can modify styles like so
 
-## New Storybook Version
+```css
+/* Custom Style Sheet */
+.cio-autocomplete.custom-autocomplete-styles .cio-input {
+  font-weight: bold;
+}
+```
 
-Dispatch the [Deploy Storybook](https://github.com/Constructor-io/constructorio-ui-autocomplete/actions/workflows/deploy-storybook.yml) workflow in GitHub Actions.
+## 🚀 Advanced Features
 
-#### ℹ️ Note: This is already done automatically when publishing a new version.
+- [Terms With Group Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-group-suggestions)
+- [Filtered Suggestions](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#filtered-suggestions)
+- [Terms With Images And Counts](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs#terms-with-images-and-counts)
 
+🔹 For more advanced use cases check the [full documentation](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component-advanced-parameters--docs)
 
-## Supporting Docs
+## 🛠 Troubleshooting
 
-- [Storybook 7 Introduction](https://storybook.js.org/docs/7/get-started/setup)
-- [Typescript Docs](https://www.typescriptlang.org/docs/)
+Common issues and solutions.
 
-## Usage examples
-- [Javascript](https://codesandbox.io/s/autocomplete-ui-integration-plain-y9zjl7)
-- [Remix App](https://codesandbox.io/p/sandbox/remix-example-for-constructorio-ui-autocomplete-kk5vh5?file=%2Fapp%2Froutes%2Findex.tsx)
+<table>
+  <thead>
+    <tr>
+      <th>Problem</th>
+      <th>Description</th>
+      <th>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Older JavaScript environments</td>
+          <td>
+            The library provides two different builds. CommonJS (cjs) and ECMAScript Modules (mjs)
+            <br>
+            <br>
+            For ECMAScript Modules (mjs) build, the JavaScript version is ESNext which might not be supported by your environment. If that's the case and your environment is using an older Javascript version like ES6 (ES2015), you might get this error.
+            <br>
+            <br>
+            <code>Module parse failed: Unexpected token (15:32) You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file</code>
+          </td>
+          <td>
+            To solve this you can import the CommonJS (cjs) build which supports ES6 (ES2015) syntax:
+            <br>
+            <br>
+            <code>import CioAutocomplete from '@constructor-io/constructorio-ui-autocomplete/cjs'</code>
+          </td>
+      </tr>
+      <tr>
+        <td>ESLint</td>
+        <td>
+          There is a known issue with ESLint where it fails to resolve the paths exposed in the exports statement of NPM packages.
+          <br>
+          <br>
+          For ECMAScript Modules (mjs) build. The Javascript version is ESNext which might not be supported by your environment. If that's the case and your environment is using an older Javascript version like ES6 (ES2015), you might get this error.
+          <br>
+          <br>
+          <code>Unable to resolve path to module '@constructor-io/constructorio-ui-autocomplete/styles.css'</code>
+          <br>
+          <br>
+          Relevant open issues:
+          <ul>
+            <li><a href='https://github.com/import-js/eslint-plugin-import/issues/1868'>Issue 1868</a>
+            <li><a href='https://github.com/import-js/eslint-plugin-import/issues/1810'>Issue 1810</a>
+        </td>
+        <td>
+          If you are receiving the following error, you can safely disable ESLint using <code>// eslint-disable-line</code> for that line.
+        </td>
+      </tr>
+      <tr>
+        <td>Peer Dependencies</td>
+        <td>
+          The library requires a couple of peer dependencies to be installed, so ensure they're installed if not already.
+          <br />
+          <br />
+          <ol>
+            <li><a href="https://github.com/Constructor-io/constructorio-client-javascript">constructorio-client-javascript</a></li>
+            <li><a href="https://github.com/downshift-js/downshift">downshift</a></li>
+          </ol>
+        </td>
+        <td>
+          Run <code>npm i downshift @constructor-io/constructorio-client-javascript</code>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+💬 Need help? Join our [GitHub Discussions](https://github.com/Constructor-io/constructorio-ui-autocomplete/discussions)
+
+## 📖 API Reference
+
+<!-- TODO: reference the API docs from storybook -->
+- Full API docs: Click here
+
+## 🔗 Complementary Resources
+
+- 📖 Full Documentation: [Storybook](https://constructor-io.github.io/constructorio-ui-autocomplete/)
+- 📦 JS Client: [SDK Documentation](https://constructor-io.github.io/constructorio-client-javascript/module-autocomplete.html#~getAutocompleteResults)
+- 🛒 Shopify App: [App Store Link](https://apps.shopify.com/constructor-connect)
+- 🌐 Constructor's REST API: [Autocomplete](https://docs.constructor.com/reference/v1-autocomplete-get-autocomplete-results)
+
+## 🤝 Contributing
+
+1. Fork the repo & create a new branch.
+2. Run `npm install` to install dependencies.
+3. After making the desired changes, run `npm run tests && npm run lint` locally.
+4. Submit a PR for review.
+
+## 📜 License
+
+[MIT License](./LICENSE)
+
+Copyright (c) 2022-present Constructor.io Corporation

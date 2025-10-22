@@ -1,4 +1,4 @@
-import { within, userEvent, expect, fn } from '@storybook/test';
+import { within, userEvent, expect, fn, waitFor } from '@storybook/test';
 import { CioAutocomplete } from '../../index';
 import { argTypes } from '../Autocomplete/argTypes';
 import { getCioClient, sleep } from '../../utils/helpers';
@@ -329,9 +329,11 @@ FocusRenderZeroStateSection.args = {
 FocusRenderZeroStateSection.play = async ({ canvasElement }) => {
   const canvas = within(canvasElement);
   await userEvent.click(canvas.getByTestId('cio-input'));
-  await sleep(1000);
-  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('');
-  expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
+
+  await waitFor(() => {
+    expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('');
+    expect(canvas.getAllByText('Best Sellers').length).toBeGreaterThan(0);
+  });
 };
 
 // - focus in input field with zero state and no open on focus => render no zero state section
