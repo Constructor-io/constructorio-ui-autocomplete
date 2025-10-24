@@ -225,4 +225,32 @@ describe('CioAutocomplete Client-Side Rendering', () => {
       });
     });
   });
+
+  describe('Search button behavior', () => {
+    it('Focuses the input when search button is clicked with empty input', () => {
+      render(<CioAutocomplete apiKey={DEMO_API_KEY} onSubmit={() => {}} />);
+
+      const searchInput = screen.getByRole('combobox') as HTMLInputElement;
+      const searchButton = screen.getByTestId('cio-submit-btn');
+
+      expect(searchInput).not.toHaveFocus();
+
+      fireEvent.click(searchButton);
+
+      expect(searchInput).toHaveFocus();
+    });
+
+    it('Submits the form when search button is clicked with non-empty input', () => {
+      const mockOnSubmit = jest.fn();
+      render(<CioAutocomplete apiKey={DEMO_API_KEY} onSubmit={mockOnSubmit} />);
+
+      const searchInput = screen.getByRole('combobox');
+      const searchButton = screen.getByTestId('cio-submit-btn');
+
+      fireEvent.change(searchInput, { target: { value: 'test query' } });
+      fireEvent.click(searchButton);
+
+      expect(mockOnSubmit).toHaveBeenCalled();
+    });
+  });
 });
