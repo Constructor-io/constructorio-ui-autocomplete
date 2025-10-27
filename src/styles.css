@@ -31,9 +31,6 @@
   cursor: pointer;
 }
 
-.cio-autocomplete button:disabled {
-  cursor: not-allowed;
-}
 
 .cio-autocomplete .cio-submit-btn {
   right: -21px;
