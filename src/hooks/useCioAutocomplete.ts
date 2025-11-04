@@ -126,6 +126,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         'data-cnstrc-item-group': item.groupId,
         'data-cnstrc-item-name': item.value,
         'data-cnstrc-item-id': item.data?.id,
+        tabIndex: 0,
       };
     },
     getInputProps: () => ({
