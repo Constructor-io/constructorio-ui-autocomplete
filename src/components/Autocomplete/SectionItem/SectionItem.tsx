@@ -21,7 +21,7 @@ export default function SectionItem(props: SectionItemProps) {
 
   if (isProduct(item)) {
     defaultChildren = (
-      <a href={item.data?.url} tabIndex={-1}>
+      <a href={item.data?.url}>
         <img
           data-testid='cio-img'
           src={item.data?.image_url}
@@ -51,7 +51,7 @@ export default function SectionItem(props: SectionItemProps) {
   } else if (isSearchSuggestion(item)) {
     if (getSearchResultsUrl) {
       defaultChildren = (
-        <a className='suggestion-link' href={getSearchResultsUrl(item)} tabIndex={-1}>
+        <a className='suggestion-link' href={getSearchResultsUrl(item)}>
           <SearchSuggestionItem
             item={item}
             displaySearchTermHighlights={displaySearchTermHighlights}
