@@ -126,9 +126,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         onKeyDown: (e: React.KeyboardEvent) => {
           const { code, key } = e;
           const isEnter = code === 'Enter' || key === 'Enter';
-          const isSpace = code === 'Space' || key === ' ';
 
-          if (isEnter || isSpace) {
+          if (isEnter) {
             e.preventDefault();
             // Trigger default click behavior
             getItemPropsDownShift({ item, index }).onClick(e);
