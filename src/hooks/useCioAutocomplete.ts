@@ -119,7 +119,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
       // Products always have links, Search Suggestions with getSearchResultsUrl have links
       const hasLink =
-        item.data?.url || (item.section === 'Search Suggestions' && getSearchResultsUrl);
+        item.data?.url || (item.section === 'Search Suggestions' && getSearchResultsUrl) || false;
 
       const nonInteractiveItemsProps = {
         tabIndex: 0,
