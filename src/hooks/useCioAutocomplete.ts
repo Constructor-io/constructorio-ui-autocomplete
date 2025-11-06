@@ -128,9 +128,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           const isEnter = code === 'Enter' || key === 'Enter';
 
           if (isEnter) {
-            e.preventDefault();
+            event.preventDefault();
             // Trigger default click behavior
-            getItemPropsDownShift({ item, index }).onClick(e);
+            getItemPropsDownShift({ item, index }).onClick(event);
           }
         },
       };
