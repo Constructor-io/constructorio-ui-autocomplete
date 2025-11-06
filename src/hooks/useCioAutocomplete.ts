@@ -123,8 +123,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
       const nonInteractiveItemsProps = {
         tabIndex: 0,
-        onKeyDown: (e: React.KeyboardEvent) => {
-          const { code, key } = e;
+        onKeyDown: (event: React.KeyboardEvent) => {
+          const { code, key } = event;
           const isEnter = code === 'Enter' || key === 'Enter';
 
           if (isEnter) {
