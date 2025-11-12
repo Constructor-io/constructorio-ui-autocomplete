@@ -117,6 +117,24 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       const { index, sectionId } = getItemPosition({ item, items });
       const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
+      // Products always have links, Search Suggestions with getSearchResultsUrl have links
+      const hasLink =
+        item.data?.url || (item.section === 'Search Suggestions' && getSearchResultsUrl) || false;
+
+      const nonInteractiveItemsProps = {
+        tabIndex: 0,
+        onKeyDown: (event: React.KeyboardEvent) => {
+          const { code, key } = event;
+          const isEnter = code === 'Enter' || key === 'Enter';
+
+          if (isEnter) {
+            event.preventDefault();
+            // Trigger default click behavior
+            getItemPropsDownShift({ item, index }).onClick(event);
+          }
+        },
+      };
+
       return {
         ...getItemPropsDownShift({ item, index }),
         // @deprecated `sectionItemTestId` will be removed as a className in the next major version
@@ -126,6 +144,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         'data-cnstrc-item-group': item.groupId,
         'data-cnstrc-item-name': item.value,
         'data-cnstrc-item-id': item.data?.id,
+        ...(hasLink ? {} : nonInteractiveItemsProps),
       };
     },
     getInputProps: () => ({
