@@ -128,7 +128,9 @@ export const apiKeyDescription = `Pass an \`apiKey\` to request results from con
 export const cioJsClientDescription = `If you are already using an instance of the \`ConstructorIOClient\`, you can pass a \`cioJsClient\` instead of an \`apiKey\` to request results from constructor's servers
 
 > Note: when we say \`cioJsClient\`, we are referring to an instance of the [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)`;
-export const cioJsClientOptionsDescription = `If you don't want to create an instance of the \`ConstructorIOClient\` but still want to customize some of the options, you can pass a \`cioJsClientOptions\` object. You can learn more about the possible values [here under the parameters section](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html).`;
+export const cioJsClientOptionsDescription = `If you don't want to create an instance of the \`ConstructorIOClient\` but still want to customize some of the options, you can pass a \`cioClientOptions\` object. You can learn more about the possible values [here under the parameters section](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html).
+
+> Note: The legacy \`cioJsClientOptions\` prop is still supported for backwards compatibility, but \`cioClientOptions\` is now the preferred name.`;
 export const placeholderDescription = `Pass a \`placeholder\` to override the default input field placeholder text shown to users before they start typing their query`;
 export const searchSuggestionsDescription = `Override default \`sections\` to only suggest search terms`;
 export const productsDescription = `Override default \`sections\` to only suggested products`;

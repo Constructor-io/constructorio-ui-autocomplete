@@ -100,12 +100,12 @@ const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
   cioJsClientDescription
 );
 
-const cioJsClientOptions = { apiKey, serviceUrl: 'https://ac.cnstrc.com' };
+const cioClientOptions = { apiKey, serviceUrl: 'https://ac.cnstrc.com' };
 
 export const ProvideCIOClientOptions: Story = {
   render: ComponentTemplate,
 };
-ProvideCIOClientOptions.args = { apiKey, cioJsClientOptions, onSubmit };
+ProvideCIOClientOptions.args = { apiKey, cioClientOptions, onSubmit };
 addComponentStoryDescription(
   ProvideCIOClientOptions,
   `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,

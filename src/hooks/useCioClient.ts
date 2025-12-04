@@ -6,15 +6,22 @@ import { CioClientConfig } from '../types';
 
 type UseCioClient = (cioClientConfig: CioClientConfig) => Nullable<ConstructorIOClient>;
 
-const useCioClient: UseCioClient = ({ apiKey, cioJsClient, cioJsClientOptions }) => {
+const useCioClient: UseCioClient = ({
+  apiKey,
+  cioJsClient,
+  cioClientOptions,
+  cioJsClientOptions,
+}) => {
   if (!apiKey && !cioJsClient) {
     // eslint-disable-next-line no-console
     console.error('Either apiKey or cioJsClient is required');
   }
 
+  const mergedClientOptions = cioClientOptions ?? cioJsClientOptions;
+
   return useMemo(
-    () => cioJsClient || getCioClient(apiKey, cioJsClientOptions),
-    [apiKey, cioJsClient, cioJsClientOptions]
+    () => cioJsClient || getCioClient(apiKey, mergedClientOptions),
+    [apiKey, cioJsClient, mergedClientOptions]
   );
 };
 

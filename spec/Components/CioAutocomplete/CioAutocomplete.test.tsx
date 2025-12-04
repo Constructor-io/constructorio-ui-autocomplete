@@ -60,6 +60,27 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     expect(console.error).not.toHaveBeenCalled();
   });
 
+  it('Supports cioJsClientOptions for backwards compatibility with autocomplete results', async () => {
+    const cioJsClientOptions = { apiKey: DEMO_API_KEY, serviceUrl: 'https://ac.cnstrc.com' };
+
+    render(
+      <CioAutocomplete
+        apiKey={DEMO_API_KEY}
+        cioJsClientOptions={cioJsClientOptions}
+        onSubmit={() => {}}
+      />
+    );
+
+    const searchInput = screen.getByRole('combobox');
+
+    fireEvent.change(searchInput, { target: { value: 'test' } });
+
+    const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+
+    expect(options.length).toBeGreaterThan(0);
+    expect(console.error).not.toHaveBeenCalled();
+  });
+
   it('Render custom placeholder when passed as a prop', () => {
     const { getByPlaceholderText } = render(
       <CioAutocomplete
@@ -175,7 +196,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
       fireEvent.change(searchInput, { target: { value: 'pants' } });
 
-      const options = (await screen.findAllByRole('option')).filter(
+      const options = (await screen.findAllByRole('option', undefined, { timeout: 5000 })).filter(
         (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
       );
 
@@ -215,7 +236,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
       fireEvent.change(searchInput, { target: { value: 'pants' } });
 
-      const options = (await screen.findAllByRole('option')).filter(
+      const options = (await screen.findAllByRole('option', undefined, { timeout: 5000 })).filter(
         (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
       );
 

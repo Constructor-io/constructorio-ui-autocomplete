@@ -24,7 +24,11 @@ export type CioClientConfig = {
    */
   cioJsClient?: ConstructorIOClient;
   /**
-   * Pass a `cioJsClientOptions` object to customize the client's configurations w/o creating a new instance of `ConstructorIOClient`. You can learn more about the possible values [Here](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html)
+   * Pass a `cioClientOptions` object to customize the client's configurations w/o creating a new instance of `ConstructorIOClient`. You can learn more about the possible values [Here](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html)
+   */
+  cioClientOptions?: ConstructorClientOptions;
+  /**
+   * @deprecated Use `cioClientOptions` instead.
    */
   cioJsClientOptions?: ConstructorClientOptions;
 };

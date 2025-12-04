@@ -49,10 +49,10 @@ const args = { cioJsClient, onSubmit: ${functionStrings.onSubmit} };`,
   cioJsClientDescription
 );
 
-const cioJsClientOptions = { serviceUrl: 'https://ac.cnstrc.com' };
+const cioClientOptions = { serviceUrl: 'https://ac.cnstrc.com' };
 
 export const ProvideCIOClientOptions = HooksTemplate.bind({});
-ProvideCIOClientOptions.args = { apiKey, cioJsClientOptions, onSubmit };
+ProvideCIOClientOptions.args = { apiKey, cioClientOptions, onSubmit };
 addHookStoryCode(
   ProvideCIOClientOptions,
   `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,

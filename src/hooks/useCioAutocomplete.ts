@@ -35,7 +35,7 @@ export const defaultSections: UserDefinedSection[] = [
 ];
 
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
-  const { sections, zeroStateSections, cioJsClientOptions, advancedParameters } =
+  const { sections, zeroStateSections, cioClientOptions, advancedParameters } =
     useNormalizedProps(options);
   const {
     onSubmit,
@@ -52,7 +52,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
-  const cioClient = useCioClient({ apiKey, cioJsClient, cioJsClientOptions } as CioClientConfig);
+  const cioClient = useCioClient({
+    apiKey,
+    cioJsClient,
+    cioClientOptions,
+    cioJsClientOptions: options.cioJsClientOptions,
+  } as CioClientConfig);
 
   // Get autocomplete sections (autocomplete + recommendations + custom)
   const {
