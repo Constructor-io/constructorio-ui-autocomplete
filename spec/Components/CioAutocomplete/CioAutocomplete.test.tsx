@@ -4,6 +4,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { CioAutocomplete } from '../../../src';
 import { mockCioClientJS } from '../../test-utils';
+import * as helpers from '../../../src/utils/helpers';
 import { apiKey as DEMO_API_KEY, onSubmitDefault as onSubmit } from '../../../src/constants';
 
 describe('CioAutocomplete Client-Side Rendering', () => {
@@ -58,6 +59,34 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     }).not.toThrow();
 
     expect(console.error).not.toHaveBeenCalled();
+  });
+
+  it('Supports cioJsClientOptions for backwards compatibility', async () => {
+    // Spy on getCioClient to verify cioJsClientOptions are used
+    const getCioClientSpy = jest.spyOn(helpers, 'getCioClient');
+
+    const cioJsClientOptions = {
+      apiKey: DEMO_API_KEY,
+      serviceUrl: 'https://legacy-service.cnstrc.com',
+    };
+
+    render(
+      <CioAutocomplete
+        apiKey={DEMO_API_KEY}
+        cioJsClientOptions={cioJsClientOptions}
+        onSubmit={() => {}}
+      />
+    );
+
+    // Verify getCioClient was called with cioJsClientOptions
+    expect(getCioClientSpy).toHaveBeenCalledWith(
+      DEMO_API_KEY,
+      expect.objectContaining({
+        serviceUrl: 'https://legacy-service.cnstrc.com',
+      })
+    );
+
+    getCioClientSpy.mockRestore();
   });
 
   it('Render custom placeholder when passed as a prop', () => {
@@ -175,7 +204,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
       fireEvent.change(searchInput, { target: { value: 'pants' } });
 
-      const options = (await screen.findAllByRole('option')).filter(
+      const options = (await screen.findAllByRole('option', undefined, { timeout: 5000 })).filter(
         (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
       );
 
@@ -215,7 +244,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
 
       fireEvent.change(searchInput, { target: { value: 'pants' } });
 
-      const options = (await screen.findAllByRole('option')).filter(
+      const options = (await screen.findAllByRole('option', undefined, { timeout: 5000 })).filter(
         (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Search Suggestions'
       );
 

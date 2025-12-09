@@ -64,13 +64,13 @@ export const disableStoryActions = (story) => {
   story.parameters.actions = { argTypesRegex: null };
 };
 
-export const getCioClient = (apiKey?: string, cioJsClientOptions?: ConstructorClientOptions) => {
+export const getCioClient = (apiKey?: string, cioClientOptions?: ConstructorClientOptions) => {
   if (apiKey && typeof window !== 'undefined') {
     const cioClient = new ConstructorIOClient({
       apiKey,
       sendTrackingEvents: true,
       version: `cio-ui-autocomplete-${version}`,
-      ...cioJsClientOptions,
+      ...cioClientOptions,
       eventDispatcher: { waitForBeacon: false },
     });
 

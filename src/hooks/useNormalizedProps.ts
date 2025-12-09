@@ -48,6 +48,7 @@ const useNormalizedProps = (options: UseCioAutocompleteOptions) => {
   const {
     sections = defaultSections,
     zeroStateSections,
+    cioClientOptions,
     cioJsClientOptions,
     advancedParameters,
   } = options;
@@ -62,9 +63,9 @@ const useNormalizedProps = (options: UseCioAutocompleteOptions) => {
     [JSON.stringify(zeroStateSections)]
   );
 
-  const cioJsClientOptionsMemoized = useMemo(
-    () => cioJsClientOptions,
-    [JSON.stringify(cioJsClientOptions)]
+  const cioClientOptionsMemoized = useMemo(
+    () => cioClientOptions ?? cioJsClientOptions,
+    [JSON.stringify(cioClientOptions), JSON.stringify(cioJsClientOptions)]
   );
 
   const advancedParametersMemoized = useMemo(
@@ -75,7 +76,7 @@ const useNormalizedProps = (options: UseCioAutocompleteOptions) => {
   return {
     sections: sectionsMemoized,
     zeroStateSections: zeroStateSectionsMemoized,
-    cioJsClientOptions: cioJsClientOptionsMemoized,
+    cioClientOptions: cioClientOptionsMemoized,
     advancedParameters: advancedParametersMemoized,
   };
 };
