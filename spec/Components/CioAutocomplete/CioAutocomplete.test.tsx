@@ -4,6 +4,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { CioAutocomplete } from '../../../src';
 import { mockCioClientJS } from '../../test-utils';
+import * as helpers from '../../../src/utils/helpers';
 import { apiKey as DEMO_API_KEY, onSubmitDefault as onSubmit } from '../../../src/constants';
 
 describe('CioAutocomplete Client-Side Rendering', () => {
@@ -61,14 +62,13 @@ describe('CioAutocomplete Client-Side Rendering', () => {
   });
 
   it('Supports cioJsClientOptions for backwards compatibility', async () => {
+    // Spy on getCioClient to verify cioJsClientOptions are used
+    const getCioClientSpy = jest.spyOn(helpers, 'getCioClient');
+
     const cioJsClientOptions = {
       apiKey: DEMO_API_KEY,
       serviceUrl: 'https://legacy-service.cnstrc.com',
     };
-
-    // Spy on getCioClient to verify cioJsClientOptions are used
-    const helpers = require('../../../src/utils/helpers');
-    const getCioClientSpy = jest.spyOn(helpers, 'getCioClient');
 
     render(
       <CioAutocomplete
