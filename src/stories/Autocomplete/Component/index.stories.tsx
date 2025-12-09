@@ -11,7 +11,7 @@ import {
   customStylesDescription,
   apiKey,
   onSubmitDefault as onSubmit,
-  cioJsClientOptionsDescription,
+  cioClientOptionsDescription,
 } from '../../../constants';
 import { stringifyWithDefaults } from '../../../utils/format';
 import { functionStrings } from '../../../utils/helpers';
@@ -109,7 +109,7 @@ ProvideCIOClientOptions.args = { apiKey, cioClientOptions, onSubmit };
 addComponentStoryDescription(
   ProvideCIOClientOptions,
   `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,
-  cioJsClientOptionsDescription
+  cioClientOptionsDescription
 );
 
 const placeholder = 'Custom placeholder';

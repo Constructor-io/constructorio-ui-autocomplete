@@ -12,7 +12,7 @@ import {
   customStylesDescription,
   apiKey,
   onSubmitDefault as onSubmit,
-  cioJsClientOptionsDescription,
+  cioClientOptionsDescription,
 } from '../../../constants';
 
 export default {
@@ -56,7 +56,7 @@ ProvideCIOClientOptions.args = { apiKey, cioClientOptions, onSubmit };
 addHookStoryCode(
   ProvideCIOClientOptions,
   `const args = ${stringifyWithDefaults(ProvideCIOClientOptions.args)}`,
-  cioJsClientOptionsDescription
+  cioClientOptionsDescription
 );
 
 const placeholder = 'Custom placeholder';

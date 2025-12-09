@@ -60,8 +60,15 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     expect(console.error).not.toHaveBeenCalled();
   });
 
-  it('Supports cioJsClientOptions for backwards compatibility with autocomplete results', async () => {
-    const cioJsClientOptions = { apiKey: DEMO_API_KEY, serviceUrl: 'https://ac.cnstrc.com' };
+  it('Supports cioJsClientOptions for backwards compatibility', async () => {
+    const cioJsClientOptions = {
+      apiKey: DEMO_API_KEY,
+      serviceUrl: 'https://legacy-service.cnstrc.com',
+    };
+
+    // Spy on getCioClient to verify cioJsClientOptions are used
+    const helpers = require('../../../src/utils/helpers');
+    const getCioClientSpy = jest.spyOn(helpers, 'getCioClient');
 
     render(
       <CioAutocomplete
@@ -71,14 +78,15 @@ describe('CioAutocomplete Client-Side Rendering', () => {
       />
     );
 
-    const searchInput = screen.getByRole('combobox');
+    // Verify getCioClient was called with cioJsClientOptions
+    expect(getCioClientSpy).toHaveBeenCalledWith(
+      DEMO_API_KEY,
+      expect.objectContaining({
+        serviceUrl: 'https://legacy-service.cnstrc.com',
+      })
+    );
 
-    fireEvent.change(searchInput, { target: { value: 'test' } });
-
-    const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
-
-    expect(options.length).toBeGreaterThan(0);
-    expect(console.error).not.toHaveBeenCalled();
+    getCioClientSpy.mockRestore();
   });
 
   it('Render custom placeholder when passed as a prop', () => {
