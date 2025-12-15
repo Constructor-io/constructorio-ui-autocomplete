@@ -54,6 +54,10 @@ type OptionalItemsComboboxProps<Item> = Partial<UseComboboxProps<Item>> & {
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
+export type ShopifySettings = {
+  searchUrl: string;
+};
+
 export type CioAutocompleteProps = CioClientConfig &
   OptionalItemsComboboxProps<Item> & {
     /**
@@ -68,9 +72,10 @@ export type CioAutocompleteProps = CioClientConfig &
     getSearchResultsUrl?: (item: SearchSuggestion) => string;
     /**
      * Callback function that runs when the user submits a search.
-     * Usually used to trigger a redirect
+     * Usually used to trigger a redirect.
+     * If provided, it will override Shopify defaults even when useShopifyDefaults is true.
      */
-    onSubmit: OnSubmit;
+    onSubmit?: OnSubmit;
     /**
      * Callback function that runs when the user focuses on the input
      */
@@ -109,6 +114,23 @@ export type CioAutocompleteProps = CioClientConfig &
      * Search input default value
      */
     defaultInput?: string;
+    /**
+     * Set to `true` to apply Shopify-specific defaults for `onSubmit` behavior.
+     *
+     * When enabled, the autocomplete will automatically handle navigation:
+     * - **Product selections**: Redirects to the product URL (preserving query parameters)
+     * - **Search Suggestions**: Redirects to the search results page with the selected query
+     * - **Manual search**: Redirects to the search results page with the entered query
+     *
+     * **Note**: If you provide a custom `onSubmit` handler, it will override the Shopify defaults.
+     */
+    useShopifyDefaults?: boolean;
+    /**
+     * Configuration settings for Shopify integration. Used when `useShopifyDefaults` is enabled.
+     *
+     * Allows you to customize the search URL and other Shopify-specific behaviors.
+     */
+    shopifySettings?: ShopifySettings;
   };
 
 /**
@@ -148,7 +170,10 @@ export const isAutocompleteSearchSubmit = (
   event: AutocompleteSubmitEvent
 ): event is AutocompleteSearchSubmit => 'query' in event;
 
-export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
+export type OnSubmit = (
+  event: AutocompleteSubmitEvent,
+  shopifySettings?: ShopifySettings
+) => unknown;
 
 export type DownshiftGetItemPropsOptions = GetItemPropsOptions<Item>;
 

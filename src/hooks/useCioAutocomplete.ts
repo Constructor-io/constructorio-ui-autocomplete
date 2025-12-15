@@ -10,6 +10,7 @@ import {
   HTMLPropsWithCioDataAttributes,
   Item,
   UseCioAutocompleteOptions,
+  AutocompleteSubmitEvent,
 } from '../types';
 import usePrevious from './usePrevious';
 import { getItemPosition, getItemsForActiveSections } from '../utils/helpers';
@@ -22,6 +23,7 @@ import useRecommendationsObserver from './useRecommendationsObserver';
 import { isCustomSection, isRecommendationsSection } from '../typeGuards';
 import useNormalizedProps from './useNormalizedProps';
 import useCustomBlur from './useCustomBlur';
+import { shopifyDefaults } from '../utils/shopifyDefaults';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -38,7 +40,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const { sections, zeroStateSections, cioClientOptions, advancedParameters } =
     useNormalizedProps(options);
   const {
-    onSubmit,
+    onSubmit: _onSubmit,
     onChange,
     openOnFocus,
     apiKey,
@@ -46,9 +48,17 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     placeholder = 'What can we help you find today?',
     autocompleteClassName = 'cio-autocomplete',
     defaultInput,
+    useShopifyDefaults,
+    shopifySettings,
     getSearchResultsUrl,
     ...rest
   } = options;
+
+  const onSubmit = _onSubmit
+    ? _onSubmit
+    : useShopifyDefaults
+      ? (e: AutocompleteSubmitEvent) => shopifyDefaults.onSubmit(e, shopifySettings)
+      : undefined;
 
   const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);

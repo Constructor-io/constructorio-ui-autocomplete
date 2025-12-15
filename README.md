@@ -89,6 +89,29 @@ After installing the app, you can use the Constructor autocomplete component by 
 
 For more in depth instructions, check out the [Shopify documentation](https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors-frontend-connectors-shopify-ui).
 
+### 🛍️ Shopify-Specific Defaults
+
+When integrating with Shopify themes, you can use the `useShopifyDefaults` prop to enable automatic navigation handling:
+
+```tsx
+<CioAutocomplete
+  apiKey="your-api-key"
+  useShopifyDefaults={true}
+  shopifySettings={{ searchUrl: '/search' }}
+/>
+```
+
+**What it does:**
+- **Product selections**: Automatically redirects to the product detail page
+- **Search suggestions**: Redirects to the search results page with the selected query
+- **Manual search**: Redirects to the search results page with the entered query
+- **Query parameters**: Preserves all existing URL query parameters (e.g., UTM parameters)
+
+**Configuration:**
+- `shopifySettings.searchUrl`: The search results page URL (e.g: `'{{ block.settings.search_url }}'` for Liquid templates)
+
+**Note:** When `useShopifyDefaults={true}`, any custom `onSubmit` handler you provide will override the default behavior.
+
 ## Bundle (Vanilla JS)
 This is a framework agnostic method that can be used in any JavaScript project. The CioAutocomplete function provides a simple interface to inject an entire Autocomplete UI into the provided selector. In addition to Autocomplete component props, this function also accepts a selector and includeCSS.
 
