@@ -29,6 +29,7 @@
   - [⚡ Installation & Quick Start](#-installation--quick-start)
 - [Shopify](#shopify)
   - [⚡ Installation & Quick Start](#-installation--quick-start-1)
+  - [🛍️ Shopify-Specific Defaults](#-shopify-specific-defaults)
 - [Bundle (Vanilla JS)](#bundle-vanilla-js)
   - [⚡ Installation & Quick Start](#-installation--quick-start-2)
 - [💡 Code Examples](#-code-examples)
