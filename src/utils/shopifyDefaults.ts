@@ -32,7 +32,7 @@ export const shopifyDefaults: ShopifyDefaults = {
     }
 
     /* Handle redirecting to a search page */
-    var query = '';
+    let query = '';
 
     if (!isAutocompleteSelectSubmit(event) && event.query) {
       query = event.query;
@@ -46,9 +46,10 @@ export const shopifyDefaults: ShopifyDefaults = {
       return;
     }
 
-    var queryParams = new URLSearchParams(location.search);
+    const queryParams = new URLSearchParams(location.search);
+    const shopifySearchUrl = shopifySettings?.searchUrl || '';
+
     queryParams.set('q', query);
-    window.location.href =
-      location.origin + shopifySettings?.searchUrl + '?' + queryParams.toString();
+    window.location.href = location.origin + shopifySearchUrl + '?' + queryParams.toString();
   },
 };
