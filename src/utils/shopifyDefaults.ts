@@ -16,16 +16,24 @@ export const shopifyDefaults: ShopifyDefaults = {
   onSubmit(event: AutocompleteSubmitEvent, shopifySettings: ShopifySettings | undefined) {
     /* Handle redirecting to a product page */
     if (isAutocompleteSelectSubmit(event) && event.item.section === 'Products') {
-      var productUrl = event.item.data?.url;
+      const productUrl = event.item.data?.url;
 
       if (productUrl) {
-        if (productUrl.includes('http')) {
-          // absolute url
-          window.location.href = productUrl + location.search;
-        } else {
-          // relative url
-          window.location.href = location.origin + productUrl + location.search;
+        let url: URL;
+        try {
+          url = new URL(productUrl);
+        } catch {
+          url = new URL(productUrl, location.origin);
         }
+
+        const currentParams = new URLSearchParams(location.search);
+        currentParams.forEach((value, key) => {
+          if (!url.searchParams.has(key)) {
+            url.searchParams.set(key, value);
+          }
+        });
+
+        window.location.href = url.toString();
       }
 
       return;

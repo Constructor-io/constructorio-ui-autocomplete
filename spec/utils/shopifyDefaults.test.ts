@@ -92,8 +92,9 @@ describe('shopifyDefaults', () => {
 
         shopifyDefaults.onSubmit(mockEvent, mockShopifySettings);
 
-        expect(window.location.href).toContain('/products/item?variant=123');
-        expect(window.location.href).toContain('extraQueryParam=value');
+        expect(window.location.href).toBe(
+          'https://store.myshopify.com/products/item?variant=123&extraQueryParam=value'
+        );
       });
     });
 

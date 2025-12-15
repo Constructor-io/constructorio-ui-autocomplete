@@ -54,6 +54,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     ...rest
   } = options;
 
+  // Priority: custom onSubmit > Shopify defaults > undefined
   const onSubmit = _onSubmit
     ? _onSubmit
     : useShopifyDefaults
