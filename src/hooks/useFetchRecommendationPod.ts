@@ -24,7 +24,7 @@ const useFetchRecommendationPod = (
     );
     const recommendationsPodResults = {};
     const recommendationsPodsData = {};
-    responses.forEach(({ response, request }, index) => {
+    responses.forEach(({ response, request, result_id: resultId }, index) => {
       const { pod, results } = response;
       if (pod?.id) {
         recommendationsPodResults[pod.id] = results?.map((item) => ({
@@ -37,6 +37,8 @@ const useFetchRecommendationPod = (
           displayName: pod.display_name,
           podId: pod.id,
           request,
+          resultId,
+          numResults: results?.length || 0,
         };
       }
     });

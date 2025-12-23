@@ -261,4 +261,6 @@ export interface PodData {
   podId: string;
   displayName: string;
   request: Partial<AutocompleteRequestType>;
+  resultId?: string;
+  numResults?: number;
 }

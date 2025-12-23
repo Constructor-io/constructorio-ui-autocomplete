@@ -73,5 +73,6 @@ export default function useSections(
     zeroStateActiveSections: showZeroStateSections,
     request: autocomplete.request,
     totalNumResultsPerSection: autocomplete.totalNumResultsPerSection,
+    podsData: recommendations.podsData,
   };
 }
