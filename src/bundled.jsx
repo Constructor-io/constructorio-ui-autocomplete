@@ -28,7 +28,7 @@ const CioAutocomplete = ({ selector, includeCSS = true, useShopifyDefaults, ...r
 
     ReactDOM.createRoot(containerElement).render(
       <React.StrictMode>
-        <CioAutocompleteComponent {...rest} />
+        <CioAutocompleteComponent {...rest} useShopifyDefaults={useShopifyDefaults} />
       </React.StrictMode>
     );
   }
