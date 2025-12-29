@@ -24,6 +24,8 @@ describe('shopifyDefaults', () => {
   describe('shopifyDefaults', () => {
     it('should return an object with shopify defaults', () => {
       expect(shopifyDefaults).toHaveProperty('onSubmit');
+      expect(shopifyDefaults).toHaveProperty('placeholder');
+      expect(shopifyDefaults).toHaveProperty('selector');
     });
   });
 
@@ -115,6 +117,23 @@ describe('shopifyDefaults', () => {
         expect(window.location.href).toContain('extraQueryParam=value');
       });
 
+      it('Handles undefined shopifySettings when selecting search suggestion', () => {
+        const mockEvent: AutocompleteSubmitEvent = {
+          item: {
+            section: 'Search Suggestions',
+            value: 'blue shirt',
+          },
+          originalQuery: 'shirt',
+        } as any;
+
+        shopifyDefaults.onSubmit(mockEvent, undefined);
+
+        expect(window.location.href).toContain('https://store.myshopify.com');
+        expect(window.location.href).toContain('q=blue+shirt');
+        expect(window.location.href).toContain('extraQueryParam=value');
+        expect(window.location.href).not.toContain('/search');
+      });
+
       it('Preserves existing query parameters when redirecting to search', () => {
         (window as any).location.search = '?existing=param&another=value';
 
@@ -162,6 +181,32 @@ describe('shopifyDefaults', () => {
         expect(window.location.href).toContain('/search');
         expect(window.location.href).toContain('q=red+shoes');
         expect(window.location.href).toContain('extraQueryParam=value');
+      });
+
+      it('Handles undefined shopifySettings when submitting search query', () => {
+        const mockEvent: AutocompleteSubmitEvent = {
+          query: 'red shoes',
+        } as any;
+
+        shopifyDefaults.onSubmit(mockEvent, undefined);
+
+        expect(window.location.href).toContain('https://store.myshopify.com');
+        expect(window.location.href).toContain('q=red+shoes');
+        expect(window.location.href).toContain('extraQueryParam=value');
+        expect(window.location.href).not.toContain('/search');
+      });
+
+      it('Handles empty searchUrl in shopifySettings', () => {
+        const mockEvent: AutocompleteSubmitEvent = {
+          query: 'red shoes',
+        } as any;
+
+        shopifyDefaults.onSubmit(mockEvent, { searchUrl: '' });
+
+        expect(window.location.href).toContain('https://store.myshopify.com');
+        expect(window.location.href).toContain('q=red+shoes');
+        expect(window.location.href).toContain('extraQueryParam=value');
+        expect(window.location.href).not.toContain('/search');
       });
 
       it('Does not redirect when query is empty', () => {

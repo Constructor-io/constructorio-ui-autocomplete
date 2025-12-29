@@ -9,10 +9,14 @@ import { isAutocompleteSelectSubmit } from '../types';
  */
 export interface ShopifyDefaults {
   onSubmit: NonNullable<CioAutocompleteProps['onSubmit']>;
+  selector: string;
+  placeholder: string;
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export const shopifyDefaults: ShopifyDefaults = {
+  selector: '#cio-autocomplete-ui-container',
+  placeholder: 'Search',
   onSubmit(event: AutocompleteSubmitEvent, shopifySettings: ShopifySettings | undefined) {
     /* Handle redirecting to a product page */
     if (isAutocompleteSelectSubmit(event) && event.item.section === 'Products') {
