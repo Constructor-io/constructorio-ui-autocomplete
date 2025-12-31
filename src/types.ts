@@ -108,6 +108,12 @@ export type CioAutocompletePropsBase = CioClientConfig &
      * Search input default value
      */
     defaultInput?: string;
+    /**
+     * Configuration settings for Shopify integration. Used when `useShopifyDefaults` is enabled.
+     *
+     * Allows you to customize the search URL and other Shopify-specific behaviors.
+     */
+    shopifySettings?: ShopifySettings;
   };
 
 export type CioAutocompletePropsWithShopifyDefaults = {
@@ -128,12 +134,6 @@ export type CioAutocompletePropsWithShopifyDefaults = {
    * **Note**: If you provide a custom `onSubmit` handler, it will override the Shopify defaults.
    */
   useShopifyDefaults: true;
-  /**
-   * Configuration settings for Shopify integration. Used when `useShopifyDefaults` is enabled.
-   *
-   * Allows you to customize the search URL and other Shopify-specific behaviors.
-   */
-  shopifySettings?: ShopifySettings;
 };
 
 export type CioAutocompletePropsWithoutShopifyDefaults = {
@@ -142,6 +142,16 @@ export type CioAutocompletePropsWithoutShopifyDefaults = {
    * Usually used to trigger a redirect.
    */
   onSubmit: OnSubmit;
+  /**
+   * Set to `true` to apply Shopify-specific defaults for `onSubmit` behavior.
+   *
+   * When enabled, the autocomplete will automatically handle navigation:
+   * - **Product selections**: Redirects to the product URL (preserving query parameters)
+   * - **Search Suggestions**: Redirects to the search results page with the selected query
+   * - **Manual search**: Redirects to the search results page with the entered query
+   *
+   * **Note**: If you provide a custom `onSubmit` handler, it will override the Shopify defaults.
+   */
   useShopifyDefaults?: false;
 };
 
