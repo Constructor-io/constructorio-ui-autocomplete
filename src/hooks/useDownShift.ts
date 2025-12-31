@@ -12,7 +12,7 @@ let idCounter = 0;
 
 interface UseDownShiftOptions extends UseComboboxProps<Item> {
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  onSubmit: OnSubmit;
+  onSubmit?: OnSubmit;
   previousQuery?: string;
   cioClient: Nullable<ConstructorIOClient>;
 }
