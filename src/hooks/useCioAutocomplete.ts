@@ -168,6 +168,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         'data-cnstrc-item-group': item.groupId,
         'data-cnstrc-item-name': item.value,
         'data-cnstrc-item-id': item.data?.id,
+        'data-cnstrc-sl-campaign-id': item.labels?.sl_campaign_id,
+        'data-cnstrc-sl-campaign-owner': item.labels?.sl_campaign_owner,
         ...(hasLink ? {} : nonInteractiveItemsProps),
       };
     },
