@@ -1,5 +1,5 @@
 import { Item, Section } from '../types';
-import { isRecommendationsSection } from '../typeGuards';
+import { isInGroupSuggestion, isRecommendationsSection, isSearchSuggestion } from '../typeGuards';
 
 export const cnstrcDataAttrs = {
   common: {
@@ -71,7 +71,7 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
   };
 
   // Add item ID only for non-Search Suggestions
-  if (item.section !== 'Search Suggestions' && item.data?.id) {
+  if (!isSearchSuggestion(item) && item.data?.id) {
     dataCnstrc[cnstrcDataAttrs.common.itemId] = item.data.id;
   }
 
@@ -81,7 +81,7 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
   }
 
   // Add group ID for in-group suggestions
-  if (item.groupId) {
+  if (isInGroupSuggestion(item)) {
     dataCnstrc[cnstrcDataAttrs.common.itemGroup] = item.groupId;
   }
 

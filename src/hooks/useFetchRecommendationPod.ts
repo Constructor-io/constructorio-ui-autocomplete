@@ -38,7 +38,7 @@ const useFetchRecommendationPod = (
           podId: pod.id,
           request,
           resultId,
-          numResults: results?.length || 0,
+          numResults: response.total_num_results ?? 0,
         };
       }
     });

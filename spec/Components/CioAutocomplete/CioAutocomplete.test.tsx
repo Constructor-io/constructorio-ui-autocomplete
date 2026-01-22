@@ -8,17 +8,6 @@ import * as helpers from '../../../src/utils/helpers';
 import { apiKey as DEMO_API_KEY, onSubmitDefault as onSubmit } from '../../../src/constants';
 import { cnstrcDataAttrs } from '../../../src/utils/dataAttributeHelpers';
 
-/**
- * Helper function to verify recommendation item attributes
- */
-function verifyRecommendationItemAttributes(item: Element) {
-  expect(item).toHaveAttribute(cnstrcDataAttrs.recommendations.item, 'recommendation');
-  expect(item).toHaveAttribute(cnstrcDataAttrs.common.itemSection);
-  expect(item).toHaveAttribute(cnstrcDataAttrs.common.itemName);
-  expect(item).toHaveAttribute(cnstrcDataAttrs.common.itemId);
-  expect(item).toHaveAttribute(cnstrcDataAttrs.recommendations.strategyId);
-}
-
 describe('CioAutocomplete Client-Side Rendering', () => {
   beforeEach(() => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -475,9 +464,15 @@ describe('CioAutocomplete Client-Side Rendering', () => {
       );
 
       if (recommendationItems && recommendationItems.length > 0) {
-        // Verify at least one item has all required attributes
+        // Verify at least one item has all required attributes with correct values
         const firstItem = recommendationItems[0];
-        verifyRecommendationItemAttributes(firstItem);
+        expect(firstItem).toHaveAttribute(cnstrcDataAttrs.recommendations.item, 'recommendation');
+        expect(firstItem).toHaveAttribute(cnstrcDataAttrs.common.itemSection, 'Products');
+        expect(firstItem).toHaveAttribute(cnstrcDataAttrs.common.itemName);
+        expect(firstItem.getAttribute(cnstrcDataAttrs.common.itemName)).toBeTruthy();
+        expect(firstItem).toHaveAttribute(cnstrcDataAttrs.common.itemId);
+        expect(firstItem.getAttribute(cnstrcDataAttrs.common.itemId)).toBeTruthy();
+        expect(firstItem).toHaveAttribute(cnstrcDataAttrs.recommendations.strategyId, 'bestsellers');
       }
     });
   });
