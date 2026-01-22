@@ -90,6 +90,7 @@ describe('dataAttributeHelpers', () => {
         section: 'Search Suggestions',
         value: 'test query',
         groupId: 'group-123',
+        groupName: 'Test Group',
         data: {},
       } as Item;
 
