@@ -58,8 +58,8 @@ Autocomplete UI provides a lightweight and customizable autocomplete component. 
 
 - 🔌 Easy Integration – Quickly integrate with your app as a plug-and-play React component
 - ⚡ Lightweight & Fast – Tiny bundle size, optimized for speed
-- 🎨 Customizable UI – With minmal styles, and supports for custom markup
-- ⌨️ Keyboard Navigation – Fully supports accessible keyboard naviagation
+- 🎨 Customizable UI – With minimal styles, and supports for custom markup
+- ⌨️ Keyboard Navigation – Fully supports accessible keyboard navigation
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
 - 🛡 Written in TypeScript with type safety
 
@@ -86,6 +86,7 @@ function YourComponent() {
       <CioAutocomplete
         apiKey="key_M57QS8SMPdLdLx4x"
         onSubmit={(e) => {console.log(e)}}
+      </CioAutocomplete>
     </div>
   );
 ```
