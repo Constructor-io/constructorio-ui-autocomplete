@@ -89,6 +89,7 @@ function YourComponent() {
       />
     </div>
   );
+}
 ```
 
 ## Integration Modes
