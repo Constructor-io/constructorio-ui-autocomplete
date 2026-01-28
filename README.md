@@ -86,7 +86,7 @@ function YourComponent() {
       <CioAutocomplete
         apiKey="key_M57QS8SMPdLdLx4x"
         onSubmit={(e) => {console.log(e)}}
-      </CioAutocomplete>
+      />
     </div>
   );
 ```
