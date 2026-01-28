@@ -16,23 +16,20 @@ View the full component documentation and live examples in [Storybook](https://c
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## 📌 Table of Contents
 
-- [Autocomplete UI](#autocomplete-ui)
-  - [Documentation](#documentation)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Installation & Quick Start](#installation--quick-start)
-    - [Basic Usage (React)](#basic-usage-react)
-  - [Integration Modes](#integration-modes)
-    - [Shopify](#shopify)
-      - [Installation & Quick Start](#installation--quick-start-1)
-      - [🛍️ Shopify-Specific Defaults](#-shopify-specific-defaults)
-  - [Bundle (Vanilla JS)](#bundle-vanilla-js)
-      - [Installation & Quick Start](#installation--quick-start-2)
-  - [Customization](#customization)
-  - [Troubleshooting](#troubleshooting)
-  - [Complementary Resources](#complementary-resources)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [Overview](#overview)
+- [Installation & Quick Start](#installation--quick-start)
+  - [Basic Usage (React)](#basic-usage-react)
+- [Integration Modes](#integration-modes)
+  - [Shopify](#shopify)
+    - [Installation & Quick Start](#installation--quick-start-1)
+    - [🛍️ Shopify-Specific Defaults](#-shopify-specific-defaults)
+- [Bundle (Vanilla JS)](#bundle-vanilla-js)
+    - [Installation & Quick Start](#installation--quick-start-2)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
+- [Complementary Resources](#complementary-resources)
+- [Contributing](#contributing)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
