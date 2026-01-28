@@ -1,3 +1,17 @@
+# Autocomplete UI
+Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences with [Constructor.io's autosuggest services](https://constructor.com/solutions/search)
+
+![minzipped size](https://img.shields.io/bundlephobia/minzip/@constructor-io/constructorio-ui-autocomplete?color=green&style=flat-square)
+[![NPM Version](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete?style=flat-square)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
+
+![Autocomplete UI Demonstration](assets/autocomplete-ui-demonstration.gif)
+
+## Documentation
+
+View the full component documentation and live examples in [Storybook](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## 📌 Table of Contents
@@ -22,35 +36,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Autocomplete UI
-Lightweight, minimalistic, and fully customizable autocomplete component for fast, accessible, and flexible search experiences with [Constructor.io's autosuggest services](https://constructor.com/solutions/search)
-
-![minzipped size](https://img.shields.io/bundlephobia/minzip/@constructor-io/constructorio-ui-autocomplete?color=green&style=flat-square)
-[![NPM Version](https://img.shields.io/npm/v/@constructor-io/constructorio-ui-autocomplete?style=flat-square)](https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/Constructor-io/constructorio-ui-autocomplete/blob/main/LICENSE)
-
-![Autocomplete UI Demonstration](assets/autocomplete-ui-demonstration.gif)
-
-## Documentation
-
-View the full component documentation and live examples in [Storybook](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
-
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Installation & Quick Start](#installation--quick-start)
-  - [Basic Usage (React)](#basic-usage-react)
-- [Integration Modes](#integration-modes)
-  - [Shopify](#shopify)
-  - [Bundle (Vanilla JS)](#bundle-vanilla-js)
-- [Customization](#customization)
-- [Troubleshooting](#troubleshooting)
-- [Complementary Resources](#complementary-resources)
-- [Contributing](#contributing)
-- [License](#license)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Overview
 
