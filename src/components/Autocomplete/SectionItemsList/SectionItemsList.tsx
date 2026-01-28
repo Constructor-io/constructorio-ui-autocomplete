@@ -6,6 +6,7 @@ import { translate } from '../../../utils/helpers';
 import { camelToStartCase } from '../../../utils/format';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import NoResults from '../AutocompleteResults/NoResults';
+import { cnstrcDataAttrs } from '../../../utils/dataAttributeHelpers';
 
 export type RenderSectionItemsList = (renderResultsArguments: {
   section: Section;
@@ -87,7 +88,7 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
         section.indexSectionName === 'Products' && (
           <div className='cio-section-footer'>
             <button
-              data-cnstrc-search-submit-btn
+              {...{ [cnstrcDataAttrs.autocomplete.searchSubmitButton]: '' }}
               className='cio-show-all-results-button'
               type='button'
               onClick={onSubmit}>
