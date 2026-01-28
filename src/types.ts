@@ -54,7 +54,11 @@ type OptionalItemsComboboxProps<Item> = Partial<UseComboboxProps<Item>> & {
 
 export type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 
-export type CioAutocompleteProps = CioClientConfig &
+export type ShopifySettings = {
+  searchUrl: string;
+};
+
+export type CioAutocompletePropsBase = CioClientConfig &
   OptionalItemsComboboxProps<Item> & {
     /**
      * Set to `false` to show suggestions only after a user clears their query,
@@ -66,11 +70,6 @@ export type CioAutocompleteProps = CioClientConfig &
      * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
      */
     getSearchResultsUrl?: (item: SearchSuggestion) => string;
-    /**
-     * Callback function that runs when the user submits a search.
-     * Usually used to trigger a redirect
-     */
-    onSubmit: OnSubmit;
     /**
      * Callback function that runs when the user focuses on the input
      */
@@ -109,7 +108,55 @@ export type CioAutocompleteProps = CioClientConfig &
      * Search input default value
      */
     defaultInput?: string;
+    /**
+     * Configuration settings for Shopify integration. Used when `useShopifyDefaults` is enabled.
+     *
+     * Allows you to customize the search URL and other Shopify-specific behaviors.
+     */
+    shopifySettings?: ShopifySettings;
   };
+
+export type CioAutocompletePropsWithShopifyDefaults = {
+  /**
+   * Callback function that runs when the user submits a search.
+   * Usually used to trigger a redirect.
+   * If provided, it will override Shopify defaults even when useShopifyDefaults is true.
+   */
+  onSubmit?: OnSubmit;
+  /**
+   * Set to `true` to apply Shopify-specific defaults for `onSubmit` behavior.
+   *
+   * When enabled, the autocomplete will automatically handle navigation:
+   * - **Product selections**: Redirects to the product URL (preserving query parameters)
+   * - **Search Suggestions**: Redirects to the search results page with the selected query
+   * - **Manual search**: Redirects to the search results page with the entered query
+   *
+   * **Note**: If you provide a custom `onSubmit` handler, it will override the Shopify defaults.
+   */
+  useShopifyDefaults: true;
+};
+
+export type CioAutocompletePropsWithoutShopifyDefaults = {
+  /**
+   * Callback function that runs when the user submits a search.
+   * Usually used to trigger a redirect.
+   */
+  onSubmit: OnSubmit;
+  /**
+   * Set to `true` to apply Shopify-specific defaults for `onSubmit` behavior.
+   *
+   * When enabled, the autocomplete will automatically handle navigation:
+   * - **Product selections**: Redirects to the product URL (preserving query parameters)
+   * - **Search Suggestions**: Redirects to the search results page with the selected query
+   * - **Manual search**: Redirects to the search results page with the entered query
+   *
+   * **Note**: If you provide a custom `onSubmit` handler, it will override the Shopify defaults.
+   */
+  useShopifyDefaults?: false;
+};
+
+export type CioAutocompleteProps = CioAutocompletePropsBase &
+  (CioAutocompletePropsWithShopifyDefaults | CioAutocompletePropsWithoutShopifyDefaults);
 
 /**
  * AutocompleteSubmitEvent type is AutocompleteSelectSubmit or AutocompleteSearchSubmit.
@@ -148,7 +195,10 @@ export const isAutocompleteSearchSubmit = (
   event: AutocompleteSubmitEvent
 ): event is AutocompleteSearchSubmit => 'query' in event;
 
-export type OnSubmit = (event: AutocompleteSubmitEvent) => unknown;
+export type OnSubmit = (
+  event: AutocompleteSubmitEvent,
+  shopifySettings?: ShopifySettings
+) => unknown;
 
 export type DownshiftGetItemPropsOptions = GetItemPropsOptions<Item>;
 

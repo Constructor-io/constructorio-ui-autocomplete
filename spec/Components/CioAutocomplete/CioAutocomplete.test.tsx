@@ -101,6 +101,94 @@ describe('CioAutocomplete Client-Side Rendering', () => {
     expect(getByPlaceholderText('Custom placeholder text')).toBeInTheDocument();
   });
 
+  it('Renders sl-campaign data attributes when present in item labels', async () => {
+    const mockCioClient = mockCioClientJS();
+
+    // Mock response with sl_campaign labels
+    mockCioClient.autocomplete.getAutocompleteResults = jest.fn().mockResolvedValue({
+      sections: {
+        Products: [
+          {
+            matched_terms: [],
+            labels: {
+              sl_campaign_id: 'test-campaign-123',
+              sl_campaign_owner: 'test-owner',
+            },
+            data: {
+              id: 'product-1',
+              url: 'https://example.com/product-1',
+              image_url: 'https://example.com/image.png',
+            },
+            value: 'Product With Campaign',
+          },
+        ],
+      },
+      total_num_results_per_section: {
+        Products: 1,
+      },
+      result_id: '123',
+      request: { term: 'test' },
+    });
+
+    render(
+      <CioAutocomplete apiKey={DEMO_API_KEY} cioJsClient={mockCioClient} onSubmit={() => {}} />
+    );
+
+    const searchInput = screen.getByRole('combobox');
+    fireEvent.change(searchInput, { target: { value: 'test' } });
+
+    // Find the product item
+    const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+    const productOption = options.find(
+      (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Products'
+    );
+
+    // Assert data-cnstrc-sl-campaign-id and data-cnstrc-sl-campaign-owner are present
+    expect(productOption).toHaveAttribute('data-cnstrc-sl-campaign-id', 'test-campaign-123');
+    expect(productOption).toHaveAttribute('data-cnstrc-sl-campaign-owner', 'test-owner');
+  });
+
+  it('Does not render sl-campaign data attributes when not present in item labels', async () => {
+    const mockCioClient = mockCioClientJS();
+
+    mockCioClient.autocomplete.getAutocompleteResults = jest.fn().mockResolvedValue({
+      sections: {
+        Products: [
+          {
+            matched_terms: [],
+            data: {
+              id: 'product-1',
+              url: 'https://example.com/product-1',
+              image_url: 'https://example.com/image.png',
+            },
+            value: 'Product Without Campaign',
+          },
+        ],
+      },
+      total_num_results_per_section: {
+        Products: 1,
+      },
+      result_id: '123',
+      request: { term: 'test' },
+    });
+
+    render(
+      <CioAutocomplete apiKey={DEMO_API_KEY} cioJsClient={mockCioClient} onSubmit={() => {}} />
+    );
+
+    const searchInput = screen.getByRole('combobox');
+    fireEvent.change(searchInput, { target: { value: 'test' } });
+
+    // Find the product item
+    const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+    const productOption = options.find(
+      (elem) => elem.getAttribute('data-cnstrc-item-section') === 'Products'
+    );
+
+    expect(productOption).not.toHaveAttribute('data-cnstrc-sl-campaign-id');
+    expect(productOption).not.toHaveAttribute('data-cnstrc-sl-campaign-owner');
+  });
+
   it('Accepts custom styles when passed as a prop', () => {
     const { container } = render(
       <CioAutocomplete
@@ -280,6 +368,92 @@ describe('CioAutocomplete Client-Side Rendering', () => {
       fireEvent.click(searchButton);
 
       expect(mockOnSubmit).toHaveBeenCalled();
+    });
+  });
+
+  describe('shopifyDefaults', () => {
+    const originalLocation = window.location;
+
+    beforeEach(() => {
+      // Mock window.location for Shopify tests
+      delete (window as any).location;
+      (window as any).location = {
+        href: 'https://store.myshopify.com/pages/home',
+        origin: 'https://store.myshopify.com',
+        search: '?extraQueryParam=value',
+      };
+    });
+
+    afterEach(() => {
+      (window as any).location = originalLocation;
+    });
+
+    it('Custom onSubmit overrides shopifyDefaults onSubmit when provided', async () => {
+      const customOnSubmit = jest.fn();
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          useShopifyDefaults={true}
+          shopifySettings={{ searchUrl: '/search' }}
+          onSubmit={customOnSubmit}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      const searchForm = screen.getByTestId('cio-form');
+
+      fireEvent.change(searchInput, { target: { value: 'test query' } });
+      fireEvent.submit(searchForm);
+
+      // Custom onSubmit should be called even when useShopifyDefaults is true
+      expect(customOnSubmit).toHaveBeenCalledWith({ query: 'test query' });
+
+      // Window.location should NOT be updated since custom onSubmit overrides Shopify defaults
+      expect(window.location.href).not.toContain('q=test+query');
+    });
+
+    it('Uses shopifyDefaults.onSubmit when useShopifyDefaults is true and no custom onSubmit provided', async () => {
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          useShopifyDefaults={true}
+          shopifySettings={{ searchUrl: '/search' }}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      const searchForm = screen.getByTestId('cio-form');
+
+      fireEvent.change(searchInput, { target: { value: 'test query' } });
+      fireEvent.submit(searchForm);
+
+      // Window.location should be updated with Shopify defaults
+      expect(window.location.href).toContain('q=test+query');
+      expect(window.location.href).toContain('/search');
+    });
+
+    it('Uses custom onSubmit when useShopifyDefaults is false', async () => {
+      const customOnSubmit = jest.fn();
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          useShopifyDefaults={false}
+          onSubmit={customOnSubmit}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      const searchForm = screen.getByTestId('cio-form');
+
+      fireEvent.change(searchInput, { target: { value: 'test query' } });
+      fireEvent.submit(searchForm);
+
+      expect(customOnSubmit).toHaveBeenCalledWith({ query: 'test query' });
     });
   });
 });

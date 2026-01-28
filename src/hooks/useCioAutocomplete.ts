@@ -10,6 +10,8 @@ import {
   HTMLPropsWithCioDataAttributes,
   Item,
   UseCioAutocompleteOptions,
+  AutocompleteSubmitEvent,
+  OnSubmit,
 } from '../types';
 import usePrevious from './usePrevious';
 import { getItemPosition, getItemsForActiveSections } from '../utils/helpers';
@@ -22,6 +24,7 @@ import useRecommendationsObserver from './useRecommendationsObserver';
 import { isCustomSection, isRecommendationsSection } from '../typeGuards';
 import useNormalizedProps from './useNormalizedProps';
 import useCustomBlur from './useCustomBlur';
+import { shopifyDefaults } from '../utils/shopifyDefaults';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -38,17 +41,33 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const { sections, zeroStateSections, cioClientOptions, advancedParameters } =
     useNormalizedProps(options);
   const {
-    onSubmit,
+    onSubmit: onSubmitProp,
     onChange,
     openOnFocus,
     apiKey,
     cioJsClient,
-    placeholder = 'What can we help you find today?',
+    placeholder: placeholderProp,
     autocompleteClassName = 'cio-autocomplete',
     defaultInput,
+    useShopifyDefaults,
+    shopifySettings,
     getSearchResultsUrl,
     ...rest
   } = options;
+
+  let placeholder = 'What can we help you find today?';
+  if (placeholderProp) {
+    placeholder = placeholderProp;
+  } else if (useShopifyDefaults) {
+    placeholder = shopifyDefaults.placeholder;
+  }
+
+  let onSubmit: OnSubmit | undefined;
+  if (onSubmitProp) {
+    onSubmit = onSubmitProp;
+  } else if (useShopifyDefaults) {
+    onSubmit = (e: AutocompleteSubmitEvent) => shopifyDefaults.onSubmit(e, shopifySettings);
+  }
 
   const [query, setQuery] = useState(defaultInput || '');
   const previousQuery = usePrevious(query);
@@ -149,6 +168,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         'data-cnstrc-item-group': item.groupId,
         'data-cnstrc-item-name': item.value,
         'data-cnstrc-item-id': item.data?.id,
+        'data-cnstrc-sl-campaign-id': item.labels?.sl_campaign_id,
+        'data-cnstrc-sl-campaign-owner': item.labels?.sl_campaign_owner,
         ...(hasLink ? {} : nonInteractiveItemsProps),
       };
     },
