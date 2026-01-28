@@ -107,7 +107,7 @@ For more in depth instructions, check out the [Shopify documentation](https://do
 
 #### 🛍️ Shopify-Specific Defaults
 
-If you are using the Constuctor autocomplete component inside Shopify without using the [Constructor.io Shopify App](https://apps.shopify.com/constructor-connect), you can use  the `useShopifyDefaults` prop to enable automatic navigation handling:
+If you are using the Constructor autocomplete component inside Shopify without using the [Constructor.io Shopify App](https://apps.shopify.com/constructor-connect), you can use  the `useShopifyDefaults` prop to enable automatic navigation handling:
 
 ```tsx
 <CioAutocomplete
