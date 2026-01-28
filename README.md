@@ -80,9 +80,9 @@ After installing the app, you can use the Constructor autocomplete component by 
 
 For more in depth instructions, check out the [Shopify documentation](https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors-frontend-connectors-shopify-ui).
 
-### 🛍️ Shopify-Specific Defaults
+#### 🛍️ Shopify-Specific Defaults
 
-When integrating with Shopify themes, you can use the `useShopifyDefaults` prop to enable automatic navigation handling:
+If you are using the Constuctor autocomplete component inside Shopify without using the [Constructor.io Shopify App](https://apps.shopify.com/constructor-connect), you can use  the `useShopifyDefaults` prop to enable automatic navigation handling:
 
 ```tsx
 <CioAutocomplete
