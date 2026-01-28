@@ -27,10 +27,10 @@ export const shopifyDefaults: ShopifyDefaults = {
         try {
           url = new URL(productUrl);
         } catch {
-          url = new URL(productUrl, location.origin);
+          url = new URL(productUrl, window.location.origin);
         }
 
-        const currentParams = new URLSearchParams(location.search);
+        const currentParams = new URLSearchParams(window.location.search);
         currentParams.forEach((value, key) => {
           if (!url.searchParams.has(key)) {
             url.searchParams.set(key, value);
@@ -58,10 +58,10 @@ export const shopifyDefaults: ShopifyDefaults = {
       return;
     }
 
-    const queryParams = new URLSearchParams(location.search);
+    const queryParams = new URLSearchParams(window.location.search);
     const shopifySearchUrl = shopifySettings?.searchUrl || '';
 
     queryParams.set('q', query);
-    window.location.href = location.origin + shopifySearchUrl + '?' + queryParams.toString();
+    window.location.href = `${window.location.origin + shopifySearchUrl}?${queryParams.toString()}`;
   },
 };
