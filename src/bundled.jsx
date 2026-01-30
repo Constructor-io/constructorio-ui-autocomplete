@@ -8,7 +8,8 @@ import './styles.css';
 const CioAutocomplete = ({ selector, includeCSS = true, useShopifyDefaults, ...rest }) => {
   if (document) {
     const stylesheet = document.getElementById('cio-autocomplete-styles');
-    const containerSelector = selector || (useShopifyDefaults ? shopifyDefaults.selector : undefined);
+    const containerSelector =
+      selector || (useShopifyDefaults ? shopifyDefaults.selector : undefined);
     const containerElement = containerSelector ? document.querySelector(containerSelector) : null;
 
     if (!containerElement) {

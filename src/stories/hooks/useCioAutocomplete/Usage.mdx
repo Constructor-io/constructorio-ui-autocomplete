@@ -1,0 +1,237 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as UseCioAutocompleteStories from './useCioAutocomplete.stories';
+
+<Meta of={UseCioAutocompleteStories} />
+
+# useCioAutocomplete
+
+A headless hook that provides all the state and helpers needed to build a custom autocomplete UI. Use this when you need complete control over rendering while leveraging Constructor.io's autocomplete functionality.
+
+## Interactive Example
+
+<Canvas of={UseCioAutocompleteStories.Primary} />
+
+## When to Use
+
+Use `useCioAutocomplete` when:
+
+- Building a completely custom autocomplete UI
+- Integrating with an existing design system
+- Need full control over DOM structure
+- Implementing advanced accessibility requirements
+- Building non-standard autocomplete patterns
+
+For standard use cases, consider `CioAutocomplete` component which handles rendering automatically.
+
+## Usage
+
+```jsx
+import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+
+function CustomAutocomplete() {
+  const {
+    query,
+    sections,
+    isOpen,
+    getFormProps,
+    getInputProps,
+    getMenuProps,
+    getItemProps,
+    getSectionProps,
+    setQuery,
+  } = useCioAutocomplete({
+    apiKey: 'YOUR_API_KEY',
+    onSubmit: (event) => {
+      if ('query' in event) {
+        console.log('Search:', event.query);
+      } else {
+        console.log('Selected:', event.item);
+      }
+    },
+  });
+
+  const inputProps = getInputProps();
+
+  return (
+    <div className="autocomplete">
+      <form {...getFormProps()}>
+        <input {...inputProps} placeholder="Search..." />
+        <button type="submit">Search</button>
+      </form>
+
+      <ul {...getMenuProps()}>
+        {isOpen &&
+          sections?.map((section) => (
+            <li key={section.indexSectionName} {...getSectionProps(section)}>
+              <h4>{section.displayName || section.indexSectionName}</h4>
+              <ul>
+                {section.data?.map((item) => (
+                  <li key={item.data?.id || item.value} {...getItemProps(item)}>
+                    {item.value}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+## Hook Options
+
+<ArgTypes of={UseCioAutocompleteStories} />
+
+## Return Value
+
+The hook returns an object with these properties:
+
+### State
+
+| Property | Type | Description |
+| --- | --- | --- |
+| query | string | Current input field value |
+| sections | Section[] | Array of sections with data to render |
+| totalNumResultsPerSection | Record\<string, number\> | Total results per section |
+| isOpen | boolean | Whether the dropdown is open |
+| selectedItem | Item or undefined | Currently selected item (hover or keyboard) |
+| cioClient | ConstructorIOClient | Constructor.io client instance |
+
+### Prop Getters
+
+| Function | Returns | Description |
+| --- | --- | --- |
+| getFormProps() | object | Props for the form element |
+| getInputProps() | object | Props for the input element |
+| getLabelProps() | object | Props for the label element |
+| getMenuProps() | object | Props for the results container |
+| getItemProps(item) | object | Props for each result item |
+| getSectionProps(section) | object | Props for each section container |
+
+### Actions
+
+| Function | Arguments | Description |
+| --- | --- | --- |
+| setQuery | string | Update the input value |
+| openMenu | void | Open the dropdown |
+| closeMenu | void | Close the dropdown |
+
+### Other
+
+| Property | Type | Description |
+| --- | --- | --- |
+| autocompleteClassName | string | Container class name |
+| advancedParameters | object | Advanced configuration |
+| getSearchResultsUrl | function | URL generator for suggestions |
+
+## Important: Prop Getters
+
+Always spread prop getter results onto your elements to ensure proper behavior:
+
+```jsx
+// Form - handles submit
+<form {...getFormProps()}>
+
+// Input - handles value, onChange, onFocus, keyboard navigation
+<input {...getInputProps()} />
+
+// Menu - handles accessibility attributes
+<ul {...getMenuProps()}>
+
+// Items - handles click, keyboard selection, tracking
+<li {...getItemProps(item)}>
+
+// Sections - handles section attributes and tracking
+<div {...getSectionProps(section)}>
+```
+
+> **Critical**: The `getItemProps` function must be called for each item and its result spread onto the item element. This enables:
+> - Click and keyboard selection
+> - Tracking events to Constructor.io
+> - Proper accessibility attributes
+>
+> **Do not** add your own `onClick` handler to items - this would override the library's event handling and prevent tracking from working correctly. All item selection events should be handled through the `onSubmit` callback.
+
+## Full Example
+
+```jsx
+import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function CustomAutocomplete() {
+  const {
+    isOpen,
+    sections,
+    getFormProps,
+    getLabelProps,
+    getInputProps,
+    getMenuProps,
+    getItemProps,
+    getSectionProps,
+    setQuery,
+    autocompleteClassName,
+  } = useCioAutocomplete({
+    apiKey: 'YOUR_API_KEY',
+    onSubmit: (event) => {
+      if ('query' in event) {
+        window.location.href = `/search?q=${event.query}`;
+      } else if (event.item.data?.url) {
+        window.location.href = event.item.data.url;
+      }
+    },
+  });
+
+  const inputProps = getInputProps();
+
+  return (
+    <div className={autocompleteClassName}>
+      <form {...getFormProps()}>
+        <label htmlFor="search-input" {...getLabelProps()}>
+          <span className="sr-only">Search</span>
+        </label>
+        <input id="search-input" {...inputProps} />
+        <button
+          type="button"
+          hidden={!inputProps.value}
+          onClick={() => setQuery('')}
+        >
+          Clear
+        </button>
+        <button type="submit">Search</button>
+      </form>
+
+      <ul {...getMenuProps()}>
+        {isOpen &&
+          sections?.map((section) => {
+            if (!section.data?.length) return null;
+
+            const title = section.displayName || section.indexSectionName;
+
+            return (
+              <li key={title} {...getSectionProps(section)}>
+                <h5>{title}</h5>
+                <ul>
+                  {section.data.map((item) => (
+                    <li key={item.data?.id || item.value} {...getItemProps(item)}>
+                      {item.section === 'Products' && item.data?.image_url && (
+                        <img src={item.data.image_url} alt={item.value} />
+                      )}
+                      <span>{item.value}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            );
+          })}
+      </ul>
+    </div>
+  );
+}
+```
+
+## See Also
+
+- [CioAutocomplete Component](?path=/docs/components-cioautocomplete--docs) - Ready-to-use component
+- [Usage Patterns](?path=/docs/basic-concepts-usagepatterns--docs) - Customization patterns
+- [Utilities Reference](?path=/docs/utils-reference--docs) - Type guards and helpers

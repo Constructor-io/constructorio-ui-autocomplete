@@ -1,0 +1,129 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Components/CioAutocomplete/Examples/AdvancedParameters" />
+
+# Advanced Parameters
+
+The `advancedParameters` prop allows fine-tuning of the autocomplete behavior and data returned from Constructor.io's servers.
+
+## Terms with Group Suggestions
+
+Add suggested group filters to search term suggestions. Pass integers for `numTermsWithGroupSuggestions` and `numGroupsSuggestedPerTerm`.
+
+Type "pan" to see suggestions like "all week flex pant **in Chinos**".
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    numTermsWithGroupSuggestions: 3,
+    numGroupsSuggestedPerTerm: 2,
+  }}
+/>
+```
+
+## Filtered Suggestions
+
+Apply filters to limit suggestions to specific groups or facet values. Any parameter supported by the [autocomplete endpoint](https://docs.constructor.com/reference/autocomplete-autocomplete-results) can be passed.
+
+Type "short" to see only results from the "Shorts" group.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    filters: {
+      group_id: '1130', // Shorts group
+    },
+  }}
+/>
+```
+
+## Search Suggestion Images and Counts
+
+Display images and result counts for search suggestions. These fields must be enabled in your Constructor.io dashboard. Contact your Integration Engineer for details.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    displaySearchSuggestionImages: true,
+    displaySearchSuggestionResultCounts: true,
+  }}
+/>
+```
+
+## Debounce
+
+Override the default debounce delay (250ms) for autocomplete requests. Lower values provide faster responses but increase API calls.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    debounce: 100, // 100ms debounce
+  }}
+/>
+```
+
+## Translations
+
+Display translatable UI strings in your preferred language.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    numTermsWithGroupSuggestions: 3,
+    translations: {
+      in: 'dans', // French translation for "in"
+      'show all results': 'afficher tous les résultats',
+    },
+  }}
+/>
+```
+
+## Fetch Zero State on Focus
+
+By default, zero state sections are fetched on component render. Set `fetchZeroStateOnFocus: true` to delay fetching until the user focuses on the input.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    fetchZeroStateOnFocus: true,
+  }}
+  zeroStateSections={[
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 3,
+    },
+  ]}
+/>
+```
+
+## Show All Results Button
+
+Display a "Show all results" button at the bottom of the Products section. Clicking submits the form and triggers `onSubmit`.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    displayShowAllResultsButton: true,
+  }}
+/>
+```
+
+## See Also
+
+- [CioAutocomplete Props](?path=/docs/components-cioautocomplete--docs)
+- [Sections Configuration](?path=/docs/components-cioautocomplete-examples-sections--docs)

@@ -1,0 +1,242 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Basic Concepts/UsagePatterns" />
+
+# Usage Patterns
+
+This library supports multiple usage patterns, from simple drop-in components to fully customized implementations. Choose the pattern that fits your needs.
+
+## 1. Standard Component
+
+The simplest approach. Use `CioAutocomplete` with props for configuration.
+
+```jsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function App() {
+  return (
+    <CioAutocomplete
+      apiKey="YOUR_API_KEY"
+      onSubmit={(event) => console.log(event)}
+      placeholder="Search products..."
+      sections={[
+        { indexSectionName: 'Products', numResults: 6 },
+        { indexSectionName: 'Search Suggestions' },
+      ]}
+    />
+  );
+}
+```
+
+**Best for:** Quick integration with minimal customization.
+
+## 2. Render Props (Subcomponents)
+
+Use subcomponents as children of `CioAutocomplete` to customize specific parts while keeping default behavior.
+
+```jsx
+import {
+  CioAutocomplete,
+  SearchInput,
+  AutocompleteResults,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+function App() {
+  return (
+    <CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+      <SearchInput />
+      <AutocompleteResults />
+    </CioAutocomplete>
+  );
+}
+```
+
+### Customizing Subcomponents
+
+Each subcomponent accepts a render function for customization:
+
+```jsx
+<CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+  <SearchInput>
+    {({ getFormProps, getInputProps, setQuery }) => (
+      <form {...getFormProps()}>
+        <input {...getInputProps()} className="custom-input" />
+        <button type="button" onClick={() => setQuery('')}>
+          Clear
+        </button>
+      </form>
+    )}
+  </SearchInput>
+
+  <AutocompleteResults>
+    {({ sections, getItemProps }) => (
+      <div className="custom-results">
+        {sections?.map((section) => (
+          <div key={section.indexSectionName}>
+            <h4>{section.displayName}</h4>
+            {section.data?.map((item) => (
+              <div {...getItemProps(item)} key={item.id}>
+                {item.value}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    )}
+  </AutocompleteResults>
+</CioAutocomplete>
+```
+
+**Best for:** Customizing UI while keeping state management handled by the library.
+
+## 3. Section-Level renderItem
+
+Customize individual item rendering per section without changing the overall structure:
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Products',
+      renderItem: ({ item, query, getItemProps }) => (
+        <div {...getItemProps(item)} className="product-card">
+          <img src={item.data?.image_url} alt={item.value} />
+          <h3>{item.value}</h3>
+          <span className="price">${item.data?.price}</span>
+        </div>
+      ),
+    },
+    {
+      indexSectionName: 'Search Suggestions',
+      // Uses default rendering
+    },
+  ]}
+/>
+```
+
+**Best for:** Custom product cards while keeping search suggestions default.
+
+## 4. Headless Hook
+
+Full control over rendering using `useCioAutocomplete`. The hook manages state, API calls, keyboard navigation, and accessibility.
+
+```jsx
+import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+
+function CustomAutocomplete() {
+  const {
+    query,
+    sections,
+    isOpen,
+    getFormProps,
+    getInputProps,
+    getMenuProps,
+    getItemProps,
+    getSectionProps,
+    setQuery,
+  } = useCioAutocomplete({
+    apiKey: 'YOUR_API_KEY',
+    onSubmit: handleSubmit,
+  });
+
+  return (
+    <div className="my-autocomplete">
+      <form {...getFormProps()}>
+        <input {...getInputProps()} />
+        <button type="submit">Search</button>
+      </form>
+
+      {isOpen && (
+        <div {...getMenuProps()} className="dropdown">
+          {sections?.map((section) => (
+            <div key={section.indexSectionName} {...getSectionProps(section)}>
+              <h4>{section.displayName}</h4>
+              {section.data?.map((item) => (
+                <div key={item.id} {...getItemProps(item)}>
+                  {item.value}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+**Best for:** Complete UI customization, design system integration, complex layouts.
+
+## Pattern Comparison
+
+| Pattern | Customization | Complexity | State Management |
+|---------|---------------|------------|------------------|
+| Standard Component | Props only | Low | Automatic |
+| Render Props | Component-level | Medium | Automatic |
+| renderItem | Item-level | Medium | Automatic |
+| Headless Hook | Full | High | Automatic (just UI is manual) |
+
+## Prop Getters Explained
+
+Prop getters are functions that return props to spread onto your elements. They handle:
+
+- Event handlers (onClick, onKeyDown, etc.)
+- Accessibility attributes (aria-*, role, etc.)
+- Data attributes for tracking
+- State-based attributes
+
+```jsx
+// Example: getItemProps returns
+{
+  onClick: handleClick,        // Click selection
+  onKeyDown: handleKeyDown,    // Keyboard navigation
+  className: 'cio-item',       // Default styling
+  'data-testid': 'cio-item-Products',
+  'data-cnstrc-item-section': 'Products',
+  'data-cnstrc-item-name': 'Blue Shirt',
+  // ... more attributes
+}
+```
+
+> **Always spread prop getters** onto your elements to ensure proper functionality. The library won't work correctly without them.
+
+## Combining Patterns
+
+You can mix patterns as needed:
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  // Standard props for configuration
+  placeholder="Search..."
+  autocompleteClassName="custom-container"
+  sections={[
+    {
+      indexSectionName: 'Products',
+      numResults: 4,
+      // renderItem for custom products
+      renderItem: ({ item, getItemProps }) => (
+        <ProductCard item={item} {...getItemProps(item)} />
+      ),
+    },
+  ]}
+>
+  {/* Render props for custom input */}
+  <SearchInput>
+    {(props) => <CustomSearchForm {...props} />}
+  </SearchInput>
+
+  {/* Default results rendering */}
+  <AutocompleteResults />
+</CioAutocomplete>
+```
+
+## See Also
+
+- [CioAutocomplete](?path=/docs/components-cioautocomplete--docs) - Main component reference
+- [useCioAutocomplete](?path=/docs/hooks-usecioautocomplete--docs) - Headless hook reference
+- [Sections Configuration](?path=/docs/components-cioautocomplete-examples-sections--docs)

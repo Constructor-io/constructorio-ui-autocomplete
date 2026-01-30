@@ -1,0 +1,299 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Utils/Reference" />
+
+# Utilities Reference
+
+Helper functions and type guards exported from the library.
+
+## Type Guards
+
+Type guards help you safely handle the `AutocompleteSubmitEvent` in TypeScript.
+
+### isAutocompleteSearchSubmit
+
+Checks if the event is a search submission (user typed and pressed Enter).
+
+**Signature:**
+
+```typescript
+function isAutocompleteSearchSubmit(
+  event: AutocompleteSubmitEvent
+): event is AutocompleteSearchSubmit
+```
+
+**When to use:**
+- When handling form submissions
+- When redirecting to search results page
+- When the user submitted typed text
+
+**Usage:**
+
+```typescript
+import {
+  CioAutocomplete,
+  isAutocompleteSearchSubmit,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={(event) => {
+    if (isAutocompleteSearchSubmit(event)) {
+      // TypeScript knows event.query exists
+      console.log('Search query:', event.query);
+      window.location.href = `/search?q=${event.query}`;
+    }
+  }}
+/>
+```
+
+**Returns:**
+- `true` if `event` has a `query` property
+- `false` otherwise
+
+---
+
+### isAutocompleteSelectSubmit
+
+Checks if the event is a selection submission (user clicked or selected an item).
+
+**Signature:**
+
+```typescript
+function isAutocompleteSelectSubmit(
+  event: AutocompleteSubmitEvent
+): event is AutocompleteSelectSubmit
+```
+
+**When to use:**
+- When handling item selections
+- When redirecting to product pages
+- When the user selected a suggestion
+
+**Usage:**
+
+```typescript
+import {
+  CioAutocomplete,
+  isAutocompleteSelectSubmit,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={(event) => {
+    if (isAutocompleteSelectSubmit(event)) {
+      // TypeScript knows event.item and event.originalQuery exist
+      console.log('Selected:', event.item.value);
+      console.log('Original query:', event.originalQuery);
+
+      if (event.item.data?.url) {
+        window.location.href = event.item.data.url;
+      }
+    }
+  }}
+/>
+```
+
+**Returns:**
+- `true` if `event` has `item` and `originalQuery` properties
+- `false` otherwise
+
+---
+
+## Complete onSubmit Handler
+
+Use both type guards for comprehensive event handling:
+
+```typescript
+import {
+  CioAutocomplete,
+  isAutocompleteSearchSubmit,
+  isAutocompleteSelectSubmit,
+  AutocompleteSubmitEvent,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+function handleSubmit(event: AutocompleteSubmitEvent) {
+  if (isAutocompleteSearchSubmit(event)) {
+    // User submitted text
+    const { query } = event;
+    window.location.href = `/search?q=${encodeURIComponent(query)}`;
+    return;
+  }
+
+  if (isAutocompleteSelectSubmit(event)) {
+    // User selected an item
+    const { item, originalQuery } = event;
+
+    // Track the selection
+    analytics.track('autocomplete_select', {
+      query: originalQuery,
+      selectedItem: item.value,
+      section: item.section,
+    });
+
+    // Navigate based on item type
+    if (item.section === 'Products' && item.data?.url) {
+      window.location.href = item.data.url;
+    } else if (item.section === 'Search Suggestions') {
+      window.location.href = `/search?q=${encodeURIComponent(item.value)}`;
+    }
+  }
+}
+```
+
+---
+
+## Exported Types
+
+The library exports these TypeScript types for use in your code:
+
+### Event Types
+
+```typescript
+// Union type - one of the below
+type AutocompleteSubmitEvent =
+  | AutocompleteSearchSubmit
+  | AutocompleteSelectSubmit;
+
+// User typed and submitted
+type AutocompleteSearchSubmit = {
+  query: string;
+};
+
+// User selected an item
+type AutocompleteSelectSubmit = {
+  item: Item;
+  originalQuery: string;
+};
+```
+
+### Item Types
+
+```typescript
+// Base item type - union of all possible item types
+type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
+
+// Product from Products section
+type Product = {
+  section: 'Products';
+  value: string;           // Display name
+  is_slotted: boolean;
+  labels: Record<string, unknown>;
+  matched_terms: string[];
+  data?: {
+    id?: string;           // Product ID (in data, not root)
+    url?: string;
+    image_url?: string;
+    price?: number;
+    group_ids?: string[];
+    // ... other product data from your index
+  };
+};
+
+// Search suggestion
+type SearchSuggestion = {
+  section: 'Search Suggestions';
+  value: string;           // Suggestion text
+  is_slotted: boolean;
+  labels: Record<string, unknown>;
+  matched_terms: string[];
+  data?: {
+    id?: string;
+    image_url?: string;
+    total_num_results?: number;
+  };
+};
+
+// Group-filtered suggestion (e.g., "shoes in Running")
+type InGroupSuggestion = SearchSuggestion & {
+  groupId: string;         // Group filter ID
+  groupName: string;       // Group display name
+};
+```
+
+> **Note**: Item types extend the base types from `@constructor-io/constructorio-client-javascript`. The `id` field is typically found in `item.data.id`, not at the root level.
+
+### Section Types
+
+```typescript
+type Section =
+  | AutocompleteSection
+  | RecommendationsSection
+  | CustomSection;
+
+type AutocompleteSection = {
+  type?: 'autocomplete';
+  indexSectionName: string;
+  displayName?: string;
+  numResults?: number;
+  data: Item[];
+};
+
+type RecommendationsSection = {
+  type: 'recommendations';
+  podId: string;
+  displayName?: string;
+  numResults?: number;
+  data: Item[];
+};
+
+type CustomSection = {
+  type: 'custom';
+  displayName: string;
+  data: Item[];
+};
+```
+
+### Props Types
+
+```typescript
+// Props for CioAutocomplete component
+type CioAutocompleteProps = {
+  apiKey?: string;
+  cioJsClient?: ConstructorIOClient;
+  cioClientOptions?: ConstructorClientOptions;
+  onSubmit: OnSubmit;
+  placeholder?: string;
+  sections?: UserDefinedSection[];
+  zeroStateSections?: UserDefinedSection[];
+  openOnFocus?: boolean;
+  autocompleteClassName?: string;
+  advancedParameters?: AdvancedParameters;
+  onFocus?: () => void;
+  onChange?: (input: string) => void;
+  children?: ReactNode;
+  useShopifyDefaults?: boolean;
+  shopifySettings?: ShopifySettings;
+};
+
+// Options for useCioAutocomplete hook
+type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
+```
+
+---
+
+## Import Examples
+
+```typescript
+// Type guards
+import {
+  isAutocompleteSearchSubmit,
+  isAutocompleteSelectSubmit,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+// Types
+import type {
+  AutocompleteSubmitEvent,
+  AutocompleteSearchSubmit,
+  AutocompleteSelectSubmit,
+  Item,
+  Section,
+  CioAutocompleteProps,
+  UseCioAutocompleteOptions,
+} from '@constructor-io/constructorio-ui-autocomplete';
+```
+
+## See Also
+
+- [User Events](?path=/docs/components-cioautocomplete-examples-userevents--docs) - onSubmit handling examples
+- [useCioAutocomplete](?path=/docs/hooks-usecioautocomplete--docs) - Hook return types

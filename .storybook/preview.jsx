@@ -13,8 +13,17 @@ export const parameters = {
     }
   },
   options: {
-    storySort: (a, b) =>
-      a.title === b.title ? 0 : a.id.localeCompare(b.id, undefined, { numeric: true })
+    storySort: {
+      order: [
+        'Getting Started',
+        ['Introduction', 'Quickstart'],
+        'Components',
+        ['CioAutocomplete', ['*', 'Examples'], 'AutocompleteResults', 'SearchInput', 'SectionItem', 'SectionItemsList'],
+        'Hooks',
+        'Basic Concepts',
+        'Utils',
+      ],
+    },
   },
   layout: 'fullscreen',
   viewMode: 'docs',

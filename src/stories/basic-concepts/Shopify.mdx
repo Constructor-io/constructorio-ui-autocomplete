@@ -1,0 +1,176 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Basic Concepts/Shopify" />
+
+# Shopify Integration
+
+This library provides first-class support for Shopify storefronts with the `useShopifyDefaults` prop.
+
+## Quick Start
+
+Enable Shopify defaults with a single prop:
+
+```jsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function App() {
+  return (
+    <CioAutocomplete
+      apiKey="YOUR_API_KEY"
+      useShopifyDefaults
+    />
+  );
+}
+```
+
+## What `useShopifyDefaults` Does
+
+When enabled, the library automatically handles navigation:
+
+| Action | Behavior |
+| --- | --- |
+| Select a product | Redirects to the product URL (item.data.url) |
+| Select a search suggestion | Redirects to `/search?q=<query>` |
+| Submit text search | Redirects to `/search?q=<query>` |
+
+### Default Placeholder
+
+Changes the placeholder to "Search" (Shopify convention).
+
+## Customizing Shopify Behavior
+
+### Custom Search URL
+
+Use `shopifySettings` to customize the search results URL:
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  useShopifyDefaults
+  shopifySettings={{
+    searchUrl: '/pages/search', // Custom search page path
+  }}
+/>
+```
+
+### Override onSubmit
+
+Provide your own `onSubmit` to override Shopify defaults:
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  useShopifyDefaults
+  onSubmit={(event) => {
+    // Custom behavior takes precedence
+    if ('query' in event) {
+      // Custom search handling
+      window.location.href = `/collections/all?q=${event.query}`;
+    } else {
+      // Custom product handling
+      console.log('Selected:', event.item);
+    }
+  }}
+/>
+```
+
+## Shopify Settings Reference
+
+| Property | Type | Default | Description |
+| --- | --- | --- | --- |
+| searchUrl | string | /search | Path to your search results page |
+
+## Type Safety
+
+When using `useShopifyDefaults`, `onSubmit` becomes optional:
+
+```tsx
+// TypeScript - onSubmit not required when useShopifyDefaults is true
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  useShopifyDefaults
+/>
+
+// But still available for override
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  useShopifyDefaults
+  onSubmit={(event) => {/* custom handling */}}
+/>
+```
+
+## With Hook
+
+`useShopifyDefaults` also works with the hook:
+
+```jsx
+import { useCioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+
+function ShopifyAutocomplete() {
+  const {
+    getFormProps,
+    getInputProps,
+    // ...other values
+  } = useCioAutocomplete({
+    apiKey: 'YOUR_API_KEY',
+    useShopifyDefaults: true,
+    shopifySettings: {
+      searchUrl: '/pages/search',
+    },
+  });
+
+  // Build your custom UI...
+}
+```
+
+## Complete Shopify Example
+
+```jsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function ShopifySearch() {
+  return (
+    <header className="site-header">
+      <CioAutocomplete
+        apiKey="YOUR_API_KEY"
+        useShopifyDefaults
+        shopifySettings={{
+          searchUrl: '/search',
+        }}
+        autocompleteClassName="cio-autocomplete header-search"
+        sections={[
+          {
+            indexSectionName: 'Products',
+            numResults: 6,
+            displaySearchTermHighlights: true,
+          },
+          {
+            indexSectionName: 'Search Suggestions',
+            numResults: 4,
+          },
+        ]}
+        zeroStateSections={[
+          {
+            podId: 'bestsellers',
+            type: 'recommendations',
+            displayName: 'Popular Products',
+            numResults: 4,
+          },
+        ]}
+      />
+    </header>
+  );
+}
+```
+
+## Shopify App Integration
+
+For full Shopify integration including catalog sync, consider the [Constructor.io Shopify Connector](https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors-catalog-connectors-shopify-connector).
+
+## See Also
+
+- [CioAutocomplete Props](?path=/docs/components-cioautocomplete--docs)
+- [Zero State](?path=/docs/components-cioautocomplete-examples-zerostate--docs)
+- [User Events](?path=/docs/components-cioautocomplete-examples-userevents--docs)

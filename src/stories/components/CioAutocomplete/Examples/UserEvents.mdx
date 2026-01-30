@@ -1,0 +1,172 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Components/CioAutocomplete/Examples/UserEvents" />
+
+# User Events
+
+Pass callback functions to respond to user interactions with the autocomplete.
+
+## onSubmit (Required)
+
+Called when the user submits the form (Enter key, submit button click, or item selection).
+
+The callback receives an `AutocompleteSubmitEvent` which is either:
+- `AutocompleteSearchSubmit`: Contains `query` when user submits typed text
+- `AutocompleteSelectSubmit`: Contains `item` and `originalQuery` when user selects an item
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={(event) => {
+    if ('query' in event) {
+      // User submitted text input
+      console.log('Search query:', event.query);
+      window.location.href = `/search?q=${event.query}`;
+    } else {
+      // User selected an item
+      console.log('Selected item:', event.item);
+      console.log('Original query:', event.originalQuery);
+
+      if (event.item.data?.url) {
+        window.location.href = event.item.data.url;
+      }
+    }
+  }}
+/>
+```
+
+## Using Type Guards
+
+Use the exported type guards for type-safe event handling:
+
+```jsx
+import {
+  CioAutocomplete,
+  isAutocompleteSearchSubmit,
+  isAutocompleteSelectSubmit,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={(event) => {
+    if (isAutocompleteSearchSubmit(event)) {
+      // TypeScript knows event.query exists
+      console.log('Search:', event.query);
+    }
+
+    if (isAutocompleteSelectSubmit(event)) {
+      // TypeScript knows event.item and event.originalQuery exist
+      console.log('Selected:', event.item.value);
+    }
+  }}
+/>
+```
+
+## onFocus
+
+Called when the user focuses on the search input.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  onFocus={() => {
+    console.log('Input focused');
+    // Track analytics, show overlay, etc.
+  }}
+/>
+```
+
+## onChange
+
+Called when the input value changes.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  onChange={(inputValue) => {
+    console.log('New query:', inputValue);
+    // Update external state, filter local results, etc.
+  }}
+/>
+```
+
+## onIsOpenChange
+
+Called when the dropdown opens or closes. Available via Downshift integration.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  onIsOpenChange={(changes) => {
+    console.log('Dropdown state:', changes);
+    // changes.isOpen indicates current state
+  }}
+/>
+```
+
+## Complete Example
+
+```jsx
+function SearchWithCallbacks() {
+  const handleSubmit = (event) => {
+    if ('query' in event) {
+      window.location.href = `/search?q=${encodeURIComponent(event.query)}`;
+    } else if (event.item.data?.url) {
+      window.location.href = event.item.data.url;
+    }
+  };
+
+  const handleFocus = () => {
+    // Show search overlay or analytics event
+    console.log('Search focused');
+  };
+
+  const handleChange = (query) => {
+    // Sync with external state
+    console.log('Query changed:', query);
+  };
+
+  return (
+    <CioAutocomplete
+      apiKey="YOUR_API_KEY"
+      onSubmit={handleSubmit}
+      onFocus={handleFocus}
+      onChange={handleChange}
+    />
+  );
+}
+```
+
+## Event Reference
+
+| Callback | Arguments | Trigger |
+| --- | --- | --- |
+| onSubmit | AutocompleteSubmitEvent | Form submit, Enter key, item selection |
+| onFocus | void | Input receives focus |
+| onChange | string (input value) | Input value changes |
+| onIsOpenChange | Downshift state changes | Dropdown opens/closes |
+
+## AutocompleteSubmitEvent Types
+
+**AutocompleteSearchSubmit** (user typed and submitted):
+```typescript
+{
+  query: string; // The text the user typed
+}
+```
+
+**AutocompleteSelectSubmit** (user selected an item):
+```typescript
+{
+  item: Item; // The selected item object
+  originalQuery: string; // The query that generated the suggestions
+}
+```
+
+## See Also
+
+- [CioAutocomplete Props](?path=/docs/components-cioautocomplete--docs)
+- [Utilities Reference](?path=/docs/utils-reference--docs) - Type guards documentation

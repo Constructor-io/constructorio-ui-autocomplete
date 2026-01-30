@@ -1,0 +1,105 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as AutocompleteResultsStories from './AutocompleteResults.stories';
+
+<Meta of={AutocompleteResultsStories} />
+
+# AutocompleteResults
+
+A subcomponent that renders the results dropdown. Use within `CioAutocomplete` to customize how results are displayed.
+
+## Interactive Example
+
+<Canvas of={AutocompleteResultsStories.Primary} />
+
+## Usage
+
+`AutocompleteResults` must be used as a child of `CioAutocomplete`. It consumes context from the parent component.
+
+```jsx
+import {
+  CioAutocomplete,
+  AutocompleteResults,
+  SearchInput,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+function App() {
+  return (
+    <CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+      <SearchInput />
+      <AutocompleteResults />
+    </CioAutocomplete>
+  );
+}
+```
+
+## Props Reference
+
+<ArgTypes of={AutocompleteResultsStories} />
+
+## Render Props
+
+The `children` prop accepts a render function that receives:
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| sections | Section[] | Array of section data to render |
+| getItemProps | (item: Item) => object | Prop getter for individual items |
+
+## Custom Rendering
+
+Pass a render function as children to customize the results display:
+
+```jsx
+<CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+  <SearchInput />
+  <AutocompleteResults>
+    {({ sections, getItemProps }) => (
+      <div className="custom-results">
+        {sections?.map((section) => (
+          <div key={section.displayName} className="custom-section">
+            <h4>{section.displayName || section.indexSectionName}</h4>
+            <ul>
+              {section.data?.map((item) => (
+                <li {...getItemProps(item)} key={item.id}>
+                  {item.value}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    )}
+  </AutocompleteResults>
+</CioAutocomplete>
+```
+
+> **Important**: Always spread `getItemProps(item)` onto each item element to maintain keyboard navigation and tracking.
+
+## Default Behavior
+
+When no children are provided, `AutocompleteResults` renders each section using `SectionItemsList`:
+
+```jsx
+// Default implementation
+sections?.map((section) => (
+  <SectionItemsList section={section} key={section.indexSectionName} />
+))
+```
+
+## Context Values
+
+`AutocompleteResults` accesses these values from `CioAutocompleteContext`:
+
+| Value | Type | Description |
+| --- | --- | --- |
+| sections | Section[] | Sections with data to render |
+| isOpen | boolean | Whether dropdown is open |
+| getMenuProps | () => object | Props for the menu container |
+| getItemProps | (item) => object | Props for each item |
+| closeMenu | () => void | Function to close the dropdown |
+
+## See Also
+
+- [SectionItemsList](?path=/docs/components-sectionitemslist--docs)
+- [SectionItem](?path=/docs/components-sectionitem--docs)
+- [Usage Patterns](?path=/docs/basic-concepts-usagepatterns--docs)

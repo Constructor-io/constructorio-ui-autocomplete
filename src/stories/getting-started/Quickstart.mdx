@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Getting Started/Quickstart" />
+
+# Quickstart
+
+Get up and running with Constructor.io Autocomplete UI in minutes.
+
+## Step 1: Install
+
+```bash
+npm install @constructor-io/constructorio-ui-autocomplete
+```
+
+## Step 2: Basic Setup
+
+```jsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function App() {
+  return (
+    <CioAutocomplete
+      apiKey="YOUR_API_KEY"
+      onSubmit={(event) => {
+        if ('query' in event) {
+          // User submitted a search query
+          window.location.href = `/search?q=${event.query}`;
+        } else {
+          // User selected an item
+          console.log('Selected:', event.item);
+        }
+      }}
+    />
+  );
+}
+```
+
+## Step 3: Add Optional Styles
+
+The library includes starter styles. Import them to get a functional UI out of the box:
+
+```jsx
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+```
+
+These styles are designed to be customized. Override them with your own CSS or pass a custom `autocompleteClassName` prop.
+
+## Next Steps
+
+- [Explore CioAutocomplete props](?path=/docs/components-cioautocomplete--docs) - Configure sections, styling, and behavior
+- [Advanced examples](?path=/docs/components-cioautocomplete-examples-advancedparameters--docs) - Filter suggestions, group suggestions, and more
+- [Use the headless hook](?path=/docs/hooks-usecioautocomplete--docs) - Build completely custom UI
+
+> **Need help?** Contact your Constructor.io Integration Engineer for support!
