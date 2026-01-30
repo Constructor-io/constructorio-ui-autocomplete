@@ -62,6 +62,6 @@ export const shopifyDefaults: ShopifyDefaults = {
     const shopifySearchUrl = shopifySettings?.searchUrl || '';
 
     queryParams.set('q', query);
-    window.location.href = location.origin + shopifySearchUrl + '?' + queryParams.toString();
+    window.location.href = `${location.origin + shopifySearchUrl}?${queryParams.toString()}`;
   },
 };
