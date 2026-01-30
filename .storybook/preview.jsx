@@ -31,6 +31,10 @@ export const parameters = {
     'storybook/docs/panel': { index: -1 }
   },
   docs: {
+    toc: {
+      headingSelector: 'h2, h3',
+      title: 'On this page',
+    },
     page: () => (
       <>
         <Title />
