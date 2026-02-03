@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext } from 'react';
 import { CioAutocompleteProps } from '../../../types';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
+import { cnstrcDataAttrs } from '../../../utils/dataAttributeHelpers';
 
 type SearchInputProps = {
   children?: (args: Partial<Omit<CioAutocompleteProps, 'children'>>) => ReactElement;
@@ -42,7 +43,7 @@ function DefaultRenderInput({ getFormProps, getInputProps, getLabelProps, setQue
       <button
         className='cio-submit-btn'
         data-testid='cio-submit-btn'
-        data-cnstrc-search-submit-btn
+        {...{ [cnstrcDataAttrs.autocomplete.searchSubmitButton]: '' }}
         onClick={(e) => {
           if (!inputProps.value) {
             e.preventDefault();

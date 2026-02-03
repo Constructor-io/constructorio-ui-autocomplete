@@ -24,6 +24,12 @@ import useRecommendationsObserver from './useRecommendationsObserver';
 import { isCustomSection, isRecommendationsSection } from '../typeGuards';
 import useNormalizedProps from './useNormalizedProps';
 import useCustomBlur from './useCustomBlur';
+import {
+  getItemCnstrcDataAttributes,
+  getRecommendationsSectionCnstrcDataAttributes,
+  cnstrcDataAttrs,
+  normalizeSeedItems,
+} from '../utils/dataAttributeHelpers';
 import { shopifyDefaults } from '../utils/shopifyDefaults';
 
 export const defaultSections: UserDefinedSection[] = [
@@ -86,6 +92,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     zeroStateActiveSections,
     request,
     totalNumResultsPerSection,
+    podsData,
   } = useSections(query, cioClient, sections, zeroStateSections, advancedParameters);
 
   const features = useMemo(() => getFeatures(request), [request]);
@@ -132,7 +139,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       ...getMenuProps(),
       className: 'cio-results',
       'data-testid': 'cio-results',
-      'data-cnstrc-autosuggest': '',
+      [cnstrcDataAttrs.autocomplete.autocompleteContainer]: '',
     }),
     getLabelProps,
     openMenu,
@@ -159,17 +166,15 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         },
       };
 
+      // Get all data attributes using the helper function
+      const dataAttributes = getItemCnstrcDataAttributes(item);
+
       return {
         ...getItemPropsDownShift({ item, index }),
         // @deprecated `sectionItemTestId` will be removed as a className in the next major version
         className: `cio-item ${sectionItemTestId}`,
         'data-testid': sectionItemTestId,
-        'data-cnstrc-item-section': item.section,
-        'data-cnstrc-item-group': item.groupId,
-        'data-cnstrc-item-name': item.value,
-        'data-cnstrc-item-id': item.data?.id,
-        'data-cnstrc-sl-campaign-id': item.labels?.sl_campaign_id,
-        'data-cnstrc-sl-campaign-owner': item.labels?.sl_campaign_owner,
+        ...dataAttributes,
         ...(hasLink ? {} : nonInteractiveItemsProps),
       };
     },
@@ -209,7 +214,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-input',
       'data-testid': 'cio-input',
-      'data-cnstrc-search-input': '',
+      [cnstrcDataAttrs.autocomplete.input]: '',
       placeholder,
       onKeyDownCapture: ({ code, key, nativeEvent }) => {
         const isEnter = code === 'Enter' || key === 'Enter';
@@ -251,7 +256,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       },
       className: 'cio-form',
       'data-testid': 'cio-form',
-      'data-cnstrc-search-form': '',
+      [cnstrcDataAttrs.autocomplete.inputForm]: '',
     }),
     getSectionProps: (section: Section) => {
       // @deprecated ClassNames derived from this fn will be removed in the next major version
@@ -293,18 +298,27 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         className: `cio-section cio-section-${sectionListingType} ${getDeprecatedClassNames()}`,
         ref: section.ref,
         role: 'none',
-        'data-cnstrc-section': section.data[0]?.section,
+        [cnstrcDataAttrs.common.section]: section.data[0]?.section,
       };
 
       if (isCustomSection(section)) {
-        attributes['data-cnstrc-custom-section'] = true;
-        attributes['data-cnstrc-custom-section-name'] = section.displayName;
+        attributes[cnstrcDataAttrs.custom.customSection] = true;
+        attributes[cnstrcDataAttrs.custom.customSectionName] = section.displayName;
       }
 
-      // Add data attributes for recommendations
+      // Add data attributes for recommendations using helper
       if (isRecommendationsSection(section)) {
-        attributes['data-cnstrc-recommendations'] = true;
-        attributes['data-cnstrc-recommendations-pod-id'] = section.podId;
+        const podData = podsData?.[section.podId];
+        const seedItems = normalizeSeedItems(section.itemIds);
+
+        const recommendationAttributes = getRecommendationsSectionCnstrcDataAttributes(
+          section,
+          podData?.resultId,
+          podData?.numResults,
+          seedItems
+        );
+
+        Object.assign(attributes, recommendationAttributes);
       }
       return attributes;
     },

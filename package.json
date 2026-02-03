@@ -10,10 +10,12 @@
       "require": "./lib/styles.css"
     },
     ".": {
+      "types": "./lib/types/index.d.ts",
       "import": "./lib/mjs/index.js",
       "require": "./lib/cjs/index.js"
     },
     "./cjs": {
+      "types": "./lib/types/index.d.ts",
       "import": "./lib/cjs/index.js",
       "require": "./lib/cjs/index.js"
     },
@@ -87,7 +89,7 @@
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
     "doctoc": "^2.2.1",
-    "eslint": "^8.23.1",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
