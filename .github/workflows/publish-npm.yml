@@ -18,6 +18,13 @@ on:
         required: true
         type: string
   
+# It's required to set permissions to be able to:
+# - Authenticate to NPM with OIDC
+# See: https://docs.npmjs.com/trusted-publishers
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   publish-to-npm:
     name: Publish to NPM
