@@ -18,6 +18,13 @@ on:
         required: true
         type: string
   
+# It's required to set permissions to be able to:
+# - Authenticate to NPM with OIDC
+# See: https://docs.npmjs.com/trusted-publishers
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   publish-to-npm:
     name: Publish to NPM
@@ -38,7 +45,6 @@ jobs:
           node-version: 18.12.x
           registry-url: https://registry.npmjs.org/
           scope: '@constructorio'
-          token: ${{ secrets.NPM_TOKEN }}
 
       - name: Install dependencies
         run: npm ci
@@ -58,8 +64,6 @@ jobs:
 
       - name: Publish to NPM
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Notify Slack about new publish to NPM
         uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2
