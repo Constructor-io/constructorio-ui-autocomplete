@@ -43,8 +43,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22.18.x
-          registry-url: https://registry.npmjs.org/
-          scope: '@constructorio'
+
+      - name: Debug node and npm versions
+        run: node --version && npm --version
 
       - name: Install dependencies
         run: npm ci
