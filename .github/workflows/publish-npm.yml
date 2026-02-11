@@ -44,6 +44,9 @@ jobs:
         with:
           node-version: 22.18.x
 
+      - name: Install npm 11
+        run: npm install -g npm@11
+
       - name: Debug node and npm versions
         run: node --version && npm --version
 
