@@ -44,6 +44,9 @@ jobs:
         with:
           node-version: 22.18.x
 
+      - name: Debug node and npm versions
+        run: node --version && npm --version
+
       - name: Install dependencies
         run: npm ci
 
