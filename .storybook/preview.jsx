@@ -13,8 +13,18 @@ export const parameters = {
     }
   },
   options: {
-    storySort: (a, b) =>
-      a.title === b.title ? 0 : a.id.localeCompare(b.id, undefined, { numeric: true })
+    storySort: {
+      order: [
+        'Getting Started',
+        ['Introduction', 'Quickstart'],
+        'Basic Concepts',
+        ['Usage Patterns', 'Shopify'],
+        'Components',
+        ['CioAutocomplete', ['*', 'Examples'], 'AutocompleteResults', 'SearchInput', 'SectionItem', 'SectionItemsList'],
+        'Hooks',
+        'Utils',
+      ],
+    },
   },
   layout: 'fullscreen',
   viewMode: 'docs',
@@ -22,6 +32,10 @@ export const parameters = {
     'storybook/docs/panel': { index: -1 }
   },
   docs: {
+    toc: {
+      headingSelector: 'h2, h3',
+      title: 'On this page',
+    },
     page: () => (
       <>
         <Title />

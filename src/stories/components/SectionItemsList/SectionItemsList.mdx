@@ -1,0 +1,196 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as SectionItemsListStories from './SectionItemsList.stories';
+
+<Meta of={SectionItemsListStories} title="Docs" />
+
+# SectionItemsList
+
+A subcomponent that renders a section with its header and list of items. Handles section title display, item rendering, and optional "Show all results" button.
+
+## Interactive Example
+
+<Canvas of={SectionItemsListStories.Primary} />
+
+## Usage
+
+`SectionItemsList` is used within `AutocompleteResults` to render each section. It must be within the `CioAutocomplete` context.
+
+```jsx
+import {
+  CioAutocomplete,
+  AutocompleteResults,
+  SearchInput,
+  SectionItemsList,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+function App() {
+  return (
+    <CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+      <SearchInput />
+      <AutocompleteResults>
+        {({ sections }) =>
+          sections?.map((section) => (
+            <SectionItemsList
+              section={section}
+              key={section.displayName || section.indexSectionName}
+            />
+          ))
+        }
+      </AutocompleteResults>
+    </CioAutocomplete>
+  );
+}
+```
+
+## Props Reference
+
+<ArgTypes of={SectionItemsListStories} />
+
+## Render Props
+
+The `children` prop accepts a render function that receives:
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| section | Section | The section data with items to render |
+
+## Custom Rendering
+
+Pass a render function to customize section layout:
+
+```jsx
+<AutocompleteResults>
+  {({ sections }) =>
+    sections?.map((section) => (
+      <SectionItemsList
+        section={section}
+        key={section.indexSectionName}
+      >
+        {({ section: sectionData }) => (
+          <li className="custom-section">
+            <div className="section-header">
+              <h4>{sectionData.displayName || sectionData.indexSectionName}</h4>
+              <span className="item-count">
+                {sectionData.data?.length} items
+              </span>
+            </div>
+            <ul className="items-grid">
+              {sectionData.data?.map((item) => (
+                <SectionItem key={item.id} item={item} />
+              ))}
+            </ul>
+          </li>
+        )}
+      </SectionItemsList>
+    ))
+  }
+</AutocompleteResults>
+```
+
+## Default Implementation
+
+When no children are provided, `SectionItemsList` renders:
+
+```jsx
+<li {...getSectionProps(section)}>
+  <h5 className="cio-section-name">{sectionTitle}</h5>
+  <ul className="cio-section-items">
+    {section.data?.map((item) => (
+      <SectionItem item={item} key={item.id} />
+    ))}
+  </ul>
+  {/* Optional "Show all results" button for Products */}
+</li>
+```
+
+## Section Title Logic
+
+The section title is determined by:
+
+1. `displayName` if provided
+2. For `recommendations`: `podId`
+3. For `autocomplete`: `indexSectionName`
+4. For `custom`: `displayName` (required)
+
+## No Results Message
+
+When a section has no data and `displayNoResultsMessage: true`:
+
+```jsx
+<li {...getSectionProps(section)}>
+  <h5 className="cio-section-name">{sectionTitle}</h5>
+  <NoResults /> {/* Renders "No results found" */}
+</li>
+```
+
+## Show All Results Button
+
+When `advancedParameters.displayShowAllResultsButton: true` is set and the section is Products:
+
+```jsx
+<div className="cio-section-footer">
+  <button
+    className="cio-show-all-results-button"
+    type="button"
+    onClick={onSubmit}
+  >
+    show all results
+  </button>
+</div>
+```
+
+## Custom Render Item
+
+Use the section's `renderItem` prop for per-item customization:
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Products',
+      renderItem: ({ item, query, getItemProps }) => (
+        <div {...getItemProps(item)}>
+          <img src={item.data?.image_url} alt={item.value} />
+          <span>{item.value}</span>
+        </div>
+      ),
+    },
+  ]}
+>
+  <SearchInput />
+  <AutocompleteResults />
+</CioAutocomplete>
+```
+
+## Context Values
+
+`SectionItemsList` accesses these values from `CioAutocompleteContext`:
+
+| Value | Type | Description |
+| --- | --- | --- |
+| getSectionProps | (section) => object | Returns props for the section element |
+| query | string | Current search query |
+| getFormProps | () => object | Form props (includes onSubmit) |
+| advancedParameters | object | Contains displayShowAllResultsButton, translations |
+
+## Section Data Structure
+
+| Property | Type | Description |
+| --- | --- | --- |
+| type | autocomplete, recommendations, or custom | Section type |
+| indexSectionName | string | Index section name |
+| podId | string | Recommendation pod ID |
+| displayName | string | Custom display name |
+| data | Item[] | Array of items in the section |
+| displaySearchTermHighlights | boolean | Enable term highlighting |
+| displayNoResultsMessage | boolean | Show no results message |
+| renderItem | function | Custom item renderer |
+| ref | RefObject | Reference to section element |
+
+## See Also
+
+- [SectionItem](?path=/docs/components-sectionitem--docs)
+- [AutocompleteResults](?path=/docs/components-autocompleteresults--docs)
+- [Sections Configuration](?path=/docs/components-cioautocomplete-examples-sections--docs)

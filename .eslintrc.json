@@ -103,6 +103,7 @@
     "lib/**/*.js",
     "lib/**/*.d.ts",
     "docs/**/*.js",
-    "jest.setup.js"
+    "jest.setup.js",
+    "**/*.mdx"
   ]
 }

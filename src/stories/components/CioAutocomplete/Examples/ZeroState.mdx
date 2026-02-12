@@ -1,0 +1,155 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Components/CioAutocomplete/Examples/ZeroState" />
+
+# Zero State
+
+Zero state refers to what's displayed when the search input is empty. By default, nothing is shown. Use `zeroStateSections` to display suggestions before the user starts typing.
+
+## Default Behavior
+
+Without `zeroStateSections`, the dropdown is empty until the user types.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+/>
+```
+
+## Show Recommendations on Focus
+
+Display bestsellers or other recommendations when the user focuses on the input.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  zeroStateSections={[
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 6,
+    },
+  ]}
+/>
+```
+
+## Disable Open on Focus
+
+Set `openOnFocus: false` to show zero state sections only after the user types and then clears the input, not immediately on focus.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  openOnFocus={false}
+  zeroStateSections={[
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+    },
+  ]}
+/>
+```
+
+## Custom Zero State Section
+
+Display custom data like recent searches.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  zeroStateSections={[
+    {
+      displayName: 'Recent Searches',
+      type: 'custom',
+      data: [
+        {
+          section: 'recent_searches',
+          value: 'Red T-shirt',
+          data: { id: '1' },
+        },
+        {
+          section: 'recent_searches',
+          value: 'Dresses',
+          data: { id: '2' },
+        },
+      ],
+    },
+  ]}
+/>
+```
+
+## Multiple Zero State Sections
+
+Combine recommendations with custom data.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  zeroStateSections={[
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+    },
+    {
+      displayName: 'Recent Searches',
+      type: 'custom',
+      data: [
+        {
+          section: 'recent_searches',
+          value: 'Red T-shirt',
+          data: { id: '1' },
+        },
+        {
+          section: 'recent_searches',
+          value: 'Dresses',
+          data: { id: '2' },
+        },
+      ],
+    },
+  ]}
+/>
+```
+
+## Lazy Fetch Zero State
+
+By default, zero state data is fetched on component mount. Use `fetchZeroStateOnFocus` to delay the API call until the user focuses on the input.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  advancedParameters={{
+    fetchZeroStateOnFocus: true,
+  }}
+  zeroStateSections={[
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 3,
+    },
+  ]}
+/>
+```
+
+## Zero State Configuration Reference
+
+The `zeroStateSections` prop accepts the same configuration as `sections`:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| indexSectionName | string | Section name for autocomplete type |
+| podId | string | Recommendation pod ID |
+| type | autocomplete, recommendations, or custom | Section type |
+| displayName | string | Display name for the section header |
+| numResults | number | Number of results (default: 8) |
+| data | Item[] | Custom data array (required for custom type) |
+
+## See Also
+
+- [Sections Configuration](?path=/docs/components-cioautocomplete-examples-sections--docs)
+- [Advanced Parameters](?path=/docs/components-cioautocomplete-examples-advancedparameters--docs)
