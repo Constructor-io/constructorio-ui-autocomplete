@@ -51,8 +51,6 @@ import {
 - `true` if `event` has a `query` property
 - `false` otherwise
 
----
-
 ### isAutocompleteSelectSubmit
 
 Checks if the event is a selection submission (user clicked or selected an item).
@@ -98,8 +96,6 @@ import {
 - `true` if `event` has `item` and `originalQuery` properties
 - `false` otherwise
 
----
-
 ## Complete onSubmit Handler
 
 Use both type guards for comprehensive event handling:
@@ -140,8 +136,6 @@ function handleSubmit(event: AutocompleteSubmitEvent) {
   }
 }
 ```
-
----
 
 ## Exported Types
 
@@ -269,8 +263,6 @@ type CioAutocompleteProps = {
 // Options for useCioAutocomplete hook
 type UseCioAutocompleteOptions = Omit<CioAutocompleteProps, 'children'>;
 ```
-
----
 
 ## Import Examples
 

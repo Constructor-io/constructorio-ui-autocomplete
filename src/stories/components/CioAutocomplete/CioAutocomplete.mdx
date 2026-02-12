@@ -1,7 +1,7 @@
 import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
 import * as CioAutocompleteStories from './CioAutocomplete.stories';
 
-<Meta of={CioAutocompleteStories} />
+<Meta of={CioAutocompleteStories} title="Docs" />
 
 # CioAutocomplete
 
@@ -90,7 +90,7 @@ The `sections` prop configures which results to display. Each section can be an 
 
 ### Autocomplete Section
 
-```jsx
+```
 {
   indexSectionName: 'Products', // or 'Search Suggestions', 'Content', etc.
   type: 'autocomplete', // optional, defaults to 'autocomplete'
@@ -102,7 +102,7 @@ The `sections` prop configures which results to display. Each section can be an 
 
 ### Recommendations Section
 
-```jsx
+```
 {
   podId: 'bestsellers',
   type: 'recommendations',
@@ -113,7 +113,7 @@ The `sections` prop configures which results to display. Each section can be an 
 
 ### Custom Section
 
-```jsx
+```
 {
   displayName: 'Recent Searches',
   type: 'custom',

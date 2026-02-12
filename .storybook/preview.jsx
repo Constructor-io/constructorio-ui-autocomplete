@@ -17,10 +17,11 @@ export const parameters = {
       order: [
         'Getting Started',
         ['Introduction', 'Quickstart'],
+        'Basic Concepts',
+        ['Usage Patterns', 'Shopify'],
         'Components',
         ['CioAutocomplete', ['*', 'Examples'], 'AutocompleteResults', 'SearchInput', 'SectionItem', 'SectionItemsList'],
         'Hooks',
-        'Basic Concepts',
         'Utils',
       ],
     },
