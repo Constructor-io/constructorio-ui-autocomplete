@@ -9,7 +9,7 @@ Lightweight, minimalistic, and fully customizable autocomplete component for fas
 
 ## Documentation
 
-View the full component documentation and live examples in [Storybook](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)
+View the full component documentation and live examples in [Storybook](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/getting-started-introduction--docs)
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -45,7 +45,7 @@ Autocomplete UI provides a lightweight and customizable autocomplete component. 
 - ♿ Accessible (a11y) – Built-in ARIA support for screen readers
 - 🛡 Written in TypeScript with type safety
 
-**[Explore full documentation →](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/autocomplete-component--docs)**
+**[Explore full documentation →](https://constructor-io.github.io/constructorio-ui-autocomplete/?path=/docs/getting-started-introduction--docs)**
 
 ## Installation & Quick Start
 

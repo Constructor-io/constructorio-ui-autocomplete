@@ -1,0 +1,155 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as SearchInputStories from './SearchInput.stories';
+
+<Meta of={SearchInputStories} title="Docs" />
+
+# SearchInput
+
+A subcomponent that renders the search form with input, clear button, and submit button. Use within `CioAutocomplete` to customize the search input UI.
+
+## Interactive Example
+
+<Canvas of={SearchInputStories.Primary} />
+
+## Usage
+
+`SearchInput` must be used as a child of `CioAutocomplete`. It consumes context from the parent component.
+
+```jsx
+import {
+  CioAutocomplete,
+  AutocompleteResults,
+  SearchInput,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+function App() {
+  return (
+    <CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+      <SearchInput />
+      <AutocompleteResults />
+    </CioAutocomplete>
+  );
+}
+```
+
+## Props Reference
+
+<ArgTypes of={SearchInputStories} />
+
+## Render Props
+
+The `children` prop accepts a render function that receives:
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| getFormProps | () => object | Props for the form element (includes onSubmit) |
+| getInputProps | () => object | Props for the input element (value, onChange, etc.) |
+| getLabelProps | () => object | Props for the label element |
+| setQuery | (query: string) => void | Function to programmatically set the input value |
+
+## Custom Rendering
+
+Pass a render function to fully customize the input UI:
+
+```jsx
+<CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+  <SearchInput>
+    {({ getFormProps, getInputProps, getLabelProps, setQuery }) => {
+      const inputProps = getInputProps();
+
+      return (
+        <form {...getFormProps()} className="custom-search-form">
+          <label {...getLabelProps()} htmlFor="search-input">
+            <span className="sr-only">Search products</span>
+          </label>
+
+          <div className="input-wrapper">
+            <input
+              id="search-input"
+              {...inputProps}
+              placeholder="What are you looking for?"
+            />
+
+            {inputProps.value && (
+              <button
+                type="button"
+                onClick={() => setQuery('')}
+                className="clear-btn"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          <button type="submit" className="submit-btn">
+            Search
+          </button>
+        </form>
+      );
+    }}
+  </SearchInput>
+  <AutocompleteResults />
+</CioAutocomplete>
+```
+
+## Default Implementation
+
+When no children are provided, `SearchInput` renders a form with:
+- Label for accessibility
+- Text input with placeholder
+- Clear button (hidden when empty)
+- Submit button with search icon
+
+```jsx
+// Default structure
+<form {...getFormProps()}>
+  <label {...getLabelProps()} htmlFor="cio-input">
+    <input id="cio-input" {...getInputProps()} />
+  </label>
+  <button className="cio-clear-btn" onClick={() => setQuery('')}>
+    {/* Clear icon */}
+  </button>
+  <button className="cio-submit-btn" type="submit">
+    {/* Search icon */}
+  </button>
+</form>
+```
+
+## Input Props
+
+The `getInputProps()` function returns these props:
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| value | string | Current input value |
+| onChange | function | Change handler |
+| onFocus | function | Focus handler |
+| onKeyDown | function | Keyboard handler |
+| className | string | Default class (cio-input) |
+| placeholder | string | Input placeholder |
+| data-testid | string | Test ID (cio-input) |
+| data-cnstrc-search-input | string | Constructor tracking attribute |
+
+## Form Props
+
+The `getFormProps()` function returns:
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| onSubmit | function | Form submit handler |
+| className | string | Default class (cio-form) |
+| data-testid | string | Test ID (cio-form) |
+| data-cnstrc-search-form | string | Constructor tracking attribute |
+
+## Accessibility
+
+The default implementation includes:
+- Proper label association via `htmlFor`
+- `aria-label` on buttons
+- `enterKeyHint="search"` on input
+- Clear button hidden when empty
+
+## See Also
+
+- [AutocompleteResults](?path=/docs/components-autocompleteresults--docs)
+- [Usage Patterns](?path=/docs/basic-concepts-usagepatterns--docs)

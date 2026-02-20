@@ -1,0 +1,155 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as SectionItemStories from './SectionItem.stories';
+
+<Meta of={SectionItemStories} title="Docs" />
+
+# SectionItem
+
+A subcomponent that renders a single result item. Handles different item types (Products, Search Suggestions, Custom) with appropriate default rendering.
+
+## Interactive Example
+
+<Canvas of={SectionItemStories.Primary} />
+
+## Usage
+
+`SectionItem` is typically used within `SectionItemsList`, but can be used directly for custom rendering. It must be within the `CioAutocomplete` context.
+
+```jsx
+import {
+  CioAutocomplete,
+  AutocompleteResults,
+  SearchInput,
+  SectionItemsList,
+  SectionItem,
+} from '@constructor-io/constructorio-ui-autocomplete';
+
+function App() {
+  return (
+    <CioAutocomplete apiKey="YOUR_API_KEY" onSubmit={handleSubmit}>
+      <SearchInput />
+      <AutocompleteResults>
+        {({ sections }) =>
+          sections?.map((section) => (
+            <SectionItemsList section={section} key={section.indexSectionName}>
+              {({ section: sectionData }) =>
+                sectionData.data?.map((item) => (
+                  <SectionItem
+                    key={item.id}
+                    item={item}
+                    displaySearchTermHighlights
+                  />
+                ))
+              }
+            </SectionItemsList>
+          ))
+        }
+      </AutocompleteResults>
+    </CioAutocomplete>
+  );
+}
+```
+
+## Props Reference
+
+<ArgTypes of={SectionItemStories} />
+
+## Default Rendering by Item Type
+
+`SectionItem` renders differently based on the item type:
+
+### Products
+
+```jsx
+// Renders with image and link
+<li {...getItemProps(item)}>
+  <a href={item.data?.url}>
+    <img src={item.data?.image_url} alt={item.value} />
+    <p>{item.value}</p>
+  </a>
+</li>
+```
+
+### Search Suggestions
+
+```jsx
+// Renders text, optionally with link via getSearchResultsUrl
+<li {...getItemProps(item)}>
+  <p className="cio-suggestion-text">{item.value}</p>
+</li>
+```
+
+### In-Group Suggestions
+
+```jsx
+// Renders "in {groupName}" text
+<li {...getItemProps(item)}>
+  <p className="cio-term-in-group">in {item.groupName}</p>
+</li>
+```
+
+### Custom Items
+
+```jsx
+// Renders plain text
+<li {...getItemProps(item)}>
+  <p className="cio-custom-text">{item.value}</p>
+</li>
+```
+
+## Custom Children
+
+Pass children to override default rendering:
+
+```jsx
+<SectionItem item={item}>
+  <div className="custom-item">
+    <img src={item.data?.image_url} alt={item.value} />
+    <div className="item-details">
+      <h4>{item.value}</h4>
+      <span className="price">${item.data?.price}</span>
+    </div>
+  </div>
+</SectionItem>
+```
+
+## Search Term Highlights
+
+Enable highlighting of matching search terms:
+
+```jsx
+<SectionItem item={item} displaySearchTermHighlights />
+```
+
+This wraps matching text in `<mark>` tags for styling.
+
+## Context Values
+
+`SectionItem` accesses these values from `CioAutocompleteContext`:
+
+| Value | Type | Description |
+| --- | --- | --- |
+| getItemProps | (item) => object | Returns props for the item element |
+| advancedParameters | object | Contains translations and other settings |
+| query | string | Current search query (for highlights) |
+| getSearchResultsUrl | function | Optional URL generator for suggestions |
+
+## Item Data Structure
+
+| Property | Type | Description |
+| --- | --- | --- |
+| id | string | Unique item identifier |
+| value | string | Display text |
+| section | string | Section name (Products, Search Suggestions, etc.) |
+| data | object | Additional item data |
+| data.url | string | Product URL (for Products) |
+| data.image_url | string | Image URL |
+| data.price | number | Price (for Products) |
+| groupId | string | Group ID (for in-group suggestions) |
+| groupName | string | Group name (for in-group suggestions) |
+
+## See Also
+
+- [SectionItemsList](?path=/docs/components-sectionitemslist--docs)
+- [AutocompleteResults](?path=/docs/components-autocompleteresults--docs)
+- [Sections Configuration](?path=/docs/components-cioautocomplete-examples-sections--docs)

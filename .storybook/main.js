@@ -1,12 +1,33 @@
-const isProduction = process.env.NODE_ENV === 'production';
+import remarkGfm from 'remark-gfm';
 
-module.exports = {
-  stories: isProduction
-    ? ['../src/**/Autocomplete/**/*.mdx', '../src/**/Autocomplete/**/*.stories.@(js|jsx|ts|tsx)', '../src/stories/**/*.mdx', '../src/stories/**/*.stories.@(js|jsx|ts|tsx)']
-    : ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+export default {
+  stories: [
+    '../src/stories/getting-started/**/*.mdx',
+    '../src/stories/components/**/*.mdx',
+    '../src/stories/components/**/*.stories.@(js|jsx|ts|tsx)',
+    '../src/stories/hooks/**/*.mdx',
+    '../src/stories/hooks/**/*.stories.@(js|jsx|ts|tsx)',
+    '../src/stories/basic-concepts/**/*.mdx',
+    '../src/stories/utils/**/*.mdx',
+  ],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: false, // Disable docs from essentials since we configure it separately
+      },
+    },
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@storybook/addon-webpack5-compiler-babel',

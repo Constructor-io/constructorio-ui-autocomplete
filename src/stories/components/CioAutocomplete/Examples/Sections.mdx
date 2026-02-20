@@ -1,0 +1,245 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Components/CioAutocomplete/Examples/Sections" />
+
+# Sections Configuration
+
+The `sections` prop controls which results appear in the autocomplete dropdown. By default, typing a query fetches data for Search Suggestions and Products.
+
+## Default Sections
+
+When no `sections` prop is passed, the following defaults are used:
+
+```js
+[
+  {
+    indexSectionName: 'Search Suggestions',
+    type: 'autocomplete',
+    numResults: 8,
+  },
+  {
+    indexSectionName: 'Products',
+    type: 'autocomplete',
+    numResults: 8,
+  },
+]
+```
+
+## Search Suggestions Only
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Search Suggestions',
+    },
+  ]}
+/>
+```
+
+## Products Only
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Products',
+    },
+  ]}
+/>
+```
+
+## Content Suggestions
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Content',
+    },
+  ]}
+/>
+```
+
+## Configure Number of Results
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Products',
+      numResults: 4, // Show only 4 products
+    },
+  ]}
+/>
+```
+
+## Section Order
+
+The order of objects in the `sections` array determines the display order.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Products', // Products first
+    },
+    {
+      indexSectionName: 'Search Suggestions', // Then search terms
+    },
+  ]}
+/>
+```
+
+## Recommendations Section
+
+Use Constructor.io's recommendations service with `type: 'recommendations'`.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Search Suggestions',
+    },
+    {
+      indexSectionName: 'Products',
+    },
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 4,
+    },
+  ]}
+/>
+```
+
+## Search Term Highlights
+
+Enable highlighting of words matching the search keyword.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Search Suggestions',
+      displaySearchTermHighlights: true,
+    },
+    {
+      indexSectionName: 'Products',
+      displaySearchTermHighlights: true,
+    },
+  ]}
+/>
+```
+
+## No Results Message
+
+Display a message when a section returns no results.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Search Suggestions',
+      displayNoResultsMessage: true,
+    },
+    {
+      indexSectionName: 'Products',
+      displayNoResultsMessage: true,
+    },
+  ]}
+/>
+```
+
+## Custom Section
+
+Provide your own data with `type: 'custom'`. Useful for recent searches or saved items.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Search Suggestions',
+    },
+    {
+      displayName: 'Recent Searches',
+      type: 'custom',
+      data: [
+        {
+          value: 'Red T-shirt',
+          data: { id: '1' },
+        },
+        {
+          value: 'Dresses',
+          data: { id: '2' },
+        },
+      ],
+    },
+  ]}
+/>
+```
+
+## Custom Render Item
+
+Customize rendering of individual items with `renderItem`. Spread `getItemProps(item)` on the container element to maintain tracking and keyboard navigation.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  sections={[
+    {
+      indexSectionName: 'Products',
+      renderItem: ({ item, query, getItemProps }) => (
+        <div {...getItemProps(item)} style={{ display: 'block' }}>
+          <a href={item.data?.url}>
+            <h3>{item.value}</h3>
+            <img src={item.data?.image_url} alt={item.value} />
+          </a>
+          <p>${item.data?.price}</p>
+          <p>Query: {query}</p>
+        </div>
+      ),
+    },
+  ]}
+/>
+```
+
+> **Important**: Always call `getItemProps(item)` and spread the result onto your container element. This enables proper tracking and keyboard navigation.
+
+## Section Reference
+
+| Property | Type | Description |
+| --- | --- | --- |
+| indexSectionName | string | Section name in your Constructor index (required for autocomplete) |
+| podId | string | Recommendation pod ID (required for recommendations) |
+| type | autocomplete, recommendations, or custom | Section type (default: autocomplete) |
+| displayName | string | Custom display name (required for custom, optional override for others) |
+| numResults | number | Number of results to show (default: 8) |
+| displaySearchTermHighlights | boolean | Highlight matching terms |
+| displayNoResultsMessage | boolean | Show message when no results |
+| data | Item[] | Custom data array (required for custom type) |
+| renderItem | function | Custom item renderer |
+
+## See Also
+
+- [Zero State](?path=/docs/components-cioautocomplete-examples-zerostate--docs)
+- [CioAutocomplete Props](?path=/docs/components-cioautocomplete--docs)

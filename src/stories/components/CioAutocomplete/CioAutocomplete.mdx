@@ -1,0 +1,208 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/blocks';
+import * as CioAutocompleteStories from './CioAutocomplete.stories';
+
+<Meta of={CioAutocompleteStories} title="Docs" />
+
+# CioAutocomplete
+
+The main autocomplete component that handles state management, data fetching, and rendering. It provides a complete search experience out of the box.
+
+## Interactive Example
+
+<Canvas of={CioAutocompleteStories.Primary} />
+
+[View fullscreen](?path=/story/components-cioautocomplete--primary)
+
+## Basic Usage
+
+```jsx
+import { CioAutocomplete } from '@constructor-io/constructorio-ui-autocomplete';
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+
+function App() {
+  return (
+    <CioAutocomplete
+      apiKey="YOUR_API_KEY"
+      onSubmit={(event) => {
+        if ('query' in event) {
+          // User submitted a search query
+          console.log('Search:', event.query);
+        } else {
+          // User selected an item
+          console.log('Selected:', event.item);
+        }
+      }}
+    />
+  );
+}
+```
+
+## Props Reference
+
+<ArgTypes of={CioAutocompleteStories} />
+
+## Authentication Options
+
+### Using API Key
+
+The simplest approach - pass your Constructor.io API key:
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+/>
+```
+
+### Using Existing Client Instance
+
+If you already have a `ConstructorIOClient` instance (from [constructorio-client-javascript](https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript)), pass it instead:
+
+```jsx
+import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+
+const cioJsClient = new ConstructorIOClient({ apiKey: 'YOUR_API_KEY' });
+
+<CioAutocomplete
+  cioJsClient={cioJsClient}
+  onSubmit={handleSubmit}
+/>
+```
+
+### Using Client Options
+
+Customize the client without creating your own instance using `cioClientOptions`. See [ConstructorIO parameters](https://constructor-io.github.io/constructorio-client-javascript/ConstructorIO.html) for available options.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  cioClientOptions={{
+    serviceUrl: 'https://ac.cnstrc.com',
+    // other client options...
+  }}
+  onSubmit={handleSubmit}
+/>
+```
+
+## `sections` Configuration
+
+The `sections` prop configures which results to display. Each section can be an autocomplete section, recommendation pod, or custom data.
+
+### Autocomplete Section
+
+```js
+{
+  indexSectionName: 'Products', // or 'Search Suggestions', 'Content', etc.
+  type: 'autocomplete', // optional, defaults to 'autocomplete'
+  numResults: 8, // optional, defaults to 8
+  displaySearchTermHighlights: true, // optional
+  displayNoResultsMessage: true, // optional
+}
+```
+
+### Recommendations Section
+
+```js
+{
+  podId: 'bestsellers',
+  type: 'recommendations',
+  numResults: 6,
+  displayName: 'Best Sellers', // optional override
+}
+```
+
+### Custom Section
+
+```js
+{
+  displayName: 'Recent Searches',
+  type: 'custom',
+  data: [
+    { value: 'Red T-shirt', data: { id: '1' } },
+    { value: 'Dresses', data: { id: '2' } },
+  ],
+}
+```
+
+## advancedParameters Configuration
+
+| Parameter | Type | Description |
+| --- | --- | --- |
+| numTermsWithGroupSuggestions | number | Max terms with group filter suggestions |
+| numGroupsSuggestedPerTerm | number | Max group suggestions per term |
+| displaySearchSuggestionImages | boolean | Show images in search suggestions |
+| displaySearchSuggestionResultCounts | boolean | Show result counts in suggestions |
+| displayShowAllResultsButton | boolean | Show "Show all results" button in Products |
+| debounce | number | Debounce delay in ms (default: 250) |
+| translations | object | Translations for UI strings |
+| fetchZeroStateOnFocus | boolean | Fetch zero state on focus instead of render |
+| filters | object | Filter suggestions by facet values |
+
+## Styling
+
+By default, importing the component does not include any CSS. Import the starter styles to get a functional UI:
+
+```jsx
+import '@constructor-io/constructorio-ui-autocomplete/styles.css';
+```
+
+### Customizing Styles
+
+- **Override container class**: Use `autocompleteClassName` to replace or extend the default class
+- **All styles are scoped**: Starter styles use the `.cio-autocomplete` selector
+- **CSS custom properties**: Override CSS variables for quick theming
+
+```jsx
+// Replace default class
+<CioAutocomplete
+  autocompleteClassName="my-autocomplete"
+  // ...
+/>
+
+// Extend default class
+<CioAutocomplete
+  autocompleteClassName="cio-autocomplete my-custom-styles"
+  // ...
+/>
+```
+
+### Example Custom Styles
+
+```css
+.cio-autocomplete.my-custom-styles form {
+  height: 44px;
+  width: 600px;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+}
+
+.cio-autocomplete.my-custom-styles .cio-input {
+  font-weight: bold;
+}
+
+.cio-autocomplete.my-custom-styles .cio-results {
+  width: 620px;
+  max-height: 334px;
+  border-radius: 0 0 8px 8px;
+}
+
+.cio-autocomplete.my-custom-styles .cio-section-name {
+  margin: 5px 3px;
+}
+```
+
+## Full Featured Example
+
+<Canvas of={CioAutocompleteStories.FullFeatured} />
+
+## Examples
+
+- [Advanced Parameters](?path=/docs/components-cioautocomplete-examples-advancedparameters--docs) - Debounce, filters, group suggestions
+- [Sections](?path=/docs/components-cioautocomplete-examples-sections--docs) - Configure different section types
+- [Zero State](?path=/docs/components-cioautocomplete-examples-zerostate--docs) - Show content before user types
+- [User Events](?path=/docs/components-cioautocomplete-examples-userevents--docs) - Handle focus, change, and submit
+
+## See Also
+
+- [useCioAutocomplete Hook](?path=/docs/hooks-usecioautocomplete--docs) - Headless hook for custom UI
+- [Usage Patterns](?path=/docs/basic-concepts-usagepatterns--docs) - Render props and customization
