@@ -22,6 +22,11 @@ concurrency:
   group: deploy
   cancel-in-progress: true
 
+permissions:
+  id-token: write
+  contents: write
+  pages: write
+
 jobs:
   update_package_version:
     name: Update package version
