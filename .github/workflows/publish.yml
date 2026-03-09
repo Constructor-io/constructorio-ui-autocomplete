@@ -24,8 +24,6 @@ concurrency:
 
 permissions:
   id-token: write
-  contents: write
-  pages: write
 
 jobs:
   update_package_version:
