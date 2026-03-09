@@ -1,8 +1,7 @@
 name: 'Publish: Create GitHub release'
 
-# We need these permissions to create new GitHub releases
-permissions:
-  contents: write
+# We need these permissions create new GitHub releases
+permissions: write-all
 
 on:
   workflow_call:
