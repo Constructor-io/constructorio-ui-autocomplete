@@ -22,15 +22,12 @@ concurrency:
   group: deploy
   cancel-in-progress: true
 
-permissions:
-  id-token: write
-  contents: write
-  pages: write
-
 jobs:
   update_package_version:
     name: Update package version
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Notify Slack about new release
         uses: ravsamhq/notify-slack-action@bca2d7f5660b833a27bda4f6b8bef389ebfefd25 # v2.3.0
@@ -74,6 +71,8 @@ jobs:
   create_github_release:
     name: Create GitHub release
     needs: update_package_version
+    permissions:
+      contents: write
     uses: ./.github/workflows/create-github-release.yml
     with:
       version: ${{ needs.update_package_version.outputs.version }}
@@ -83,6 +82,9 @@ jobs:
   publish_to_npm:
     name: Publish to NPM
     needs: [create_github_release, update_package_version]
+    permissions:
+      id-token: write
+      contents: read
     uses: ./.github/workflows/publish-npm.yml
     with:
       version: ${{ needs.update_package_version.outputs.version }}
@@ -91,6 +93,9 @@ jobs:
   publish_to_cdn:
     name: Publish to CDN
     needs: [publish_to_npm, update_package_version]
+    permissions:
+      id-token: write
+      contents: read
     uses: ./.github/workflows/publish-cdn.yml
     with:
       version: ${{ needs.update_package_version.outputs.version }}
@@ -99,6 +104,10 @@ jobs:
   deploy_storybook:
     needs: publish_to_cdn
     name: Deploy Storybook
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     uses: ./.github/workflows/deploy-storybook.yml
 
   final_deployment_notification:
