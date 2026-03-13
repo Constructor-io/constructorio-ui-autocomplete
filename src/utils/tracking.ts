@@ -43,7 +43,7 @@ export const trackRecommendationView = (
     });
   }
 };
-export const trackSearchSubmit = (cioClient, term, autocompleteData = {}) => {
+export const trackSearchSubmit = (cioClient, term: string, autocompleteData = {}) => {
   cioClient?.tracker.trackSearchSubmit(term, autocompleteData);
   storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, term);
   storeRecentSearch(term, {});

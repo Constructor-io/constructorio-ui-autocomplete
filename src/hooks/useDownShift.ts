@@ -45,6 +45,13 @@ const useDownShift: UseDownShift = ({
               });
             }
 
+            if (selectedItem?.section === 'recent-searches') {
+              setQuery(selectedItem.value || '');
+              trackSearchSubmit(cioClient, selectedItem.value, {
+                originalQuery: previousQuery,
+              });
+            }
+
             // Autocomplete Select tracking
             // Recommendation Select tracking
             if (selectedItem.podId && selectedItem.data?.id && selectedItem.strategy) {

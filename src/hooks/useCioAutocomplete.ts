@@ -46,6 +46,7 @@ export const defaultSections: UserDefinedSection[] = [
 const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   const { sections, zeroStateSections, cioClientOptions, advancedParameters } =
     useNormalizedProps(options);
+
   const {
     onSubmit: onSubmitProp,
     onChange,
@@ -84,7 +85,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
     cioJsClientOptions: options.cioJsClientOptions,
   } as CioClientConfig);
 
-  // Get autocomplete sections (autocomplete + recommendations + custom)
+  // Get autocomplete sections (autocomplete + recommendations + custom + recentSearches)
   const {
     fetchRecommendationResults,
     activeSections,
@@ -97,7 +98,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
   const features = useMemo(() => getFeatures(request), [request]);
 
-  // Get dropdown items array from active sections (autocomplete + recommendations + custom)
+  // Get dropdown items array from active sections (autocomplete + recommendations + custom + recentSearches)
   const items = useMemo(
     () => getItemsForActiveSections(activeSectionsWithData),
     [activeSectionsWithData]
@@ -265,7 +266,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         let sectionTitle: string;
 
         const indexSectionName =
-          type !== 'custom' && section.indexSectionName
+          type !== 'custom' && type !== 'recentSearches' && section.indexSectionName
             ? toKebabCase(section.indexSectionName)
             : '';
 
@@ -279,6 +280,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           case 'custom':
             sectionTitle = section.displayName;
             break;
+          case 'recentSearches':
+            sectionTitle = section.displayName;
+            break;
           default:
             sectionTitle = section.displayName || section.indexSectionName;
             break;
@@ -290,9 +294,20 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       // Always add the indexSectionName (defaults to Products) as a class to the section container for the styles
       // Even if the section is a recommendation pod, if the results are "Products" or "Search Suggestions"
       // ... they should be styled accordingly
-      const sectionListingType = isCustomSection(section)
-        ? 'custom'
-        : toKebabCase(section.indexSectionName || section.data[0]?.section || 'Products');
+      let sectionListingType = '';
+      switch (section.type) {
+        case 'custom':
+          sectionListingType = 'custom';
+          break;
+        case 'recentSearches':
+          sectionListingType = 'recent-searches';
+          break;
+        default:
+          sectionListingType = toKebabCase(
+            section.indexSectionName || section.data[0]?.section || 'Products'
+          );
+          break;
+      }
 
       const attributes: HTMLPropsWithCioDataAttributes = {
         className: `cio-section cio-section-${sectionListingType} ${getDeprecatedClassNames()}`,

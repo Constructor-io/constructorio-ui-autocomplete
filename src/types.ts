@@ -225,7 +225,7 @@ export type AutocompleteResultSections = {
   request: Partial<AutocompleteRequestType>;
   totalNumResultsPerSection: Record<string, number>;
 };
-type SectionType = 'autocomplete' | 'recommendations' | 'custom';
+type SectionType = 'autocomplete' | 'recommendations' | 'custom' | 'recentSearches';
 
 export type SectionConfiguration = {
   type?: SectionType;
@@ -248,6 +248,11 @@ export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   indexSectionName: string;
   /** @deprecated use indexSectionName field instead */
   identifier?: string;
+}
+
+export interface RecentSearchesSectionConfiguration extends SectionConfiguration {
+  type: 'recentSearches';
+  displayName: string;
 }
 
 export type RecommendationsSectionConfiguration = SectionConfiguration & {
@@ -275,12 +280,21 @@ export interface CustomSection extends CustomSectionConfiguration {
   data: Item[];
 }
 
-export type Section = AutocompleteSection | RecommendationsSection | CustomSection;
+export interface RecentSearchesSection extends RecentSearchesSectionConfiguration {
+  data: Item[];
+}
+
+export type Section =
+  | AutocompleteSection
+  | RecommendationsSection
+  | CustomSection
+  | RecentSearchesSection;
 
 export type UserDefinedSection =
   | AutocompleteSectionConfiguration
   | RecommendationsSectionConfiguration
-  | CustomSection;
+  | CustomSection
+  | RecentSearchesSectionConfiguration;
 
 export type Product = ProductFromClient & {
   section: 'Products';
@@ -288,6 +302,12 @@ export type Product = ProductFromClient & {
 
 export type SearchSuggestion = SearchSuggestionFromClient & {
   section: 'Search Suggestions';
+};
+
+export type RecentSearches = {
+  term: string;
+  ts: number;
+  data: Record<string, unknown>;
 };
 
 export type InGroupSuggestion = SearchSuggestion & {

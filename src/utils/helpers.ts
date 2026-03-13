@@ -95,6 +95,9 @@ export const getActiveSectionsWithData = (
     let sectionData: Item[];
 
     switch (type) {
+      case 'recentSearches':
+        sectionData = sectionsResults[sectionConfig.displayName];
+        break;
       case 'recommendations':
         sectionData = sectionsResults[sectionConfig.podId];
         break;

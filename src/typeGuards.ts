@@ -7,6 +7,7 @@ import {
   SearchSuggestion,
   AutocompleteSection,
   RecommendationsSection,
+  RecentSearchesSectionConfiguration,
 } from './types';
 
 export function isProduct(item: Item): item is Product {
@@ -33,4 +34,10 @@ export function isRecommendationsSection(
   config: UserDefinedSection
 ): config is RecommendationsSection {
   return (config as RecommendationsSection).type === 'recommendations';
+}
+
+export function isRecentSearchesSection(
+  config: UserDefinedSection
+): config is RecentSearchesSectionConfiguration {
+  return (config as RecentSearchesSectionConfiguration).type === 'recentSearches';
 }

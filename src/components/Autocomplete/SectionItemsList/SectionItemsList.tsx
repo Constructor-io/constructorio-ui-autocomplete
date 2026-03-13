@@ -37,6 +37,9 @@ const DefaultRenderSectionItemsList: RenderSectionItemsList = function ({ sectio
       case 'custom':
         sectionTitle = section.displayName;
         break;
+      case 'recentSearches':
+        sectionTitle = section.displayName;
+        break;
       default:
         sectionTitle = section.indexSectionName;
         break;
