@@ -3,7 +3,7 @@ module.exports = {
   projects: [
     {
       displayName: 'client',
-      testEnvironment: 'jsdom',
+      testEnvironment: './spec/jest-env-jsdom.js',
       testMatch: ['**/**/*.test.(js|jsx|ts|tsx)', '!**/**/*.server.test.(js|jsx|ts|tsx)'],
       setupFilesAfterEnv: ['./jest.setup.js', 'jest-fail-on-console'], // Ensures setup jest.setup.js scripts run after jest is fully setup
       moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

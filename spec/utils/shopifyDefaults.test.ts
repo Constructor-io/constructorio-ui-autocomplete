@@ -2,23 +2,13 @@ import { shopifyDefaults } from '../../src/utils/shopifyDefaults';
 import type { AutocompleteSubmitEvent, ShopifySettings } from '../../src/types';
 
 describe('shopifyDefaults', () => {
-  const originalLocation = window.location;
   const mockShopifySettings: ShopifySettings = {
     searchUrl: '/search',
   };
+  const initialUrl = 'https://store.myshopify.com/pages/home?extraQueryParam=value';
 
   beforeEach(() => {
-    // Mock window.location with plain object to avoid URL validation
-    delete (window as any).location;
-    (window as any).location = {
-      href: 'https://store.myshopify.com/pages/home',
-      origin: 'https://store.myshopify.com',
-      search: '?extraQueryParam=value',
-    };
-  });
-
-  afterEach(() => {
-    (window as any).location = originalLocation;
+    window.location.href = initialUrl;
   });
 
   describe('shopifyDefaults', () => {
@@ -135,7 +125,7 @@ describe('shopifyDefaults', () => {
       });
 
       it('Preserves existing query parameters when redirecting to search', () => {
-        (window as any).location.search = '?existing=param&another=value';
+        window.location.href = 'https://store.myshopify.com/pages/home?existing=param&another=value';
 
         const mockEvent: AutocompleteSubmitEvent = {
           item: {
