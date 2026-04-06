@@ -149,7 +149,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       const { index, sectionId } = getItemPosition({ item, items });
       const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
-      // Products always have links, Search Suggestions and Recent Searches with getSearchResultsUrl have links
+      // Products always have links,
+      // Search Suggestions and Recent Searches with getSearchResultsUrl have links
       const hasLink =
         item.data?.url ||
         (item.section === 'Search Suggestions' && getSearchResultsUrl) ||
