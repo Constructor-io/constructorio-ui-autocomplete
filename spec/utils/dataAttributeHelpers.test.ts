@@ -75,6 +75,20 @@ describe('dataAttributeHelpers', () => {
       expect(attrs[cnstrcDataAttrs.common.itemId]).toBe('ss-rec-123');
     });
 
+    it('maps recent-searches section to Search Suggestions for tracking', () => {
+      const item = {
+        section: 'recent-searches',
+        value: 'previous search',
+        id: 'previous search-1234567890',
+        ts: 1234567890,
+      } as Item;
+
+      const attrs = getItemCnstrcDataAttributes(item);
+
+      expect(attrs[cnstrcDataAttrs.common.itemSection]).toBe('Search Suggestions');
+      expect(attrs[cnstrcDataAttrs.common.itemName]).toBe('previous search');
+    });
+
     it('adds variation-id when present', () => {
       const item = {
         section: 'Products',

@@ -152,11 +152,6 @@ export const FullFeatured: Story = {
     ],
     zeroStateSections: [
       {
-        displayName: 'Recent Searches 111',
-        type: 'recentSearches',
-        numResults: 5,
-      },
-      {
         podId: 'bestsellers',
         type: 'recommendations',
         numResults: 6,

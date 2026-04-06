@@ -4,7 +4,7 @@ import { isInGroupSuggestion, isRecentSearches, isRecommendationsSection } from 
 =======
 import {
   isInGroupSuggestion,
-  isRecentSearches,
+  isRecentSearch,
   isRecommendationsSection,
   isSearchSuggestion,
 } from '../typeGuards';
@@ -80,7 +80,7 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
   };
 
   // Track recent searches as search suggestions
-  if (isRecentSearches(item)) {
+  if (isRecentSearch(item)) {
     dataCnstrc[cnstrcDataAttrs.common.itemSection] = 'Search Suggestions';
   }
 

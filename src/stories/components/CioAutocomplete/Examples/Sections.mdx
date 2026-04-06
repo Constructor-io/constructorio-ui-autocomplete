@@ -169,7 +169,7 @@ Display a message when a section returns no results.
 
 ## Custom Section
 
-Provide your own data with `type: 'custom'`. Useful for recent searches or saved items.
+Provide your own data with `type: 'custom'`. Useful for saved items or curated suggestions.
 
 ```jsx
 <CioAutocomplete
@@ -180,15 +180,15 @@ Provide your own data with `type: 'custom'`. Useful for recent searches or saved
       indexSectionName: 'Search Suggestions',
     },
     {
-      displayName: 'Recent Searches',
+      displayName: 'Custom Section',
       type: 'custom',
       data: [
         {
-          value: 'Red T-shirt',
+          value: 'Custom Item 1',
           data: { id: '1' },
         },
         {
-          value: 'Dresses',
+          value: 'Custom Item 2',
           data: { id: '2' },
         },
       ],

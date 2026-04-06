@@ -53,9 +53,9 @@ Set `openOnFocus: false` to show zero state sections only after the user types a
 />
 ```
 
-## Custom Zero State Section
+## Recent Searches
 
-Display custom data like recent searches.
+Display the user's recent search history.
 
 ```jsx
 <CioAutocomplete
@@ -63,16 +63,53 @@ Display custom data like recent searches.
   onSubmit={handleSubmit}
   zeroStateSections={[
     {
+      type: 'recentSearches',
       displayName: 'Recent Searches',
+      numResults: 5,
+    },
+  ]}
+/>
+```
+
+### Recent Searches with Links
+
+Use `getSearchResultsUrl` to make recent search items clickable links.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  getSearchResultsUrl={(item) => `/search?q=${encodeURIComponent(item.value)}`}
+  zeroStateSections={[
+    {
+      type: 'recentSearches',
+      displayName: 'Recent Searches',
+      numResults: 5,
+    },
+  ]}
+/>
+```
+
+## Custom Zero State Section
+
+Display custom data with full control over the content.
+
+```jsx
+<CioAutocomplete
+  apiKey="YOUR_API_KEY"
+  onSubmit={handleSubmit}
+  zeroStateSections={[
+    {
+      displayName: 'Trending Searches',
       type: 'custom',
       data: [
         {
-          section: 'recent_searches',
+          section: 'trending',
           value: 'Red T-shirt',
           data: { id: '1' },
         },
         {
-          section: 'recent_searches',
+          section: 'trending',
           value: 'Dresses',
           data: { id: '2' },
         },
@@ -84,7 +121,7 @@ Display custom data like recent searches.
 
 ## Multiple Zero State Sections
 
-Combine recommendations with custom data.
+Combine recent searches with recommendations.
 
 ```jsx
 <CioAutocomplete
@@ -92,24 +129,14 @@ Combine recommendations with custom data.
   onSubmit={handleSubmit}
   zeroStateSections={[
     {
-      podId: 'bestsellers',
-      type: 'recommendations',
+      type: 'recentSearches',
+      displayName: 'Recent Searches',
+      numResults: 3,
     },
     {
-      displayName: 'Recent Searches',
-      type: 'custom',
-      data: [
-        {
-          section: 'recent_searches',
-          value: 'Red T-shirt',
-          data: { id: '1' },
-        },
-        {
-          section: 'recent_searches',
-          value: 'Dresses',
-          data: { id: '2' },
-        },
-      ],
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 4,
     },
   ]}
 />
@@ -144,9 +171,9 @@ The `zeroStateSections` prop accepts the same configuration as `sections`:
 | --- | --- | --- |
 | indexSectionName | string | Section name for autocomplete type |
 | podId | string | Recommendation pod ID |
-| type | autocomplete, recommendations, or custom | Section type |
-| displayName | string | Display name for the section header |
-| numResults | number | Number of results (default: 8) |
+| type | autocomplete, recommendations, recentSearches, or custom | Section type |
+| displayName | string | Display name for the section header (required for recentSearches and custom) |
+| numResults | number | Number of results (default: 10) |
 | data | Item[] | Custom data array (required for custom type) |
 
 ## See Also

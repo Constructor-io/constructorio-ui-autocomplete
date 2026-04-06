@@ -5,7 +5,7 @@ import {
   isProduct,
   isInGroupSuggestion,
   isSearchSuggestion,
-  isRecentSearches,
+  isRecentSearch,
 } from '../../../typeGuards';
 import SectionItemText from './SectionItemText';
 import { translate } from '../../../utils/helpers';
@@ -71,8 +71,9 @@ export default function SectionItem(props: SectionItemProps) {
         />
       );
     }
-  } else if (isRecentSearches(item)) {
-    // recent searches can be displayed in zero state only, no need for <SectionItemText>
+  } else if (isRecentSearch(item)) {
+    // Recent searches appear only in the zero state,
+    // so there is no query and no term highlighting.
     if (getSearchResultsUrl) {
       defaultChildren = (
         <a className='suggestion-link' href={getSearchResultsUrl(item)}>

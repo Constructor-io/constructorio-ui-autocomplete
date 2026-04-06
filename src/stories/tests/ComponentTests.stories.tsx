@@ -579,3 +579,122 @@ InGroupSuggestionsTwo.play = async ({ canvasElement }) => {
   await sleep(1000);
   expect(canvas.getAllByText('in Blazers').length).toBeGreaterThan(1);
 };
+
+// - focus in input field with recent searches zero state => render recent searches section
+export const ZeroStateRenderRecentSearches = ComponentTemplate.bind({});
+
+// Set up recent searches in localStorage before the story runs
+const recentSearchesStorageKey = CONSTANTS.RECENT_SEARCHES_STORAGE_KEY.key;
+const mockRecentSearches = [
+  { term: 'red dress', ts: Date.now() - 3000 },
+  { term: 'blue jeans', ts: Date.now() - 2000 },
+  { term: 'white sneakers', ts: Date.now() - 1000 },
+];
+localStorage.setItem(recentSearchesStorageKey, JSON.stringify(mockRecentSearches));
+
+ZeroStateRenderRecentSearches.args = {
+  ...explicitActionsSpies,
+  apiKey,
+  zeroStateSections: [
+    {
+      type: 'recentSearches',
+      displayName: 'Recent Searches',
+      numResults: 5,
+    },
+  ],
+};
+ZeroStateRenderRecentSearches.play = async ({ canvasElement }) => {
+  // Ensure recent searches are in localStorage
+  localStorage.setItem(recentSearchesStorageKey, JSON.stringify(mockRecentSearches));
+
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('cio-input'));
+  await sleep(1000);
+
+  expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('');
+  expect(canvas.getByText('Recent Searches')).toBeInTheDocument();
+
+  // Recent searches should be displayed in reverse order (most recent first)
+  const recentSearchItems = canvas.getAllByTestId('cio-item-recent-searches');
+  expect(recentSearchItems.length).toBe(3);
+  expect(recentSearchItems[0]).toHaveTextContent('white sneakers');
+  expect(recentSearchItems[1]).toHaveTextContent('blue jeans');
+  expect(recentSearchItems[2]).toHaveTextContent('red dress');
+};
+
+// - select recent search item => fires tracking and fills input
+export const SelectRecentSearchFiresTrackingAndFillInput = ComponentTemplate.bind({});
+SelectRecentSearchFiresTrackingAndFillInput.args = {
+  ...explicitActionsSpies,
+  apiKey,
+  zeroStateSections: [
+    {
+      type: 'recentSearches',
+      displayName: 'Recent Searches',
+      numResults: 5,
+    },
+  ],
+};
+SelectRecentSearchFiresTrackingAndFillInput.play = async ({ canvasElement }) => {
+  // Ensure recent searches are in localStorage
+  localStorage.setItem(recentSearchesStorageKey, JSON.stringify(mockRecentSearches));
+
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('cio-input'));
+  await sleep(1000);
+
+  const recentSearchItems = canvas.getAllByTestId('cio-item-recent-searches');
+  expect(recentSearchItems.length).toBeGreaterThan(0);
+
+  const firstRecentSearch = recentSearchItems[0];
+  await userEvent.click(firstRecentSearch);
+
+  const isSearchTrackingRequestSent = isTrackingRequestSent('/search?original_query=');
+  const isSelectTrackingRequestSent = isTrackingRequestSent('/select?original_query=');
+  expect(isSearchTrackingRequestSent).toBeTruthy();
+  expect(isSelectTrackingRequestSent).toBeTruthy();
+
+  await sleep(1000);
+  expect(canvas.getByTestId('cio-input')).toHaveValue('white sneakers');
+};
+
+// - recent searches combined with recommendations in zero state
+export const ZeroStateRecentSearchesWithRecommendations = ComponentTemplate.bind({});
+ZeroStateRecentSearchesWithRecommendations.args = {
+  ...explicitActionsSpies,
+  apiKey,
+  zeroStateSections: [
+    {
+      type: 'recentSearches',
+      displayName: 'Recent Searches',
+      numResults: 3,
+    },
+    {
+      podId: 'bestsellers',
+      type: 'recommendations',
+      numResults: 4,
+    },
+  ],
+};
+ZeroStateRecentSearchesWithRecommendations.play = async ({ canvasElement }) => {
+  // Ensure recent searches are in localStorage
+  localStorage.setItem(recentSearchesStorageKey, JSON.stringify(mockRecentSearches));
+
+  const canvas = within(canvasElement);
+  await userEvent.click(canvas.getByTestId('cio-input'));
+  await sleep(1000);
+
+  // Both sections should be rendered
+  expect(canvas.getByText('Recent Searches')).toBeInTheDocument();
+  expect(canvas.getByText('Best Sellers')).toBeInTheDocument();
+
+  // Recent searches section
+  const recentSearchItems = canvas.getAllByTestId('cio-item-recent-searches');
+  expect(recentSearchItems.length).toBe(3);
+
+  // Recommendations section
+  const bestSellersSection = canvas
+    .getByTestId('cio-results')
+    .querySelector('.cio-section-products');
+  expect(bestSellersSection).toBeInTheDocument();
+};

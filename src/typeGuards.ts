@@ -19,7 +19,7 @@ export function isSearchSuggestion(item: Item): item is SearchSuggestion {
   return (item as SearchSuggestion).section === 'Search Suggestions';
 }
 
-export function isRecentSearches(item: Item): item is RecentSearch {
+export function isRecentSearch(item: Item): item is RecentSearch {
   return (item as RecentSearch).section === 'recent-searches';
 }
 
