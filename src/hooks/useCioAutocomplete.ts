@@ -337,10 +337,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         Object.assign(attributes, recommendationAttributes);
       }
 
+      // Remove section data attribute for recent searches
       if (isRecentSearchesSection(section)) {
         delete attributes[cnstrcDataAttrs.common.section];
       }
-      
+
       return attributes;
     },
     setQuery,

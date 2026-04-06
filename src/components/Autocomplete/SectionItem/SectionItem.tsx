@@ -1,7 +1,12 @@
 import React, { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
-import { isProduct, isInGroupSuggestion, isSearchSuggestion, isRecentSearches } from '../../../typeGuards';
+import {
+  isProduct,
+  isInGroupSuggestion,
+  isSearchSuggestion,
+  isRecentSearches,
+} from '../../../typeGuards';
 import SectionItemText from './SectionItemText';
 import { translate } from '../../../utils/helpers';
 import SearchSuggestionItem from './SearchSuggestionItem';
@@ -75,11 +80,7 @@ export default function SectionItem(props: SectionItemProps) {
         </a>
       );
     } else {
-      defaultChildren = (
-        <p className='cio-suggestion-text'>
-          {item.value}
-        </p>
-      );
+      defaultChildren = <p className='cio-suggestion-text'>{item.value}</p>;
     }
   } else {
     defaultChildren = (

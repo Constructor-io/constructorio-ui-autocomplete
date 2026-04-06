@@ -66,7 +66,8 @@ export type CioAutocompletePropsBase = CioClientConfig &
      */
     openOnFocus?: boolean;
     /**
-     * Transforms a `SearchSuggestion` or `RecentSearch` into the desired URL string to be used when rendering anchor tags
+     * Transforms a `SearchSuggestion` or `RecentSearch` into the desired URL string
+     *  to be used when rendering anchor tags
      * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
      */
     getSearchResultsUrl?: (item: SearchSuggestion | RecentSearch) => string;
@@ -304,11 +305,12 @@ export type SearchSuggestion = SearchSuggestionFromClient & {
   section: 'Search Suggestions';
 };
 
-export type RecentSearch = Partial<ItemBase> & Pick<ItemBase, 'value'> & {
-  section: 'recent-searches';
-  ts: number;
-  data?: Record<string, unknown>;
-};
+export type RecentSearch = Partial<ItemBase> &
+  Pick<ItemBase, 'value' | 'id'> & {
+    section: 'recent-searches';
+    ts: number;
+    data?: Record<string, unknown>;
+  };
 
 export type StoreRecentSearch = {
   term: string;

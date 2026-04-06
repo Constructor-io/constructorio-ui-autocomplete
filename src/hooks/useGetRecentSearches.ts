@@ -14,12 +14,13 @@ const useGetRecentSearches = (recentSearchesSections: RecentSearchesSectionConfi
 
     recentSearchesSections.forEach(({ displayName, numResults }) => {
       recentSearchesResults[displayName] = recentSearchesFromStore
+        .slice()
         .reverse()
         .slice(0, numResults || DEFAULT_NUM_RESULTS)
         .map(({ term, ts, data }) => ({
           ts,
           data,
-          id: ts,
+          id: `${term}-${ts}`,
           value: term,
           section: 'recent-searches',
         }));
@@ -32,4 +33,3 @@ const useGetRecentSearches = (recentSearchesSections: RecentSearchesSectionConfi
 };
 
 export default useGetRecentSearches;
-

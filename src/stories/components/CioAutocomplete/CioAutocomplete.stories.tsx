@@ -1,7 +1,6 @@
 import React from 'react';
 import type { StoryObj } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
-import type { Item } from '../../../types';
 import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
 import { apiKey, onSubmitDefault as onSubmit } from '../../../constants';
 

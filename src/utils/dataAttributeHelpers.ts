@@ -1,5 +1,14 @@
 import { Item, Section } from '../types';
+<<<<<<< HEAD
 import { isInGroupSuggestion, isRecentSearches, isRecommendationsSection } from '../typeGuards';
+=======
+import {
+  isInGroupSuggestion,
+  isRecentSearches,
+  isRecommendationsSection,
+  isSearchSuggestion,
+} from '../typeGuards';
+>>>>>>> 2d887e7 (lint, address comments)
 
 export const cnstrcDataAttrs = {
   common: {
