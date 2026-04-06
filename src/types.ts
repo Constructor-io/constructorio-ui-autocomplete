@@ -66,10 +66,10 @@ export type CioAutocompletePropsBase = CioClientConfig &
      */
     openOnFocus?: boolean;
     /**
-     * Transforms a `SearchSuggestion` into the desired URL string to be used when rendering anchor tags
+     * Transforms a `SearchSuggestion` or `RecentSearch` into the desired URL string to be used when rendering anchor tags
      * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
      */
-    getSearchResultsUrl?: (item: SearchSuggestion) => string;
+    getSearchResultsUrl?: (item: SearchSuggestion | RecentSearch) => string;
     /**
      * Callback function that runs when the user focuses on the input
      */
@@ -211,7 +211,7 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
 
-export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
+export type Item = Product | SearchSuggestion | InGroupSuggestion | RecentSearch | ItemBase;
 
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
@@ -304,10 +304,16 @@ export type SearchSuggestion = SearchSuggestionFromClient & {
   section: 'Search Suggestions';
 };
 
-export type RecentSearches = {
+export type RecentSearch = Partial<ItemBase> & Pick<ItemBase, 'value'> & {
+  section: 'recent-searches';
+  ts: number;
+  data?: Record<string, unknown>;
+};
+
+export type StoreRecentSearch = {
   term: string;
   ts: number;
-  data: Record<string, unknown>;
+  data?: Record<string, unknown>;
 };
 
 export type InGroupSuggestion = SearchSuggestion & {

@@ -1,5 +1,7 @@
 import { AutocompleteSubmitEvent } from './types';
 
+export const DEFAULT_NUM_RESULTS = 8;
+
 // Autocomplete key index
 export const apiKey = 'key_M57QS8SMPdLdLx4x';
 

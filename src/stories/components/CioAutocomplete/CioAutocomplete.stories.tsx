@@ -1,6 +1,7 @@
 import React from 'react';
 import type { StoryObj } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
+import type { Item } from '../../../types';
 import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
 import { apiKey, onSubmitDefault as onSubmit } from '../../../constants';
 
@@ -151,6 +152,11 @@ export const FullFeatured: Story = {
       },
     ],
     zeroStateSections: [
+      {
+        displayName: 'Recent Searches 111',
+        type: 'recentSearches',
+        numResults: 5,
+      },
       {
         podId: 'bestsellers',
         type: 'recommendations',

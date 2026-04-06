@@ -1,5 +1,5 @@
 import { Item, Section } from '../types';
-import { isInGroupSuggestion, isRecommendationsSection } from '../typeGuards';
+import { isInGroupSuggestion, isRecentSearches, isRecommendationsSection } from '../typeGuards';
 
 export const cnstrcDataAttrs = {
   common: {
@@ -69,6 +69,11 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
     [cnstrcDataAttrs.common.itemSection]: item.section,
     [cnstrcDataAttrs.common.itemName]: item.value,
   };
+
+  // Track recent searches as search suggestions
+  if (isRecentSearches(item)) {
+    dataCnstrc[cnstrcDataAttrs.common.itemSection] = 'Search Suggestions';
+  }
 
   // Add item ID when available
   if (item.data?.id) {

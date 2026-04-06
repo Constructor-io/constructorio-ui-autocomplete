@@ -51,7 +51,7 @@ export default function useSections(
     zeroStateSections
   );
 
-  // Combine recommendations and autocomplete results in sectionsResults
+  // Combine recommendations, autocomplete and recent searches results in sectionsResults
   const sectionsResults = useMemo(
     () => ({
       ...autocomplete.results,

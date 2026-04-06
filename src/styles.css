@@ -70,13 +70,7 @@
 
 /* @deprecated in favor of .cio-section-search-suggestions */
 .cio-autocomplete .cio-item.cio-item-SearchSuggestions,
-.cio-autocomplete .cio-section-search-suggestions .cio-item {
-  flex-direction: row;
-  min-width: 160px;
-  justify-content: space-between;
-  align-items: center;
-}
-
+.cio-autocomplete .cio-section-search-suggestions .cio-item,
 .cio-autocomplete .cio-section-recent-searches .cio-item {
   flex-direction: row;
   min-width: 160px;

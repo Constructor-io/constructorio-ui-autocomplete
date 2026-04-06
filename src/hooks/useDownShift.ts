@@ -38,14 +38,10 @@ const useDownShift: UseDownShift = ({
         if (selectedItem?.value) {
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
           try {
-            if (selectedItem?.section === 'Search Suggestions') {
-              setQuery(selectedItem.value || '');
-              trackSearchSubmit(cioClient, selectedItem.value, {
-                originalQuery: previousQuery,
-              });
-            }
-
-            if (selectedItem?.section === 'recent-searches') {
+            if (
+              selectedItem?.section === 'Search Suggestions' ||
+              selectedItem?.section === 'recent-searches'
+            ) {
               setQuery(selectedItem.value || '');
               trackSearchSubmit(cioClient, selectedItem.value, {
                 originalQuery: previousQuery,
@@ -74,6 +70,15 @@ const useDownShift: UseDownShift = ({
                 originalQuery: previousQuery,
                 section: selectedItem.section,
                 itemId: selectedItem.data?.id,
+              };
+
+              trackAutocompleteSelect(cioClient, selectedItem.value, selectData);
+
+              // Track recent seareches as Search Suggestions
+            } else if (selectedItem.section === 'recent-searches') {
+              const selectData = {
+                originalQuery: previousQuery,
+                section: 'Search Suggestions',
               };
 
               trackAutocompleteSelect(cioClient, selectedItem.value, selectData);

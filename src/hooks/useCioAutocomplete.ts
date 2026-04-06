@@ -21,7 +21,7 @@ import { getFeatures } from '../utils/features';
 import useConsoleErrors from './useConsoleErrors';
 import useSections from './useSections';
 import useRecommendationsObserver from './useRecommendationsObserver';
-import { isCustomSection, isRecommendationsSection } from '../typeGuards';
+import { isCustomSection, isRecommendationsSection, isRecentSearchesSection } from '../typeGuards';
 import useNormalizedProps from './useNormalizedProps';
 import useCustomBlur from './useCustomBlur';
 import {
@@ -149,9 +149,12 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
       const { index, sectionId } = getItemPosition({ item, items });
       const sectionItemTestId = `cio-item-${sectionId?.replace(' ', '')}`;
 
-      // Products always have links, Search Suggestions with getSearchResultsUrl have links
+      // Products always have links, Search Suggestions and Recent Searches with getSearchResultsUrl have links
       const hasLink =
-        item.data?.url || (item.section === 'Search Suggestions' && getSearchResultsUrl) || false;
+        item.data?.url ||
+        (item.section === 'Search Suggestions' && getSearchResultsUrl) ||
+        (item.section === 'recent-searches' && getSearchResultsUrl) ||
+        false;
 
       const nonInteractiveItemsProps = {
         tabIndex: 0,
@@ -278,8 +281,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
             sectionTitle = section.displayName || section.indexSectionName;
             break;
           case 'custom':
-            sectionTitle = section.displayName;
-            break;
           case 'recentSearches':
             sectionTitle = section.displayName;
             break;
@@ -335,6 +336,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
         Object.assign(attributes, recommendationAttributes);
       }
+
+      if (isRecentSearchesSection(section)) {
+        delete attributes[cnstrcDataAttrs.common.section];
+      }
+      
       return attributes;
     },
     setQuery,

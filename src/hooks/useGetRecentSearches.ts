@@ -1,33 +1,35 @@
 import { useEffect, useState } from 'react';
-import { RecentSearchesSectionConfiguration, SectionsData } from '../types';
+import { RecentSearchesSectionConfiguration, SectionsData, StoreRecentSearch } from '../types';
 import { getRecentSearches } from '../utils/beaconUtils';
+import { DEFAULT_NUM_RESULTS } from '../constants';
 
-const useGetRecentSearches = (recentSearchesSection: RecentSearchesSectionConfiguration[]) => {
+const useGetRecentSearches = (recentSearchesSections: RecentSearchesSectionConfiguration[]) => {
   const [recentSearches, setRecentSearches] = useState<SectionsData>({});
 
   useEffect(() => {
-    if (!recentSearchesSection.length) return;
+    if (!recentSearchesSections.length) return;
 
-    const recentSearchesFromStore = getRecentSearches();
-    const recentSearchesResults = {};
+    const recentSearchesFromStore: StoreRecentSearch[] = getRecentSearches();
+    const recentSearchesResults: SectionsData = {};
 
-    recentSearchesSection.forEach(({ displayName, numResults }) => {
+    recentSearchesSections.forEach(({ displayName, numResults }) => {
       recentSearchesResults[displayName] = recentSearchesFromStore
-        .slice(0, numResults)
-        .map(({ term, ts }) => ({
-          value: term,
+        .reverse()
+        .slice(0, numResults || DEFAULT_NUM_RESULTS)
+        .map(({ term, ts, data }) => ({
+          ts,
+          data,
           id: ts,
-          is_slotted: false,
-          labels: {},
-          matched_terms: [],
+          value: term,
           section: 'recent-searches',
         }));
     });
 
     setRecentSearches(recentSearchesResults);
-  }, [recentSearchesSection]);
+  }, [recentSearchesSections]);
 
   return recentSearches;
 };
 
 export default useGetRecentSearches;
+
