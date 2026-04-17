@@ -61,6 +61,20 @@ describe('dataAttributeHelpers', () => {
       expect(attrs[cnstrcDataAttrs.common.itemId]).toBe('some-id');
     });
 
+    it('adds item-id for Search Suggestions recommendation items (zero-state SS recommendations)', () => {
+      const item = {
+        section: 'Search Suggestions',
+        value: 'Recommended Search Suggestion',
+        data: { id: 'ss-rec-123' },
+        podId: 'trending-searches',
+        strategy: { id: 'strategy-789' },
+      } as unknown as Item;
+
+      const attrs = getItemCnstrcDataAttributes(item);
+
+      expect(attrs[cnstrcDataAttrs.common.itemId]).toBe('ss-rec-123');
+    });
+
     it('adds variation-id when present', () => {
       const item = {
         section: 'Products',
