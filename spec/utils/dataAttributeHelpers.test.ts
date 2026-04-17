@@ -49,7 +49,7 @@ describe('dataAttributeHelpers', () => {
       expect(attrs[cnstrcDataAttrs.common.itemId]).toBe('prod-123');
     });
 
-    it('does NOT add item-id for Search Suggestions', () => {
+    it('adds item-id for Search Suggestions when data.id exists', () => {
       const item = {
         section: 'Search Suggestions',
         value: 'test query',
@@ -58,7 +58,7 @@ describe('dataAttributeHelpers', () => {
 
       const attrs = getItemCnstrcDataAttributes(item);
 
-      expect(attrs[cnstrcDataAttrs.common.itemId]).toBeUndefined();
+      expect(attrs[cnstrcDataAttrs.common.itemId]).toBe('some-id');
     });
 
     it('adds variation-id when present', () => {
