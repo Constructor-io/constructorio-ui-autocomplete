@@ -496,8 +496,7 @@ describe('CioAutocomplete Client-Side Rendering', () => {
       searchSuggestions.forEach((option) => {
         expect(option).toHaveAttribute(cnstrcDataAttrs.common.itemSection, 'Search Suggestions');
         expect(option).toHaveAttribute(cnstrcDataAttrs.common.itemName);
-        // Should NOT have item-id for Search Suggestions
-        expect(option).not.toHaveAttribute(cnstrcDataAttrs.common.itemId);
+        expect(option).toHaveAttribute(cnstrcDataAttrs.common.itemId);
       });
 
       // Test Product items

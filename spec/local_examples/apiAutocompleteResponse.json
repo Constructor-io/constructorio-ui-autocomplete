@@ -3,9 +3,7 @@
     "Products": [
       {
         "matched_terms": [],
-        "labels": {
-
-        },
+        "labels": {},
         "data": {
           "id": "123",
           "url": "example.com",
@@ -18,8 +16,9 @@
     "Search Suggestions": [
       {
         "matched_terms": [],
-        "labels": {
-
+        "labels": {},
+        "data": {
+          "id": "suggestion"
         },
         "value": "suggestion"
       }
