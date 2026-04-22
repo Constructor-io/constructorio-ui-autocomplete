@@ -130,7 +130,7 @@ export const getActiveSectionsWithData = (
 
       if (sectionConfig.type === 'recommendations') {
         const podKey = getRecommendationPodKey(sectionConfig.podId, sectionConfig.indexSectionName);
-        section.displayName = sectionConfig.displayName || podsData[podKey].displayName;
+        section.displayName = sectionConfig.displayName || podsData[podKey]?.displayName;
       }
 
       // If ref passed as part of `SectionConfiguration`, use it.
