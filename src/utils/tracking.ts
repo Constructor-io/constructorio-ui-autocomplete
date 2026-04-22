@@ -22,11 +22,13 @@ export const trackRecommendationView = (
   cioClient: Nullable<ConstructorIOClient>
 ) => {
   if (target.dataset.cnstrcRecommendationsPodId) {
-    // Pull recommendations from activeSectionsWithData by podId surfaced on target
+    // Pull recommendations from activeSectionsWithData by podId + section, since a
+    // single podId may be reused across multiple sections (e.g. Products vs. Search Suggestions)
     const recommendationSection = activeSectionsWithData.find(
       (section) =>
         isRecommendationsSection(section) &&
-        section.podId === target.dataset.cnstrcRecommendationsPodId
+        section.podId === target.dataset.cnstrcRecommendationsPodId &&
+        (!target.dataset.cnstrcSection || section.data[0]?.section === target.dataset.cnstrcSection)
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
       itemId: item.data?.id,

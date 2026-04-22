@@ -14,7 +14,11 @@ import {
   OnSubmit,
 } from '../types';
 import usePrevious from './usePrevious';
-import { getItemPosition, getItemsForActiveSections } from '../utils/helpers';
+import {
+  getItemPosition,
+  getItemsForActiveSections,
+  getRecommendationPodKey,
+} from '../utils/helpers';
 import { toKebabCase } from '../utils/format';
 import { trackRecommendationView, trackSearchSubmit } from '../utils/tracking';
 import { getFeatures } from '../utils/features';
@@ -308,7 +312,8 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
       // Add data attributes for recommendations using helper
       if (isRecommendationsSection(section)) {
-        const podData = podsData?.[section.podId];
+        const podData =
+          podsData?.[getRecommendationPodKey(section.podId, section.indexSectionName)];
         const seedItems = normalizeSeedItems(section.itemIds);
 
         const recommendationAttributes = getRecommendationsSectionCnstrcDataAttributes(

@@ -648,5 +648,84 @@ describe('CioAutocomplete Client-Side Rendering', () => {
         expect(firstItem).toHaveAttribute(cnstrcDataAttrs.recommendations.strategyId, 'bestsellers');
       }
     });
+
+    it('Renders two recommendation sections that share a podId but target different indexSectionName', async () => {
+      const cioJsClient = mockCioClientJS();
+      cioJsClient.recommendations.getRecommendations = jest.fn((podId: string, params: any) =>
+        Promise.resolve({
+          request: { section: params.section, num_results: 1, pod_id: podId },
+          response: {
+            results: [
+              {
+                data: {
+                  id: `${params.section}-id`,
+                  url: 'no-url',
+                  description: 'description',
+                  price: 1,
+                  image_url: 'example.jpg',
+                },
+                value: `${params.section}-value`,
+                strategy: { id: 'bestsellers' },
+              },
+            ],
+            total_num_results: 1,
+            pod: { id: 'bestsellers', display_name: 'Best Sellers' },
+          },
+          result_id: `result-${params.section}`,
+        })
+      );
+
+      render(
+        <CioAutocomplete
+          cioJsClient={cioJsClient}
+          onSubmit={onSubmit}
+          openOnFocus
+          zeroStateSections={[
+            { type: 'recommendations', podId: 'bestsellers', indexSectionName: 'Products' },
+            {
+              type: 'recommendations',
+              podId: 'bestsellers',
+              indexSectionName: 'Search Suggestions',
+            },
+          ]}
+        />
+      );
+
+      fireEvent.focus(screen.getByRole('combobox'));
+
+      const resultsContainer = await screen.findByTestId('cio-results', {}, { timeout: 5000 });
+
+      const recommendationContainers = await waitFor(
+        () => {
+          const containers = resultsContainer.querySelectorAll(
+            `[${cnstrcDataAttrs.recommendations.recommendationsContainer}]`
+          );
+          expect(containers.length).toBe(2);
+          return containers;
+        },
+        { timeout: 5000 }
+      );
+
+      const sections = Array.from(recommendationContainers).map((container) => {
+        const itemSections = Array.from(
+          container.querySelectorAll(`[${cnstrcDataAttrs.common.itemSection}]`)
+        ).map((el) => el.getAttribute(cnstrcDataAttrs.common.itemSection));
+        return { container, itemSections };
+      });
+
+      const productSection = sections.find((s) => s.itemSections.includes('Products'));
+      const suggestionsSection = sections.find((s) =>
+        s.itemSections.includes('Search Suggestions')
+      );
+
+      expect(productSection).toBeDefined();
+      expect(suggestionsSection).toBeDefined();
+      expect(productSection).not.toBe(suggestionsSection);
+
+      expect(productSection!.container.textContent).toContain('Products-value');
+      expect(suggestionsSection!.container.textContent).toContain('Search Suggestions-value');
+      expect(productSection!.container.textContent).not.toContain('Search Suggestions-value');
+      expect(suggestionsSection!.container.textContent).not.toContain('Products-value');
+    });
   });
 });

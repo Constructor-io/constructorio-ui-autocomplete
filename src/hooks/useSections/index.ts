@@ -38,7 +38,7 @@ export default function useSections(
 
   // Access the Pods Data from the Recommendations response to update Active Sections configuration
   useEffect(() => {
-    if (!recommendations.podsData) {
+    if (recommendations.podsData) {
       setPodsData(recommendations.podsData);
     }
   }, [recommendations.podsData]);

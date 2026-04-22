@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { PodData, UserDefinedSection } from '../../types';
 import { isRecommendationsSection } from '../../typeGuards';
+import { getRecommendationPodKey } from '../../utils/helpers';
 
 export default function useActiveSections(
   query: string,
@@ -21,7 +22,8 @@ export default function useActiveSections(
         const mergedConfig = config;
 
         if (isRecommendationsSection(config)) {
-          const podData = podsData?.[config.podId];
+          const podData =
+            podsData?.[getRecommendationPodKey(config.podId, config.indexSectionName)];
           const libraryDisplayName = config.displayName;
           const dashboardDisplayName = podData?.displayName;
 

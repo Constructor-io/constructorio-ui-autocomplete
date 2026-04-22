@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
+import { getRecommendationPodKey } from '../utils/helpers';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
@@ -27,13 +28,15 @@ const useFetchRecommendationPod = (
     responses.forEach(({ response, request, result_id: resultId }, index) => {
       const { pod, results } = response;
       if (pod?.id) {
-        recommendationsPodResults[pod.id] = results?.map((item) => ({
+        const indexSectionName = recommendationPods[index]?.indexSectionName;
+        const podKey = getRecommendationPodKey(pod.id, indexSectionName);
+        recommendationsPodResults[podKey] = results?.map((item) => ({
           ...item,
           id: item?.data?.id,
-          section: recommendationPods[index]?.indexSectionName,
+          section: indexSectionName,
           podId: pod.id,
         }));
-        recommendationsPodsData[pod.id] = {
+        recommendationsPodsData[podKey] = {
           displayName: pod.display_name,
           podId: pod.id,
           request,

@@ -82,6 +82,9 @@ export const getCioClient = (apiKey?: string, cioClientOptions?: ConstructorClie
   return null;
 };
 
+export const getRecommendationPodKey = (podId: string, indexSectionName?: string) =>
+  `${podId}::${indexSectionName ?? 'Products'}`;
+
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionsResults: SectionsData,
@@ -96,7 +99,10 @@ export const getActiveSectionsWithData = (
 
     switch (type) {
       case 'recommendations':
-        sectionData = sectionsResults[sectionConfig.podId];
+        sectionData =
+          sectionsResults[
+            getRecommendationPodKey(sectionConfig.podId, sectionConfig.indexSectionName)
+          ];
         break;
       case 'custom':
         // Copy id from data to the top level
@@ -123,8 +129,8 @@ export const getActiveSectionsWithData = (
       };
 
       if (sectionConfig.type === 'recommendations') {
-        section.displayName =
-          sectionConfig.displayName || podsData[sectionConfig.podId].displayName;
+        const podKey = getRecommendationPodKey(sectionConfig.podId, sectionConfig.indexSectionName);
+        section.displayName = sectionConfig.displayName || podsData[podKey].displayName;
       }
 
       // If ref passed as part of `SectionConfiguration`, use it.
