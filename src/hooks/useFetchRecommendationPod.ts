@@ -3,6 +3,7 @@ import ConstructorIOClient from '@constructor-io/constructorio-client-javascript
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
 import { getRecommendationPodKey } from '../utils/helpers';
+import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
@@ -19,7 +20,7 @@ const useFetchRecommendationPod = (
       recommendationPods.map(({ podId, indexSectionName, ...parameters }) =>
         cioClient.recommendations.getRecommendations(podId, {
           ...parameters,
-          section: indexSectionName,
+          section: indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION,
         })
       )
     );
@@ -28,12 +29,13 @@ const useFetchRecommendationPod = (
     responses.forEach(({ response, request, result_id: resultId }, index) => {
       const { pod, results } = response;
       if (pod?.id) {
-        const indexSectionName = recommendationPods[index]?.indexSectionName;
-        const podKey = getRecommendationPodKey(pod.id, indexSectionName);
+        const sectionName =
+          recommendationPods[index]?.indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION;
+        const podKey = getRecommendationPodKey(pod.id, sectionName);
         recommendationsPodResults[podKey] = results?.map((item) => ({
           ...item,
           id: item?.data?.id,
-          section: indexSectionName,
+          section: sectionName,
           podId: pod.id,
         }));
         recommendationsPodsData[podKey] = {

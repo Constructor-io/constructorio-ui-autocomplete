@@ -1,6 +1,7 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { ConstructorClientOptions } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, Section, UserDefinedSection, SectionsData, Translations, PodData } from '../types';
+import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 import version from '../version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -83,7 +84,7 @@ export const getCioClient = (apiKey?: string, cioClientOptions?: ConstructorClie
 };
 
 export const getRecommendationPodKey = (podId: string, indexSectionName?: string) =>
-  `${podId}::${indexSectionName ?? 'Products'}`;
+  `${podId}::${indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION}`;
 
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],

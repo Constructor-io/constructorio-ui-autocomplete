@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { UseCioAutocompleteOptions, UserDefinedSection } from '../types';
 import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
+import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -22,7 +23,7 @@ const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =
       }
 
       if (!config.indexSectionName) {
-        return { ...config, indexSectionName: 'Products' };
+        return { ...config, indexSectionName: DEFAULT_RECOMMENDATION_INDEX_SECTION };
       }
     }
 

@@ -302,7 +302,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         className: `cio-section cio-section-${sectionListingType} ${getDeprecatedClassNames()}`,
         ref: section.ref,
         role: 'none',
-        [cnstrcDataAttrs.common.section]: section.data[0]?.section,
+        [cnstrcDataAttrs.common.section]:
+          section.data[0]?.section ||
+          (isRecommendationsSection(section) ? section.indexSectionName : undefined),
       };
 
       if (isCustomSection(section)) {

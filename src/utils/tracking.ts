@@ -28,7 +28,7 @@ export const trackRecommendationView = (
       (section) =>
         isRecommendationsSection(section) &&
         section.podId === target.dataset.cnstrcRecommendationsPodId &&
-        (!target.dataset.cnstrcSection || section.data[0]?.section === target.dataset.cnstrcSection)
+        (!target.dataset.cnstrcSection || section.indexSectionName === target.dataset.cnstrcSection)
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
       itemId: item.data?.id,
