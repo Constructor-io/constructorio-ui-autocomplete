@@ -197,11 +197,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         if (options.onFocus) {
           options.onFocus();
         }
-        if (
-          zeroStateActiveSections &&
-          openOnFocus !== false &&
-          features.featureDisplayZeroStateRecommendations
-        ) {
+        if (zeroStateActiveSections && openOnFocus !== false && activeSections.length > 0) {
           openMenu();
         }
         if (query?.length) {
