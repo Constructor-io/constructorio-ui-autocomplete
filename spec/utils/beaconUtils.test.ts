@@ -1,6 +1,6 @@
 import {
   getRecentSearches,
-  storeRecentSearch,
+  storeRecentSearches,
   cleanTerm,
   CONSTANTS,
 } from '../../src/utils/beaconUtils';
@@ -65,9 +65,9 @@ describe('beaconUtils', () => {
     });
   });
 
-  describe('storeRecentSearch', () => {
+  describe('storeRecentSearches', () => {
     it('stores a new search term', () => {
-      storeRecentSearch('test search', {});
+      storeRecentSearches('test search', {});
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored).toHaveLength(1);
@@ -76,24 +76,24 @@ describe('beaconUtils', () => {
     });
 
     it('trims whitespace from search terms', () => {
-      storeRecentSearch('  test search  ', {});
+      storeRecentSearches('  test search  ', {});
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored[0].term).toBe('test search');
     });
 
     it('does not store empty terms', () => {
-      storeRecentSearch('', {});
-      storeRecentSearch('   ', {});
+      storeRecentSearches('', {});
+      storeRecentSearches('   ', {});
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored).toHaveLength(0);
     });
 
     it('moves duplicate terms to the end of the list (case insensitive)', () => {
-      storeRecentSearch('shoes', {});
-      storeRecentSearch('pants', {});
-      storeRecentSearch('SHOES', {});
+      storeRecentSearches('shoes', {});
+      storeRecentSearches('pants', {});
+      storeRecentSearches('SHOES', {});
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored).toHaveLength(2);
@@ -103,7 +103,7 @@ describe('beaconUtils', () => {
 
     it('stores suggestion data with the search term', () => {
       const suggestionData = { section: 'Products', id: 'prod-123' };
-      storeRecentSearch('test', suggestionData);
+      storeRecentSearches('test', suggestionData);
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored[0].data).toEqual(suggestionData);
@@ -115,7 +115,7 @@ describe('beaconUtils', () => {
         original_section: 'Search Suggestions',
         is_meta_section: true,
       };
-      storeRecentSearch('test', suggestionData);
+      storeRecentSearches('test', suggestionData);
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored[0].data.section).toBe('Search Suggestions');
@@ -126,7 +126,7 @@ describe('beaconUtils', () => {
     it('limits stored searches to RECENT_SEARCHES_STORAGE_COUNT', () => {
       // Store more than the limit
       for (let i = 0; i < CONSTANTS.RECENT_SEARCHES_STORAGE_COUNT + 10; i++) {
-        storeRecentSearch(`search${i}`, {});
+        storeRecentSearches(`search${i}`, {});
       }
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
@@ -136,7 +136,7 @@ describe('beaconUtils', () => {
     });
 
     it('cleans HTML from search terms', () => {
-      storeRecentSearch('<script>alert("xss")</script>clean search', {});
+      storeRecentSearches('<script>alert("xss")</script>clean search', {});
 
       const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
       expect(stored[0].term).toBe('clean search');

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { RecentSearchesSectionConfiguration, SectionsData, StoreRecentSearch } from '../types';
+import { RecentSearchesSectionConfiguration, SectionsData, StoreRecentSearches } from '../types';
 import { getRecentSearches } from '../utils/beaconUtils';
 import { DEFAULT_NUM_RESULTS } from '../constants';
 
@@ -9,7 +9,7 @@ const useGetRecentSearches = (recentSearchesSections: RecentSearchesSectionConfi
   useEffect(() => {
     if (!recentSearchesSections.length) return;
 
-    const recentSearchesFromStore: StoreRecentSearch[] = getRecentSearches();
+    const recentSearchesFromStore: StoreRecentSearches[] = getRecentSearches();
     const recentSearchesResults: SectionsData = {};
 
     recentSearchesSections.forEach(({ displayName, numResults }) => {

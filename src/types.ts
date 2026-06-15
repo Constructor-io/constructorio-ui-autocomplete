@@ -66,11 +66,12 @@ export type CioAutocompletePropsBase = CioClientConfig &
      */
     openOnFocus?: boolean;
     /**
-     * Transforms a `SearchSuggestion` or `RecentSearch` into the desired URL string
+     * Transforms a `SearchSuggestion` or `RecentSearches` into the desired URL string
      *  to be used when rendering anchor tags
      * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
+     * i.e. <a href=getSearchResultsUrl([selected_recent_search])>[Recent Search]</a>
      */
-    getSearchResultsUrl?: (item: SearchSuggestion | RecentSearch) => string;
+    getSearchResultsUrl?: (item: SearchSuggestion | RecentSearches) => string;
     /**
      * Callback function that runs when the user focuses on the input
      */
@@ -212,7 +213,7 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
 
-export type Item = Product | SearchSuggestion | InGroupSuggestion | RecentSearch | ItemBase;
+export type Item = Product | SearchSuggestion | InGroupSuggestion | RecentSearches | ItemBase;
 
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
@@ -282,7 +283,7 @@ export interface CustomSection extends CustomSectionConfiguration {
 }
 
 export interface RecentSearchesSection extends RecentSearchesSectionConfiguration {
-  data: Item[];
+  data: RecentSearches[];
 }
 
 export type Section =
@@ -305,14 +306,15 @@ export type SearchSuggestion = SearchSuggestionFromClient & {
   section: 'Search Suggestions';
 };
 
-export type RecentSearch = Partial<ItemBase> &
-  Pick<ItemBase, 'value' | 'id'> & {
-    section: 'recent-searches';
-    ts: number;
-    data?: Record<string, unknown>;
-  };
+export type RecentSearches = {
+  section: 'recent-searches';
+  value: string;
+  id: string;
+  ts: number;
+  data?: Record<string, unknown>;
+};
 
-export type StoreRecentSearch = {
+export type StoreRecentSearches = {
   term: string;
   ts: number;
   data?: Record<string, unknown>;

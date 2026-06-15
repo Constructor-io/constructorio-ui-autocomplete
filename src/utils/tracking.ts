@@ -4,7 +4,7 @@ import { isRecommendationsSection } from '../typeGuards';
 import { Section } from '../types';
 
 // eslint-disable-next-line import/no-cycle
-import { CONSTANTS, storeRecentSearch, storeRecentAction } from './beaconUtils';
+import { CONSTANTS, storeRecentSearches, storeRecentAction } from './beaconUtils';
 import { storageSetItem, storageRemoveItem } from './storage';
 
 export function isTrackingRequestSent(trackingRequestUrl: string) {
@@ -29,9 +29,9 @@ export const trackRecommendationView = (
         section.podId === target.dataset.cnstrcRecommendationsPodId
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
-      itemId: item.data?.id,
+      itemId: item.data?.id as string | undefined,
       itemName: item.value,
-      variationId: item.data?.variation_id,
+      variationId: item.data?.variation_id as string | undefined,
     }));
 
     cioClient?.tracker.trackRecommendationView({
@@ -46,7 +46,7 @@ export const trackRecommendationView = (
 export const trackSearchSubmit = (cioClient, term: string, autocompleteData = {}) => {
   cioClient?.tracker.trackSearchSubmit(term, autocompleteData);
   storageSetItem(CONSTANTS.SEARCH_TERM_STORAGE_KEY, term);
-  storeRecentSearch(term, {});
+  storeRecentSearches(term, {});
   storeRecentAction(CONSTANTS.SEARCH_SUBMIT);
 };
 export const trackAutocompleteSelect = (cioClient, itemName, autocompleteData: any = {}) => {

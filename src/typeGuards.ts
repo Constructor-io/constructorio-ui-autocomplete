@@ -8,7 +8,7 @@ import {
   AutocompleteSection,
   RecommendationsSection,
   RecentSearchesSectionConfiguration,
-  RecentSearch,
+  RecentSearches,
 } from './types';
 
 export function isProduct(item: Item): item is Product {
@@ -19,8 +19,8 @@ export function isSearchSuggestion(item: Item): item is SearchSuggestion {
   return (item as SearchSuggestion).section === 'Search Suggestions';
 }
 
-export function isRecentSearch(item: Item): item is RecentSearch {
-  return (item as RecentSearch).section === 'recent-searches';
+export function isRecentSearches(item: Item): item is RecentSearches {
+  return (item as RecentSearches).section === 'recent-searches';
 }
 
 export function isInGroupSuggestion(item: Item): item is InGroupSuggestion {

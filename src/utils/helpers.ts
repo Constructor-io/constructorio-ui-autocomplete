@@ -136,7 +136,7 @@ export const getActiveSectionsWithData = (
       const libraryGeneratedSectionRef = sectionsRefs.current[index];
       section.ref = userDefinedSectionRef || libraryGeneratedSectionRef;
 
-      activeSectionsWithData.push(section);
+      activeSectionsWithData.push(section as Section);
     }
   });
 
