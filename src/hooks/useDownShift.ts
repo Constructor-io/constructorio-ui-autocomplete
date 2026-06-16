@@ -81,7 +81,7 @@ const useDownShift: UseDownShift = ({
               trackAutocompleteSelect(cioClient, selectedItem.value, selectData);
 
               // Track recent searches as Search Suggestions
-            } else if (selectedItem.section === 'recent-searches') {
+            } else if (isRecentSearches(selectedItem)) {
               const selectData = {
                 originalQuery: previousQuery,
                 section: 'Search Suggestions',
