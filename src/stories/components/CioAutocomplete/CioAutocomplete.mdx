@@ -111,7 +111,25 @@ The `sections` prop configures which results to display. Each section can be an 
 }
 ```
 
+### Recent Searches Section
+
+Use the first-class `recentSearches` section to display the user's own search history (read from local storage) in the zero state. Focus the empty input in the example below to see it in action.
+
+<Canvas of={CioAutocompleteStories.WithRecentSearches} />
+
+```js
+{
+  type: 'recentSearches',
+  displayName: 'Recent Searches',
+  numResults: 5,
+}
+```
+
+See [Zero State](?path=/docs/components-cioautocomplete-examples-zerostate--docs) for more recent-searches options, including clickable links via `getSearchResultsUrl`.
+
 ### Custom Section
+
+> **Note:** The example below is only an illustration of arbitrary `custom` data — it is **not** how to implement recent searches. For real search history, use the first-class [`recentSearches` section](#recent-searches-section) shown above.
 
 ```js
 {
