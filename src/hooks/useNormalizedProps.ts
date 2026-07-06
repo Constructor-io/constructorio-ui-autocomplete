@@ -18,13 +18,11 @@ export const defaultSections: UserDefinedSection[] = [
 const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =>
   sections.map((config) => {
     if (isRecommendationsSection(config)) {
-      if (config.identifier && !config.podId) {
-        return { ...config, podId: config.identifier };
-      }
-
-      if (!config.indexSectionName) {
-        return { ...config, indexSectionName: DEFAULT_RECOMMENDATION_INDEX_SECTION };
-      }
+      return {
+        ...config,
+        podId: config.podId ?? config.identifier,
+        indexSectionName: config.indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION,
+      };
     }
 
     if (isAutocompleteSection(config)) {

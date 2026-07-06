@@ -304,7 +304,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
         role: 'none',
         [cnstrcDataAttrs.common.section]:
           section.data[0]?.section ||
-          (isRecommendationsSection(section) ? section.indexSectionName : undefined),
+          (isCustomSection(section) ? undefined : section.indexSectionName),
       };
 
       if (isCustomSection(section)) {
