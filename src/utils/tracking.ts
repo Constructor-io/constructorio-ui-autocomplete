@@ -2,6 +2,7 @@ import { Nullable } from '@constructor-io/constructorio-client-javascript';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript/lib/types/constructorio';
 import { isRecommendationsSection } from '../typeGuards';
 import { Section } from '../types';
+import { getRecommendationPodKey } from './helpers';
 
 // eslint-disable-next-line import/no-cycle
 import { CONSTANTS, storeRecentSearch, storeRecentAction } from './beaconUtils';
@@ -22,13 +23,16 @@ export const trackRecommendationView = (
   cioClient: Nullable<ConstructorIOClient>
 ) => {
   if (target.dataset.cnstrcRecommendationsPodId) {
-    // Pull recommendations from activeSectionsWithData by podId + section, since a
-    // single podId may be reused across multiple sections (e.g. Products vs. Search Suggestions)
+    // Match by composite podKey (podId + indexSectionName), since a single podId may be
+    // reused across multiple sections (e.g. Products vs. Search Suggestions). Both sides
+    // funnel through getRecommendationPodKey so the default section handling stays consistent.
+    const targetPodKey = getRecommendationPodKey({
+      podId: target.dataset.cnstrcRecommendationsPodId,
+      indexSectionName: target.dataset.cnstrcSection,
+    });
     const recommendationSection = activeSectionsWithData.find(
       (section) =>
-        isRecommendationsSection(section) &&
-        section.podId === target.dataset.cnstrcRecommendationsPodId &&
-        (!target.dataset.cnstrcSection || section.indexSectionName === target.dataset.cnstrcSection)
+        isRecommendationsSection(section) && getRecommendationPodKey(section) === targetPodKey
     );
     const recommendationItems = recommendationSection?.data.map((item) => ({
       itemId: item.data?.id,
