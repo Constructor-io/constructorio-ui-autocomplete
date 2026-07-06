@@ -22,8 +22,7 @@ export default function useActiveSections(
         const mergedConfig = config;
 
         if (isRecommendationsSection(config)) {
-          const podData =
-            podsData?.[getRecommendationPodKey(config.podId, config.indexSectionName)];
+          const podData = podsData?.[getRecommendationPodKey(config)];
           const libraryDisplayName = config.displayName;
           const dashboardDisplayName = podData?.displayName;
 

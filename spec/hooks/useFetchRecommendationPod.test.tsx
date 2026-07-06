@@ -40,8 +40,14 @@ describe('useFetchRecommendationPod', () => {
       expect(Object.keys(result.current.recommendationsResults)).toHaveLength(2);
     });
 
-    const productsKey = getRecommendationPodKey('bestsellers', 'Products');
-    const suggestionsKey = getRecommendationPodKey('bestsellers', 'Search Suggestions');
+    const productsKey = getRecommendationPodKey({
+      podId: 'bestsellers',
+      indexSectionName: 'Products',
+    });
+    const suggestionsKey = getRecommendationPodKey({
+      podId: 'bestsellers',
+      indexSectionName: 'Search Suggestions',
+    });
 
     expect(result.current.recommendationsResults[productsKey][0].value).toBe('Products-value');
     expect(result.current.recommendationsResults[suggestionsKey][0].value).toBe(
@@ -64,7 +70,7 @@ describe('useFetchRecommendationPod', () => {
       expect(Object.keys(result.current.recommendationsResults)).toHaveLength(1);
     });
 
-    const key = getRecommendationPodKey('bestsellers', 'Products');
+    const key = getRecommendationPodKey({ podId: 'bestsellers', indexSectionName: 'Products' });
     expect(result.current.recommendationsResults[key]).toHaveLength(1);
     expect(result.current.podsData[key].podId).toBe('bestsellers');
   });

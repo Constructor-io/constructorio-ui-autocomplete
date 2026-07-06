@@ -22,7 +22,7 @@ const DefaultRenderResults: RenderResults = ({ sections }) =>
 
     switch (type) {
       case 'recommendations':
-        key = getRecommendationPodKey(section.podId, section.indexSectionName);
+        key = getRecommendationPodKey(section);
         break;
       case 'custom':
         key = toKebabCase(section.displayName);

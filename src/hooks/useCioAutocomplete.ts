@@ -314,8 +314,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
       // Add data attributes for recommendations using helper
       if (isRecommendationsSection(section)) {
-        const podData =
-          podsData?.[getRecommendationPodKey(section.podId, section.indexSectionName)];
+        const podData = podsData?.[getRecommendationPodKey(section)];
         const seedItems = normalizeSeedItems(section.itemIds);
 
         const recommendationAttributes = getRecommendationsSectionCnstrcDataAttributes(

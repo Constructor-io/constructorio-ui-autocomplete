@@ -29,9 +29,11 @@ const useFetchRecommendationPod = (
     responses.forEach(({ response, request, result_id: resultId }, index) => {
       const { pod, results } = response;
       if (pod?.id) {
-        const sectionName =
-          recommendationPods[index]?.indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION;
-        const podKey = getRecommendationPodKey(pod.id, sectionName);
+        const sectionConfig = recommendationPods[index];
+        const sectionName = sectionConfig?.indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION;
+        // Key by the configured podId (not the API-returned pod.id) so write and read
+        // sites — which all derive the key from the configured podId — stay consistent.
+        const podKey = getRecommendationPodKey(sectionConfig);
         recommendationsPodResults[podKey] = results?.map((item) => ({
           ...item,
           id: item?.data?.id,

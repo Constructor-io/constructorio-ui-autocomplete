@@ -1,6 +1,14 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { ConstructorClientOptions } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { Item, Section, UserDefinedSection, SectionsData, Translations, PodData } from '../types';
+import {
+  Item,
+  Section,
+  UserDefinedSection,
+  SectionsData,
+  Translations,
+  PodData,
+  RecommendationsSectionConfiguration,
+} from '../types';
 import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 import version from '../version';
 
@@ -83,7 +91,10 @@ export const getCioClient = (apiKey?: string, cioClientOptions?: ConstructorClie
   return null;
 };
 
-export const getRecommendationPodKey = (podId: string, indexSectionName?: string) =>
+export const getRecommendationPodKey = ({
+  podId,
+  indexSectionName,
+}: Pick<RecommendationsSectionConfiguration, 'podId' | 'indexSectionName'>) =>
   `${podId}::${indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION}`;
 
 export const getActiveSectionsWithData = (
@@ -100,10 +111,7 @@ export const getActiveSectionsWithData = (
 
     switch (type) {
       case 'recommendations':
-        sectionData =
-          sectionsResults[
-            getRecommendationPodKey(sectionConfig.podId, sectionConfig.indexSectionName)
-          ];
+        sectionData = sectionsResults[getRecommendationPodKey(sectionConfig)];
         break;
       case 'custom':
         // Copy id from data to the top level
@@ -130,7 +138,7 @@ export const getActiveSectionsWithData = (
       };
 
       if (sectionConfig.type === 'recommendations') {
-        const podKey = getRecommendationPodKey(sectionConfig.podId, sectionConfig.indexSectionName);
+        const podKey = getRecommendationPodKey(sectionConfig);
         section.displayName = sectionConfig.displayName || podsData[podKey]?.displayName;
       }
 
