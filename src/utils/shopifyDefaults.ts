@@ -20,7 +20,7 @@ export const shopifyDefaults: ShopifyDefaults = {
   onSubmit(event: AutocompleteSubmitEvent, shopifySettings: ShopifySettings | undefined) {
     /* Handle redirecting to a product page */
     if (isAutocompleteSelectSubmit(event) && event.item.section === 'Products') {
-      const productUrl = event.item.data?.url;
+      const productUrl = event.item.data?.url as string | undefined;
 
       if (productUrl) {
         let url: URL;

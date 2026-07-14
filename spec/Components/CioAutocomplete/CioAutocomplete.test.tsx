@@ -649,4 +649,253 @@ describe('CioAutocomplete Client-Side Rendering', () => {
       }
     });
   });
+
+  describe('Recent searches', () => {
+    const recentSearchesStorageKey = '_constructorio_recent_searches';
+
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
+    afterEach(() => {
+      localStorage.clear();
+    });
+
+    it('Renders recent searches section in zero state when configured', async () => {
+      const recentSearches = [
+        { term: 'shoes', ts: 1000 },
+        { term: 'pants', ts: 2000 },
+        { term: 'shirt', ts: 3000 },
+      ];
+      localStorage.setItem(recentSearchesStorageKey, JSON.stringify(recentSearches));
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={() => {}}
+          openOnFocus
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Recent Searches',
+              numResults: 5,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      // Wait for recent searches to appear
+      const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+
+      // Should show recent searches in reverse order (most recent first)
+      expect(options).toHaveLength(3);
+      expect(options[0]).toHaveTextContent('shirt');
+      expect(options[1]).toHaveTextContent('pants');
+      expect(options[2]).toHaveTextContent('shoes');
+    });
+
+    it('Respects numResults limit for recent searches', async () => {
+      const recentSearches = [
+        { term: 'item1', ts: 1000 },
+        { term: 'item2', ts: 2000 },
+        { term: 'item3', ts: 3000 },
+        { term: 'item4', ts: 4000 },
+        { term: 'item5', ts: 5000 },
+      ];
+      localStorage.setItem(recentSearchesStorageKey, JSON.stringify(recentSearches));
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={() => {}}
+          openOnFocus
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Recent Searches',
+              numResults: 3,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+
+      // Should only show 3 most recent searches
+      expect(options).toHaveLength(3);
+      expect(options[0]).toHaveTextContent('item5');
+      expect(options[1]).toHaveTextContent('item4');
+      expect(options[2]).toHaveTextContent('item3');
+    });
+
+    it('Does not render recent searches section when localStorage is empty', async () => {
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={() => {}}
+          openOnFocus
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Recent Searches',
+              numResults: 5,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      // Wait a bit for any potential rendering
+      await waitFor(
+        () => {
+          const options = screen.queryAllByRole('option');
+          expect(options).toHaveLength(0);
+        },
+        { timeout: 1000 }
+      );
+    });
+
+    it('Adds correct data attributes to recent search items for tracking', async () => {
+      const recentSearches = [{ term: 'test search', ts: 1234567890 }];
+      localStorage.setItem(recentSearchesStorageKey, JSON.stringify(recentSearches));
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={() => {}}
+          openOnFocus
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Recent Searches',
+              numResults: 5,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+      const recentSearchItem = options[0];
+
+      // Recent searches should be tracked as Search Suggestions
+      expect(recentSearchItem).toHaveAttribute(cnstrcDataAttrs.common.itemSection, 'Search Suggestions');
+      expect(recentSearchItem).toHaveAttribute(cnstrcDataAttrs.common.itemName, 'test search');
+    });
+
+    it('Calls onSubmit with recent search item when selected', async () => {
+      const recentSearches = [{ term: 'previous search', ts: 1000 }];
+      localStorage.setItem(recentSearchesStorageKey, JSON.stringify(recentSearches));
+
+      const mockOnSubmit = jest.fn();
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={mockOnSubmit}
+          openOnFocus
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Recent Searches',
+              numResults: 5,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      const options = await screen.findAllByRole('option', undefined, { timeout: 5000 });
+      fireEvent.click(options[0]);
+
+      expect(mockOnSubmit).toHaveBeenCalledWith(
+        expect.objectContaining({
+          item: expect.objectContaining({
+            value: 'previous search',
+            section: 'recent-searches',
+          }),
+        })
+      );
+    });
+
+    it('Renders recent searches with custom displayName', async () => {
+      const recentSearches = [{ term: 'test', ts: 1000 }];
+      localStorage.setItem(recentSearchesStorageKey, JSON.stringify(recentSearches));
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={() => {}}
+          openOnFocus
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Your Search History',
+              numResults: 5,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      await screen.findAllByRole('option', undefined, { timeout: 5000 });
+
+      // Check that the section title is rendered
+      expect(screen.getByText('Your Search History')).toBeInTheDocument();
+    });
+
+    it('Renders recent search items with links when getSearchResultsUrl is provided', async () => {
+      const recentSearches = [{ term: 'shoes', ts: 1000 }];
+      localStorage.setItem(recentSearchesStorageKey, JSON.stringify(recentSearches));
+
+      const getSearchResultsUrl = (item) => `/search?q=${encodeURIComponent(item.value)}`;
+
+      render(
+        <CioAutocomplete
+          apiKey={DEMO_API_KEY}
+          cioJsClient={mockCioClientJS()}
+          onSubmit={() => {}}
+          openOnFocus
+          getSearchResultsUrl={getSearchResultsUrl}
+          zeroStateSections={[
+            {
+              type: 'recentSearches',
+              displayName: 'Recent Searches',
+              numResults: 5,
+            },
+          ]}
+        />
+      );
+
+      const searchInput = screen.getByRole('combobox');
+      fireEvent.focus(searchInput);
+
+      await screen.findAllByRole('option', undefined, { timeout: 5000 });
+
+      // Check that the recent search item has an anchor tag with the correct href
+      const link = screen.getByRole('link', { name: 'shoes' });
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveAttribute('href', '/search?q=shoes');
+    });
+  });
 });

@@ -1,7 +1,12 @@
 import React, { ReactNode, useContext } from 'react';
 import { CioAutocompleteContext } from '../CioAutocompleteProvider';
 import { Item } from '../../../types';
-import { isProduct, isInGroupSuggestion, isSearchSuggestion } from '../../../typeGuards';
+import {
+  isProduct,
+  isInGroupSuggestion,
+  isSearchSuggestion,
+  isRecentSearches,
+} from '../../../typeGuards';
 import SectionItemText from './SectionItemText';
 import { translate } from '../../../utils/helpers';
 import SearchSuggestionItem from './SearchSuggestionItem';
@@ -65,6 +70,18 @@ export default function SectionItem(props: SectionItemProps) {
           displaySearchTermHighlights={displaySearchTermHighlights}
         />
       );
+    }
+  } else if (isRecentSearches(item)) {
+    // Recent searches appear only in the zero state,
+    // so there is no query and no term highlighting.
+    if (getSearchResultsUrl) {
+      defaultChildren = (
+        <a className='suggestion-link' href={getSearchResultsUrl(item)}>
+          <p className='cio-suggestion-text'>{item.value}</p>
+        </a>
+      );
+    } else {
+      defaultChildren = <p className='cio-suggestion-text'>{item.value}</p>;
     }
   } else {
     defaultChildren = (

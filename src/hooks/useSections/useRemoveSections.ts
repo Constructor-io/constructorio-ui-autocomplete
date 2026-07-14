@@ -16,7 +16,7 @@ export default function useRemoveSections(
 
     if (showZeroStateSections) {
       if (!features.featureDisplayZeroStateRecommendations) {
-        setActiveSections([]);
+        setActiveSections((zeroStateSections || []).filter((s) => s.type !== 'recommendations'));
       } else {
         setActiveSections(zeroStateSections);
       }

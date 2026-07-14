@@ -66,10 +66,12 @@ export type CioAutocompletePropsBase = CioClientConfig &
      */
     openOnFocus?: boolean;
     /**
-     * Transforms a `SearchSuggestion` into the desired URL string to be used when rendering anchor tags
+     * Transforms a `SearchSuggestion` or `RecentSearches` into the desired URL string
+     *  to be used when rendering anchor tags
      * i.e. <a href=getSearchResultsUrl([selected_search_suggestion])>[Search Suggestion]</a>
+     * i.e. <a href=getSearchResultsUrl([selected_recent_search])>[Recent Search]</a>
      */
-    getSearchResultsUrl?: (item: SearchSuggestion) => string;
+    getSearchResultsUrl?: (item: SearchSuggestion | RecentSearches) => string;
     /**
      * Callback function that runs when the user focuses on the input
      */
@@ -211,7 +213,7 @@ export type ItemPropsOptions = DownshiftGetItemPropsOptions & {
 
 export type GetItemProps = (options: ItemPropsOptions) => object;
 
-export type Item = Product | SearchSuggestion | InGroupSuggestion | ItemBase;
+export type Item = Product | SearchSuggestion | InGroupSuggestion | RecentSearches | ItemBase;
 
 export type GetAutocompleteResultsOptions = { [sectionIdentifier: string]: { numResults: number } };
 
@@ -225,7 +227,7 @@ export type AutocompleteResultSections = {
   request: Partial<AutocompleteRequestType>;
   totalNumResultsPerSection: Record<string, number>;
 };
-type SectionType = 'autocomplete' | 'recommendations' | 'custom';
+type SectionType = 'autocomplete' | 'recommendations' | 'custom' | 'recentSearches';
 
 export type SectionConfiguration = {
   type?: SectionType;
@@ -248,6 +250,11 @@ export interface AutocompleteSectionConfiguration extends SectionConfiguration {
   indexSectionName: string;
   /** @deprecated use indexSectionName field instead */
   identifier?: string;
+}
+
+export interface RecentSearchesSectionConfiguration extends SectionConfiguration {
+  type: 'recentSearches';
+  displayName: string;
 }
 
 export type RecommendationsSectionConfiguration = SectionConfiguration & {
@@ -275,12 +282,21 @@ export interface CustomSection extends CustomSectionConfiguration {
   data: Item[];
 }
 
-export type Section = AutocompleteSection | RecommendationsSection | CustomSection;
+export interface RecentSearchesSection extends RecentSearchesSectionConfiguration {
+  data: RecentSearches[];
+}
+
+export type Section =
+  | AutocompleteSection
+  | RecommendationsSection
+  | CustomSection
+  | RecentSearchesSection;
 
 export type UserDefinedSection =
   | AutocompleteSectionConfiguration
   | RecommendationsSectionConfiguration
-  | CustomSection;
+  | CustomSection
+  | RecentSearchesSectionConfiguration;
 
 export type Product = ProductFromClient & {
   section: 'Products';
@@ -288,6 +304,20 @@ export type Product = ProductFromClient & {
 
 export type SearchSuggestion = SearchSuggestionFromClient & {
   section: 'Search Suggestions';
+};
+
+export type RecentSearches = {
+  section: 'recent-searches';
+  value: string;
+  id: string;
+  ts: number;
+  data?: Record<string, unknown>;
+};
+
+export type StoreRecentSearches = {
+  term: string;
+  ts: number;
+  data?: Record<string, unknown>;
 };
 
 export type InGroupSuggestion = SearchSuggestion & {

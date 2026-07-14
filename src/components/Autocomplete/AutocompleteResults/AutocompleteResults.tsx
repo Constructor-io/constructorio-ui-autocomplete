@@ -29,6 +29,9 @@ const DefaultRenderResults: RenderResults = ({ sections }) =>
       case 'autocomplete':
         key = section.indexSectionName;
         break;
+      case 'recentSearches':
+        key = toKebabCase(section.displayName);
+        break;
       default:
         key = section.indexSectionName;
         break;

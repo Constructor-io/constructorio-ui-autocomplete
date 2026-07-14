@@ -1,4 +1,5 @@
 // eslint-disable-next-line import/no-cycle
+import { StoreRecentSearches } from '../types';
 import { storageGetArray, storageSetItem } from './storage';
 
 export const CONSTANTS = {
@@ -39,7 +40,7 @@ export const cleanTerm = (term) => {
 /*
  * Returns a list of recent searches
  */
-export const getRecentSearches = () => {
+export const getRecentSearches = (): StoreRecentSearches[] => {
   const recentSearches = storageGetArray(CONSTANTS.RECENT_SEARCHES_STORAGE_KEY) || [];
 
   // upgrade the array to store timestamps if it isn't already
@@ -58,9 +59,9 @@ export const getRecentSearches = () => {
 /*
  * Stores a recent search
  */
-export const storeRecentSearch = (term, suggestionData) => {
+export const storeRecentSearches = (term: string, suggestionData) => {
   const cleanedTerm = cleanTerm(term.trim());
-  let recentSearches = getRecentSearches();
+  let recentSearches: StoreRecentSearches[] = getRecentSearches();
 
   if (cleanedTerm.length > 0) {
     // this ensures it goes onto the end of the array, and only there

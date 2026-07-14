@@ -13,6 +13,7 @@ import {
   SectionsData,
   AutocompleteSectionConfiguration,
 } from '../types';
+import { DEFAULT_NUM_RESULTS } from '../constants';
 
 const transformResponse = (response: AutocompleteResponse, options) => {
   const { numTermsWithGroupSuggestions, numGroupsSuggestedPerTerm } = options;
@@ -82,7 +83,7 @@ const useDebouncedFetchSection = (
       decoratedParameters.resultsPerSection = autocompleteSections.reduce(
         (acc, sectionConfig) => ({
           ...acc,
-          [sectionConfig.indexSectionName]: sectionConfig?.numResults || 8,
+          [sectionConfig.indexSectionName]: sectionConfig?.numResults || DEFAULT_NUM_RESULTS,
         }),
         {}
       );

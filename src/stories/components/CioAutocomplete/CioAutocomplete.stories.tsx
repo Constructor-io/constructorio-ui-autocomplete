@@ -3,6 +3,7 @@ import type { StoryObj } from '@storybook/react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { CioAutocomplete, CioAutocompleteProps } from '../../../index';
 import { apiKey, onSubmitDefault as onSubmit } from '../../../constants';
+import { CONSTANTS } from '../../../utils/beaconUtils';
 
 // Using CioAutocompleteProps directly due to discriminated union type
 const meta = {
@@ -155,6 +156,35 @@ export const FullFeatured: Story = {
         podId: 'bestsellers',
         type: 'recommendations',
         numResults: 6,
+      },
+    ],
+  },
+};
+
+export const WithRecentSearches: Story = {
+  render: (args: CioAutocompleteProps) => {
+    // Seed recent searches before mount so the zero-state section has data to show.
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(
+        CONSTANTS.RECENT_SEARCHES_STORAGE_KEY.key,
+        JSON.stringify([
+          { term: 'red dress', ts: 1700000001000 },
+          { term: 'blue jeans', ts: 1700000002000 },
+          { term: 'white sneakers', ts: 1700000003000 },
+        ])
+      );
+    }
+    return <CioAutocomplete {...args} />;
+  },
+  args: {
+    apiKey,
+    onSubmit,
+    openOnFocus: true,
+    zeroStateSections: [
+      {
+        type: 'recentSearches',
+        displayName: 'Recent Searches',
+        numResults: 5,
       },
     ],
   },

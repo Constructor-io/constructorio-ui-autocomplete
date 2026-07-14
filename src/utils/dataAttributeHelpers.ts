@@ -1,5 +1,5 @@
 import { Item, Section } from '../types';
-import { isInGroupSuggestion, isRecommendationsSection } from '../typeGuards';
+import { isInGroupSuggestion, isRecentSearches, isRecommendationsSection } from '../typeGuards';
 
 export const cnstrcDataAttrs = {
   common: {
@@ -70,14 +70,19 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
     [cnstrcDataAttrs.common.itemName]: item.value,
   };
 
+  // Track recent searches as search suggestions
+  if (isRecentSearches(item)) {
+    dataCnstrc[cnstrcDataAttrs.common.itemSection] = 'Search Suggestions';
+  }
+
   // Add item ID when available
   if (item.data?.id) {
-    dataCnstrc[cnstrcDataAttrs.common.itemId] = item.data.id;
+    dataCnstrc[cnstrcDataAttrs.common.itemId] = item.data.id as string;
   }
 
   // Add variation ID if exists
   if (item.data?.variation_id) {
-    dataCnstrc[cnstrcDataAttrs.common.variationId] = item.data.variation_id;
+    dataCnstrc[cnstrcDataAttrs.common.variationId] = item.data.variation_id as string;
   }
 
   // Add group ID for in-group suggestions
@@ -86,7 +91,7 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
   }
 
   // Add recommendation-specific attributes (check if item has podId and strategy)
-  if (item.podId && item.strategy) {
+  if (!isRecentSearches(item) && item.podId && item.strategy) {
     dataCnstrc[cnstrcDataAttrs.recommendations.item] = 'recommendation';
 
     // Add strategy ID if available
@@ -96,11 +101,11 @@ export function getItemCnstrcDataAttributes(item: Item): CnstrcDataAttrs {
   }
 
   // Add sponsored listing data if available
-  if (item.labels?.sl_campaign_id) {
+  if (!isRecentSearches(item) && item.labels?.sl_campaign_id) {
     dataCnstrc[cnstrcDataAttrs.common.slCampaignId] = String(item.labels.sl_campaign_id);
   }
 
-  if (item.labels?.sl_campaign_owner) {
+  if (!isRecentSearches(item) && item.labels?.sl_campaign_owner) {
     dataCnstrc[cnstrcDataAttrs.common.slCampaignOwner] = String(item.labels.sl_campaign_owner);
   }
 

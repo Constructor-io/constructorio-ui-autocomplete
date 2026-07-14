@@ -5,12 +5,18 @@ import { useMemo } from 'react';
 import {
   AdvancedParameters,
   AutocompleteSectionConfiguration,
+  RecentSearchesSectionConfiguration,
   RecommendationsSectionConfiguration,
   UserDefinedSection,
 } from '../../types';
 import useDebouncedFetchSection from '../useDebouncedFetchSections';
 import useFetchRecommendationPod from '../useFetchRecommendationPod';
-import { isAutocompleteSection, isRecommendationsSection } from '../../typeGuards';
+import {
+  isAutocompleteSection,
+  isRecommendationsSection,
+  isRecentSearchesSection,
+} from '../../typeGuards';
+import useGetRecentSearches from '../useGetRecentSearches';
 
 export default function useSectionsResults(
   query: string,
@@ -49,6 +55,17 @@ export default function useSectionsResults(
       advancedParameters?.fetchZeroStateOnFocus
     );
 
+  // Get Recent Searches Results
+  const activeRecentSearchesSections = useMemo(
+    () =>
+      activeSections?.filter((config: UserDefinedSection) =>
+        isRecentSearchesSection(config)
+      ) as RecentSearchesSectionConfiguration[],
+    [activeSections]
+  );
+
+  const recentSearchesResults = useGetRecentSearches(activeRecentSearchesSections);
+
   return {
     recommendations: {
       results: recommendationsResults,
@@ -59,6 +76,9 @@ export default function useSectionsResults(
       results: autocompleteResults,
       request,
       totalNumResultsPerSection,
+    },
+    recentSearches: {
+      results: recentSearchesResults,
     },
   };
 }

@@ -95,6 +95,9 @@ export const getActiveSectionsWithData = (
     let sectionData: Item[];
 
     switch (type) {
+      case 'recentSearches':
+        sectionData = sectionsResults[sectionConfig.displayName];
+        break;
       case 'recommendations':
         sectionData = sectionsResults[sectionConfig.podId];
         break;
@@ -133,7 +136,7 @@ export const getActiveSectionsWithData = (
       const libraryGeneratedSectionRef = sectionsRefs.current[index];
       section.ref = userDefinedSectionRef || libraryGeneratedSectionRef;
 
-      activeSectionsWithData.push(section);
+      activeSectionsWithData.push(section as Section);
     }
   });
 

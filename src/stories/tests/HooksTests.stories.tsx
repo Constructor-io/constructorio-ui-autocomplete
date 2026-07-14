@@ -362,18 +362,18 @@ ZeroStateRenderCustomSection.args = {
   apiKey,
   zeroStateSections: [
     {
-      displayName: 'Recent Searches',
+      displayName: 'Custom Section',
       type: 'custom',
       data: [
         {
-          section: 'recent_searches',
+          section: 'custom_example',
           value: 'Red T-shirt',
           data: {
             id: '1',
           },
         },
         {
-          section: 'recent_searches',
+          section: 'custom_example',
           value: 'Dresses',
           data: {
             id: '2',
@@ -388,8 +388,8 @@ ZeroStateRenderCustomSection.play = async ({ canvasElement }) => {
   await userEvent.click(canvas.getByTestId('cio-input'));
   await sleep(1000);
   expect(canvas.getByTestId('cio-input').getAttribute('value')).toBe('');
-  expect(canvas.getAllByTestId('cio-item-recent_searches').length).toBeGreaterThan(0);
-  const firstItem = canvas.getAllByTestId('cio-item-recent_searches')[0];
+  expect(canvas.getAllByTestId('cio-item-custom_example').length).toBeGreaterThan(0);
+  const firstItem = canvas.getAllByTestId('cio-item-custom_example')[0];
   expect(firstItem.innerText).toEqual('Red T-shirt');
 };
 

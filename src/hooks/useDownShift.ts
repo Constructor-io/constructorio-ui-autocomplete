@@ -2,6 +2,7 @@ import { useCombobox, UseComboboxProps, UseComboboxReturnValue } from 'downshift
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { Item, OnSubmit } from '../types';
+import { isRecentSearches } from '../typeGuards';
 import {
   trackSearchSubmit,
   trackAutocompleteSelect,
@@ -38,7 +39,10 @@ const useDownShift: UseDownShift = ({
         if (selectedItem?.value) {
           if (onSubmit) onSubmit({ item: selectedItem, originalQuery: previousQuery });
           try {
-            if (selectedItem?.section === 'Search Suggestions') {
+            if (
+              selectedItem?.section === 'Search Suggestions' ||
+              selectedItem?.section === 'recent-searches'
+            ) {
               setQuery(selectedItem.value || '');
               trackSearchSubmit(cioClient, selectedItem.value, {
                 originalQuery: previousQuery,
@@ -47,7 +51,12 @@ const useDownShift: UseDownShift = ({
 
             // Autocomplete Select tracking
             // Recommendation Select tracking
-            if (selectedItem.podId && selectedItem.data?.id && selectedItem.strategy) {
+            if (
+              !isRecentSearches(selectedItem) &&
+              selectedItem.podId &&
+              selectedItem.data?.id &&
+              selectedItem.strategy
+            ) {
               const recommendationData = {
                 itemName: selectedItem.value,
                 itemId: selectedItem.data.id,
@@ -62,11 +71,20 @@ const useDownShift: UseDownShift = ({
               // Select tracking for all other Constructor sections:
               // (ie: Search Suggestions, Products, Custom Cio sections, etc)
               // This does not apply to custom user defined sections that aren't part of Constructor index
-            } else if (selectedItem.result_id) {
+            } else if (!isRecentSearches(selectedItem) && selectedItem.result_id) {
               const selectData = {
                 originalQuery: previousQuery,
                 section: selectedItem.section,
                 itemId: selectedItem.data?.id,
+              };
+
+              trackAutocompleteSelect(cioClient, selectedItem.value, selectData);
+
+              // Track recent searches as Search Suggestions
+            } else if (isRecentSearches(selectedItem)) {
+              const selectData = {
+                originalQuery: previousQuery,
+                section: 'Search Suggestions',
               };
 
               trackAutocompleteSelect(cioClient, selectedItem.value, selectData);

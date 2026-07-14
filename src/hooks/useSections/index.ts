@@ -29,7 +29,7 @@ export default function useSections(
   const sectionsRefs = useRef<RefObject<HTMLLIElement>[]>(activeSections.map(() => createRef()));
 
   // Get API results for each active section
-  const { recommendations, autocomplete } = useSectionsResults(
+  const { recommendations, autocomplete, recentSearches } = useSectionsResults(
     query,
     cioClient,
     activeSections,
@@ -51,10 +51,14 @@ export default function useSections(
     zeroStateSections
   );
 
-  // Combine recommendations and autocomplete results in sectionsResults
+  // Combine recommendations, autocomplete and recent searches results in sectionsResults
   const sectionsResults = useMemo(
-    () => ({ ...autocomplete.results, ...recommendations.results }),
-    [autocomplete.results, recommendations.results]
+    () => ({
+      ...autocomplete.results,
+      ...recommendations.results,
+      ...recentSearches.results,
+    }),
+    [autocomplete.results, recommendations.results, recentSearches.results]
   );
 
   // Return current active sections populated with data from the API response sectionsResults
