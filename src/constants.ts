@@ -5,6 +5,10 @@ export const DEFAULT_NUM_RESULTS = 8;
 // Autocomplete key index
 export const apiKey = 'key_M57QS8SMPdLdLx4x';
 
+// Default `indexSectionName` assigned to recommendation sections when one isn't configured.
+// Shared between normalization (useNormalizedProps) and cache keying (helpers) to prevent drift.
+export const DEFAULT_RECOMMENDATION_INDEX_SECTION = 'Products';
+
 /// //////////////////////////////
 // Storybook Folder Descriptions
 /// //////////////////////////////

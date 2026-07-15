@@ -1,6 +1,15 @@
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { ConstructorClientOptions } from '@constructor-io/constructorio-client-javascript/lib/types';
-import { Item, Section, UserDefinedSection, SectionsData, Translations, PodData } from '../types';
+import {
+  Item,
+  Section,
+  UserDefinedSection,
+  SectionsData,
+  Translations,
+  PodData,
+  RecommendationsSectionConfiguration,
+} from '../types';
+import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 import version from '../version';
 
 export type GetItemPosition = (args: { item: Item; items: Item[] }) => {
@@ -82,6 +91,12 @@ export const getCioClient = (apiKey?: string, cioClientOptions?: ConstructorClie
   return null;
 };
 
+export const getRecommendationPodKey = ({
+  podId,
+  indexSectionName,
+}: Pick<RecommendationsSectionConfiguration, 'podId' | 'indexSectionName'>) =>
+  `${podId}::${indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION}`;
+
 export const getActiveSectionsWithData = (
   activeSections: UserDefinedSection[],
   sectionsResults: SectionsData,
@@ -99,7 +114,7 @@ export const getActiveSectionsWithData = (
         sectionData = sectionsResults[sectionConfig.displayName];
         break;
       case 'recommendations':
-        sectionData = sectionsResults[sectionConfig.podId];
+        sectionData = sectionsResults[getRecommendationPodKey(sectionConfig)];
         break;
       case 'custom':
         // Copy id from data to the top level
@@ -126,8 +141,8 @@ export const getActiveSectionsWithData = (
       };
 
       if (sectionConfig.type === 'recommendations') {
-        section.displayName =
-          sectionConfig.displayName || podsData[sectionConfig.podId].displayName;
+        const podKey = getRecommendationPodKey(sectionConfig);
+        section.displayName = sectionConfig.displayName || podsData[podKey]?.displayName;
       }
 
       // If ref passed as part of `SectionConfiguration`, use it.

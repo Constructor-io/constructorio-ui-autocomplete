@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import ConstructorIOClient from '@constructor-io/constructorio-client-javascript';
 import { Nullable } from '@constructor-io/constructorio-client-javascript/lib/types';
 import { SectionsData, RecommendationsSectionConfiguration, PodData } from '../types';
+import { getRecommendationPodKey } from '../utils/helpers';
+import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 
 const useFetchRecommendationPod = (
   cioClient: Nullable<ConstructorIOClient>,
@@ -18,7 +20,7 @@ const useFetchRecommendationPod = (
       recommendationPods.map(({ podId, indexSectionName, ...parameters }) =>
         cioClient.recommendations.getRecommendations(podId, {
           ...parameters,
-          section: indexSectionName,
+          section: indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION,
         })
       )
     );
@@ -27,13 +29,18 @@ const useFetchRecommendationPod = (
     responses.forEach(({ response, request, result_id: resultId }, index) => {
       const { pod, results } = response;
       if (pod?.id) {
-        recommendationsPodResults[pod.id] = results?.map((item) => ({
+        const sectionConfig = recommendationPods[index];
+        const sectionName = sectionConfig?.indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION;
+        // Key by the configured podId (not the API-returned pod.id) so write and read
+        // sites — which all derive the key from the configured podId — stay consistent.
+        const podKey = getRecommendationPodKey(sectionConfig);
+        recommendationsPodResults[podKey] = results?.map((item) => ({
           ...item,
           id: item?.data?.id,
-          section: recommendationPods[index]?.indexSectionName,
+          section: sectionName,
           podId: pod.id,
         }));
-        recommendationsPodsData[pod.id] = {
+        recommendationsPodsData[podKey] = {
           displayName: pod.display_name,
           podId: pod.id,
           request,

@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { UseCioAutocompleteOptions, UserDefinedSection } from '../types';
 import { isAutocompleteSection, isRecommendationsSection } from '../typeGuards';
+import { DEFAULT_RECOMMENDATION_INDEX_SECTION } from '../constants';
 
 export const defaultSections: UserDefinedSection[] = [
   {
@@ -17,13 +18,11 @@ export const defaultSections: UserDefinedSection[] = [
 const convertLegacyParametersAndAddDefaults = (sections: UserDefinedSection[]) =>
   sections.map((config) => {
     if (isRecommendationsSection(config)) {
-      if (config.identifier && !config.podId) {
-        return { ...config, podId: config.identifier };
-      }
-
-      if (!config.indexSectionName) {
-        return { ...config, indexSectionName: 'Products' };
-      }
+      return {
+        ...config,
+        podId: config.podId ?? config.identifier,
+        indexSectionName: config.indexSectionName ?? DEFAULT_RECOMMENDATION_INDEX_SECTION,
+      };
     }
 
     if (isAutocompleteSection(config)) {
