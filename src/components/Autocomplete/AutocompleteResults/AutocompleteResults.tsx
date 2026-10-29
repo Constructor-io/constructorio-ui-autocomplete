@@ -46,7 +46,7 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
     useContext(CioAutocompleteContext);
   const hasResults = sections && sections.some((section) => section?.data?.length);
 
-  const menuProps = {
+  const menuProps: React.ComponentPropsWithRef<'ul'> = {
     ...getMenuProps(),
   };
 
