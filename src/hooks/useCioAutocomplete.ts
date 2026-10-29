@@ -77,8 +77,6 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   const [query, setQuery] = useState(defaultInput || '');
-  // Whether the current click is the one that focuses the input.
-  // Set in onMouseDown, read in onClick — see getInputProps below.
   const isFocusingClick = useRef(false);
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({
@@ -202,7 +200,7 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           isFocusingClick.current = document.activeElement !== event.currentTarget;
         },
         onClick: (event: React.MouseEvent<HTMLInputElement>) => {
-          // Downshift 8 toggles the menu from its own onClick (InputClick), which would undo
+          // downshift 8 toggles the menu from its own onClick (InputClick), which would undo
           // the open our onFocus just did. Suppress it on the first click/ onFocus.
           if (isFocusingClick.current) {
             const nativeEvent = event.nativeEvent as MouseEvent & {
