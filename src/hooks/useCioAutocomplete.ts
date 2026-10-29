@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import useCioClient from './useCioClient';
 import useDownShift from './useDownShift';
 import {
@@ -77,6 +77,9 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
   }
 
   const [query, setQuery] = useState(defaultInput || '');
+  // Whether the current click is the one that focuses the input.
+  // Set in onMouseDown, read in onClick — see getInputProps below.
+  const isFocusingClick = useRef(false);
   const previousQuery = usePrevious(query);
   const cioClient = useCioClient({
     apiKey,
@@ -165,8 +168,11 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
 
           if (isEnter) {
             event.preventDefault();
-            // Trigger default click behavior
-            getItemPropsDownShift({ item, index }).onClick(event);
+            // Trigger default click behavior. downshift 8 types this handler as optional and
+            // as a mouse handler, but it only dispatches ItemClick and reads nothing off the
+            // event, so forwarding the keyboard event is safe.
+            const { onClick: onItemClick } = getItemPropsDownShift({ item, index });
+            onItemClick?.(event as unknown as React.MouseEvent);
           }
         },
       };
@@ -189,6 +195,20 @@ const useCioAutocomplete = (options: UseCioAutocompleteOptions) => {
           setQuery(e.target.value);
           if (onChange) {
             onChange(e.target.value);
+          }
+        },
+        onMouseDown: (event: React.MouseEvent<HTMLInputElement>) => {
+          // True if this click is the one that focuses the input.
+          isFocusingClick.current = document.activeElement !== event.currentTarget;
+        },
+        onClick: (event: React.MouseEvent<HTMLInputElement>) => {
+          // Downshift 8 toggles the menu from its own onClick (InputClick), which would undo
+          // the open our onFocus just did. Suppress it on the first click/ onFocus.
+          if (isFocusingClick.current) {
+            const nativeEvent = event.nativeEvent as MouseEvent & {
+              preventDownshiftDefault?: boolean;
+            };
+            nativeEvent.preventDownshiftDefault = true;
           }
         },
       }),

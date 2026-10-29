@@ -46,7 +46,9 @@ export default function AutocompleteResults(props: AutocompleteResultsProps) {
     useContext(CioAutocompleteContext);
   const hasResults = sections && sections.some((section) => section?.data?.length);
 
-  const menuProps = {
+  // Annotated so `style` can be assigned below: downshift 8 types the return of
+  // getMenuProps() exactly, and that shape has no `style` key.
+  const menuProps: React.ComponentPropsWithRef<'ul'> = {
     ...getMenuProps(),
   };
 
